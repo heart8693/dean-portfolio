@@ -121,6 +121,7 @@ export type Project = {
   order: number
   coverImage: string    // 홈페이지 카드 썸네일
   heroImage?: string    // 케이스 스터디 상단 hero (없으면 coverImage 사용)
+  heroImageMobile?: string
   thumbBg: string
 
   // Meta
@@ -237,6 +238,7 @@ export const projects: Project[] = [
 
     coverImage: "/images/biasly-cover.png",
     heroImage: "/images/biasly-hero.png",
+    heroImageMobile: "/images/biasly-mobile-hero.png",
     thumbBg: "#1c2340",
 
     role: "Product Design Intern",
@@ -470,6 +472,7 @@ export const projects: Project[] = [
 
     coverImage: "/images/fipet-cover.png",
     heroImage: "/images/fipet-hero.png",
+    heroImageMobile: "/images/fipet-mobile-hero.png",
     thumbBg: "#2d1810",
 
     role: "Lead Designer",
@@ -869,6 +872,7 @@ export const projects: Project[] = [
 
     coverImage: "/images/lyft-cover.png",
     heroImage: "/images/lyft-hero.png",
+    heroImageMobile: "/images/lyft-mobile-hero.png",
     thumbBg: "#1a1a2e",
 
     role: "Solo designer",

@@ -61,13 +61,18 @@ export default async function CaseStudy({ params }: Props) {
 
           {/* ── HERO IMAGE — unified for all case studies ── */}
           {(p.heroImage || p.coverImage) && (
-            <div style={{ padding: '40px 0 80px' }}>
+           <div className="tj-hero-wrap" style={{ padding: '40px 0 80px' }}>
+            <picture>
+              {p.heroImageMobile && (
+                <source media="(max-width: 720px)" srcSet={p.heroImageMobile} />
+              )}
               <img
                 src={p.heroImage ?? p.coverImage}
                 alt={p.title}
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
-            </div>
+            </picture>
+         </div>
           )}
 
           <article style={{ maxWidth: '900px', margin: '0 auto', padding: '24px 60px 120px' }}>
@@ -76,7 +81,7 @@ export default async function CaseStudy({ params }: Props) {
             <header style={{ marginBottom: '64px', paddingBottom: '48px' }}>
 
               {/* Key metrics highlights — outcome surfaced immediately */}
-              <div style={{
+              <div className="tj-metrics-grid" style={{
                 display: 'grid',
                 gridTemplateColumns: `repeat(${Math.min(p.metrics.length, 3)}, 1fr)`,
                 gap: '1px',
@@ -220,8 +225,9 @@ export default async function CaseStudy({ params }: Props) {
                     </div>
                   )
                   return (
-                    <div key={panel.number} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center', marginBottom: '56px' }} className="tj-split">
-                      {flipped ? <>{textEl}{imageEl}</> : <>{imageEl}{textEl}</>}
+                    <div key={panel.number} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center', marginBottom: '56px' }} className={`tj-split tj-panel ${flipped ? 'tj-panel-flipped' : ''}`}>
+                      {imageEl}
+                      {textEl}
                     </div>
                   )
                 })}
@@ -579,7 +585,7 @@ export default async function CaseStudy({ params }: Props) {
 
               <div style={{ marginBottom: '32px' }}>
                 {p.strategyPrinciples.map((pr: Principle, i: number) => (
-                  <div key={pr.label} style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '32px', padding: '22px 0', borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
+                  <div key={pr.label} className="tj-principles-grid" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '32px', padding: '22px 0', borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
                     <div>
                       <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-3)', display: 'block', marginBottom: '6px', letterSpacing: '0.04em' }}>{String(i + 1).padStart(2, '0')}</span>
                       <p style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-1)', lineHeight: 1.3, letterSpacing: '-0.01em' }}>{pr.label}</p>
@@ -621,7 +627,7 @@ export default async function CaseStudy({ params }: Props) {
               {/* What changed — full width list */}
               <div style={{ marginBottom: '48px' }}>
                 {p.redesignChanges.map((c: Change, i: number) => (
-                  <div key={c.label} style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '20px', padding: '16px 0', borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
+                  <div key={c.label} className="tj-changes-grid" style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '20px', padding: '16px 0', borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
                     <div>
                       <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-3)', display: 'block', marginBottom: '3px' }}>{String(i + 1).padStart(2, '0')}</span>
                       <p style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-1)', lineHeight: 1.3 }}>{c.label}</p>
@@ -637,7 +643,7 @@ export default async function CaseStudy({ params }: Props) {
               {(p.beforeImage || p.afterImage) && (
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '100px', alignItems: 'start' }} className="tj-split">
                   {[{ img: p.beforeImage, lbl: 'Before' }, { img: p.afterImage, lbl: 'After' }].map(({ img, lbl }, i) => (
-                    <figure key={lbl} style={{ margin: 0, width: 'fit-content', maxWidth: '100%', justifySelf: i === 0 ? 'end' : 'start' }}>
+                    <figure key={lbl} className="tj-ba-fig" style={{ margin: 0, width: 'fit-content', maxWidth: '100%', justifySelf: i === 0 ? 'end' : 'start' }}>
                       {img
                         ? <img src={img} alt={lbl} style={{ maxWidth: '100%', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block'}} />
                         : <div style={{ width: '320px', maxWidth: '100%', aspectRatio: '4/3', background: 'var(--surface)', borderRadius: '12px', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p style={microLbl}>Add image</p></div>
@@ -967,7 +973,7 @@ export default async function CaseStudy({ params }: Props) {
                 <p style={{ ...bodyLg, marginBottom: '40px' }}>{p.impactBody}</p>
               )}
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(' + Math.min(p.metrics.length, 3) + ', 1fr)', gap: '1px', background: 'var(--border)', border: '1px solid var(--border)', borderRadius: '10px', overflow: 'hidden', marginBottom: '48px', transition: 'border-color 0.25s ease' }}>
+              <div className="tj-metrics-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(' + Math.min(p.metrics.length, 3) + ', 1fr)', gap: '1px', background: 'var(--border)', border: '1px solid var(--border)', borderRadius: '10px', overflow: 'hidden', marginBottom: '48px', transition: 'border-color 0.25s ease' }}>
                 {p.metrics.map((m: Metric) => (
                   <div key={m.label} style={{ padding: '36px 28px', background: 'var(--card)', transition: 'background 0.25s ease' }}>
                     <p style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)', fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--text-1)', lineHeight: 1, marginBottom: '10px' }}>{(p.slug === 'biasly' || p.slug === 'fipet' || p.slug === 'ride-availability') ? <H>{m.value}</H> : m.value}</p>
@@ -977,15 +983,15 @@ export default async function CaseStudy({ params }: Props) {
                 ))}
               </div>
 
-              {((p as any).outcomeImage || p.afterImage) && (
-                <figure style={{ margin: '0 -60px' }}>
-                  <img
-                    src={(p as any).outcomeImage ?? p.afterImage}
-                    alt="Final design"
-                    style={{ width: '100%', display: 'block', borderRadius: '8px' }}
-                  />
-                </figure>
-              )}
+             {((p as any).outcomeImage || p.afterImage) && (
+              <figure className="tj-outcome-fig" style={{ margin: '0 -60px' }}>
+                <img
+                  src={(p as any).outcomeImage ?? p.afterImage}
+                  alt="Final design"
+                  style={{ width: '100%', display: 'block', borderRadius: '8px' }}
+                />
+              </figure>
+            )}
             </section>
 
             {/* ── FUTURE STEPS ────────────────────── */}
@@ -1046,14 +1052,25 @@ export default async function CaseStudy({ params }: Props) {
         .tj-nav-card:hover { background: var(--surface) !important; }
         .tj-cta:hover { opacity: 0.88; transform: translateY(-1px); }
         @media (max-width: 1024px) { aside { display: none !important; } }
+        /* Desktop: flipped panels visually swap (image goes right) */
+        @media (min-width: 721px) {
+          .tj-panel-flipped > *:first-child { order: 2; justify-self: end;}
+          .tj-panel-flipped > *:last-child { order: 1; }
+        }
         @media (max-width: 720px) {
           article { padding: 40px 24px 80px !important; }
           .tj-split { grid-template-columns: 1fr !important; gap: 24px !important; }
           .tj-info-card { grid-template-columns: 1fr !important; gap: 4px 0 !important; }
           .tj-refinement-grid { grid-template-columns: 1fr !important; gap: 4px 0 !important; }
           .tj-whycoded-grid { grid-template-columns: 1fr !important; gap: 8px 0 !important; }
-          .tj-metrics-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .tj-metrics-grid { grid-template-columns: 1fr !important; }
           .tj-meta-strip { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; }
+          .tj-changes-grid { grid-template-columns: 1fr !important; gap: 4px 0 !important; padding: 16px 0 !important; }
+          .tj-principles-grid { grid-template-columns: 1fr !important; gap: 6px 0 !important; padding: 16px 0 !important; }
+          .tj-panel > * { justify-self: center !important; }
+          .tj-ba-fig { justify-self: center !important; }
+          .tj-hero-wrap { padding: 20px 0 40px !important; }
+          .tj-outcome-fig { margin: 0 !important; }
         }
       `}</style>
     </main>
