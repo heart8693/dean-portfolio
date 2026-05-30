@@ -122,7 +122,7 @@ export default function AboutPage() {
               <p style={{ ...microLbl, marginBottom: '20px' }}>About</p>
 
               {/* 2-col: text left, photo right */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 240px', gap: '56px', alignItems: 'start' }}>
+              <div className="tj-about-intro" style={{ display: 'grid', gridTemplateColumns: '1fr 240px', gap: '56px', alignItems: 'start' }}>
 
                 {/* Left — text */}
                 <div>
@@ -169,11 +169,11 @@ export default function AboutPage() {
                 </div>
 
                 {/* Right — photo */}
-                <div style={{ position: 'sticky', top: '88px' }}>
+                <div className="tj-about-photo" style={{ position: 'sticky', top: '88px' }}>
                   <div style={{
                     width: '240px',
                     aspectRatio: '6/9',
-                    background: 'FFFFFF',
+                    background: '#FFFFFF',
                     borderRadius: '8px',
                     overflow: 'hidden',
                     display: 'flex',
@@ -203,7 +203,7 @@ export default function AboutPage() {
               <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '0 0 40px 0', transition: 'border-color 0.25s ease' }} />
 
               {ABOUT.experience.map((exp, i) => (
-                <div key={exp.company} style={{
+                <div key={exp.company} className="tj-about-row" style={{
                   display: 'grid',
                   gridTemplateColumns: '200px 1fr',
                   gap: '32px',
@@ -230,7 +230,7 @@ export default function AboutPage() {
               <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '0 0 40px 0', transition: 'border-color 0.25s ease' }} />
 
               {ABOUT.skills.map(({ category, items }) => (
-                <div key={category} style={{
+                <div key={category} className="tj-about-row" style={{
                   display: 'grid',
                   gridTemplateColumns: '200px 1fr',
                   gap: '32px',
@@ -260,7 +260,7 @@ export default function AboutPage() {
               <p style={{ ...microLbl, marginBottom: '12px' }}>Education</p>
               <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '0 0 40px 0', transition: 'border-color 0.25s ease' }} />
 
-              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '32px' }}>
+              <div className="tj-about-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '32px' }}>
                 <p style={{ fontSize: '12px', color: 'var(--text-3)' }}>{ABOUT.education.year}</p>
                 <div>
                   <p style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-1)', marginBottom: '4px', letterSpacing: '-0.01em' }}>
@@ -278,7 +278,28 @@ export default function AboutPage() {
       <style>{`
         .tj-link:hover { color: var(--text-1) !important; }
         @media (max-width: 1024px) { aside { display: none !important; } }
-        @media (max-width: 720px) { article { padding: 40px 24px 80px !important; } }
+        @media (max-width: 720px) {
+          article { padding: 40px 24px 80px !important; }
+          
+          /* Intro: stack, photo first (mobile profile pattern) */
+          .tj-about-intro {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+          }
+          .tj-about-photo {
+            position: static !important;
+            order: -1 !important;
+          }
+          .tj-about-photo > div {
+            margin: 0 auto !important;
+          }
+          
+          /* Experience / Skills / Education: stack label above content */
+          .tj-about-row {
+            grid-template-columns: 1fr !important;
+            gap: 8px !important;
+          }
+        }
       `}</style>
     </main>
   )
