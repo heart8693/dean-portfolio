@@ -365,7 +365,7 @@ img { display: block; }
   --on-accent:        var(--accent-contrast);   /* legacy alias */
 
   /* Type families */
-  --font-display: 'Anton', 'Helvetica Neue Condensed', 'Arial Narrow', sans-serif;
+  --font-display: 'Anton', 'Switzer', 'Inter', 'Helvetica Neue Condensed', 'Arial Narrow', sans-serif;
   --font-body:    'Switzer', -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
 
   background: var(--bg);

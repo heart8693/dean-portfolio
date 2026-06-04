@@ -10,7 +10,7 @@ export default function Home() {
       {/* ── HERO — full-bleed ink editorial canvas with placeholder
             image region. User will swap the inner <div data-image-slot>
             for a real <img> when assets land. ── */}
-      <section style={{
+      <section className="tj-hero" style={{
         position: 'relative',
         minHeight: 'calc(100svh - 64px)',
         display: 'flex',
@@ -32,7 +32,7 @@ export default function Home() {
           }}
         />
 
-        <div style={{
+        <div className="tj-hero-inner" style={{
           position: 'relative',
           zIndex: 1,
           maxWidth: '1440px',
@@ -53,7 +53,7 @@ export default function Home() {
           </p>
 
           {/* Billboard lockup — bottom-anchored, Nike pattern */}
-          <div style={{ marginTop: 'auto' }}>
+          <div className="tj-hero-lockup" style={{ marginTop: 'auto' }}>
             <h1
               className="tj-billboard"
               style={{
@@ -153,9 +153,23 @@ export default function Home() {
       </section>
 
       <style>{`
+        /* Desktop: keep the billboard bottom-anchored, but pull the
+           eyebrow down to sit just above it instead of pinning it to
+           the top of the hero (which left a large gap). */
+        @media (min-width: 721px) {
+          .tj-hero-inner { justify-content: flex-end !important; }
+          .tj-hero-lockup { margin-top: 28px !important; margin-bottom: 7vh !important; }
+        }
         @media (max-width: 720px) {
           section { padding-left: 24px !important; padding-right: 24px !important; }
           .tj-project-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+          /* Collapse the full-height gap between the eyebrow and the
+             billboard so they sit together near the top on mobile, and
+             let the hero shrink to its content instead of filling the
+             viewport (which left a big empty band before Selected Work). */
+          .tj-hero { min-height: auto !important; padding-top: 48px !important; padding-bottom: 56px !important; }
+          .tj-hero-inner { min-height: auto !important; justify-content: flex-start !important; }
+          .tj-hero-lockup { margin-top: 32px !important; }
         }
       `}</style>
     </main>
