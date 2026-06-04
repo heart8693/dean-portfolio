@@ -20,9 +20,9 @@ export default function ScrollHighlight({ children }: { children: React.ReactNod
     <span
       ref={ref}
       style={{
-        color: active ? 'rgb(77, 163, 255)' : 'inherit',
+        color: active ? 'var(--accent-text)' : 'inherit',
         transition: 'color 250ms ease-out',
-        fontWeight: active ? 500 : 'inherit',
+        fontWeight: active ? 600 : 'inherit',
       }}
     >
       {children}

@@ -17,7 +17,7 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
       style={{
         background: 'var(--card)',
         border: '1px solid var(--border)',
-        borderRadius: '12px',
+        borderRadius: '24px',
         overflow: 'hidden',
         fontFamily: 'var(--font-sans)',
         display: 'flex',
@@ -83,12 +83,13 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
           </p>
           <h3
             style={{
+              fontFamily: 'var(--font-sans)',
               fontSize: '18px',
               fontWeight: 600,
-              letterSpacing: '-0.02em',
+              letterSpacing: 0,
               color: 'var(--text-1)',
               margin: '0 0 4px',
-              lineHeight: 1.25,
+              lineHeight: 1.33,
             }}
           >
             {p.name}
@@ -110,10 +111,10 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
         <blockquote
           style={{
             margin: 0,
-            padding: '12px 14px',
-            background: 'var(--surface)',
-            borderRadius: '6px',
-            borderLeft: '2px solid var(--text-1)',
+            padding: '16px',
+            background: 'var(--surface-strong)',
+            borderRadius: '12px',
+            borderLeft: '3px solid var(--accent)',
             transition: 'background 0.25s ease',
           }}
         >

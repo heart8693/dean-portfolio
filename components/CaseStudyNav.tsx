@@ -6,8 +6,9 @@ import Link from 'next/link'
 type Sub = { id: string; label: string }
 type Section = { id: string; label: string; sub?: Sub[] }
 
-// Active indicator color. Swap to 'var(--accent)' if you'd rather match each project's accent.
-const ACTIVE = '#3b82f6'
+// Active indicator color follows the case-study route theme:
+// `<main className="tj-case tj-case--{slug}">` sets --accent-text per project.
+const ACTIVE = 'var(--accent-text)'
 
 export default function CaseStudyNav({ sections }: { sections: Section[] }) {
   const [activeSection, setActiveSection] = useState<string>(sections[0]?.id ?? '')
@@ -124,7 +125,7 @@ export default function CaseStudyNav({ sections }: { sections: Section[] }) {
       })}
 
       <div style={{ margin: '20px 20px 0', paddingTop: '16px', borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
-        <a href="#outcome" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 500, color: 'var(--accent)', textDecoration: 'none' }}>
+        <a href="#outcome" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 500, color: 'var(--accent-text)', textDecoration: 'none' }}>
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           Jump to Outcome
         </a>

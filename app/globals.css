@@ -2,42 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Inter for body + Geist Mono for labels/metrics (cold, precise tech feel) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap');
+/* ── Type stack ─────────────────────────────────────
+   :root (case study) keeps Inter + Geist Mono.
+   .tj-marketing surfaces use Anton (display) + Switzer (body). */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap');
 
-/* ── Light mode ───────────────────────────────────── */
+/* ── Coinbase design tokens (light) ────────────────── */
 :root {
-  --font-sans: 'Inter', sans-serif;
-  --font-serif: 'Inter', sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
+  --font-sans:    'Switzer', 'Inter', -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono:    'Geist Mono', ui-monospace, 'SF Mono', monospace;
 
-  --bg:       #ffffff;
-  --card:     #ffffff;
-  --surface:  #fafafb;   /* barely off-white so cards read against #fff via the border */
-  --border:   #e7e8ec;   /* cool grey, was warm beige #dddbd6 */
+  /* Brand */
+  --accent:           #0052ff;   /* Coinbase Blue */
+  --accent-active:    #003ecc;   /* primary-active */
+  --accent-disabled:  #a8b8cc;
+  --accent-yellow:    #f4b000;   /* illustrative only */
 
-  --text-1:   #0a0b0d;   /* near-black, faint cool cast (was warm #1a1916) */
-  --text-2:   #52555e;   /* cool mid-grey (was warm #4a4845) */
-  --text-3:   #8a8d96;   /* cool light-grey (was warm #9e9c98) */
+  /* Surfaces */
+  --bg:                #ffffff;   /* canvas */
+  --card:              #ffffff;
+  --surface:           #f7f7f7;   /* surface-soft */
+  --surface-strong:    #eef0f3;   /* secondary buttons, badges */
+  --surface-dark:      #0a0b0d;   /* full-bleed dark heroes / CTA band */
+  --surface-dark-el:   #16181c;   /* product-ui cards inside dark heroes */
 
-  --accent:       rgb(77, 163, 255);
-  --accent-hover: rgb(47, 140, 255);
+  /* Hairlines */
+  --border:            #dee1e6;   /* hairline */
+  --border-soft:       #eef0f3;   /* hairline-soft */
+
+  /* Text */
+  --text-1:        #0a0b0d;       /* ink */
+  --text-2:        #5b616e;       /* body */
+  --text-3:        #7c828a;       /* muted */
+  --text-4:        #a8acb3;       /* muted-soft */
+  --on-primary:    #ffffff;
+  --on-dark:       #ffffff;
+  --on-dark-soft:  #a8acb3;
+
+  /* Trading semantics — text only, never fills */
+  --semantic-up:   #05b169;
+  --semantic-down: #cf202f;
+
+  /* Coinbase has one shadow tier */
+  --shadow-1: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
-/* ── Dark mode ────────────────────────────────────── */
+/* Dark mode → Coinbase's surface-dark + surface-dark-elevated track */
 .dark {
-  --bg:       #0b0c0e;   /* cool near-black (was warm #141414) */
-  --card:     #141518;
-  --surface:  #17181c;
-  --border:   #26282e;   /* cool border (was #2e2e2e) */
-
-  --text-1:   #f3f4f6;   /* cool off-white (was warm #f0ede8) */
-  --text-2:   #9a9da6;
-  --text-3:   #5a5d66;
-
-  --accent:       rgb(77, 163, 255);
-  --accent-hover: rgb(47, 140, 255);
+  --bg:                #0a0b0d;
+  --card:              #16181c;
+  --surface:           #16181c;
+  --surface-strong:    #1f2127;
+  --surface-dark:      #000000;
+  --surface-dark-el:   #16181c;
+  --border:            #2a2c33;
+  --border-soft:       #1f2127;
+  --text-1:            #ffffff;
+  --text-2:            #a8acb3;
+  --text-3:            #7c828a;
+  --text-4:            #5b616e;
 }
 
 /* ── Reset ────────────────────────────────────────── */
@@ -46,36 +73,239 @@ html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
-  color: var(--text-1);
+  color: var(--text-2);
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
   -webkit-font-smoothing: antialiased;
-  transition: var(--bg) 0.25s ease, color 0.25s ease;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 ::selection { background: var(--accent); color: #fff; }
 a { color: inherit; text-decoration: none; }
 img { display: block; }
 
-/* Thin, near-invisible scrollbar — quieter on a white bg */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-/* ───────────────────────────────────────────────────────────
-   Mono label utility — apply to small uppercase labels + metrics
-   for the "precise tech" feel. Add className="tj-mono" in JSX,
-   or just set fontFamily: 'var(--font-mono)' inline.
-─────────────────────────────────────────────────────────── */
+/* ── Coinbase typography utilities ────────────────── */
+.tj-display-mega {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 8vw, 80px);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -2px;
+}
+.tj-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -1.6px;
+}
+.tj-display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -1.3px;
+}
+.tj-display-md {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 400;
+  line-height: 1.09;
+  letter-spacing: -1px;
+}
+.tj-display-sm {
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.11;
+  letter-spacing: -0.5px;
+}
+.tj-title-lg {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.13;
+  letter-spacing: -0.4px;
+}
+.tj-title-md {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.33;
+  letter-spacing: 0;
+}
+.tj-title-sm {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+.tj-body-md {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.tj-body-strong {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.tj-body-sm {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.tj-caption {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.tj-caption-strong {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.tj-nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.tj-number-display {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  font-feature-settings: 'tnum' 1;
+}
 .tj-mono {
   font-family: var(--font-mono);
-  font-feature-settings: 'tnum' 1;   /* tabular figures so numbers align */
+  font-feature-settings: 'tnum' 1;
+}
+.tj-tnum { font-feature-settings: 'tnum' 1; }
+
+/* ── Coinbase pill buttons ───────────────────────── */
+.tj-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  height: 44px;
+  background: var(--accent);
+  color: var(--on-primary);
+  border: 1px solid var(--accent);
+  border-radius: 100px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.tj-btn-primary:hover { background: var(--accent-active); border-color: var(--accent-active); }
+.tj-btn-primary:active { background: var(--accent-active); }
+
+.tj-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  height: 44px;
+  background: var(--surface-strong);
+  color: var(--text-1);
+  border: none;
+  border-radius: 100px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.15;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.tj-btn-secondary:hover { background: #e2e5ea; }
+
+/* Larger hero CTA — button-pill-cta */
+.tj-btn-hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 32px;
+  height: 56px;
+  background: var(--accent);
+  color: var(--on-primary);
+  border: 1px solid var(--accent);
+  border-radius: 100px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.15;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.tj-btn-hero:hover { background: var(--accent-active); border-color: var(--accent-active); }
+
+/* Outline-on-dark for buttons that sit on dark surfaces */
+.tj-btn-outline-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 19px;
+  height: 44px;
+  background: transparent;
+  color: var(--on-dark);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 100px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.15;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.tj-btn-outline-dark:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.7); }
+
+.tj-btn-sm { height: 38px; padding: 9px 16px; font-size: 14px; }
+
+/* ── Coinbase badge-pill ─────────────────────────── */
+.tj-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: var(--surface-strong);
+  color: var(--text-1);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+.tj-badge-on-dark {
+  background: var(--surface-dark-el);
+  color: var(--on-dark);
 }
 
-/* ───────────────────────────────────────────────────────────
-   Jump-to-Outcome pill — outline by default, solid on hover.
-─────────────────────────────────────────────────────────── */
+/* ── Section utilities ──────────────────────────── */
+.tj-band-dark {
+  background: var(--surface-dark);
+  color: var(--on-dark);
+}
+.tj-band-soft {
+  background: var(--surface);
+}
+
+/* ── Jump-to-Outcome pill — preserved for case study ─ */
 .tj-jump-pill {
   display: inline-flex;
   align-items: center;
@@ -83,30 +313,333 @@ img { display: block; }
   padding: 10px 20px;
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
   color: var(--accent);
   background: transparent;
   border: 1.5px solid var(--accent);
-  border-radius: 9999px;
+  border-radius: 100px;
   text-decoration: none;
   cursor: pointer;
   transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
 }
-
-.tj-jump-pill svg {
-  transition: transform 0.18s ease;
-}
-
+.tj-jump-pill svg { transition: transform 0.18s ease; }
 .tj-jump-pill:hover {
   background: var(--accent);
   color: #ffffff;
-  box-shadow: 0 4px 14px rgba(77, 163, 255, 0.22);
+}
+.tj-jump-pill:hover svg { transform: translate(1px, -1px); }
+.tj-jump-pill:active { transform: translateY(1px); }
+
+/* ═══════════════════════════════════════════════════════════════
+   NIKE MARKETING SCOPE
+   Applied to <main className="tj-marketing"> on home, about, and
+   the project index. Case study pages do NOT apply this class —
+   they continue to render against :root / .dark above so their
+   visual identity stays pixel-identical.
+   ═══════════════════════════════════════════════════════════════ */
+.tj-marketing {
+  /* Surface */
+  --bg:             #ffffff;   /* Bone */
+  --canvas-pure:    #FFFFFF;
+  --surface-soft:   #EFECE5;   /* one notch darker for grid backings */
+  --surface-strong: #E5E2DA;
+
+  /* Ink + neutrals */
+  --ink:        #0A0A0A;
+  --text-1:     var(--ink);
+  --text-2:     #4A4A4A;
+  --text-3:     #8A8A8A;
+  --hairline:   #0A0A0A;
+  --border:     #0A0A0A;
+
+  /* Brand voltage — existing teal (user-set).
+     --accent          = filled-CTA background
+     --accent-contrast = label on --accent fill (ink on teal-500 → 5.0:1 AA)
+     --accent-text     = colored text + links on white canvas.
+                         Teal-500 #14B8A6 fails AA on white (3.0:1), so
+                         text uses teal-700 #0F766E → 6.1:1 AAA. */
+  --accent:           #14B8A6;
+  --accent-press:     #85f5e8;
+  --accent-contrast:  #0A0A0A;
+  --accent-text:      #0F766E;
+  --on-accent:        var(--accent-contrast);   /* legacy alias */
+
+  /* Type families */
+  --font-display: 'Anton', 'Helvetica Neue Condensed', 'Arial Narrow', sans-serif;
+  --font-body:    'Switzer', -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  min-height: 100svh;
 }
 
-.tj-jump-pill:hover svg {
-  transform: translate(1px, -1px);
+.dark .tj-marketing {
+  --bg:             #0A0A0A;
+  --canvas-pure:    #0A0A0A;
+  --surface-soft:   #141414;
+  --surface-strong: #1C1C1C;
+
+  --ink:        #F7F4EE;
+  --text-1:     var(--ink);
+  --text-2:     #B5B2AB;
+  --text-3:     #7A7872;
+  --hairline:   #F7F4EE;
+  --border:     #F7F4EE;
+
+  --accent:           #14B8A6;
+  --accent-press:     #85f5e8;
+  --accent-contrast:  #0A0A0A;
+  --accent-text:      #2DD4BF;   /* teal-400 on near-black → 8:1 AAA */
+  --on-accent:        var(--accent-contrast);
 }
 
-.tj-jump-pill:active {
-  transform: translateY(1px);
+/* ═══════════════════════════════════════════════════════════════
+   CASE-STUDY ROUTE THEMES — applied via <main className="tj-case
+   tj-case--{slug}"> on app/work/[slug]/page.tsx. Each theme defines
+   three tokens so authors can choose fills (--accent), labels on
+   fills (--accent-contrast), and colored text/links on white
+   (--accent-text, AA-safe). Light-mode contrast verified on #FFF.
+   ═══════════════════════════════════════════════════════════════ */
+.tj-case {
+  /* shared case-study body face — matches marketing */
+  --font-body: 'Switzer', -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+.tj-case--biasly {
+  --accent:           #3b82f6;   /* existing CaseStudyNav blue */
+  --accent-contrast:  #FFFFFF;   /* white on #3b82f6 → 4.0:1 (large text / fills) */
+  --accent-text:      #1D4ED8;   /* on #FFF → 8.6:1 AAA */
+}
+.tj-case--fipet {
+  --accent:           #FF8C2E;
+  --accent-contrast:  #4A1B0C;   /* deep brown on orange → 7.6:1 AAA */
+  --accent-text:      #C2410C;   /* on #FFF → 4.94:1 AA */
+}
+.tj-case--ride-availability {
+  --accent:           #F0A0FF;
+  --accent-contrast:  #3D2C3F;   /* deep plum on pink → 7.2:1 AAA */
+  --accent-text:      #A21CAF;   /* on #FFF → 7.05:1 AAA */
+}
+
+/* Dark-mode lifts — keep AA on near-black */
+.dark .tj-case--biasly             { --accent-text: #60A5FA; }
+.dark .tj-case--fipet              { --accent-text: #FB923C; }
+.dark .tj-case--ride-availability  { --accent-text: #F0ABFC; }
+
+/* ── Nike display tiers ────────────────────────────
+   Reserved exclusively for marketing surfaces.
+   Anton for display lockups, Switzer for everything else. */
+.tj-billboard {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 12vw, 152px);
+  font-weight: 400;        /* Anton ships single-weight */
+  line-height: 0.9;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+@media (max-width: 480px) {
+  .tj-billboard {
+    font-size: clamp(44px, 11vw, 64px);
+  }
+}
+.tj-display-1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 88px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+.tj-display-2 {
+  font-family: var(--font-body);
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.tj-eyebrow {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tj-body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
+}
+.tj-body-strong {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+/* ── Flat, type-driven controls (no SaaS pills) ───── */
+.tj-cta-block {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 28px;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: none;
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease;
+  /* Long single-token labels (e.g. emails) wrap instead of overflowing */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+}
+@media (max-width: 480px) {
+  .tj-cta-block {
+    padding: 14px 18px;
+    font-size: 15px;
+  }
+}
+.tj-cta-block:hover { background: var(--accent-press); }
+
+.tj-cta-block--ink {
+  background: var(--ink);
+  color: var(--bg);
+}
+.tj-cta-block--ink:hover { background: var(--text-2); }
+
+/* Mono modifier — usable OUTSIDE .tj-marketing (e.g. global Nav).
+   Inverts in dark so the button stays visible against the chrome. */
+.tj-cta-block--mono {
+  background: #0A0A0A;
+  color: #FFFFFF;
+}
+.tj-cta-block--mono:hover { background: #2A2A2A; }
+.dark .tj-cta-block--mono {
+  background: #FFFFFF;
+  color: #0A0A0A;
+}
+.dark .tj-cta-block--mono:hover { background: #E5E5E5; }
+
+.tj-cta-underline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 0 4px 0;
+  background: transparent;
+  color: var(--text-1);
+  border: none;
+  border-bottom: 2px solid var(--text-1);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.tj-cta-underline:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tj-cta-on-image {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  background: var(--canvas-pure);
+  color: #0A0A0A;
+  border: none;
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.tj-cta-on-image:hover { background: var(--accent); color: var(--on-accent); }
+
+/* ── Flat badge (no pill) ─────────────────────────── */
+.tj-flag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--text-1);
+  border: 1.5px solid var(--text-1);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tj-flag--accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+/* ── Section utility ──────────────────────────────── */
+.tj-rule {
+  height: 1.5px;
+  background: var(--hairline);
+  border: none;
+  margin: 0;
+}
+
+/* ── Global Nav + Footer chrome (lives outside .tj-marketing
+   because they render on every route, including case study) ── */
+.tj-nav-chrome {
+  background: #FFFFFF;
+  color: #0A0A0A;
+  border-bottom: 1px solid #0A0A0A;
+  font-family: 'Switzer', -apple-system, system-ui, sans-serif;
+}
+.dark .tj-nav-chrome {
+  background: #0A0A0A;
+  color: #FFFFFF;
+  border-bottom-color: #FFFFFF;
+}
+
+.tj-footer-chrome {
+  background: #FFFFFF;
+  color: #4A4A4A;
+  border-top: 1px solid #0A0A0A;
+  font-family: 'Switzer', -apple-system, system-ui, sans-serif;
+}
+.dark .tj-footer-chrome {
+  background: #0A0A0A;
+  color: #B5B2AB;
+  border-top-color: #FFFFFF;
+}
+
+/* ── Reduced motion gate ──────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

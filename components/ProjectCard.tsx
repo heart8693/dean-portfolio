@@ -25,12 +25,22 @@ const HOVER_METRIC: Record<string, { value: string; label: string }> = {
   'ride-availability': { value: '4.5/5',     label: 'dock confidence' },
 }
 
+// ── Per-project underlined-link color (AA-safe on white).
+//    Mirrors each case-study route theme's --accent-text so the
+//    homepage card link reads in the same hue as the case study.
+const LINK_COLOR: Record<string, string> = {
+  'biasly':            '#1D4ED8',   // matches .tj-case--biasly --accent-text
+  'fipet':             '#C2410C',   // matches .tj-case--fipet --accent-text
+  'ride-availability': '#A21CAF',   // matches .tj-case--ride-availability --accent-text
+}
+
 export default function ProjectCard({ project: p }: { project: Project }) {
   const [hovered, setHovered] = useState(false)
 
   const hoverCta   = HOVER_CTA[p.slug]    ?? 'View case study →'
   const defaultCta = 'View case study →'
   const metric     = HOVER_METRIC[p.slug]
+  const linkColor  = LINK_COLOR[p.slug]   ?? 'var(--text-1)'
 
   return (
     <Link
@@ -39,23 +49,17 @@ export default function ProjectCard({ project: p }: { project: Project }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         display: 'block',
-        background: 'var(--card)',
-        borderRadius: '12px',
+        background: 'transparent',
+        borderRadius: 0,
         overflow: 'hidden',
         textDecoration: 'none',
-        border: '1px solid var(--border)',
-        // Tony Jin: subtle scale + shadow on hover
-        transform: hovered ? 'translateY(-6px) scale(1.02)' : 'translateY(0) scale(1)',
-        boxShadow: hovered
-          ? '0 20px 48px rgba(0,0,0,0.12)'
-          : '0 2px 8px rgba(0,0,0,0.04)',
-        transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease, border-color 0.25s ease',
+        color: 'inherit',
       }}
     >
-      {/* ── IMAGE — Tony Jin: 4:3 ratio, zoom on hover ── */}
+      {/* ── IMAGE — full-bleed, no radius, no border, no shadow ── */}
       <div style={{
         aspectRatio: '4/3',
-        background: p.thumbBg,
+        background: p.thumbBg || 'var(--surface-soft)',
         overflow: 'hidden',
         position: 'relative',
       }}>
@@ -66,96 +70,91 @@ export default function ProjectCard({ project: p }: { project: Project }) {
             style={{
               width: '100%', height: '100%',
               objectFit: 'cover', display: 'block',
-              transform: hovered ? 'scale(1.05)' : 'scale(1)',
-              transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1)',
+              transform: hovered ? 'scale(1.02)' : 'scale(1)',
+              transition: 'transform 0.6s cubic-bezier(0.16,1,0.3,1)',
             }}
           />
         )}
       </div>
 
-      {/* ── TEXT AREA — title, tags, metric (hover), CTA ── */}
-      <div style={{ padding: '20px 22px 22px' }}>
-        {/* Title */}
-        <h3 style={{
-          fontSize: '1.125rem',
-          fontWeight: 700,
-          letterSpacing: '-0.02em',
-          lineHeight: 1.2,
-          color: 'var(--text-1)',
-          marginBottom: '6px',
-        }}>
-          {p.title}
-        </h3>
-
-        {/* Tags */}
-        <p style={{
-          fontSize: '11px',
-          fontWeight: 500,
-          letterSpacing: '0.04em',
-          color: 'var(--text-3)',
-          marginBottom: '24px',
-        }}>
+      {/* ── TEXT — sits directly under image, no container padding ── */}
+      <div style={{ paddingTop: '20px' }}>
+        {/* Tags — flat eyebrow row, no pill, no background */}
+        <p
+          className="tj-eyebrow"
+          style={{ color: 'var(--text-2)', marginBottom: '10px' }}
+        >
           {p.category} · {p.year}
         </p>
 
-        {/* ── METRIC AREA — collapse by default, expand on hover ──
-            Card stays compact at rest (description meets CTA cleanly).
-            On hover: max-height + padding + margin + border all expand
-            simultaneously with eased timing for a natural reveal. */}
+        {/* Title — Nike display tier, uppercase, ink */}
+        <h3
+          className="tj-display-2"
+          style={{
+            color: 'var(--text-1)',
+            marginBottom: '12px',
+            textTransform: 'uppercase',
+          }}
+        >
+          {p.title}
+        </h3>
+
+        {/* ── METRIC AREA — collapses by default, reveals on hover.
+            Value stays ink (orange reserved for action moments).  */}
         {metric && (
           <div style={{
             maxHeight: hovered ? '120px' : '0',
             opacity: hovered ? 1 : 0,
             marginBottom: hovered ? '16px' : '0',
-            paddingTop: hovered ? '16px' : '0',
-            borderTop: hovered ? '1px solid var(--border)' : '1px solid transparent',
             overflow: 'hidden',
             transition: hovered
-              ? 'max-height 0.35s cubic-bezier(0.16,1,0.3,1), padding-top 0.35s cubic-bezier(0.16,1,0.3,1), margin-bottom 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease, opacity 0.25s ease 0.1s'
-              : 'max-height 0.25s ease, padding-top 0.25s ease, margin-bottom 0.25s ease, border-color 0.2s ease, opacity 0.15s ease',
+              ? 'max-height 0.4s cubic-bezier(0.16,1,0.3,1), margin-bottom 0.4s ease, opacity 0.25s ease 0.1s'
+              : 'max-height 0.25s ease, margin-bottom 0.25s ease, opacity 0.15s ease',
           }}>
-            <p style={{
-              fontSize: '1.5rem',
-              fontWeight: 700,
-              letterSpacing: '-0.02em',
-              color: 'var(--accent)',
-              lineHeight: 1,
-              marginBottom: '6px',
-            }}>
+            <p
+              className="tj-tnum"
+              style={{
+                fontFamily: 'inherit',
+                fontSize: 'clamp(28px, 3.4vw, 40px)',
+                fontWeight: 700,
+                letterSpacing: '-0.01em',
+                color: 'var(--text-1)',
+                lineHeight: 1,
+                marginBottom: '6px',
+              }}
+            >
               {metric.value}
             </p>
-            <p style={{
-              fontSize: '10px',
-              fontWeight: 600,
-              letterSpacing: '0.09em',
-              textTransform: 'uppercase',
-              color: 'var(--text-3)',
-            }}>
+            <p className="tj-eyebrow" style={{ color: 'var(--text-2)' }}>
               {metric.label}
             </p>
           </div>
         )}
 
-        {/* CTA — text + arrow with subtle nudge on hover ── */}
-        {/*   Text: color shifts gray → accent on hover. */}
-        {/*   Arrow: translateX +4px on hover. Tony Jin micro-detail. */}
-        <p style={{
-          fontSize: '13px',
-          fontWeight: 500,
-          color: hovered ? 'var(--accent)' : 'var(--text-3)',
-          transition: 'color 0.2s ease',
-          letterSpacing: '0.01em',
+        {/* CTA — type-driven, underlined. Color = the project's own
+            theme color (LINK_COLOR map) at all times so the link reads
+            in the same hue as its case study. Subtle hover = full
+            saturation; rest of card unchanged. */}
+        <span style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '6px',
+          flexWrap: 'wrap',
+          gap: '8px',
+          maxWidth: '100%',
+          fontSize: '14px',
+          fontWeight: 600,
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+          lineHeight: 1.2,
+          color: linkColor,
+          borderBottom: `2px solid ${linkColor}`,
+          paddingBottom: '2px',
+          opacity: hovered ? 1 : 0.92,
+          transition: 'opacity 0.18s ease',
         }}>
           <span>{(hovered ? hoverCta : defaultCta).replace(/\s*→\s*$/, '')}</span>
-          <span style={{
-            transform: hovered ? 'translateX(4px)' : 'translateX(0)',
-            transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)',
-            display: 'inline-block',
-          }}>→</span>
-        </p>
+          <span aria-hidden="true">↗</span>
+        </span>
       </div>
     </Link>
   )

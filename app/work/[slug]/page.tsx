@@ -50,7 +50,7 @@ export default async function CaseStudy({ params }: Props) {
   ]
   
   return (
-    <main style={{ paddingTop: '60px', background: 'var(--bg)', transition: 'background 0.25s ease' }}>
+    <main className={`tj-case tj-case--${slug}`} style={{ paddingTop: '60px', background: 'var(--bg)', transition: 'background 0.25s ease' }}>
       <div style={{ display: 'flex', maxWidth: '1380px', margin: '0 auto' }}>
 
         {/* ── LEFT SIDEBAR — scroll-spy, collapsible (client component) ── */}
@@ -219,7 +219,7 @@ export default async function CaseStudy({ params }: Props) {
                   const textEl = (
                     <div>
                       <p style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-3)', marginBottom: '10px', letterSpacing: '0.04em' }}>{panel.number}.</p>
-                      <h3 style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--accent)', marginBottom: '6px' }}>{panel.title}</h3>
+                      <h3 style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--accent-text)', marginBottom: '6px' }}>{panel.title}</h3>
                       <p style={{ fontSize: '14px', color: 'var(--text-3)', fontStyle: 'italic', marginBottom: '14px', lineHeight: 1.5 }}>{panel.subtitle}</p>
                       <p style={body}>{panel.body}</p>
                     </div>
@@ -287,7 +287,7 @@ export default async function CaseStudy({ params }: Props) {
                         <p style={{ fontSize: '15px', color: 'var(--text-2)', lineHeight: 1.7 }}>{flow.problem}</p>
                         <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-3)', letterSpacing: '0.06em', paddingTop: '3px' }}>DECISION</p>
                         <p style={{ fontSize: '15px', color: 'var(--text-2)', lineHeight: 1.7 }}>{flow.decision}</p>
-                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--accent)', letterSpacing: '0.06em', paddingTop: '3px' }}>OUTCOME</p>
+                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--accent-text)', letterSpacing: '0.06em', paddingTop: '3px' }}>OUTCOME</p>
                         <p style={{ fontSize: '15px', color: 'var(--text-1)', lineHeight: 1.7, fontWeight: 500 }}>{flow.outcome}</p>
                       </div>
                     </div>
@@ -317,7 +317,7 @@ export default async function CaseStudy({ params }: Props) {
               {/* User research */}
               <H2 top id="research-user">{p.researchUserTitle}</H2>
               {p.researchQuote && (
-                <div style={{ margin: '0 0 32px', padding: '0 0 0 24px', borderLeft: '3px solid var(--accent)' }}>
+                <div style={{ margin: '0 0 32px', padding: '0 0 0 24px', borderLeft: '3px solid var(--accent-text)' }}>
                   <p style={{ fontSize: '20px', fontWeight: 500, color: 'var(--text-1)', lineHeight: 1.5, letterSpacing: '-0.01em', marginBottom: '10px' }}>
                     {'"' + p.researchQuote + '"'}
                   </p>
@@ -459,7 +459,7 @@ export default async function CaseStudy({ params }: Props) {
                   marginBottom: '48px',
                   position: 'relative',
                   paddingLeft: isChosen ? '20px' : '0',
-                  borderLeft: isChosen ? '3px solid var(--accent)' : 'none',
+                  borderLeft: isChosen ? '3px solid var(--accent-text)' : 'none',
                   transition: 'border-color 0.25s ease',
                 }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }} className="tj-split">
@@ -471,7 +471,7 @@ export default async function CaseStudy({ params }: Props) {
                         {isChosen && (
                           <span style={{
                             fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em',
-                            color: 'var(--accent)', background: 'color-mix(in srgb, var(--accent) 12%, transparent)',
+                            color: 'var(--accent-text)', background: 'color-mix(in srgb, var(--accent) 12%, transparent)',
                             padding: '3px 8px', borderRadius: '4px', textTransform: 'uppercase',
                           }}>CHOSEN</span>
                         )}
@@ -508,7 +508,7 @@ export default async function CaseStudy({ params }: Props) {
                     <div style={{
                       position: 'relative',
                       borderRadius: p.slug === 'fipet' ? '0' : '15px',
-                      border: p.slug === 'fipet' ? 'none' : (isChosen ? '1px solid var(--accent)' : '1px solid var(--border)'),
+                      border: p.slug === 'fipet' ? 'none' : (isChosen ? '1px solid var(--accent-text)' : '1px solid var(--border)'),
                       overflow: 'hidden',
                       display: 'flex',
                       alignItems: 'center',
@@ -662,7 +662,7 @@ export default async function CaseStudy({ params }: Props) {
                 <SectionHR />
 
                 {/* Round label */}
-                <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '14px' }}>
+                <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: 'var(--accent-text)', marginBottom: '14px' }}>
                   {p.usabilityTesting.round}
                 </p>
 
@@ -764,7 +764,7 @@ export default async function CaseStudy({ params }: Props) {
                           gap: '14px 28px',
                           rowGap: '16px',
                         }} className="tj-refinement-grid">
-                          <p style={{ ...microLbl, paddingTop: '2px', color: 'var(--accent)' }}>WHAT WE CHANGED</p>
+                          <p style={{ ...microLbl, paddingTop: '2px', color: 'var(--accent-text)' }}>WHAT WE CHANGED</p>
                           <p style={{ fontSize: '14px', color: 'var(--text-1)', lineHeight: 1.7, fontWeight: 500 }}>{f.refinement}</p>
                           <p style={{ ...microLbl, paddingTop: '2px' }}>WHY THIS FIX</p>
                           <p style={{ fontSize: '13px', color: 'var(--text-2)', lineHeight: 1.7 }}>{f.refinementReason}</p>
@@ -785,10 +785,10 @@ export default async function CaseStudy({ params }: Props) {
                     padding: '20px 24px',
                     background: 'var(--surface)',
                     borderRadius: '8px',
-                    borderLeft: '3px solid var(--accent)',
+                    borderLeft: '3px solid var(--accent-text)',
                     transition: 'background 0.25s ease',
                   }}>
-                    <p style={{ ...microLbl, marginBottom: '8px', color: 'var(--accent)' }}>WHAT THIS CHANGED</p>
+                    <p style={{ ...microLbl, marginBottom: '8px', color: 'var(--accent-text)' }}>WHAT THIS CHANGED</p>
                     <p style={{ fontSize: '15px', color: 'var(--text-1)', lineHeight: 1.7, fontWeight: 500 }}>{p.usabilityTesting.cultureNote}</p>
                   </div>
                 )}
@@ -830,7 +830,7 @@ export default async function CaseStudy({ params }: Props) {
                       gap: '8px',
                       padding: '12px 22px',
                       background: 'var(--accent)',
-                      color: '#fff',
+                      color: 'var(--accent-contrast)',
                       fontSize: '14px',
                       fontWeight: 600,
                       textDecoration: 'none',

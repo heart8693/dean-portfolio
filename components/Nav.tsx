@@ -52,59 +52,82 @@ export default function Nav() {
   }
 
   const linkStyle = {
-    fontSize: '13px',
-    fontWeight: 400 as const,
-    color: 'var(--text-2)',
+    fontSize: '15px',
+    fontWeight: 500 as const,
+    color: 'inherit',
     transition: 'color 0.15s ease',
     textDecoration: 'none',
+    lineHeight: 1.4,
+    fontFamily: 'inherit',
   }
 
   const mobileLinkStyle = {
-    fontSize: '26px',
-    fontWeight: 500 as const,
-    color: 'var(--text-1)',
+    fontSize: '40px',
+    fontWeight: 400 as const,
+    color: 'inherit',
     transition: 'color 0.15s ease',
     textDecoration: 'none',
-    letterSpacing: '-0.02em',
+    letterSpacing: '-0.005em',
+    lineHeight: 0.95,
+    textTransform: 'uppercase' as const,
+    fontFamily: "'Anton', 'Helvetica Neue Condensed', sans-serif",
   }
 
   return (
     <>
-      <header className="nav-header" style={{
+      <header className="nav-header tj-nav-chrome" style={{
         position: 'fixed',
         top: 0, left: 0, right: 0,
         zIndex: 50,
-        height: '60px',
+        height: '64px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 40px',
-        background: 'var(--bg)',
-        borderBottom: '1px solid var(--border)',
+        padding: '0 32px',
         transition: 'background 0.25s ease, border-color 0.25s ease',
       }}>
         <Link href="/" style={{
-          fontFamily: 'var(--font-sans)',
-          fontWeight: 600,
-          fontSize: '1rem',
-          color: 'var(--text-1)',
-          letterSpacing: '-0.01em',
+          fontWeight: 700,
+          fontSize: '17px',
+          color: 'inherit',
+          letterSpacing: '0.01em',
           textDecoration: 'none',
+          fontFamily: 'inherit',
         }}>
-          Dean Yoo
+          DEAN YOO
         </Link>
 
-        {/* Desktop nav — hidden on mobile via CSS */}
+        {/* Desktop nav — Nike chrome, flat type-driven.
+            All three links share the same 2px bottom rail (transparent
+            by default) so baselines stay aligned regardless of active state. */}
         <nav className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-          <Link href="/#work" style={linkStyle}>Projects</Link>
-          <a href="/Dean_Yoo_Resume.pdf" download="Dean_Yoo_Resume.pdf" style={linkStyle}>
+          <Link
+            href="/#work"
+            style={{
+              ...linkStyle,
+              borderBottom: '2px solid transparent',
+              paddingBottom: '2px',
+            }}
+          >
+            Projects
+          </Link>
+          <a
+            href="/Dean_Yoo_Resume.pdf"
+            download="Dean_Yoo_Resume.pdf"
+            style={{
+              ...linkStyle,
+              borderBottom: '2px solid transparent',
+              paddingBottom: '2px',
+            }}
+          >
             Resume
           </a>
           <Link
             href="/about"
             style={{
               ...linkStyle,
-              color: pathname === '/about' ? 'var(--text-1)' : 'var(--text-2)',
+              borderBottom: pathname === '/about' ? '2px solid currentColor' : '2px solid transparent',
+              paddingBottom: '2px',
             }}
           >
             About
@@ -114,29 +137,36 @@ export default function Nav() {
               onClick={toggle}
               aria-label="Toggle dark mode"
               style={{
-                width: '40px',
+                width: '44px',
                 height: '20px',
-                borderRadius: '10px',
-                border: '1px solid var(--border)',
-                background: dark ? '#333' : 'var(--surface)',
+                borderRadius: 0,
+                border: '1.5px solid currentColor',
+                background: 'transparent',
                 cursor: 'pointer',
                 position: 'relative',
-                transition: 'background 0.25s ease',
+                transition: 'background 0.2s ease',
                 flexShrink: 0,
               }}
             >
               <span style={{
                 position: 'absolute',
                 top: '2px',
-                left: dark ? '20px' : '2px',
-                width: '14px',
-                height: '14px',
-                borderRadius: '50%',
-                background: dark ? '#ddd' : '#999',
-                transition: 'left 0.2s cubic-bezier(0.16,1,0.3,1)',
+                left: dark ? '22px' : '2px',
+                width: '17px',
+                height: '13px',
+                borderRadius: 0,
+                background: 'currentColor',
+                transition: 'left 0.18s cubic-bezier(0.4,0,0.2,1)',
               }} />
             </button>
           )}
+          <a
+            href="mailto:hyart2021@gmail.com"
+            className="tj-cta-block tj-cta-block--mono"
+            style={{ padding: '12px 20px', fontSize: '13px', height: '40px' }}
+          >
+            Contact
+          </a>
         </nav>
 
         {/* Hamburger — shown only on mobile via CSS */}
@@ -167,6 +197,7 @@ export default function Nav() {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"
+          className="tj-nav-chrome"
           onClick={(e) => {
             if (e.target === e.currentTarget) setMenuOpen(false)
           }}
@@ -174,7 +205,7 @@ export default function Nav() {
             position: 'fixed',
             inset: 0,
             zIndex: 100,
-            background: 'var(--bg)',
+            borderBottom: 'none',
             animation: 'navFadeIn 0.2s ease',
           }}
         >
@@ -192,15 +223,15 @@ export default function Nav() {
               href="/"
               onClick={() => setMenuOpen(false)}
               style={{
-                fontFamily: 'var(--font-sans)',
-                fontWeight: 600,
-                fontSize: '1rem',
-                color: 'var(--text-1)',
-                letterSpacing: '-0.01em',
+                fontWeight: 700,
+                fontSize: '17px',
+                color: 'inherit',
+                letterSpacing: '0.01em',
                 textDecoration: 'none',
+                fontFamily: 'inherit',
               }}
             >
-              Dean Yoo
+              DEAN YOO
             </Link>
 
             <button
@@ -214,11 +245,12 @@ export default function Nav() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                color: 'inherit',
               }}
             >
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-                <line x1="3" y1="3" x2="19" y2="19" stroke="var(--text-1)" strokeWidth="2" strokeLinecap="round" />
-                <line x1="19" y1="3" x2="3" y2="19" stroke="var(--text-1)" strokeWidth="2" strokeLinecap="round" />
+                <line x1="3" y1="3" x2="19" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <line x1="19" y1="3" x2="3" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </button>
           </div>
@@ -251,23 +283,32 @@ export default function Nav() {
               onClick={() => setMenuOpen(false)}
               style={{
                 ...mobileLinkStyle,
-                color: pathname === '/about' ? 'var(--accent)' : 'var(--text-1)',
+                borderBottom: pathname === '/about' ? '3px solid currentColor' : '3px solid transparent',
+                paddingBottom: '2px',
               }}
             >
               About
             </Link>
+            <a
+              href="mailto:hyart2021@gmail.com"
+              onClick={() => setMenuOpen(false)}
+              className="tj-cta-block tj-cta-block--mono"
+              style={{ marginTop: '16px' }}
+            >
+              Contact
+            </a>
 
             {mounted && (
               <button
                 onClick={toggle}
                 aria-label="Toggle dark mode"
                 style={{
-                  marginTop: '20px',
-                  width: '52px',
-                  height: '28px',
-                  borderRadius: '14px',
-                  border: '1px solid var(--border)',
-                  background: dark ? '#333' : 'var(--surface)',
+                  marginTop: '32px',
+                  width: '60px',
+                  height: '26px',
+                  borderRadius: 0,
+                  border: '1.5px solid currentColor',
+                  background: 'transparent',
                   cursor: 'pointer',
                   position: 'relative',
                   transition: 'background 0.25s ease',
@@ -275,13 +316,13 @@ export default function Nav() {
               >
                 <span style={{
                   position: 'absolute',
-                  top: '2px',
-                  left: dark ? '26px' : '2px',
-                  width: '22px',
-                  height: '22px',
-                  borderRadius: '50%',
-                  background: dark ? '#ddd' : '#999',
-                  transition: 'left 0.2s cubic-bezier(0.16,1,0.3,1)',
+                  top: '3px',
+                  left: dark ? '32px' : '3px',
+                  width: '23px',
+                  height: '17px',
+                  borderRadius: 0,
+                  background: 'currentColor',
+                  transition: 'left 0.18s cubic-bezier(0.4,0,0.2,1)',
                 }} />
               </button>
             )}

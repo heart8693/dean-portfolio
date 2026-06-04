@@ -48,9 +48,9 @@ const ABOUT = {
 }
 
 const microLbl: React.CSSProperties = {
-  fontSize: '10px',
+  fontSize: '12px',
   fontWeight: 600,
-  letterSpacing: '0.09em',
+  letterSpacing: '0.08em',
   textTransform: 'uppercase',
   color: 'var(--text-3)',
 }
@@ -64,7 +64,7 @@ export default function AboutPage() {
   ]
 
   return (
-    <main style={{ paddingTop: '60px', background: 'var(--bg)', transition: 'background 0.25s ease' }}>
+    <main className="tj-marketing" style={{ paddingTop: '64px' }}>
       <div style={{ display: 'flex', maxWidth: '1380px', margin: '0 auto' }}>
 
         {/* ── LEFT SIDEBAR — same as case study ── */}
@@ -72,17 +72,17 @@ export default function AboutPage() {
           width: '224px',
           flexShrink: 0,
           position: 'sticky',
-          top: '60px',
-          height: 'calc(100vh - 60px)',
-          borderRight: '1px solid var(--border)',
+          top: '64px',
+          height: 'calc(100vh - 64px)',
+          borderRight: '1px solid var(--text-1)',
           padding: '40px 0',
           transition: 'border-color 0.25s ease',
         }}>
           <Link href="/" style={{
             display: 'flex', alignItems: 'center', gap: '6px',
-            fontSize: '11px', fontWeight: 500, letterSpacing: '0.07em',
-            textTransform: 'uppercase', color: 'var(--text-3)',
-            textDecoration: 'none', marginBottom: '32px',
+            fontSize: '11px', fontWeight: 600, letterSpacing: '0.08em',
+            textTransform: 'uppercase', color: 'var(--text-2)',
+            textDecoration: 'none', marginBottom: '40px',
             padding: '0 20px', transition: 'color 0.15s ease',
           }} className="tj-link">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -94,8 +94,10 @@ export default function AboutPage() {
           <nav>
             {sidebarNav.map(item => (
               <a key={item.id} href={'#' + item.id} className="tj-link" style={{
-                display: 'block', padding: '7px 20px',
-                fontSize: '13px', color: 'var(--text-2)', fontWeight: 500,
+                display: 'block', padding: '8px 20px',
+                fontSize: '13px', fontWeight: 600,
+                letterSpacing: '0.04em', textTransform: 'uppercase',
+                color: 'var(--text-1)',
                 textDecoration: 'none', transition: 'color 0.15s ease',
               }}>
                 {item.label}
@@ -103,12 +105,10 @@ export default function AboutPage() {
             ))}
           </nav>
 
-          <div style={{ margin: '20px 20px 0', paddingTop: '16px', borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
-            <a href={`mailto:${ABOUT.email}`} style={{
-              display: 'inline-flex', alignItems: 'center', gap: '5px',
-              fontSize: '12px', fontWeight: 500, color: 'var(--accent)', textDecoration: 'none',
-            }}>
-              Get in touch →
+          <div style={{ margin: '24px 20px 0', paddingTop: '20px', borderTop: '1.5px solid var(--text-1)' }}>
+            <a href={`mailto:${ABOUT.email}`} className="tj-cta-underline" style={{ fontSize: '13px' }}>
+              <span>Get in touch</span>
+              <span aria-hidden="true">→</span>
             </a>
           </div>
         </aside>
@@ -118,7 +118,7 @@ export default function AboutPage() {
           <article style={{ maxWidth: '900px', margin: '0 auto', padding: '56px 60px 120px' }}>
 
             {/* ── INTRO ─────────────────────────── */}
-            <section id="intro" style={{ marginBottom: '80px', paddingBottom: '72px', borderBottom: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
+            <section id="intro" style={{ marginBottom: '80px', paddingBottom: '72px', borderBottom: '1px solid var(--text-1)' }}>
               <p style={{ ...microLbl, marginBottom: '20px' }}>About</p>
 
               {/* 2-col: text left, photo right */}
@@ -126,55 +126,38 @@ export default function AboutPage() {
 
                 {/* Left — text */}
                 <div>
-                  <h1 style={{
-                    fontSize: 'clamp(2rem, 4.5vw, 3.5rem)',
-                    fontWeight: 700,
-                    letterSpacing: '-0.03em',
-                    lineHeight: 1.05,
+                  <h1 className="tj-billboard" style={{
                     color: 'var(--text-1)',
-                    marginBottom: '20px',
+                    marginBottom: '32px',
                   }}>{ABOUT.name}</h1>
 
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '40px' }}>
                     {[ABOUT.role, ABOUT.location, ABOUT.available ? 'Available for work' : ''].filter(Boolean).map(t => (
-                      <span key={t} style={{
-                        fontSize: '11px', fontWeight: 500, letterSpacing: '0.06em',
-                        color: 'var(--text-3)', background: 'var(--surface)',
-                        border: '1px solid var(--border)', padding: '3px 10px', borderRadius: '4px',
-                        transition: 'background 0.25s ease',
-                      }}>{t}</span>
+                      <span key={t} className="tj-flag">{t}</span>
                     ))}
                   </div>
 
                   {ABOUT.bio.map((para, i) => (
-                    <p key={i} style={{
-                      fontSize: '16px',
+                    <p key={i} className="tj-body" style={{
                       color: i === 0 ? 'var(--text-1)' : 'var(--text-2)',
-                      lineHeight: 1.85,
-                      marginBottom: '18px',
+                      lineHeight: 1.6,
+                      marginBottom: '20px',
                       fontWeight: i === 0 ? 500 : 400,
                     }}>{para}</p>
                   ))}
 
-                  <a href={`mailto:${ABOUT.email}`} style={{
-                    display: 'inline-block',
-                    marginTop: '12px',
-                    fontSize: '14px',
-                    color: 'var(--accent)',
-                    textDecoration: 'none',
-                    fontWeight: 500,
-                  }}>
-                    {ABOUT.email} →
+                  <a href={`mailto:${ABOUT.email}`} className="tj-cta-block" style={{ marginTop: '20px' }}>
+                    {ABOUT.email}
                   </a>
                 </div>
 
-                {/* Right — photo */}
+                {/* Right — photo (sharp corners, flat field) */}
                 <div className="tj-about-photo" style={{ position: 'sticky', top: '88px' }}>
                   <div style={{
                     width: '240px',
                     aspectRatio: '6/9',
-                    background: '#FFFFFF',
-                    borderRadius: '8px',
+                    background: 'var(--surface-soft)',
+                    borderRadius: 0,
                     overflow: 'hidden',
                     display: 'flex',
                     alignItems: 'center',
@@ -198,9 +181,9 @@ export default function AboutPage() {
             </section>
 
             {/* ── EXPERIENCE ────────────────────── */}
-            <section id="experience" style={{ marginBottom: '80px', paddingBottom: '72px', borderBottom: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
+            <section id="experience" style={{ marginBottom: '80px', paddingBottom: '72px', borderBottom: '1px solid var(--text-1)' }}>
               <p style={{ ...microLbl, marginBottom: '12px' }}>Experience</p>
-              <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '0 0 40px 0', transition: 'border-color 0.25s ease' }} />
+              <hr style={{ border: 'none', borderTop: '1.5px solid var(--text-1)', margin: '0 0 40px 0' }} />
 
               {ABOUT.experience.map((exp, i) => (
                 <div key={exp.company} className="tj-about-row" style={{
@@ -209,25 +192,35 @@ export default function AboutPage() {
                   gap: '32px',
                   paddingBottom: i < ABOUT.experience.length - 1 ? '32px' : 0,
                   marginBottom: i < ABOUT.experience.length - 1 ? '32px' : 0,
-                  borderBottom: i < ABOUT.experience.length - 1 ? '1px solid var(--border)' : 'none',
-                  transition: 'border-color 0.25s ease',
+                  borderBottom: i < ABOUT.experience.length - 1 ? '1px solid var(--text-1)' : 'none',
                 }}>
                   <div>
-                    <p style={{ fontSize: '12px', color: 'var(--text-3)', lineHeight: 1.5, marginBottom: '4px' }}>{exp.period}</p>
+                    <p style={{
+                      fontSize: '13px',
+                      fontWeight: 600,
+                      letterSpacing: '0.04em',
+                      textTransform: 'uppercase',
+                      color: 'var(--text-2)',
+                      marginBottom: '4px',
+                    }}>{exp.period}</p>
                   </div>
                   <div>
-                    <p style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-1)', marginBottom: '3px', letterSpacing: '-0.01em' }}>{exp.company}</p>
-                    <p style={{ ...microLbl, marginBottom: '10px' }}>{exp.role}</p>
-                    <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.8 }}>{exp.description}</p>
+                    <p className="tj-display-2" style={{
+                      color: 'var(--text-1)',
+                      marginBottom: '6px',
+                      textTransform: 'uppercase',
+                    }}>{exp.company}</p>
+                    <p style={{ ...microLbl, marginBottom: '14px', color: 'var(--accent)' }}>{exp.role}</p>
+                    <p className="tj-body" style={{ color: 'var(--text-2)' }}>{exp.description}</p>
                   </div>
                 </div>
               ))}
             </section>
 
             {/* ── SKILLS ────────────────────────── */}
-            <section id="skills" style={{ marginBottom: '80px', paddingBottom: '72px', borderBottom: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
+            <section id="skills" style={{ marginBottom: '80px', paddingBottom: '72px', borderBottom: '1px solid var(--text-1)' }}>
               <p style={{ ...microLbl, marginBottom: '12px' }}>Skills</p>
-              <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '0 0 40px 0', transition: 'border-color 0.25s ease' }} />
+              <hr style={{ border: 'none', borderTop: '1.5px solid var(--text-1)', margin: '0 0 40px 0' }} />
 
               {ABOUT.skills.map(({ category, items }) => (
                 <div key={category} className="tj-about-row" style={{
@@ -237,18 +230,10 @@ export default function AboutPage() {
                   marginBottom: '24px',
                   alignItems: 'start',
                 }}>
-                  <p style={{ ...microLbl, paddingTop: '3px' }}>{category}</p>
+                  <p style={{ ...microLbl, paddingTop: '8px' }}>{category}</p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                     {items.map(skill => (
-                      <span key={skill} style={{
-                        fontSize: '13px',
-                        color: 'var(--text-2)',
-                        background: 'var(--surface)',
-                        border: '1px solid var(--border)',
-                        padding: '4px 12px',
-                        borderRadius: '4px',
-                        transition: 'background 0.25s ease',
-                      }}>{skill}</span>
+                      <span key={skill} className="tj-flag">{skill}</span>
                     ))}
                   </div>
                 </div>
@@ -258,15 +243,25 @@ export default function AboutPage() {
             {/* ── EDUCATION ─────────────────────── */}
             <section id="education" style={{ marginBottom: '40px' }}>
               <p style={{ ...microLbl, marginBottom: '12px' }}>Education</p>
-              <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '0 0 40px 0', transition: 'border-color 0.25s ease' }} />
+              <hr style={{ border: 'none', borderTop: '1.5px solid var(--text-1)', margin: '0 0 40px 0' }} />
 
               <div className="tj-about-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '32px' }}>
-                <p style={{ fontSize: '12px', color: 'var(--text-3)' }}>{ABOUT.education.year}</p>
+                <p style={{
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                  color: 'var(--text-2)',
+                }}>{ABOUT.education.year}</p>
                 <div>
-                  <p style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-1)', marginBottom: '4px', letterSpacing: '-0.01em' }}>
+                  <p className="tj-display-2" style={{
+                    color: 'var(--text-1)',
+                    marginBottom: '6px',
+                    textTransform: 'uppercase',
+                  }}>
                     {ABOUT.education.school}
                   </p>
-                  <p style={{ fontSize: '13px', color: 'var(--text-2)' }}>{ABOUT.education.degree}</p>
+                  <p className="tj-body" style={{ color: 'var(--text-2)' }}>{ABOUT.education.degree}</p>
                 </div>
               </div>
             </section>
