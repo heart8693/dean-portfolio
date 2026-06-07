@@ -156,7 +156,7 @@ export default function AboutPage() {
                   <div style={{
                     width: '240px',
                     aspectRatio: '6/9',
-                    background: 'var(--surface-soft)',
+                    background: 'var(--bg)',
                     borderRadius: 0,
                     overflow: 'hidden',
                     display: 'flex',
