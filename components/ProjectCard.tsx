@@ -99,18 +99,11 @@ export default function ProjectCard({ project: p }: { project: Project }) {
           {p.title}
         </h3>
 
-        {/* ── METRIC AREA — collapses by default, reveals on hover.
-            Value stays ink (orange reserved for action moments).  */}
+        {/* ── METRIC AREA — always visible at rest (no hover needed).
+            Mobile has no hover and recruiters scan fast, so the impact
+            number leads. Value stays ink. */}
         {metric && (
-          <div style={{
-            maxHeight: hovered ? '120px' : '0',
-            opacity: hovered ? 1 : 0,
-            marginBottom: hovered ? '16px' : '0',
-            overflow: 'hidden',
-            transition: hovered
-              ? 'max-height 0.4s cubic-bezier(0.16,1,0.3,1), margin-bottom 0.4s ease, opacity 0.25s ease 0.1s'
-              : 'max-height 0.25s ease, margin-bottom 0.25s ease, opacity 0.15s ease',
-          }}>
+          <div style={{ marginBottom: '16px' }}>
             <p
               className="tj-tnum"
               style={{
