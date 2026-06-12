@@ -273,7 +273,6 @@ export const projects: Project[] = [
         title: "Instantly Read the Spectrum",
         subtitle: "Direction and intensity at a glance. No reading required.",
         body: "A left-to-right color-coded spectrum replaces the vague text label. Blue for Left, Purple for Center, Red for Right. The position and intensity of the fill communicates both direction and strength simultaneously, the way a gauge communicates data, not a label.",
-        image: "/images/biasly-panel-2.jpg",
         video: "/images/biasly-panel-2.mp4",
       },
       {
@@ -340,7 +339,6 @@ export const projects: Project[] = [
         description: "A bias badge appears when the user pauses scrolling over a card, overlaid on the image.",
         pros: ["No layout change required", "Preserves existing card hierarchy"],
         cons: ["Dismissed as an ad within 1 second in every test session", "Conditional visibility means users who scroll at constant speed never see it", "Overlays can be trained out, structural position cannot"],
-        image: "/images/biasly-alt-1.jpg",
         video: "/images/biasly-alt-1.mp4",
       },
       {
@@ -763,7 +761,6 @@ export const projects: Project[] = [
       ],
       conclusion: "Round 1 validated the macro design (90% would play again, 4.2/5 fun rating, 100% task success on the core flow) and surfaced four refinements specific enough to act on. Rather than iterate on the Figma prototype, I moved the refinements into a coded React prototype. Real timer behavior, real rival turn-taking, and real answer-switching couldn't be faithfully simulated in a static prototype, and Round 1 had made it clear those exact behaviors were where the remaining unknowns lived. Round 2 is currently running on the coded build.",
       cultureNote: "This was the first usability test in the company's history. The shift mattered more than any single screen: decisions moved from gut feeling to evidence. The team adopted testing as a default practice for the features that came after.",
-      image: "/images/fipet-usability-hero.jpg",
     },
 
     // ── PROTOTYPE SPOTLIGHT ──────────────────────────
@@ -801,7 +798,6 @@ export const projects: Project[] = [
           caption: "Rival turn-taking + answer switching",
         },
       ],
-      fallbackImage: "/images/fipet-prototype-hero.jpg",
     },
 
     // ── FUTURE STEPS ──────────────────────────────────
