@@ -11,8 +11,21 @@ const anton = Anton({ weight: '400', subsets: ['latin'], variable: '--font-anton
 const geistMono = Geist_Mono({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-geist-mono', display: 'swap' })
 
 export const metadata: Metadata = {
-  title: 'Dean Yoo · Product Designer',
-  description: 'Product designer focused on making complex systems simple.',
+  metadataBase: new URL('https://dean-yoo.com'),
+  title: {
+    default: 'Dean Yoo · Product Designer',
+    template: '%s · Dean Yoo',
+  },
+  description: 'Product designer in Chicago. Test before design, measure after ship. Case studies: Biasly, FiPet, Lyft bike redesign.',
+  openGraph: {
+    siteName: 'Dean Yoo · Product Designer',
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://dean-yoo.com',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

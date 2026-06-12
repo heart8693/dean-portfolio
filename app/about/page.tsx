@@ -1,7 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
-export const metadata: Metadata = { title: 'About — Dean Yoo' }
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'Dean Yoo, product designer in Chicago. SAIC BFA, Dec 2026. Test before design, measure after ship.',
+  alternates: { canonical: '/about' },
+}
 
 const ABOUT = {
   name: 'Dean Yoo',

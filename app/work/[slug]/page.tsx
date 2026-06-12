@@ -17,7 +17,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const p = getProject(slug)
   if (!p) return {}
-  return { title: p.title + ' — Dean Yoo', description: p.description }
+  return {
+    title: p.title,
+    description: p.description,
+    alternates: { canonical: `/work/${slug}` },
+    openGraph: {
+      title: `${p.title} · Dean Yoo`,
+      description: p.description,
+      url: `/work/${slug}`,
+      type: 'article',
+    },
+  }
 }
 
 // H = inline highlight. Wrap any phrase directly in JSX: <H>exact phrase</H>
@@ -77,6 +87,12 @@ export default async function CaseStudy({ params }: Props) {
           )}
 
           <article style={{ maxWidth: '900px', margin: '0 auto', padding: '24px 60px 120px' }}>
+
+            {/* Visually hidden page heading — the visual title lives in the hero image */}
+            <h1 style={{
+              position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px',
+              overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap', border: 0,
+            }}>{p.title}</h1>
 
             {/* HEADER — metrics first, then tags, lede, meta strip */}
             <header style={{ marginBottom: '64px', paddingBottom: '48px' }}>
