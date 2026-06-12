@@ -17,9 +17,9 @@ const ABOUT = {
   experience: [
     {
       company: 'FiPet',
-      role: 'Product Design Intern',
+      role: 'UI/UX Intern, Lead on Quiz Battle',
       period: 'Jan 2026 – May 2026',
-      description: 'Lead designer on a 13-person cross-functional team. Led the end to end design of the 1v1 Quiz Battle feature, from concept through hi-fi prototype, owning every screen and state. Introduced the company first usability testing and ran it in Maze to validate the design before the next build.',
+      description: 'Led the end-to-end design of the 1v1 Quiz Battle feature on a 13-person cross-functional team, from concept through hi-fi prototype, owning every screen and state. Introduced the company\'s first usability testing and ran it in Maze to validate the design before the next build.',
     },
     {
       company: 'Biasly',
@@ -38,7 +38,7 @@ const ABOUT = {
     { category: 'Design', items: ['Product Design', 'Interaction Design', 'Information Architecture', 'Design Systems', 'Usability Testing'] },
     { category: 'Tools', items: ['Figma', 'Adobe Creative Suite', 'Maze', 'Framer', 'Webflow', 'Protopie'] },
     { category: 'Code', items: ['HTML/CSS', 'React'] },
-    { category: 'AI', items: ['Claude Code','Google Stich','UX Pilot', 'AI-assisted design workflows'] },
+    { category: 'AI', items: ['Claude Code','Google Stitch','UX Pilot', 'AI-assisted design workflows'] },
   ],
   education: {
     school: 'School of the Art Institute of Chicago',

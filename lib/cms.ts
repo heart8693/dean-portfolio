@@ -245,11 +245,12 @@ export const projects: Project[] = [
     team: "PM, 2 Engineers",
     timeline: "3 months",
     tools: "Figma, Maze, Notion",
+    // TODO(dean): verify 31-to-78 against session data
     impact: "Led the mobile feed redesign end-to-end. Bias recognition improved from 31% to 78%, and users identified bias 3× faster in testing.",
 
     // ── OVERVIEW ──────────────────────────────────────
     problemTitle: "The Problem",
-    problemBody: "Casual news readers who use Biasly to stay politically informed often find themselves reacting to headlines before ever registering bias context beneath them. The bias indicator existed, but It just appeared too late. By the time users reached it, they had already formed an opinion.",
+    problemBody: "Casual news readers who use Biasly to stay politically informed often find themselves reacting to headlines before ever registering bias context beneath them. The bias indicator existed, but it just appeared too late. By the time users reached it, they had already formed an opinion.",
     problemPoints: [
       "Bias indicators appeared below the primary scan path and were frequently missed",
       "Text labels communicated category only, not direction or strength at a glance",
@@ -270,7 +271,7 @@ export const projects: Project[] = [
       {
         number: "02",
         title: "Instantly Read the Spectrum",
-        subtitle: "The best photo is already picked for you. No reading required.",
+        subtitle: "Direction and intensity at a glance. No reading required.",
         body: "A left-to-right color-coded spectrum replaces the vague text label. Blue for Left, Purple for Center, Red for Right. The position and intensity of the fill communicates both direction and strength simultaneously, the way a gauge communicates data, not a label.",
         image: "/images/biasly-panel-2.jpg",
         video: "/images/biasly-panel-2.mp4",
@@ -456,6 +457,7 @@ export const projects: Project[] = [
     impactMethod: "12 sessions · matched profile · 3-min exposure · 5-article recall · observer-coded",
     metrics: [
       { value: "3×", label: "Faster recognition", context: "9s → 3s median time-to-identify (n=12)" },
+      // TODO(dean): verify 31-to-78 against session data (renders in both the case hero and the outcome section)
       { value: "78%", label: "Accuracy", context: "Up from 31%, same task, different layout (n=12)" },
       { value: "60%", label: "Drop in missed indicators", context: "Observer-coded overlooked bias data (n=12)" },
     ],
@@ -475,9 +477,9 @@ export const projects: Project[] = [
     heroImageMobile: "/images/fipet-mobile-hero.png",
     thumbBg: "#2d1810",
 
-    role: "Lead Designer",
+    role: "UI/UX Intern, Lead on Quiz Battle",
     team: "1 PM, 2 other designers, 10 engineers",
-    timeline: "4 months",
+    timeline: "Jan – May 2026",
     tools: "Figma, Maze, Claude Code",
     impact: "Led design end-to-end for the 1v1 Quiz Battle feature on a 13-person team. Established a design system the entire team adopted for a broader app redesign. Introduced usability testing as a default practice, the first in company history.",
 
@@ -714,13 +716,13 @@ export const projects: Project[] = [
     usabilityTesting: {
       round: "Round 1 — Figma Prototype Testing",
       context: "FiPet had shipped without a single usability test, which was the original problem. After designing the 1v1 Quiz Battle feature, the question wasn't whether to test. It was how fast we could get evidence before shipping the next iteration. I built the test plan in Maze, ran it against the hi-fi Figma prototype, and made it the first usability test in the company's history.",
-      participants: "22 participants across the core task flow, 33 total responses across the full set of tasks and follow-ups. Recruited as adults briefed as proxies for the 8–15 target audience, direct child testing required parental consent infrastructure we didn't have yet, so adults walked through the task flows imagining they were the target age. 97% of participants were aged 16 or older.",
+      participants: "22 participants completed the core task flow; 10 completed the post-task opinion scales (33 total responses across all tasks and follow-ups). Recruited as adults briefed as proxies for the 8–15 target audience, direct child testing required parental consent infrastructure we didn't have yet, so adults walked through the task flows imagining they were the target age. 97% of participants were aged 16 or older.",
       method: "Maze prototype test with three core tasks: start a quiz battle, answer a question, complete all five questions. Each task surfaced a different layer of friction. Open-ended follow-up questions captured the reasoning behind specific moments of confusion or surprise. Three task flows, fourteen blocks total.",
       metrics: [
         { value: "100%", label: "Task success", context: "All participants completed the core flow (n=22)" },
-        { value: "4.2/5", label: "Fun rating", context: "Average across 10 participants on the post-task scale" },
-        { value: "90%", label: "Would play again", context: "9 of 10 said yes, validated the Play Again CTA call" },
-        { value: "0%", label: "Drop-off", context: "No participants abandoned mid-task on any of the three tasks" },
+        { value: "4.2/5", label: "Fun rating", context: "Average on the post-task opinion scale (n=10)" },
+        { value: "90%", label: "Would play again", context: "9 of 10 said yes, validated the Play Again CTA call (n=10)" },
+        { value: "0%", label: "Drop-off", context: "No participants abandoned mid-task on any of the three tasks (n=22)" },
       ],
       findings: [
         {
@@ -1101,7 +1103,7 @@ export const projects: Project[] = [
       method: "Maze · 15 blocks · 2 prototype task flows · opinion scales · open response · 5-second tests",
       metrics: [
         { value: "4.5/5", label: "Dock confidence", context: "How confident did you feel you'd find an available dock at your destination? 63% rated 5, 25% rated 4, 13% rated 3 (n=8)" },
-        { value: "4.3/5", label: "Trust in system", context: "Would you trust this system to help you find a dock on future rides? 100% rated 4 to 5 (n=4)" },
+        { value: "4.3/5", label: "Trust in system", context: "Would you trust this system to help you find a dock on future rides? 100% rated 4 to 5, though only 4 of 8 participants completed this scale, so I read it as directional (n=4)" },
         { value: "83%", label: "Chose by price", context: "Station choice influenced by price per minute (50%) plus the Lower/Higher rate label (33%), which validates the dynamic pricing direction (n=6)" },
         { value: "100%", label: "Task success rate", context: "Both Task 1 (Plan Your Ride) and Task 2 (Compare Stations) hit 100% success with 0% drop-off" },
       ],
@@ -1202,7 +1204,8 @@ export const projects: Project[] = [
     impactMethod: "Maze remote usability testing · 8 participants Round 1 · 15 blocks · 2 task flows · Round 2 targeting 10–15 participants",
     metrics: [
       { value: "4.5/5", label: "Dock confidence", context: "How confident did you feel you'd find an available dock at your destination? (n=8)" },
-      { value: "4.3/5", label: "Trust in system", context: "Would you trust this system to help you find a dock on future rides? 100% rated 4 to 5 (n=4)" },
+      // Trust stat (4.3/5, n=4) lives in the Usability Testing section with its sample-size caveat; n=4 is too thin to headline
+      { value: "83%", label: "Chose by the price signal", context: "Station choice influenced by price per minute (50%) plus the Lower/Higher rate label (33%) (n=6)" },
       { value: "Zero", label: "New technology required", context: "Every feature maps to AirControl, Bike Angels, Live Activities, or Lyft's internal prediction algorithms. The engineering lift is mostly frontend" },
     ],
   },

@@ -20,9 +20,10 @@ const HOVER_CTA: Record<string, string> = {
 //      FiPet  → categorical milestone (first-ever practice)
 //      Ride   → categorical restraint (reframing — surface, don't build)
 const HOVER_METRIC: Record<string, { value: string; label: string }> = {
+  // TODO(dean): verify 31-to-78 against session data
   'biasly':           { value: '31 → 78%',   label: 'bias recognition' },
-  'fipet':            { value: '90%',      label: 'would play again' },
-  'ride-availability': { value: '4.5/5',     label: 'dock confidence' },
+  'fipet':            { value: '90%',      label: 'would play again (n=10)' },
+  'ride-availability': { value: '4.5/5',     label: 'dock confidence (n=8)' },
 }
 
 // ── Per-project underlined-link color (AA-safe on white).

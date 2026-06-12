@@ -156,7 +156,7 @@ export default async function CaseStudy({ params }: Props) {
                 <div>
                   {p.slug === 'biasly' ? (
                     <p style={bodyLg}>
-                      Casual news readers who use Biasly to stay politically informed often find themselves <H>reacting to headlines before ever registering bias</H> context beneath them. The bias indicator existed, but <H>It just appeared too late</H>. By the time users reached it, they had already formed an opinion.
+                      Casual news readers who use Biasly to stay politically informed often find themselves <H>reacting to headlines before ever registering bias</H> context beneath them. The bias indicator existed, but <H>it just appeared too late</H>. By the time users reached it, they had already formed an opinion.
                     </p>
                   ) : p.slug === 'fipet' ? (
                     <p style={bodyLg}>
