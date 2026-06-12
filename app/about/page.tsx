@@ -9,7 +9,7 @@ const ABOUT = {
   location: 'Chicago, IL',
   available: true,
   email: 'hyart2021@gmail.com',
-  image: "/images/about.png",
+  image: "/images/about.webp",
   bio: [
     "I'm a product designer who doesn't trust assumptions. I test before I design and measure after I ship. The work here started the same way every time: a product that launched before anyone checked whether it worked.",
     "At one of these companies I ran the first usability test it had ever done. I'm the kind of designer who will defend a decision if the research backs it, and drop it the moment it doesn't. I study at SAIC, live in Chicago, and share a desk with three cats.",
@@ -165,7 +165,7 @@ export default function AboutPage() {
                   }}>
                     {/* Photo */}
                     <img
-                      src="/images/about.png"
+                      src="/images/about.webp"
                       alt="Dean Yoo"
                       style={{
                         width: '100%',

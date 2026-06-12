@@ -68,6 +68,7 @@ export default function ProjectCard({ project: p }: { project: Project }) {
           <img
             src={p.coverImage}
             alt={p.title}
+            loading="lazy" decoding="async"
             style={{
               width: '100%', height: '100%',
               objectFit: 'cover', display: 'block',

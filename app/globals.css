@@ -4,17 +4,17 @@
 
 /* ── Type stack ─────────────────────────────────────
    :root (case study) keeps Inter + Geist Mono.
-   .tj-marketing surfaces use Anton (display) + Switzer (body). */
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+   .tj-marketing surfaces use Anton (display) + Switzer (body).
+   Inter / Geist Mono / Anton are self-hosted via next/font
+   (CSS variables set on <html> in app/layout.tsx). Switzer
+   stays on Fontshare, the only remaining external request. */
 @import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap');
 
 /* ── Coinbase design tokens (light) ────────────────── */
 :root {
-  --font-sans:    'Switzer', 'Inter', -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-sans:    'Switzer', var(--font-inter), -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-display: var(--font-sans);
-  --font-mono:    'Geist Mono', ui-monospace, 'SF Mono', monospace;
+  --font-mono:    var(--font-geist-mono), ui-monospace, 'SF Mono', monospace;
 
   /* Brand */
   --accent:           #0052ff;   /* Coinbase Blue */
@@ -365,7 +365,7 @@ img { display: block; }
   --on-accent:        var(--accent-contrast);   /* legacy alias */
 
   /* Type families */
-  --font-display: 'Anton', 'Switzer', 'Inter', 'Helvetica Neue Condensed', 'Arial Narrow', sans-serif;
+  --font-display: var(--font-anton), 'Switzer', var(--font-inter), 'Helvetica Neue Condensed', 'Arial Narrow', sans-serif;
   --font-body:    'Switzer', -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
 
   background: var(--bg);

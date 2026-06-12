@@ -41,6 +41,7 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
         <img
           src={p.image}
           alt={p.archetype}
+          loading="lazy" decoding="async"
           style={{
             width: '100%',
             height: '100%',

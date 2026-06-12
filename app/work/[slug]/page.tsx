@@ -69,6 +69,7 @@ export default async function CaseStudy({ params }: Props) {
               <img
                 src={p.heroImage ?? p.coverImage}
                 alt={p.title}
+                fetchPriority="high"
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </picture>
@@ -187,6 +188,7 @@ export default async function CaseStudy({ params }: Props) {
                     <img
                       src={p.beforeImage}
                       alt="Before"
+                      loading="lazy" decoding="async"
                       style={{
                         width: '100%',
                         height: 'auto',
@@ -211,7 +213,7 @@ export default async function CaseStudy({ params }: Props) {
                       {panel.video
                         ? <video src={panel.video} autoPlay loop muted playsInline style={{ maxWidth: '100%', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }} />
                         : panel.image
-                          ? <img src={panel.image} alt={panel.title} style={{ maxWidth: '420px', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }} />
+                          ? <img src={panel.image} alt={panel.title} loading="lazy" decoding="async" style={{ maxWidth: '420px', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }} />
                           : <p style={{ fontSize: '11px', color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Add mockup</p>
                       }
                     </div>
@@ -276,7 +278,7 @@ export default async function CaseStudy({ params }: Props) {
                         transition: 'background 0.25s ease',
                       }}>
                         {flow.image
-                          ? <img src={flow.image} alt={flow.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                          ? <img src={flow.image} alt={flow.title} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                           : <p style={{ fontSize: '11px', color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Add UI image</p>
                         }
                       </div>
@@ -521,7 +523,7 @@ export default async function CaseStudy({ params }: Props) {
                             : { width: '100%', height: 'auto', display: 'block' }
                           } />
                         : alt.image
-                          ? <img src={alt.image} alt={alt.title} style={p.slug === 'fipet'
+                          ? <img src={alt.image} alt={alt.title} loading="lazy" decoding="async" style={p.slug === 'fipet'
                               ? { maxWidth: '100%', maxHeight: '560px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }
                               : { width: '100%', height: 'auto', display: 'block' }
                             } />
@@ -645,7 +647,7 @@ export default async function CaseStudy({ params }: Props) {
                   {[{ img: p.beforeImage, lbl: 'Before' }, { img: p.afterImage, lbl: 'After' }].map(({ img, lbl }, i) => (
                     <figure key={lbl} className="tj-ba-fig" style={{ margin: 0, width: 'fit-content', maxWidth: '100%', justifySelf: i === 0 ? 'end' : 'start' }}>
                       {img
-                        ? <img src={img} alt={lbl} style={{ maxWidth: '100%', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block'}} />
+                        ? <img src={img} alt={lbl} loading="lazy" decoding="async" style={{ maxWidth: '100%', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block'}} />
                         : <div style={{ width: '320px', maxWidth: '100%', aspectRatio: '4/3', background: 'var(--surface)', borderRadius: '12px', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p style={microLbl}>Add image</p></div>
                       }
                       <figcaption style={captionStyle}>{lbl}</figcaption>
@@ -942,6 +944,7 @@ export default async function CaseStudy({ params }: Props) {
                       <img
                         src={p.prototypeSpotlight.fallbackImage}
                         alt={p.prototypeSpotlight.title}
+                        loading="lazy" decoding="async"
                         style={{ width: '100%', height: 'auto', display: 'block' }}
                       />
                     </div>
@@ -988,6 +991,7 @@ export default async function CaseStudy({ params }: Props) {
                 <img
                   src={(p as any).outcomeImage ?? p.afterImage}
                   alt="Final design"
+                  loading="lazy" decoding="async"
                   style={{ width: '100%', display: 'block', borderRadius: '8px' }}
                 />
               </figure>

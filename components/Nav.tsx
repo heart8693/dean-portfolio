@@ -70,7 +70,7 @@ export default function Nav() {
     letterSpacing: '-0.005em',
     lineHeight: 0.95,
     textTransform: 'uppercase' as const,
-    fontFamily: "'Anton', 'Helvetica Neue Condensed', sans-serif",
+    fontFamily: "var(--font-anton), 'Helvetica Neue Condensed', sans-serif",
   }
 
   return (

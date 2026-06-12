@@ -236,9 +236,9 @@ export const projects: Project[] = [
     featured: true,
     order: 1,
 
-    coverImage: "/images/biasly-cover.png",
-    heroImage: "/images/biasly-hero.png",
-    heroImageMobile: "/images/biasly-mobile-hero.png",
+    coverImage: "/images/biasly-cover.webp",
+    heroImage: "/images/biasly-hero.webp",
+    heroImageMobile: "/images/biasly-mobile-hero.webp",
     thumbBg: "#1c2340",
 
     role: "Product Design Intern",
@@ -266,7 +266,7 @@ export const projects: Project[] = [
         title: "Bias Before the Headline",
         subtitle: "Political context appears before users form an opinion.",
         body: "The redesigned card anchors bias at the top, next to the source name. Users see direction and intensity before reading a single word of the headline, shifting the moment of awareness from after-the-fact to before the first impression.",
-        image: "/images/biasly-panel-1.png",
+        image: "/images/biasly-panel-1.webp",
       },
       {
         number: "02",
@@ -281,7 +281,7 @@ export const projects: Project[] = [
         title: "You Stay in Control",
         subtitle: "Tap any card to read the full article with full bias context intact.",
         body: "The article view preserves the same bias encoding at the top of the page. Users who want to read a story have full context visible throughout, not just on the feed. The system stays consistent so the encoding becomes second nature.",
-        image: "/images/biasly-panel-3.png",
+        image: "/images/biasly-panel-3.webp",
       },
     ],
 
@@ -349,7 +349,7 @@ export const projects: Project[] = [
         description: "A thin color bar replaces the text label, positioned between the headline and the article body text.",
         pros: ["Visual encoding improves on text label", "Lower disruption to card layout"],
         cons: ["Still below the headline, users form impressions before reaching it", "Thin bar is easy to overlook during fast scrolling", "Does not solve the sequence problem"],
-        image: "/images/biasly-alt-2.png",
+        image: "/images/biasly-alt-2.webp",
       },
       {
         number: "03",
@@ -357,7 +357,7 @@ export const projects: Project[] = [
         description: "Bias pill and spectrum bar move to the top of the card, adjacent to the source name, before the headline.",
         pros: ["Appears before the headline in every scan sequence", "Cannot be skipped without seeing it", "Consistent position across all cards builds pattern recognition"],
         cons: ["Requires image size reduction to maintain visual balance", "More layout change than the other options"],
-        image: "/images/biasly-alt-3.png",
+        image: "/images/biasly-alt-3.webp",
       },
     ],
     designAlternativesConclusion: "I developed Alternative 03 further. The floating overlay and the below-headline bar both left the core sequence problem unsolved, they were just moving the label to a marginally better position. Moving bias to the header was the only option that structurally guaranteed it would be seen before the headline.",
@@ -408,9 +408,9 @@ export const projects: Project[] = [
       },
     ],
 
-    beforeImage: "/images/biasly-before.png",
-    afterImage: "/images/biasly-after.png",
-    outcomeImage: "/images/biasly-outcome.png",
+    beforeImage: "/images/biasly-before.webp",
+    afterImage: "/images/biasly-after.webp",
+    outcomeImage: "/images/biasly-outcome.webp",
 
 
     // ── FUTURE STEPS ──────────────────────────────────
@@ -472,9 +472,9 @@ export const projects: Project[] = [
     featured: true,
     order: 2,
 
-    coverImage: "/images/fipet-cover.png",
-    heroImage: "/images/fipet-hero.png",
-    heroImageMobile: "/images/fipet-mobile-hero.png",
+    coverImage: "/images/fipet-cover.webp",
+    heroImage: "/images/fipet-hero.webp",
+    heroImageMobile: "/images/fipet-mobile-hero.webp",
     thumbBg: "#2d1810",
 
     role: "UI/UX Intern, Lead on Quiz Battle",
@@ -516,7 +516,7 @@ export const projects: Project[] = [
         title: "Play Again, Not Buy with Coins",
         subtitle: "The post-win moment protects momentum instead of converting it.",
         body: "When users win, the primary CTA is 'Play Again', not 'Buy with earned coins'. This was the call where I pushed back hardest against the PM. The argument I built was grounded in Flow Theory and research on children's sensitivity to flow interruption: the moment right after winning is the worst possible moment to send a kid into a shop. Round 1 testing later validated the call. Ninety percent of participants said they'd play again.",
-        image: "/images/fipet-panel-3.png",
+        image: "/images/fipet-panel-3.webp",
       },
     ],
 
@@ -559,7 +559,7 @@ export const projects: Project[] = [
         meta: "First-time users · Public intercepts",
         quote: "It's so confusing. I don't even know what this app is for.",
         quoteAttribution: "— kid, intercepted in a public space",
-        image: "/images/persona-kid.jpeg",
+        image: "/images/persona-kid.webp",
         keyNeeds: [
           "Something to tap within the first ten seconds",
           "A clear signal that this isn't homework",
@@ -574,7 +574,7 @@ export const projects: Project[] = [
         meta: "Decision-makers · Interviewed with their kid",
         quote: "It's too overwhelming. I don't even know where to tap first.",
         quoteAttribution: "— parent, watching their child use the app",
-        image: "/images/persona-parent.jpeg",
+        image: "/images/persona-parent.webp",
         keyNeeds: [
           "Visible proof their kid is engaged, not bored",
           "Something polished enough to justify keeping",
@@ -616,7 +616,7 @@ export const projects: Project[] = [
           "Streak alone wasn't enough for users who were already disengaged",
           "No reason to open the app beyond self-discipline, which isn't an 8–15 year old strength",
         ],
-        image: "/images/fipet-alt-1.png",
+        image: "/images/fipet-alt-1.webp",
         decision: "rejected",
       },
       {
@@ -633,7 +633,7 @@ export const projects: Project[] = [
           "Users in concept tests said it looked like another Instagram",
           "Hard to populate with meaningful content early on when the network is sparse",
         ],
-        image: "/images/fipet-alt-2.png",
+        image: "/images/fipet-alt-2.webp",
         decision: "rejected",
       },
       {
@@ -650,7 +650,7 @@ export const projects: Project[] = [
           "Required multiplayer infrastructure, the most expensive option to ship",
           "Risks alienating users without friends on the app yet (handled with bot opponents at first)",
         ],
-        image: "/images/fipet-alt-3.png",
+        image: "/images/fipet-alt-3.webp",
         decision: "chosen",
       },
     ],
@@ -708,9 +708,9 @@ export const projects: Project[] = [
       },
     ],
 
-    beforeImage: "/images/fipet-before.png",
-    afterImage: "/images/fipet-after.png",
-    outcomeImage: "/images/fipet-outcome.png",
+    beforeImage: "/images/fipet-before.webp",
+    afterImage: "/images/fipet-after.webp",
+    outcomeImage: "/images/fipet-outcome.webp",
 
     // ── USABILITY TESTING (Round 1) ───────────────────
     usabilityTesting: {
@@ -793,11 +793,11 @@ export const projects: Project[] = [
       liveLinkLabel: "Try the prototype",
       videos: [
         {
-          src: "/videos/timer-reveal-raw.mov",
+          src: "/videos/timer-reveal-raw.mp4",
           caption: "12-second timer + answer reveal flow",
         },
         {
-          src: "/videos/turn-switching-raw.mov",
+          src: "/videos/turn-switching-raw.mp4",
           caption: "Rival turn-taking + answer switching",
         },
       ],
@@ -872,9 +872,9 @@ export const projects: Project[] = [
     featured: true,
     order: 3,
 
-    coverImage: "/images/lyft-cover.png",
-    heroImage: "/images/lyft-hero.png",
-    heroImageMobile: "/images/lyft-mobile-hero.png",
+    coverImage: "/images/lyft-cover.webp",
+    heroImage: "/images/lyft-hero.webp",
+    heroImageMobile: "/images/lyft-mobile-hero.webp",
     thumbBg: "#1a1a2e",
 
     role: "Solo designer",
@@ -901,21 +901,21 @@ export const projects: Project[] = [
         title: "Dynamic pricing at station selection",
         subtitle: "Price is the incentive. No badges, no banners.",
         body: "The per-minute rate moves with station supply. Overstocked stations price lower ($0.39/min) to clear bikes for riders arriving later. Understocked stations price higher ($0.49/min) to protect what's left. The incentive sits inside a number riders already compare, so it needs no new UI. Published research on departure-side pricing backs this up: +300% revenue and -76% rebalancing cost versus fixed pricing (PMC, 2025).",
-        image: "/images/ride-panel-1.png",
+        image: "/images/ride-panel-1.webp",
       },
       {
         number: "02",
         title: "Recommended routes with dock confidence",
         subtitle: "Every dock decision happens before the ride starts.",
         body: "Once a rider adds a destination, three route options appear (Fastest, Cheapest, Closest), and each one shows how likely a dock will be open on arrival. The signal has three levels: very likely available, likely available, and limited availability. Because the rider decides before the bike unlocks, there's no reason to check the phone mid-ride.",
-        image: "/images/ride-panel-2.png",
+        image: "/images/ride-panel-2.webp",
       },
       {
         number: "03",
         title: "Live Activity mid-ride",
         subtitle: "Glance-only alerts via the iOS Dynamic Island.",
         body: "If a destination dock starts filling up, the Live Activity updates with a passive alert. The rider doesn't open the app or tap anything. If the dock fills before they arrive, the system reroutes to the nearest alternative and issues a $1.00 credit for getting the prediction wrong. Owning the failure is what keeps riders trusting the prediction next time.",
-        image: "/images/ride-panel-3.png",
+        image: "/images/ride-panel-3.webp",
       },
     ],
 
@@ -956,7 +956,7 @@ export const projects: Project[] = [
         name: "Sarah Kim",
         meta: "Age 29 · Daily commuter",
         quote: "If I can't rely on it every morning, I'll just take the train.",
-        image: "/images/persona-sarah.jpeg",
+        image: "/images/persona-sarah.webp",
         keyNeeds: [
           "A dock guaranteed to be open at arrival",
           "Reliability she can build a schedule on",
@@ -970,7 +970,7 @@ export const projects: Project[] = [
         name: "Luis Martinez",
         meta: "Age 24 · Bike + transit rider",
         quote: "Bikes make the city feel connected, but availability is unpredictable.",
-        image: "/images/persona-luis.jpeg",
+        image: "/images/persona-luis.webp",
         keyNeeds: [
           "Stations that connect cleanly with transit hubs",
           "A clear next-best option when one station fails",
@@ -984,7 +984,7 @@ export const projects: Project[] = [
         name: "David Okafor",
         meta: "Age 35 · Weekend rider",
         quote: "I just want to grab a bike and ride without figuring out the system.",
-        image: "/images/persona-david.jpeg",
+        image: "/images/persona-david.webp",
         keyNeeds: [
           "A bike he can grab without learning the system",
           "Confidence the dock will accept his return",
@@ -1017,7 +1017,7 @@ export const projects: Project[] = [
         description: "'Save $0.30' badges layered onto dock options, putting financial incentive directly on the route selection screen.",
         pros: ["Clear value proposition", "Riders immediately understand the savings"],
         cons: ["Information overload on dock selection. Riders are already processing three options plus time and distance", "Adds another visual element to a screen that's already busy", "Badge fatigue from other apps means financial badges get tuned out anyway"],
-        image: "/images/ride-alt-1.png",
+        image: "/images/ride-alt-1.webp",
         decision: "rejected",
       },
       {
@@ -1026,7 +1026,7 @@ export const projects: Project[] = [
         description: "'Earn $0.50 credit for starting here.' Surface rebalancing incentives through a dismissible banner near the station selection.",
         pros: ["Low implementation cost", "Doesn't change the existing UI structure"],
         cons: ["Banners are easy to dismiss or ignore", "Reads like an ad, not a system message", "Doesn't tap into the comparison riders already do. They naturally compare price and time, but they don't read banners while doing it"],
-        image: "/images/ride-alt-2.png",
+        image: "/images/ride-alt-2.webp",
         decision: "rejected",
       },
       {
@@ -1035,7 +1035,7 @@ export const projects: Project[] = [
         description: "Per-minute rate adjusts by station supply and demand. The price riders already compare becomes the incentive. No badges, no banners.",
         pros: ["No information overload, since it uses data riders already process", "Taps into the comparison riders already make", "Backed by published research: +300% revenue, -76% rebalancing cost vs fixed pricing (PMC, 2025)", "Works within existing infrastructure. The pricing logic is on the backend, and the only visible change is the rate"],
         cons: ["Requires pricing-logic adjustments on the backend", "Riders may not notice small price differences without prompting"],
-        image: "/images/ride-alt-3.png",
+        image: "/images/ride-alt-3.webp",
         decision: "chosen",
       },
     ],
@@ -1091,9 +1091,9 @@ export const projects: Project[] = [
       },
     ],
 
-    beforeImage: "/images/lyft-before.png",
-    afterImage: "/images/ride-after.png",
-    outcomeImage: "/images/ride-outcome.png",
+    beforeImage: "/images/lyft-before.webp",
+    afterImage: "/images/ride-after.webp",
+    outcomeImage: "/images/ride-outcome.webp",
 
     // ── USABILITY TESTING ─────────────────────────────
     usabilityTesting: {
