@@ -234,7 +234,7 @@ export const projects: Project[] = [
     year: "2025",
     category: "Mobile",
     featured: true,
-    order: 1,
+    order: 2,
 
     coverImage: "/images/biasly-cover.webp",
     heroImage: "/images/biasly-hero.webp",
@@ -468,7 +468,7 @@ export const projects: Project[] = [
     year: "2026",
     category: "Mobile",
     featured: true,
-    order: 2,
+    order: 1,
 
     coverImage: "/images/fipet-cover.webp",
     heroImage: "/images/fipet-hero.webp",
