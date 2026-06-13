@@ -7,6 +7,8 @@ import ScrollHighlight from '@/components/ScrollHighlight'
 import CaseStudyNav from '@/components/CaseStudyNav'
 import PersonaCard from '@/components/PersonaCard'
 import ArtifactPlaceholder from '@/components/ArtifactPlaceholder'
+import SessionScript from '@/components/SessionScript'
+import TestedFrames from '@/components/TestedFrames'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -1022,18 +1024,8 @@ export default async function CaseStudy({ params }: Props) {
                   <p style={bodyLg}>
                     12 moderated sessions, run twice with the same participants: a baseline round on the original feed, then a follow-up round on the redesigned card structure. Bias recognition was observer-coded against predefined criteria. Time-to-identify was measured from card load to verbal identification. The session script and tested frames are shown below.
                   </p>
-                  <div style={{ maxWidth: '560px' }}>
-                    <ArtifactPlaceholder
-                      label="SESSION SCRIPT"
-                      aspectRatio="4/3"
-                      caption="Drop in: 3-4 representative questions from the moderated session script, styled as a document snippet"
-                    />
-                  </div>
-                  <ArtifactPlaceholder
-                    label="TESTED FRAMES"
-                    aspectRatio="16/9"
-                    caption="Drop in: the baseline card and the redesigned card exactly as shown in sessions, side by side, labeled Version as tested"
-                  />
+                  <SessionScript />
+                  <TestedFrames />
                   <ArtifactPlaceholder
                     label="WORKING FILE"
                     aspectRatio="16/9"
