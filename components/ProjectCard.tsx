@@ -22,7 +22,7 @@ const HOVER_CTA: Record<string, string> = {
 const HOVER_METRIC: Record<string, { value: string; label: string }> = {
   // TODO(dean): verify 31-to-78 against session data
   'biasly':           { value: '31 → 78%',   label: 'bias recognition' },
-  'fipet':            { value: '90%',      label: 'would play again (n=10)' },
+  'fipet':            { value: '90%',      label: 'would play again' },
   'ride-availability': { value: '4.4/5',     label: 'confidence they would find a dock' },
 }
 
