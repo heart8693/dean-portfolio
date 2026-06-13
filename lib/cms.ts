@@ -648,7 +648,7 @@ export const projects: Project[] = [
           "Required multiplayer infrastructure, the most expensive option to ship",
           "Risks alienating users without friends on the app yet (handled with bot opponents at first)",
         ],
-        image: "/images/fipet-alt-3.webp",
+        image: "/images/fipet-alt-3.png",
         decision: "chosen",
       },
     ],
