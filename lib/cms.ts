@@ -714,19 +714,18 @@ export const projects: Project[] = [
     usabilityTesting: {
       round: "Round 1 — Figma Prototype Testing",
       context: "FiPet had shipped without a single usability test, which was the original problem. After designing the 1v1 Quiz Battle feature, the question wasn't whether to test. It was how fast we could get evidence before shipping the next iteration. I built the test plan in Maze, ran it against the hi-fi Figma prototype, and made it the first usability test in the company's history.",
-      participants: "22 participants completed the core task flow; 10 completed the post-task opinion scales (33 total responses across all tasks and follow-ups). Recruited as adults briefed as proxies for the 8–15 target audience, direct child testing required parental consent infrastructure we didn't have yet, so adults walked through the task flows imagining they were the target age. 97% of participants were aged 16 or older.",
+      participants: "22 recorded sessions were logged across the core task flow; 10 participants completed the test end to end, including the post-task opinion scales (33 total responses across all tasks and follow-ups). Recruited as adults briefed as proxies for the 8–15 target audience, direct child testing required parental consent infrastructure we didn't have yet, so adults walked through the task flows imagining they were the target age. 97% of participants were aged 16 or older.",
       method: "Maze prototype test with three core tasks: start a quiz battle, answer a question, complete all five questions. Each task surfaced a different layer of friction. Open-ended follow-up questions captured the reasoning behind specific moments of confusion or surprise. Three task flows, fourteen blocks total.",
       metrics: [
-        { value: "100%", label: "Task success", context: "All participants completed the core flow (n=22)" },
-        { value: "4.2/5", label: "Fun rating", context: "Average on the post-task opinion scale (n=10)" },
-        { value: "90%", label: "Would play again", context: "9 of 10 said yes, validated the Play Again CTA call (n=10)" },
-        { value: "0%", label: "Drop-off", context: "No participants abandoned mid-task on any of the three tasks (n=22)" },
+        { value: "100%", label: "Task success", context: "Per task block, across 22 recorded sessions" },
+        { value: "4.2/5", label: "Fun rating", context: "Average on the post-task opinion scale (n=10 full completions)" },
+        { value: "90%", label: "Would play again", context: "9 of 10 said yes, validated the Play Again CTA call (n=10 full completions)" },
       ],
       findings: [
         {
           number: "01",
           finding: "Start button below the fold caused a 65.9% misclick rate on the first task",
-          evidence: "22 participants tried to start a battle. 65.9% misclicked at least once before finding the right action. One participant put it plainly: \"I didn't realize the start button was under the page, so I confused that as a buffer.\" Average task duration was 228 seconds, slow for what should have been an obvious entry point.",
+          evidence: "The first task logged 22 recorded sessions. 65.9% misclicked at least once before finding the right action. One participant put it plainly: \"I didn't realize the start button was under the page, so I confused that as a buffer.\" Average task duration was 228 seconds, slow for what should have been an obvious entry point.",
           refinement: "Repositioned the Start button above the fold in the V2 prototype, with a visible hint that it was the primary action.",
           refinementReason: "A 65.9% misclick rate isn't a discoverability nudge, it's the design failing. The fix had to be structural, not visual. Moving the button above the fold was the only change that addressed the cause rather than the symptom.",
         },
@@ -851,10 +850,10 @@ export const projects: Project[] = [
     // ── OUTCOME ───────────────────────────────────────
     impactTitle: "Outcome",
     impactBody: "Round 1 was the company's first usability test. It validated the macro design (90% would play again, 4.2/5 fun, 100% task success on the core flow) and produced four specific refinements that moved into a coded React prototype for Round 2. The design system I built for the Quiz Battle feature was adopted across the team for the broader app redesign. The shift the team is still feeling, the one that won't show up in a portfolio metric, is that decisions now start from data, not intuition.",
-    impactMethod: "Round 1: 22 participants on the core task · Maze prototype testing · 3 task flows · open-ended follow-up · adults briefed as proxies for the 8–15 target audience. Round 2 currently running on the coded prototype.",
+    impactMethod: "Round 1: 22 recorded sessions on the core task · Maze prototype testing · 3 task flows · open-ended follow-up · adults briefed as proxies for the 8–15 target audience. Round 2 currently running on the coded prototype.",
     metrics: [
-      { value: "90%", label: "Would play again", context: "Validated my Play Again CTA over PM's commerce-first preference (n=10)" },
-      { value: "4.2/5", label: "Fun rating", context: "First measurable engagement signal in the product's history (n=10)" },
+      { value: "90%", label: "Would play again", context: "Validated my Play Again CTA over PM's commerce-first preference (n=10 full completions)" },
+      { value: "4.2/5", label: "Fun rating", context: "First measurable engagement signal in the product's history (n=10 full completions)" },
       { value: "First", label: "Usability test in company history", context: "Introduced testing as a default practice for future features" },
     ],
   },

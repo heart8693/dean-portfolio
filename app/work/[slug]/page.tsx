@@ -9,6 +9,7 @@ import CaseStudyNav from '@/components/CaseStudyNav'
 import PersonaCard from '@/components/PersonaCard'
 import SessionScript from '@/components/SessionScript'
 import TestedFrames from '@/components/TestedFrames'
+import MazeResults from '@/components/MazeResults'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -822,6 +823,17 @@ export default async function CaseStudy({ params }: Props) {
                   }}>
                     <p style={{ ...microLbl, marginBottom: '8px', color: 'var(--accent-text)' }}>WHAT THIS CHANGED</p>
                     <p style={{ fontSize: '15px', color: 'var(--text-1)', lineHeight: 1.7, fontWeight: 500 }}>{p.usabilityTesting.cultureNote}</p>
+                  </div>
+                )}
+
+                {/* ── How these numbers were measured — FiPet evidence subsection ── */}
+                {p.slug === 'fipet' && (
+                  <div style={{ marginTop: '48px' }}>
+                    <H2 top>How these numbers were measured</H2>
+                    <p style={bodyLg}>
+                      Round 1 ran unmoderated in Maze on the Figma prototype, with adult participants briefed to evaluate as proxies for the 8 - 15 age group. Maze records sessions, not people: 22 sessions were logged across the test, and 10 participants completed it end to end. Task success is reported per task block; opinion metrics (ease, fun, replay intent) use the 10 full completions.
+                    </p>
+                    <MazeResults />
                   </div>
                 )}
               </section>

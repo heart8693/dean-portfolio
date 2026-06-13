@@ -26,9 +26,10 @@ const HOVER_METRIC: Record<string, { value: string; label: string }> = {
   'ride-availability': { value: '4.5/5',     label: 'dock confidence (n=8)' },
 }
 
-// Method caption shown under the metric, currently Biasly only
+// Method caption shown under the metric
 const METRIC_CAPTION: Record<string, string> = {
   'biasly': '12 moderated sessions, Oct - Dec 2025, observer-coded',
+  'fipet': 'n=10 · unmoderated Maze test · adult proxies for ages 8 - 15',
 }
 
 // ── Per-project underlined-link color (AA-safe on white).
