@@ -2,11 +2,11 @@ import { notFound } from 'next/navigation'
 import { getProject, getAllSorted } from '@/lib/cms'
 import type { Metric, Principle, Change, ShowcasePanel, DesignAlternative, UsabilityFinding, WhyCodedItem, PrototypeVideo } from '@/lib/cms'
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Metadata } from 'next'
 import ScrollHighlight from '@/components/ScrollHighlight'
 import CaseStudyNav from '@/components/CaseStudyNav'
 import PersonaCard from '@/components/PersonaCard'
-import ArtifactPlaceholder from '@/components/ArtifactPlaceholder'
 import SessionScript from '@/components/SessionScript'
 import TestedFrames from '@/components/TestedFrames'
 
@@ -1026,11 +1026,43 @@ export default async function CaseStudy({ params }: Props) {
                   </p>
                   <SessionScript />
                   <TestedFrames />
-                  <ArtifactPlaceholder
-                    label="WORKING FILE"
-                    aspectRatio="16/9"
-                    caption="Drop in: Figma canvas view of the test file showing frame layout, cropped to exclude internal comments"
-                  />
+
+                  {/* Working file — Figma canvas of the test file */}
+                  <figure style={{ margin: '28px 0 0' }}>
+                    <p style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '11px',
+                      fontWeight: 600,
+                      letterSpacing: '0.09em',
+                      textTransform: 'uppercase',
+                      color: 'var(--text-1)',
+                      margin: '0 0 10px',
+                    }}>WORKING FILE</p>
+                    <div style={{
+                      border: '1px dotted var(--border)',
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      transition: 'border-color 0.25s ease',
+                    }}>
+                      <Image
+                        src="/images/biasly-working-file.png"
+                        alt="Figma canvas view of the Biasly test file showing the frame layout used in sessions"
+                        width={2824}
+                        height={932}
+                        sizes="(max-width: 720px) 100vw, 780px"
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                      />
+                    </div>
+                    <figcaption style={{
+                      marginTop: '8px',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '11px',
+                      color: 'var(--text-3)',
+                      lineHeight: 1.6,
+                    }}>
+                      Working Figma file for the moderated sessions, canvas view of the tested frames.
+                    </figcaption>
+                  </figure>
                 </div>
               )}
 
