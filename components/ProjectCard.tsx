@@ -26,6 +26,11 @@ const HOVER_METRIC: Record<string, { value: string; label: string }> = {
   'ride-availability': { value: '4.5/5',     label: 'dock confidence (n=8)' },
 }
 
+// Method caption shown under the metric, currently Biasly only
+const METRIC_CAPTION: Record<string, string> = {
+  'biasly': '12 moderated sessions, Oct - Dec 2025, observer-coded',
+}
+
 // ── Per-project underlined-link color (AA-safe on white).
 //    Mirrors each case-study route theme's --accent-text so the
 //    homepage card link reads in the same hue as the case study.
@@ -123,6 +128,17 @@ export default function ProjectCard({ project: p }: { project: Project }) {
             <p className="tj-eyebrow" style={{ color: 'var(--text-2)' }}>
               {metric.label}
             </p>
+            {METRIC_CAPTION[p.slug] && (
+              <p style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '10px',
+                color: 'var(--text-3)',
+                lineHeight: 1.5,
+                marginTop: '6px',
+              }}>
+                {METRIC_CAPTION[p.slug]}
+              </p>
+            )}
           </div>
         )}
 

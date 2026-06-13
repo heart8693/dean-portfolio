@@ -6,6 +6,7 @@ import type { Metadata } from 'next'
 import ScrollHighlight from '@/components/ScrollHighlight'
 import CaseStudyNav from '@/components/CaseStudyNav'
 import PersonaCard from '@/components/PersonaCard'
+import ArtifactPlaceholder from '@/components/ArtifactPlaceholder'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -34,6 +35,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // Activates on scroll via IntersectionObserver. No CMS parsing needed.
 function H({ children }: { children: React.ReactNode }) {
   return <ScrollHighlight>{children}</ScrollHighlight>
+}
+
+// Uniform method caption under every Biasly metric (page + homepage card)
+const BIASLY_METHOD_CAPTION = '12 moderated sessions, Oct - Dec 2025, observer-coded'
+const methodCaptionStyle: React.CSSProperties = {
+  fontFamily: 'var(--font-mono)',
+  fontSize: '10px',
+  color: 'var(--text-3)',
+  lineHeight: 1.5,
+  marginTop: '6px',
 }
 
 
@@ -114,6 +125,7 @@ export default async function CaseStudy({ params }: Props) {
                     <p style={{ fontSize: 'clamp(2rem, 4vw, 2.75rem)', fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--text-1)', lineHeight: 1, marginBottom: '10px' }}>{m.value}</p>
                     <p style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-1)', marginBottom: '3px', letterSpacing: '-0.01em' }}>{m.label}</p>
                     <p style={{ fontSize: '11px', color: 'var(--text-3)', lineHeight: 1.5 }}>{m.context}</p>
+                    {p.slug === 'biasly' && <p style={methodCaptionStyle}>{BIASLY_METHOD_CAPTION}</p>}
                   </div>
                 ))}
               </div>
@@ -998,9 +1010,37 @@ export default async function CaseStudy({ params }: Props) {
                     <p style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)', fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--text-1)', lineHeight: 1, marginBottom: '10px' }}>{(p.slug === 'biasly' || p.slug === 'fipet' || p.slug === 'ride-availability') ? <H>{m.value}</H> : m.value}</p>
                     <p style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-1)', marginBottom: '4px', letterSpacing: '-0.01em' }}>{m.label}</p>
                     <p style={{ fontSize: '12px', color: 'var(--text-3)', lineHeight: 1.6 }}>{m.context}</p>
+                    {p.slug === 'biasly' && <p style={methodCaptionStyle}>{BIASLY_METHOD_CAPTION}</p>}
                   </div>
                 ))}
               </div>
+
+              {/* ── How these numbers were measured — Biasly evidence subsection ── */}
+              {p.slug === 'biasly' && (
+                <div style={{ marginBottom: '48px' }}>
+                  <H2 top>How these numbers were measured</H2>
+                  <p style={bodyLg}>
+                    12 moderated sessions, run twice with the same participants: a baseline round on the original feed, then a follow-up round on the redesigned card structure. Bias recognition was observer-coded against predefined criteria. Time-to-identify was measured from card load to verbal identification. The session script and tested frames are shown below.
+                  </p>
+                  <div style={{ maxWidth: '560px' }}>
+                    <ArtifactPlaceholder
+                      label="SESSION SCRIPT"
+                      aspectRatio="4/3"
+                      caption="Drop in: 3-4 representative questions from the moderated session script, styled as a document snippet"
+                    />
+                  </div>
+                  <ArtifactPlaceholder
+                    label="TESTED FRAMES"
+                    aspectRatio="16/9"
+                    caption="Drop in: the baseline card and the redesigned card exactly as shown in sessions, side by side, labeled Version as tested"
+                  />
+                  <ArtifactPlaceholder
+                    label="WORKING FILE"
+                    aspectRatio="16/9"
+                    caption="Drop in: Figma canvas view of the test file showing frame layout, cropped to exclude internal comments"
+                  />
+                </div>
+              )}
 
              {((p as any).outcomeImage || p.afterImage) && (
               <figure className="tj-outcome-fig" style={{ margin: '0 -60px' }}>
