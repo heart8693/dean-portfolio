@@ -841,7 +841,7 @@ export default async function CaseStudy({ params }: Props) {
                 }}>{p.prototypeSpotlight.subtitle}</p>
                 {p.slug === 'fipet' ? (
                   <p style={bodyLg}>
-                    After Round 1, the obvious next step was another Figma iteration. I argued against it. The remaining unknowns, real timer behavior, live score updates, rival turn-taking, answer-switching mid-question, couldn't be tested faithfully in a static prototype. So I built the next iteration in React, deployed it to Vercel, and ran Round 2 testing against the live build. The trade-off was time. The payoff was that <H>the validation could now reflect the real behavior</H>, not a Figma approximation of it.
+                    After Round 1, the obvious next step was another Figma iteration. I argued against it. The remaining unknowns, real timer behavior, live score updates, rival turn-taking, answer-switching mid-question, couldn't be tested faithfully in a static prototype. So I built the next iteration in React, deployed it to Vercel, and ran Round 2 testing against the live build. The trade-off was time. The payoff was that <H>the validation could now reflect the real behavior</H>, not a Figma approximation of it. An unmoderated Round 2 launched on the live build; the first task block completed cleanly (n=7) but drop-off after it cut the round short, a lesson in pairing unmoderated tests with external prototypes.
                   </p>
                 ) : (
                   <p style={bodyLg}>{p.prototypeSpotlight.body}</p>
