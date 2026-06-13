@@ -141,7 +141,7 @@ export default function Home() {
               hyart2021@gmail.com
             </a>
             <a
-              href="/Dean_Yoo_Resume.pdf"
+              href="/Dean-Yoo-Resume.pdf"
               download
               className="tj-cta-underline"
               style={{ color: '#F7F4EE', borderBottomColor: '#F7F4EE' }}

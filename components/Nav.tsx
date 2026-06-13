@@ -112,8 +112,8 @@ export default function Nav() {
             Projects
           </Link>
           <a
-            href="/Dean_Yoo_Resume.pdf"
-            download="Dean_Yoo_Resume.pdf"
+            href="/Dean-Yoo-Resume.pdf"
+            download="Dean-Yoo-Resume.pdf"
             style={{
               ...linkStyle,
               borderBottom: '2px solid transparent',
@@ -271,8 +271,8 @@ export default function Nav() {
               Projects
             </Link>
             <a
-              href="/Dean_Yoo_Resume.pdf"
-              download="Dean_Yoo_Resume.pdf"
+              href="/Dean-Yoo-Resume.pdf"
+              download="Dean-Yoo-Resume.pdf"
               onClick={() => setMenuOpen(false)}
               style={mobileLinkStyle}
             >

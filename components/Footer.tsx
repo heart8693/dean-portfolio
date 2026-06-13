@@ -20,7 +20,7 @@ export default function Footer() {
           color: 'inherit',
         }}
       >
-        © {new Date().getFullYear()} Dean Yoo · Built with Next.js
+        © {new Date().getFullYear()} Dean Yoo · Three cats walked on this keyboard
       </span>
       <div style={{ display: 'flex', gap: '32px' }}>
         {[
