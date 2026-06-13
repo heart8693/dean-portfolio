@@ -876,7 +876,7 @@ export const projects: Project[] = [
     team: "Self-directed personal project",
     timeline: "Ongoing, Round 2 testing in progress",
     tools: "Figma, Maze",
-    impact: "Reframed the project from 'add dock info' to 'surface the infrastructure Lyft already has.' That reframing shaped everything downstream. In testing: 4.5/5 dock confidence (n=8), 4.3/5 trust in the system, and 83% of station choices influenced by dynamic pricing, which showed that a price embedded in the existing UI changes behavior without any new infrastructure.",
+    impact: "Reframed the project from 'add dock info' to 'surface the infrastructure Lyft already has.' That reframing shaped everything downstream. In testing: 4.4/5 confidence they would find a dock (n=10) and 100% success on the dock planning flow (10 sessions). The pricing hypothesis did not hold; riders optimized for speed and proximity.",
 
     // ── OVERVIEW ──────────────────────────────────────
     problemTitle: "Three problems Lyft already had the tools to solve.",
@@ -1094,13 +1094,12 @@ export const projects: Project[] = [
     usabilityTesting: {
       round: "Round 1",
       context: "The first Maze test on this project, a structured check on the dynamic pricing direction and the dock prediction display. Round 2 is in progress.",
-      participants: "8 participants across two task flows (Plan Your Ride: n=8 · Compare Stations: n=6 · Trust + Ease: n=4)",
-      method: "Maze · 15 blocks · 2 prototype task flows · opinion scales · open response · 5-second tests",
+      participants: "Maze counts sessions, not unique people, so response counts vary by block (Plan Your Ride: 10 sessions · Compare Stations: 8 · opinion scales: 5 to 10)",
+      method: "Maze · 15 blocks · 2 prototype task flows · opinion scales · open response · 5-second tests · unmoderated",
       metrics: [
-        { value: "4.5/5", label: "Dock confidence", context: "How confident did you feel you'd find an available dock at your destination? 63% rated 5, 25% rated 4, 13% rated 3 (n=8)" },
-        { value: "4.3/5", label: "Trust in system", context: "Would you trust this system to help you find a dock on future rides? 100% rated 4 to 5, though only 4 of 8 participants completed this scale, so I read it as directional (n=4)" },
-        { value: "83%", label: "Chose by price", context: "Station choice influenced by price per minute (50%) plus the Lower/Higher rate label (33%), which validates the dynamic pricing direction (n=6)" },
-        { value: "100%", label: "Task success rate", context: "Both Task 1 (Plan Your Ride) and Task 2 (Compare Stations) hit 100% success with 0% drop-off" },
+        { value: "4.4/5", label: "Dock confidence", context: "How confident did you feel you'd find an available dock at your destination? (n=10)" },
+        { value: "4.2/5", label: "Trust in system", context: "Would you trust this system to help you find a dock on future rides? (n=5)" },
+        { value: "100%", label: "Dock planning success", context: "100% on the dock planning flow (10 sessions); 7 of 8 completed the station comparison task" },
       ],
       findings: [
         {
@@ -1112,27 +1111,20 @@ export const projects: Project[] = [
         },
         {
           number: "02",
-          finding: "Dynamic pricing validated by behavior, not just opinion",
-          evidence: "When asked what influenced station choice most, 50% said price per minute, 33% said the 'Lower rate' / 'Higher rate' label, and 17% said location or convenience. 67% noticed the price difference between stations without being prompted.",
-          refinement: "Direction confirmed. The rate label is doing real work, so I'll keep it alongside the explicit per-minute price rather than picking one over the other. No changes to the pricing mechanism in V2.",
-          refinementReason: "This was the central hypothesis of the whole design. The data shows that price embedded in the existing comparison is enough on its own, which confirms the call to reject explicit badges and banners.",
-        },
-        {
-          number: "03",
           finding: "'Predicted 8 → Actual 6' split comprehension",
           evidence: "Half the participants read the predicted-vs-actual display correctly. The other half misread it. One took it as walking-speed prediction variance, another as the number of riders currently trying to unlock bikes.",
           refinement: "Redesign the prediction display in V2 and lean less on the '→' notation. Test simpler framings like 'Expected: 6 docks' or 'Likely 4 to 8 docks' with a confidence band.",
           refinementReason: "A comprehension split means the display is doing different things for different riders. Trust needs everyone reading it the same way, so this is the highest-priority V2 fix.",
         },
         {
-          number: "04",
+          number: "03",
           finding: "Information density flagged repeatedly in open response",
           evidence: "Participant feedback: 'There were times when there was a lot of separate text boxes with different information which made it somewhat difficult to focus on one thing.' Another: 'There was still too much info. If I was seeking for only docks it should be more direct.'",
           refinement: "Consolidate the station card hierarchy in V2 and cut the number of separate text containers. Test progressive disclosure for secondary information like the per-minute breakdown, predicted dock count, and route comparison.",
           refinementReason: "When several participants independently flag the same density problem, it's the design's fault, not theirs. The cognitive load is real and it will only compound in production.",
         },
       ],
-      conclusion: "Round 1 confirmed the central hypothesis. Dynamic pricing in the existing UI changed behavior measurably, with 83% of station choice influenced by the price signal. It also surfaced three things to fix: affordance on dock selection, clarity on the prediction display, and overall information density. Round 2 is in progress with the refined design.",
+      conclusion: "Round 1 validated the dock planning flow and surfaced three things to fix: affordance on dock selection, clarity on the prediction display, and overall information density. It also pushed back on the pricing hypothesis, detailed in the measurement section below. Round 2 is in progress with the refined design.",
       cultureNote: "The project started from my own frustration, but frustration is only a signal until you do something with it. When the same problem keeps hitting the same rider, it's worth treating as a system failure instead of bad luck. The Maze test was where I turned that signal into evidence other people could actually evaluate.",
     },
 
@@ -1195,12 +1187,11 @@ export const projects: Project[] = [
 
     // ── OUTCOME ───────────────────────────────────────
     impactTitle: "No new technology needed.",
-    impactBody: "Every feature in the redesign maps to something Lyft already runs. AirControl supplies the real-time station state. Bike Angels already proves riders will rebalance for an incentive. The Live Activities API delivers the passive mid-ride alerts. Internal demand prediction supplies the dock forecasts. The contribution wasn't new technology. It was the UX layer that puts what Lyft already has in front of riders. Round 1 testing validated the central direction (4.5/5 dock confidence, 4.3/5 trust, 83% of station choice influenced by price) and surfaced specific fixes for Round 2. The project is ongoing.",
-    impactMethod: "Maze remote usability testing · 8 participants Round 1 · 15 blocks · 2 task flows · Round 2 targeting 10–15 participants",
+    impactBody: "Every feature in the redesign maps to something Lyft already runs. AirControl supplies the real-time station state. Bike Angels already proves riders will rebalance for an incentive. The Live Activities API delivers the passive mid-ride alerts. Internal demand prediction supplies the dock forecasts. The contribution wasn't new technology. It was the UX layer that puts what Lyft already has in front of riders. Round 1 testing validated the dock prediction direction (4.4/5 dock confidence, 100% on the dock planning flow), pushed back on the pricing hypothesis, and surfaced specific fixes for Round 2. The project is ongoing.",
+    impactMethod: "Maze remote usability testing · unmoderated, session-based counts · 15 blocks · 2 task flows · Round 2 targeting 10–15 participants",
     metrics: [
-      { value: "4.5/5", label: "Dock confidence", context: "How confident did you feel you'd find an available dock at your destination? (n=8)" },
-      // Trust stat (4.3/5, n=4) lives in the Usability Testing section with its sample-size caveat; n=4 is too thin to headline
-      { value: "83%", label: "Chose by the price signal", context: "Station choice influenced by price per minute (50%) plus the Lower/Higher rate label (33%) (n=6)" },
+      { value: "4.4/5", label: "Confidence they would find a dock", context: "How confident did you feel you'd find an available dock at your destination? (n=10)" },
+      { value: "100%", label: "Success on the dock planning flow", context: "Every recorded session completed the dock planning flow (10 sessions)" },
       { value: "Zero", label: "New technology required", context: "Every feature maps to AirControl, Bike Angels, Live Activities, or Lyft's internal prediction algorithms. The engineering lift is mostly frontend" },
     ],
   },

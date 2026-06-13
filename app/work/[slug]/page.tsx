@@ -10,6 +10,7 @@ import PersonaCard from '@/components/PersonaCard'
 import SessionScript from '@/components/SessionScript'
 import TestedFrames from '@/components/TestedFrames'
 import MazeResults from '@/components/MazeResults'
+import LyftMazeResults from '@/components/LyftMazeResults'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -706,7 +707,7 @@ export default async function CaseStudy({ params }: Props) {
                   </p>
                 ) : p.slug === 'ride-availability' ? (
                   <p style={bodyLg}>
-                    First Maze test on this project: a structured <H>validation of the dynamic pricing direction</H> and the dock prediction display. Round 2 is in progress.
+                    First Maze test on this project: a structured <H>check on the dynamic pricing direction</H> and the dock prediction display. Round 2 is in progress.
                   </p>
                 ) : (
                   <p style={bodyLg}>{p.usabilityTesting.context}</p>
@@ -834,6 +835,20 @@ export default async function CaseStudy({ params }: Props) {
                       Round 1 ran unmoderated in Maze on the Figma prototype, with adult participants briefed to evaluate as proxies for the 8 - 15 age group. Maze records sessions, not people: 22 sessions were logged across the test, and 10 participants completed it end to end. Task success is reported per task block; opinion metrics (ease, fun, replay intent) use the 10 full completions.
                     </p>
                     <MazeResults />
+                  </div>
+                )}
+
+                {/* ── How these numbers were measured — Lyft evidence subsection ── */}
+                {p.slug === 'ride-availability' && (
+                  <div style={{ marginTop: '48px' }}>
+                    <H2 top>How these numbers were measured</H2>
+                    <p style={bodyLg}>
+                      The test ran unmoderated in Maze. Maze counts sessions, not unique people, so response counts vary by block (5 to 10). The dock planning flow succeeded in every session; the station comparison task surfaced friction, with 7 of 8 sessions completing it. Two results pushed back on the original hypothesis: half of participants did not notice the price difference between stations, and when asked why they chose a dock, speed and proximity outranked price.
+                    </p>
+                    <LyftMazeResults />
+                    <p style={{ ...bodyLg, marginTop: '32px' }}>
+                      The core hypothesis held: surfacing dock information removes the uncertainty riders feel at the end of a ride. The pricing hypothesis did not: riders optimized for speed and proximity, and half never noticed the price signal. If this shipped, I would lead with availability and arrival time, and treat price as a secondary nudge rather than the primary lever.
+                    </p>
                   </div>
                 )}
               </section>

@@ -23,13 +23,14 @@ const HOVER_METRIC: Record<string, { value: string; label: string }> = {
   // TODO(dean): verify 31-to-78 against session data
   'biasly':           { value: '31 → 78%',   label: 'bias recognition' },
   'fipet':            { value: '90%',      label: 'would play again (n=10)' },
-  'ride-availability': { value: '4.5/5',     label: 'dock confidence (n=8)' },
+  'ride-availability': { value: '4.4/5',     label: 'confidence they would find a dock' },
 }
 
 // Method caption shown under the metric
 const METRIC_CAPTION: Record<string, string> = {
   'biasly': '12 moderated sessions, Oct - Dec 2025, observer-coded',
   'fipet': 'n=10 · unmoderated Maze test · adult proxies for ages 8 - 15',
+  'ride-availability': 'n=10 · unmoderated Maze test',
 }
 
 // ── Per-project underlined-link color (AA-safe on white).
