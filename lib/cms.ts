@@ -228,210 +228,297 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "biasly",
-    title: "Biasly Mobile App",
-    description: "Biasly helps users understand political bias before engaging with content. The feed made that context easy to miss.",
-    year: "2025",
-    category: "Mobile",
+    slug: "triage",
+    title: "Sift · AI ticket triage",
+    description: "AI ticket tools compete on how much they can automate. Agents don't need more automation, they need to see what the AI did, why, and how to take it back. Sift is a 13-screen concept built around that gap.",
+    year: "2026",
+    category: "B2B SaaS",
     featured: true,
-    order: 2,
+    order: 1,
 
-    coverImage: "/images/biasly-cover.webp",
-    heroImage: "/images/biasly-hero.webp",
-    heroImageMobile: "/images/biasly-mobile-hero.webp",
-    thumbBg: "#1c2340",
+    coverImage: "/images/triage-cover.webp",
+    heroImage: "/images/triage-hero.webp",
+    heroImageMobile: "/images/triage-mobile-hero.webp",
+    thumbBg: "#101a3a",
 
-    role: "Product Design Intern",
-    team: "PM, 2 Engineers",
-    timeline: "3 months",
-    tools: "Figma, Maze, Notion",
-    // TODO(dean): verify 31-to-78 against session data
-    impact: "Led the mobile feed redesign end-to-end. Bias recognition improved from 31% to 78%, and users identified bias 3× faster in testing.",
+    role: "Solo designer, end to end",
+    team: "Self-directed concept project",
+    timeline: "Jun – Aug 2026",
+    tools: "Figma, FigJam, Maze",
+    impact: "Designed a 13-screen AI triage system around a single thesis: AI classification should make human judgment faster and more accurate, not replace it. Confidence is written in frequencies people can calibrate, every automated action is reversible, and the riskiest categories never leave human hands. Round 1 usability testing is in progress.",
 
     // ── OVERVIEW ──────────────────────────────────────
-    problemTitle: "The Problem",
-    problemBody: "Casual news readers who use Biasly to stay politically informed often find themselves reacting to headlines before ever registering bias context beneath them. The bias indicator existed, but it just appeared too late. By the time users reached it, they had already formed an opinion.",
+    problemTitle: "The tools automate more. Agents trust less.",
+    problemBody: "Every major support platform now ships AI triage. Zendesk, Intercom, and Freshdesk all classify incoming tickets automatically, and they market the same number: how much of the queue the AI handles without a human. Yet human-in-the-loop control and AI explainability keep appearing in industry research as unsolved design problems. The pattern underneath is consistent: agents are held accountable for what the AI files, but the products give them almost no visibility into why it decided, no honest signal of how sure it is, and no fast way to take an action back. The market is competing on automation power. Nobody is competing on the agent's experience of being in control of it.",
     problemPoints: [
-      "Bias indicators appeared below the primary scan path and were frequently missed",
-      "Text labels communicated category only, not direction or strength at a glance",
-      "Large article images dominated the card, leaving bias information visually secondary",
+      "Confidence appears as raw percentages, a format people are consistently bad at calibrating",
+      "Automated actions are hard to see and harder to reverse. Undo is buried or absent in the major tools",
+      "Risk is treated as uniform. A product-feedback ticket and an account-deletion request get the same automation",
     ],
 
-    solutionTitle: "The Solution",
-    solutionBody: "I redesigned the mobile news feed to place bias context at the top of every card, anchored before the headline. A visual spectrum replaced text labels, encoding direction and intensity at scan speed. Image size was reduced to rebalance the visual hierarchy in favor of the information the product was built to surface.",
+    solutionTitle: "The opposite bet: make the human faster",
+    solutionBody: "Sift is a concept for an AI ticket sorter built on the opposite bet: the product wins by making the human faster, not by making the human optional. The AI states its confidence in frequencies (right about 41 of 100 on tickets like this), routes anything below a per-category threshold to a person, locks sensitive categories to humans permanently, explains its reasoning at both ends of the confidence spectrum, and logs every automated action behind a one-tap undo. Thirteen screens cover the full reality of the product: AI on, AI off, high and low confidence, empty, loading, failure, settings, dashboard, and dark mode.",
 
     showcasePanels: [
       {
         number: "01",
-        title: "Bias Before the Headline",
-        subtitle: "Political context appears before users form an opinion.",
-        body: "The redesigned card anchors bias at the top, next to the source name. Users see direction and intensity before reading a single word of the headline, shifting the moment of awareness from after-the-fact to before the first impression.",
-        image: "/images/biasly-panel-1.webp",
+        title: "Confidence you can calibrate",
+        subtitle: "Raw percentages lie to the gut. Frequencies don't.",
+        body: "A 41% confidence score reads as a vague maybe. The same information written as 'right about 41 of 100 on tickets like this' reads as what it is: wrong more often than right, look closely. Research on uncertainty communication shows people calibrate frequency formats measurably better than probabilities, so every confidence number in Sift carries a frequency line next to it. It appears on the dashboard review queue, in the settings threshold, and on every ticket detail. The percentage stays for scanning. The sentence is what changes behavior.",
+        image: "/images/triage-panel-1.webp",
       },
       {
         number: "02",
-        title: "Instantly Read the Spectrum",
-        subtitle: "Direction and intensity at a glance. No reading required.",
-        body: "A left-to-right color-coded spectrum replaces the vague text label. Blue for Left, Purple for Center, Red for Right. The position and intensity of the fill communicates both direction and strength simultaneously, the way a gauge communicates data, not a label.",
-        video: "/images/biasly-panel-2.mp4",
+        title: "A dial the agent owns, per category",
+        subtitle: "How much the AI does is a setting, not a policy handed down.",
+        body: "The confidence threshold is a slider: raise it and the AI auto-sorts only when it is very sure, lower it and more of the queue moves on its own. Each category gets its own rule, because risk is not uniform. Billing disputes can run at a different threshold than bug reports, and account deletion is locked to Always human, permanently, with the lock visible in the inbox itself, not just buried in settings. The slider copy uses the same frequency language, so the agent understands exactly what they are trading when they move it.",
+        image: "/images/triage-panel-2.webp",
       },
       {
         number: "03",
-        title: "You Stay in Control",
-        subtitle: "Tap any card to read the full article with full bias context intact.",
-        body: "The article view preserves the same bias encoding at the top of the page. Users who want to read a story have full context visible throughout, not just on the feed. The system stays consistent so the encoding becomes second nature.",
-        image: "/images/biasly-panel-3.webp",
+        title: "Friction only where mistakes are expensive",
+        subtitle: "One tap everywhere, except the moments you can't take back.",
+        body: "Approving a $49 refund on a suggestion the AI is 41% sure about is exactly the moment to slow someone down. A glass confirmation overlay interrupts the flow, restates the low confidence, shows the amount and the customer, and asks for an explicit decision. This is a cognitive forcing function, a pattern shown to reduce blind overreliance on AI suggestions. Everywhere else in the product, acting on the AI takes one tap. The friction is reserved for irreversibility.",
+        image: "/images/triage-panel-3.webp",
       },
     ],
 
     // ── RESEARCH ──────────────────────────────────────
-    researchWhyTitle: "Why Redesign the Feed?",
+    researchWhyTitle: "Why design this product at all?",
     researchWhyBody: [
-      "I use Biasly myself. As a user, I noticed that I'd often read a headline, form a reaction, and only then notice the bias tag at the bottom of the card, at which point I'd already processed the content through whatever lens I brought to it. The app was designed to change my behavior, but the layout was letting me off the hook.",
-      "As a designer, I wanted to understand whether this was a personal pattern or a systemic one. The product's value depends entirely on users engaging with bias context before they read. If the layout is preventing that, the app isn't delivering on its promise, regardless of how good the bias detection engine is.",
-      "I approached the research with one specific question: is the problem that users don't care about bias information, or that the design isn't giving them a chance to see it in time?",
+      "The interesting design question of 2026 is not whether AI can classify things. It can, and every support tool proves it daily. The question is whether the people held accountable for the AI's output can understand it, calibrate it, and override it. I kept seeing the same gap between what AI products can do and what their interfaces let people trust.",
+      "I chose support triage as the ground to work this out because the stakes are concrete and the accountability is asymmetric. When the AI misfiles an account-deletion request as product feedback, the agent answers for it, not the model. That asymmetry is a design brief in one sentence.",
+      "This is a self-directed concept project, and I treated that as a constraint to design around rather than an excuse. No production data meant every major decision had to cite published evidence instead of taste, and it meant the research had to be graded honestly by how much I could trust it.",
     ],
 
-    researchDomainTitle: "Competitive Landscape",
-    researchDomainBody: "I reviewed how other news apps handle political context and source labeling. AllSides and Ground News both surface bias information, but primarily at the article level, after the user has already clicked. None of the products I reviewed positioned bias metadata at the moment of feed browsing, before the headline is read.",
-    researchDomainInsight: "No existing product intervenes at the moment users actually form impressions, which is during fast-scroll browsing, not after clicking into an article.",
+    researchDomainTitle: "The market competes on automation power. Nobody competes on trust.",
+    researchDomainBody: "I audited how Zendesk, Intercom Fin, and Freshdesk present AI triage to the agents who live in these tools. All three lead with resolution volume: how much of the queue the AI closes or routes on its own. Confidence, when shown at all, appears as a raw score. Reversal paths exist but are slow and buried. Per-category risk control is thin. Vendor-reported resolution rates cluster around half of ticket volume, which means the hard half still lands on humans, working inside interfaces designed to celebrate the automated half.",
+    researchDomainInsight: "Every major tool competes on automation power. Not one competes on the agent's experience of trusting and steering it. That gap is the product.",
 
-    researchUserTitle: "Defining What Users Actually Do",
+    researchUserTitle: "Evidence tiering instead of cherry-picking",
     researchUserBody: [
-      "I ran 12 moderated usability sessions with participants aged 22–45 who identified as regular news readers. The task was simple: browse the feed naturally for 3 minutes, then answer questions about the bias of articles they had seen.",
-      "The results were consistent: 69% of participants could not correctly identify the bias of articles they had spent time reading. When probed, almost all of them said the same thing, they hadn't noticed it. Not because they didn't care. The indicator never showed up at the right moment.",
-      "I asked participants to walk me through a session using think-aloud protocol. The pattern was immediate. Every participant followed the same path: headline → image → scroll. The bias tag at the bottom was processed, when it was processed at all, as an afterthought.",
+      "Concept projects have a research credibility problem: it is easy to collect quotes that agree with the design you already wanted to make. To keep myself honest, I graded every source into three tiers before letting it influence a decision. Verified meant peer-reviewed or replicated findings. Directional meant a single credible study or strong practitioner consensus. Vendor claim meant marketing numbers, used only as signals of what companies believe, never as evidence of what works.",
+      "The tiering changed the design. The frequency-framing decision rests on Verified research about how people read uncertainty. The feedback-framing decision rests on a Directional finding, so the design treats it as a hypothesis to test rather than a settled fact. Resolution-rate numbers from vendors shaped my read of the market but never justified a screen.",
+      "In parallel I wrote a 30-minute discovery interview script for working support agents, deliberately free of embedded hypotheses, and started recruiting. The interviews run alongside usability testing, and the design is structured so their findings can move thresholds, copy, and defaults without breaking the system.",
     ],
-    researchUserFindingsTitle: "Key Research Findings",
+    researchUserFindingsTitle: "What the graded evidence said",
     researchUserFindings: [
-      "69% of participants could not identify bias on articles they had spent time reading",
-      "100% of participants began scanning at the top of each card",
-      "The bias label was the last element registered in card scan order",
-      "When told where to look, users found the bias information immediately useful",
-      "No participant voluntarily scrolled back up to re-check bias after forming an impression",
+      "People consistently miscalibrate raw probabilities; frequency formats measurably improve judgment (Verified, peer-reviewed 2024)",
+      "Cognitive forcing functions reduce blind acceptance of AI suggestions, at a small cost in speed (Verified)",
+      "Asking users to rate AI answers can reduce trust in the product; framing input as contribution avoids the effect (Directional, single study, flagged for testing)",
+      "Vendor-reported AI resolution rates cluster near half of volume, leaving the ambiguous half to humans (Vendor claim, treated as market signal only)",
+      "B2B support agents work overwhelmingly on desktop, 68 to 83% across sources, which set the 1440px desktop format (Directional)",
     ],
-    researchQuote: "I usually just read the headline. I didn't even see the bias tag.",
-    researchQuoteAuthor: "Maksym, 28, usability participant",
-    researchMethod: "12 moderated sessions · 5-second exposure test · think-aloud protocol · n=12, aged 22–45",
+    researchMethod: "Secondary research with three-tier evidence grading · competitive audit of Zendesk, Intercom Fin, Freshdesk · 30-minute discovery interview script written, recruiting in progress",
 
-    researchPersonasBody: "The primary user is a politically aware news reader who wants to be informed without being manipulated. They open the feed to get a fast read on the day, not to spend time evaluating each source. The anti-persona is a user who has already decided which sources to trust and has no interest in being challenged. The redesign is not for them.",
+    researchPersonasBody: "One persona, deliberately. Maya is the agent who answers for the AI's decisions, and the entire product is designed from her seat. Team leads and admins who set policy, review audit trails, and manage permissions are a real second surface, but scoping them out was the decision that let the agent experience go deep instead of wide. That boundary is documented as Layer B in the future steps, not forgotten.",
+    personas: [
+      {
+        number: "01",
+        archetype: "THE AGENT WHO ANSWERS FOR THE AI",
+        name: "Maya Chen",
+        meta: "Support agent · 142 open tickets today",
+        quote: "If it files something wrong, I'm the one who hears about it.",
+        image: "/images/persona-maya.webp",
+        keyNeeds: [
+          "See why the AI chose, not just what it chose",
+          "Take back any automated action in one tap",
+          "Decide how much the AI does, category by category",
+        ],
+        designImplication: "Every AI action must be visible, explainable, and reversible from the agent's seat, without leaving the flow of work.",
+      },
+    ],
 
     researchGoalsTitle: "Design Goals",
-    researchGoalsBody: "Based on the research, I defined three goals for the redesign: (1) make bias context visible before users read the headline, (2) encode bias visually so it registers without requiring active reading, and (3) maintain the speed and scannability of the feed so the change doesn't create friction.",
+    researchGoalsBody: "Three goals shaped every screen. First, make the AI's state legible at every moment: what it is about to do, what it is doing, and what it just did. Second, put the automation dial in the agent's hands, per category, with honest language about what each setting trades. Third, design the failure states with the same care as the happy path, because an AI product is judged on the day the model is wrong or down, not the day it works. One constraint cut across all three: this is a high-density desktop tool at 1440px, where an agent lives for eight hours, so restraint beats spectacle everywhere.",
 
     // ── DESIGN ────────────────────────────────────────
-    designIntro: "The further I got into the research, the more it stopped feeling like a visibility problem. It wasn't that users couldn't see the indicator. It was that they saw it in the wrong order. That's when it clicked, the fix wasn't making the indicator bigger or bolder. It was when it showed up that mattered.",
+    designIntro: "The research kept pointing at moments rather than screens. Trust in an AI coworker doesn't break in general, it breaks at specific instants: the moment you wonder what it will do, the moment you can't tell what it's doing, and the moment you discover what it did and can't take it back. Most tools design only the middle moment. I mapped the screens to all three.",
 
-    designWhereTitle: "Where Should the Change Happen?",
+    designWhereTitle: "Where does trust actually break?",
     designWhereBody: [
-      "My first instinct was to move the bias tag higher on the card. But before committing to that, I asked whether the feed was the right surface at all. Could the problem be addressed through onboarding, article pages, or a dedicated bias dashboard instead?",
-      "I went back to the session recordings. Users who engaged most with bias information did so during feed browsing, not after clicking into articles. The feed is where impressions are formed and decisions are made about what to read. That's the intervention point. Changing any other surface leaves the core behavior untouched.",
-      "So the feed was the right place. The question was how much to change.",
+      "Before the AI acts, the question is what will it do with this. That moment lives in settings and thresholds: the agent deciding, per category, how confident the AI must be before it moves without asking. If that dial doesn't exist or isn't legible, trust never forms, it's just hope.",
+      "While the AI acts, the question is what is it doing right now. That moment lives in the status banner, the loading state with real progress, and the dashboard. Silence here reads as something being hidden.",
+      "After the AI acts, the question is what did it do and can I take it back. That moment lives in the activity log, the undo toast, and the explanation card on every classified ticket. This is where the major tools are thinnest, and where the accountability asymmetry bites hardest. The thirteen screens exist because each of these moments needed to be designed on purpose, including the ones where the AI is off, wrong, or down.",
     ],
 
-    designAlternativesTitle: "Design Alternatives",
-    designAlternativesIntro: "I explored three structural approaches to surfacing bias earlier in the scan path. Each made a different trade-off between visibility, disruption to existing patterns, and technical complexity.",
-    designAlternativesFeasibility: "I had access to the PM and two engineers for feedback on feasibility. The main technical constraint: any overlay or animation approach would require client-side state tracking that added complexity. A static position change, moving the bias element to the card header, was the cleanest implementation path and the most reliable behavior across scroll speeds.",
+    designAlternativesTitle: "Three answers to one question: how much should the AI do on its own?",
+    designAlternativesIntro: "The core architecture decision wasn't visual. It was how much autonomy the AI gets, and every screen downstream inherits the answer. I worked through three architectures before committing.",
+    designAlternativesFeasibility: "All three are buildable on a modern classification stack. A production version needs per-category confidence scores and correction telemetry, both standard outputs of current models. The choice wasn't technical feasibility, it was which architecture produces trust at ticket volume instead of consuming it.",
     designAlternatives: [
       {
         number: "01",
-        title: "Floating overlay on scroll pause",
-        description: "A bias badge appears when the user pauses scrolling over a card, overlaid on the image.",
-        pros: ["No layout change required", "Preserves existing card hierarchy"],
-        cons: ["Dismissed as an ad within 1 second in every test session", "Conditional visibility means users who scroll at constant speed never see it", "Overlays can be trained out, structural position cannot"],
-        video: "/images/biasly-alt-1.mp4",
+        title: "Review everything",
+        description: "Every AI suggestion lands in an approval queue. Nothing moves until a human confirms it.",
+        pros: [
+          "Maximum control, zero silent errors",
+          "Simple accountability story: a human approved everything",
+        ],
+        cons: [
+          "At 142 tickets a day, approval becomes rubber-stamping, which is overreliance wearing a safety costume",
+          "The agent's job degrades into clicking confirm, the exact replacement anxiety the product should be answering",
+          "Throws away the volume relief that justifies AI triage in the first place",
+        ],
+        image: "/images/triage-alt-1.webp",
+        decision: "rejected",
       },
       {
         number: "02",
-        title: "Bias bar below headline",
-        description: "A thin color bar replaces the text label, positioned between the headline and the article body text.",
-        pros: ["Visual encoding improves on text label", "Lower disruption to card layout"],
-        cons: ["Still below the headline, users form impressions before reaching it", "Thin bar is easy to overlook during fast scrolling", "Does not solve the sequence problem"],
-        image: "/images/biasly-alt-2.webp",
+        title: "Automate everything, undo after",
+        description: "The AI files every ticket on its own. The agent gets a complete activity log and a global undo.",
+        pros: [
+          "Maximum speed, and the mental model fits in one sentence",
+          "Undo plus logging is honest about errors after the fact",
+        ],
+        cons: [
+          "Overreliance research points the wrong way: when everything is automatic, review atrophies",
+          "Silent errors in sensitive categories are unacceptable. An auto-processed account deletion is not an undo story, it's an incident",
+          "Trust never forms because the agent never participates in the decisions, only in the cleanup",
+        ],
+        image: "/images/triage-alt-2.webp",
+        decision: "rejected",
       },
       {
         number: "03",
-        title: "Bias anchored to card header",
-        description: "Bias pill and spectrum bar move to the top of the card, adjacent to the source name, before the headline.",
-        pros: ["Appears before the headline in every scan sequence", "Cannot be skipped without seeing it", "Consistent position across all cards builds pattern recognition"],
-        cons: ["Requires image size reduction to maintain visual balance", "More layout change than the other options"],
-        image: "/images/biasly-alt-3.webp",
+        title: "Confidence-routed, per category",
+        description: "The AI auto-sorts above a confidence threshold the agent sets per category, routes everything below it to human review, and never touches locked categories.",
+        pros: [
+          "Automation where it's safe, human judgment exactly where it matters",
+          "The dial is per category, matching how risk actually varies",
+          "Confidence becomes a first-class UI concept, which forced the honest-communication work",
+          "Degrades gracefully: at threshold 100 it becomes architecture 01, so cautious teams can start there",
+        ],
+        cons: [
+          "The settings surface is more complex, and it has to be, which raised the bar on its design",
+          "The whole system depends on confidence being communicated honestly, a hard problem promoted to the center of the product",
+        ],
+        image: "/images/triage-alt-3.webp",
+        decision: "chosen",
       },
     ],
-    designAlternativesConclusion: "I developed Alternative 03 further. The floating overlay and the below-headline bar both left the core sequence problem unsolved, they were just moving the label to a marginally better position. Moving bias to the header was the only option that structurally guaranteed it would be seen before the headline.",
+    designAlternativesConclusion: "The rejected architectures fail in mirrored ways. Review-everything consumes the human to protect the human. Automate-everything removes the human to serve the human. Confidence routing was the only architecture where speed and judgment coexist, and it converted the vague brief of 'build trust' into a concrete design program: make confidence legible, make the threshold ownable, make every action reversible.",
 
-    designFeedbackTitle: "An Unexpected Feedback Pattern",
+    designFeedbackTitle: "The audit that produced a thirteenth screen",
     designFeedbackBody: [
-      "When I showed the header-positioned prototype to users, one piece of feedback surprised me. Two participants said they found the bias label distracting when it appeared before the headline for topics they already had strong opinions on. They didn't want to know the source's political leaning before deciding whether to read, they wanted to evaluate the headline first.",
-      "That was something I hadn't anticipated. The design I was building to increase bias awareness was creating friction for users who were already politically engaged. I had to decide: is the product for users who want to be more aware, or for users who already are?",
-      "I brought this back to the PM. The product's positioning is squarely around helping users become more aware of bias, not serving users who are already expert at it. The header position stays. But the finding influenced the onboarding copy, which now sets clearer expectations about how the feed works.",
+      "With twelve screens done, I ran two structured self-audits before calling the design finished. The first was a Nielsen heuristic evaluation of every screen. It found two real violations: the ticket-detail action buttons had drifted into three different visual treatments for same-rank actions, and the account-deletion row showed an unexplained empty confidence cell. Both got fixed, one with a neutral secondary button style, one with an explicit Not scored label. It also produced a false positive worth keeping: the Accept button label varies by context (Accept, Accept 139 high-confidence, Accept Billing), which I initially logged as inconsistency and then correctly reclassified as context adaptation. Auditing your own work only helps if you're willing to overrule your own findings.",
+      "The second audit mapped every research problem to its design answer and looked for orphans. It found three. High-confidence tickets were a black box: the reasoning card existed only on uncertain tickets, so the 139 tickets the AI filed automatically offered no way to ask why. The learning loop made a promise the interface never paid off: the product says your judgment helps the model learn, but nothing ever showed a correction changing anything. And priority had no owner: the AI clearly owned category, but nothing said who set priority.",
+      "All three gaps became design. A thirteenth screen, the high-confidence ticket detail, gives auto-sorted tickets a full 'Why the AI chose this' card and an Auto-applied state that still carries a Change button, because automated must never mean final. The dashboard accuracy card gained one green line, Billing accuracy up 3 pts since last month's corrections, closing the loop between the agent's work and the model's improvement. And a one-line caption under priority, set by your SLA rules, you can change it anytime, drew the boundary of the AI's authority in the interface itself: it suggests categories, it never touches priority.",
+      "None of this replaces user testing, and the case for that is below. But self-critique with named methods is what evidence discipline looks like when users aren't in the building yet, and it changed the shipped design three times.",
     ],
 
     designDecisionsTitle: "Key Design Decisions",
-    designDecisionsBody: "I changed the order of what users see first. Everything else followed from that. Three decisions shaped how that played out in practice.",
+    designDecisionsBody: "Four decisions carry the thesis. Each one traces to a graded piece of evidence, and each one shows up on multiple screens rather than living as a one-off feature.",
     strategyPrinciples: [
       {
-        label: "Move bias into the scan path",
-        description: "Bias information was placed at the top of the card, where users naturally begin scanning. This is not about visual preference, it is about sequence. If bias appears after the headline, users have already formed their first impression. The only way to change that is to intervene before it happens.",
+        label: "Confidence in frequencies, not percentages",
+        description: "Every confidence number carries a frequency sentence: on tickets like this, the AI has been right about 41 of 100. Peer-reviewed work on uncertainty communication shows people calibrate frequencies far better than probabilities. The framing appears at every decision point, the dashboard review queue, the settings threshold, and both ticket details, so the agent's mental model of the AI's reliability is built from a format they can actually reason with.",
       },
       {
-        label: "Encode information visually",
-        description: "A left-to-right spectrum communicates direction and intensity simultaneously without requiring the user to read and interpret text. At scroll speed, the difference between a text label and a visual encoding determines whether the information registers at all.",
+        label: "Friction only where mistakes are expensive",
+        description: "Acting on the AI takes one tap everywhere except irreversible moments. Approving a refund on a low-confidence suggestion raises a glass confirmation that restates the uncertainty and the stakes. Cognitive forcing functions measurably reduce blind acceptance of AI output, and reserving them for irreversibility keeps the cost where the risk is instead of taxing every action.",
       },
       {
-        label: "Rebalance visual hierarchy",
-        description: "Images were scaled from full-width banners to constrained thumbnails. This was not an aesthetic decision, it was the only way to give bias information enough visual weight to compete for attention when a large image is also present. The image reduction and the bias elevation are the same decision.",
+        label: "Sensitive categories never leave human hands",
+        description: "Account deletion is locked to Always human. The AI does not classify it, so its confidence cell reads Not scored instead of pretending. Critically, the lock is visible in the inbox row itself, where the work happens, not only in a settings page nobody rereads. Risk policy that can't be seen at the moment of work is policy in name only.",
+      },
+      {
+        label: "Failure designed as carefully as success",
+        description: "Empty, loading, and error are full screens, not afterthoughts. The empty state says what the AI actually did today instead of celebrating vaguely. The loading state shows real progress, 64 of 142 classified. The error state's whole message is that the human can keep working: AI triage is temporarily unavailable, keep sorting manually, with a retry. An AI product earns trust on the day the model is down.",
       },
     ],
-    strategyRejected: "I explored a floating overlay that appeared when users paused on a card. It was dismissed as an ad within one second in every test session. Users have been trained to ignore overlays. Structural position cannot be ignored the same way. The overlay direction was abandoned after three test sessions confirmed the pattern.",
+    strategyRejected: "I cut the standard feedback pattern, star ratings and thumbs on AI answers, before it reached hi-fi. A directional finding suggests asking users to grade the AI can reduce trust in the product, the interaction reframes the tool as a student you supervise for free. Sift replaces it with contribution framing at the moment of correction: this pattern looks new, your judgment here helps the model learn. The correction itself is the feedback. Whether that framing lands is one of the specific things Round 1 testing is designed to check, because the evidence grade here is Directional, not Verified.",
 
-    redesignTitle: "The Redesign",
-    redesignBody: "The redesigned feed makes one structural change: bias shows up before users even start reading the headline. Every other decision supports that.",
+    redesignTitle: "The system",
+    redesignBody: "Thirteen screens at 1440px on one token system: a single cobalt accent, tinted neutrals, IBM Plex Sans for interface and IBM Plex Mono for data. Enterprise restraint was the aesthetic bet: an agent lives here eight hours a day, and the AI-forward products this competes with mostly signal intelligence with gradients and glow. Sift signals it with legibility.",
     redesignChanges: [
       {
-        label: "Bias moved into the header",
-        description: "The bias pill was relocated from the bottom of the card to the header, positioned next to the source name. It is now the first element visible before the eye reaches the headline, restructuring the scan sequence rather than just repositioning a label.",
+        label: "Control has layers, not a switch",
+        description: "A global AI toggle sits in the header of every screen, the same position whether the AI is on or off. Below it: per-category thresholds in settings, Accept and Change on every ticket, an undo toast after bulk actions, and a live activity log on the dashboard. The agent can dial the AI from fully manual to mostly automatic without ever losing the ability to see and reverse what it did.",
       },
       {
-        label: "Spectrum replaces text label",
-        description: "A color-coded left-to-right scale replaced the text label. Blue for Left, Purple for Center, Red for Right. The spectrum encodes direction and intensity simultaneously, without requiring the user to parse a text string. It works at scan speed.",
+        label: "Explainability at both ends of confidence",
+        description: "The low-confidence detail explains why the AI is uncertain. The high-confidence detail explains why the AI was sure, and its Auto-applied state still carries a Change button. Most tools explain only when asking for help. Explaining when confident is what makes the confident cases auditable, and it's what turns 139 auto-sorted tickets from a black box into a reviewable decision trail.",
       },
       {
-        label: "Images reduced to thumbnails",
-        description: "Article images were scaled from full-width banners to constrained thumbnails. This gives bias data enough visual weight to register. The image reduction and the bias elevation are the same decision, a hierarchy rebalance.",
+        label: "States as a first-class row",
+        description: "Empty, loading, and error sit in the file as their own screen row, designed with the same fidelity as the dashboard. Each carries the thesis: the empty state reports honestly, the loading state shows true progress, the error state keeps the human productive while the AI is down.",
       },
       {
-        label: "Consistent encoding across surfaces",
-        description: "The same color encoding was applied to the article view and all detail surfaces. Once learned on the feed, the system requires no re-interpretation on any other surface. Consistency reduces cognitive load over time.",
+        label: "Dark mode from the same tokens",
+        description: "The dark dashboard is generated by remapping the token system, 173 bound color styles, to a dark palette, not by hand-recoloring a copy. It proves the token architecture is real, and it ships the header's dark-mode button as a kept promise instead of a decorative control.",
       },
     ],
 
-    beforeImage: "/images/biasly-before.webp",
-    afterImage: "/images/biasly-after.webp",
-    outcomeImage: "/images/biasly-outcome.webp",
+    outcomeImage: "/images/triage-outcome.webp",
 
+    // ── USABILITY TESTING ─────────────────────────────
+    // ── Fill after Maze Round 1. Delete this entire block
+    // ── if publishing before results exist. Do not ship TODOs.
+    /* RESTORE AFTER MAZE ROUND 1 — remove this comment, fill the TODOs.
+
+    usabilityTesting: {
+      round: "Round 1, Maze prototype test",
+      context: "The design's central bets are testable claims, so the test plan targets them directly instead of asking whether the screens are pleasant. The most important block in the plan checks whether frequency framing actually reads the way the research predicts: shown 'right about 41 of 100', do people conclude the AI is wrong more often than right on tickets like this? If that fails, the centerpiece of the thesis changes.",
+      participants: "TODO(dean): sessions and completion counts from Maze after Round 1",
+      method: "Maze · 10 blocks · about 5 to 6 minutes · 3 missions (find the review queue, decide on a 41% suggestion, find the automation dial) · 2 comprehension checks · 1 control rating · 1 open question. The plan is deliberately short: previous rounds on other projects showed long tests bleed participants mid-way, so every block here earns its place.",
+      metrics: [
+        { value: "TODO", label: "Mission success", context: "TODO(dean): fill from Maze block results" },
+        { value: "TODO", label: "Frequency framing comprehension", context: "TODO(dean): % choosing 'wrong more often than right' on the 41 of 100 check" },
+        { value: "TODO", label: "Felt in control", context: "TODO(dean): mean on the 1 to 7 control scale" },
+      ],
+      findings: [
+        {
+          number: "01",
+          finding: "TODO(dean): frequency framing comprehension result",
+          evidence: "TODO(dean): Block 6 results and any open-response quotes",
+          refinement: "TODO(dean)",
+          refinementReason: "TODO(dean)",
+        },
+        {
+          number: "02",
+          finding: "TODO(dean): routing comprehension result (what happens to low-confidence tickets)",
+          evidence: "TODO(dean): Block 4 results",
+          refinement: "TODO(dean)",
+          refinementReason: "TODO(dean)",
+        },
+        {
+          number: "03",
+          finding: "TODO(dean): threshold discoverability result",
+          evidence: "TODO(dean): Mission 3 success, misclicks, duration",
+          refinement: "TODO(dean)",
+          refinementReason: "TODO(dean)",
+        },
+      ],
+      conclusion: "TODO(dean): what Round 1 validated, what it pushed back on, what moves to Round 2",
+    }, */
 
     // ── FUTURE STEPS ──────────────────────────────────
     futureStepsTitle: "Future Steps",
     futureSteps: [
       {
-        title: "Onboarding the Color System",
+        title: "Let Round 1 argue with the thesis",
         body: [
-          "The spectrum bar assumes users understand that blue represents Left and red represents Right in the US political context. That assumption is not universal, it depends on familiarity with American political color coding, which is not shared globally and is relatively recent even domestically.",
-          "If I returned to this project, I would design a single annotated card that appears on first use, not a tutorial, just one card with labels explaining the spectrum. That one touchpoint would calibrate expectations without creating meaningful friction. I would test whether users who received this onboarding card demonstrated higher bias recognition accuracy in the first session.",
+          "The Maze plan is built to falsify the design's specific bets, not to collect praise. The frequency-framing comprehension check matters most: if people read 'right about 41 of 100' and still conclude the AI is usually right, the calibration centerpiece needs a new form, and that finding would be worth more than a clean pass.",
+          "The control rating and the open question are there to catch what the missions can't: whether the layered-control model produces an actual felt sense of being in charge, or just more switches.",
         ],
       },
       {
-        title: "Evaluating Behavioral Change Over Time",
+        title: "Discovery interviews with working agents",
         body: [
-          "The usability testing I ran measured recognition accuracy in a controlled session. What I couldn't measure was whether the redesign actually changed reading behavior over time, whether users who browsed the redesigned feed were more likely to notice bias before forming opinions in their daily news consumption.",
-          "A longer-term study tracking reading behavior across sessions would answer this. Are users clicking into articles from sources with opposing bias more often? Are they flagging bias less (suggesting the indicator is doing its job) or more (suggesting increased engagement)? These longitudinal signals would tell me whether the redesign achieved its actual goal.",
+          "The interview script exists and recruiting is in progress: 30 minutes, working support agents, no embedded hypotheses. The design's framing of the trust gap comes from graded secondary research, and practitioners will bend it. The threshold defaults, the category set, and the copy on the frequency lines are all built to move when they do.",
+          "A planned dashboard layer, richer team-level views on the overview screen, is deliberately gated behind these interviews rather than designed from assumption.",
         ],
       },
       {
-        title: "Extending the System to the Article View",
+        title: "The team lead layer",
         body: [
-          "The redesign currently applies to the feed card only. The article view still uses a smaller, text-based bias indicator. Extending the spectrum encoding to the article header, keeping the same visual language throughout the reading experience, would reinforce the system and maintain context as users move from scanning to reading.",
+          "Thresholds are policy, and in a real deployment policy has owners above the agent. Layer B covers the team lead and admin surface: threshold governance, audit views across agents, permission boundaries, and the reporting that makes the accuracy trend line accountable. It was scoped out deliberately so the agent seat could be designed completely, and it's the natural next surface.",
+        ],
+      },
+      {
+        title: "A coded prototype for the moments static frames can't carry",
+        body: [
+          "Undo has a timing window, the loading state has real progress, and the glass confirmation has a rhythm that a static frame can only imply. The same lesson carried over from my FiPet work: when the remaining unknowns are behavioral, the honest next prototype is code. A React build of the inbox loop, accept, undo, error fallback, is the planned vehicle for Round 2.",
         ],
       },
     ],
@@ -440,24 +527,69 @@ export const projects: Project[] = [
     reflectionTitle: "What I Learned",
     reflections: [
       {
-        title: "Structural changes are harder to advocate for than visual ones",
-        body: "Moving the bias indicator from the bottom to the top of the card sounds like a small change. In practice, it required renegotiating the entire visual hierarchy of the card, which affected image treatment, source name positioning, and the overall balance of the design. Every stakeholder I showed it to had a reaction to the image reduction before they noticed the bias placement change. Advocating for a structural change means being prepared to defend every downstream consequence of it.",
+        title: "Honesty is a set of design decisions, not a tone of voice",
+        body: "It's easy to say a product should be honest about its AI. It's specific work to decide what that means on each screen: a confidence sentence written in frequencies, a Not scored label where the AI didn't judge, an empty state that reports what actually happened, an error banner whose first message is that the human can keep working. Each of those is a decision someone could have skipped without anyone noticing at demo time. Honest AI products are built out of exactly the decisions that don't demo.",
       },
       {
-        title: "The unexpected finding was the most valuable output",
-        body: "The feedback from politically engaged users who found the upfront bias labeling distracting was more useful than the confirming data. It clarified who the product is actually for and influenced decisions beyond the feed redesign. The most important research outputs are often the ones that challenge the design direction, not the ones that confirm it.",
+        title: "Self-critique is a method, but only with named instruments",
+        body: "Vibes-based self-review finds what you already suspect. Running a Nielsen pass and a problem-to-solution audit as formal steps found things I did not suspect: a thirteenth screen the system needed, a promise the interface never paid off, and a false positive I had to overrule myself on. On a solo concept project, structured self-critique is the difference between a portfolio piece and a decorated opinion. It also taught me where its limit is, which is exactly why the Maze plan targets the claims self-critique can't settle.",
+      },
+      {
+        title: "In 2026, craft includes not reading as machine-made",
+        body: "There's an irony in designing an AI product carefully enough that it doesn't look AI-generated, but recruiters now see a thousand generated dashboards a week and they've learned the tells. I audited for them directly: display type tightened to negative tracking instead of the default airy spacing, all 472 icons normalized to a single stroke-to-size ratio, label tracking unified to one value, spacing set by rhythm rather than uniform padding. None of it shows up in a feature list. All of it shows up in whether the work reads as decided or generated.",
       },
     ],
 
     // ── OUTCOME ───────────────────────────────────────
-    impactTitle: "Outcome",
-    impactBody: "Post-redesign sessions used the same participants, same task, same duration. One variable: the layout. Users were now seeing bias before they reacted to the headline, and it showed in the numbers. The shift was not marginal. After handoff and QA, a version based on this design is rolling out with team refinements.",
-    impactMethod: "12 sessions · matched profile · 3-min exposure · 5-article recall · observer-coded",
+    impactTitle: "Where it stands",
+    impactBody: "The system is complete and testable: thirteen screens covering every state of the product, a token architecture proven by the dark-mode remap, a FigJam user flow of the full decision loop, and a Maze plan aimed at the design's riskiest claims. Two structured self-audits already changed the design three times. What it doesn't have yet is user evidence, and the honest version of this page says so: Round 1 is in progress, and this section updates when the data lands.",
+    // TODO(dean): after Round 1, swap the first metric for the headline test result
+    impactMethod: "Structured self-evaluation to date: Nielsen heuristic pass across 13 screens, problem-to-solution audit, AI-tell craft audit. User evidence: Maze Round 1 in progress, discovery interviews recruiting.",
     metrics: [
-      { value: "3×", label: "Faster recognition", context: "9s → 3s median time-to-identify (n=12)" },
-      // TODO(dean): verify 31-to-78 against session data (renders in both the case hero and the outcome section)
-      { value: "78%", label: "Accuracy", context: "Up from 31%, same task, different layout (n=12)" },
-      { value: "60%", label: "Drop in missed indicators", context: "Observer-coded overlooked bias data (n=12)" },
+      { value: "13", label: "Screens, every state designed", context: "Both AI modes, both ends of confidence, empty, loading, error, settings, dashboard, dark" },
+      { value: "41 of 100", label: "How the AI states confidence", context: "Frequency framing over raw percentages, backed by peer-reviewed calibration research" },
+      { value: "3", label: "Gaps caught by self-audit, shipped as design", context: "High-confidence explainability, learning-loop closure, priority ownership" },
+    ],
+
+    // ── BEYOND THE MAIN FLOW ──────────────────────────
+    beyondIntro: "The thesis lives or dies in small moments. Four of them, from the screens the walkthrough above doesn't reach.",
+    beyondFlows: [
+      {
+        number: "01",
+        category: "BULK ACTIONS",
+        title: "Undo as the price of speed",
+        problem: "Accepting 139 AI suggestions in one tap is efficient and slightly terrifying, which is the exact trade bulk automation asks people to make.",
+        decision: "The action fires immediately, then a toast holds the door open: 139 tickets accepted, high-confidence only, with one-tap Undo. The same actions land in the activity log for later.",
+        outcome: "Speed without lock-in. The agent can be fast precisely because being wrong is cheap.",
+        image: "/images/triage-beyond-1.webp",
+      },
+      {
+        number: "02",
+        category: "RISK POLICY IN THE INBOX",
+        title: "The row that refuses automation",
+        problem: "A rule that lives only in settings is invisible at the moment of work, which is where risk policy actually matters.",
+        decision: "The account-deletion ticket carries its policy in the row itself: an Always human lock next to the category, and Not scored where confidence would be, because the AI genuinely didn't judge it.",
+        outcome: "The AI's authority boundary is legible in the queue, not just in a settings page nobody rereads.",
+        image: "/images/triage-beyond-2.webp",
+      },
+      {
+        number: "03",
+        category: "HIGH-CONFIDENCE DETAIL",
+        title: "Automated must never mean final",
+        problem: "The 139 tickets the AI files on its own are exactly the ones nobody can interrogate in most tools.",
+        decision: "The auto-sorted detail carries a full Why the AI chose this card, an audit line noting when it acted and where it's logged, and an Auto-applied state that still ships with a Change button.",
+        outcome: "Confidence becomes auditable. The agent can spot-check the AI's sure cases, which is where silent drift would otherwise live.",
+        image: "/images/triage-beyond-3.webp",
+      },
+      {
+        number: "04",
+        category: "FAILURE STATE",
+        title: "The outage that isn't a work stoppage",
+        problem: "AI products are usually designed as if the model is always up, so an outage becomes a dead tool.",
+        decision: "When triage is unavailable, an amber banner says so plainly and hands the queue back: keep sorting manually, we'll resume when the service is back, with a visible retry.",
+        outcome: "The failure state is an inconvenience instead of a stoppage, and it quietly proves the manual mode was designed for real.",
+        image: "/images/triage-beyond-4.webp",
+      },
     ],
   },
 
@@ -468,21 +600,21 @@ export const projects: Project[] = [
     year: "2026",
     category: "Mobile",
     featured: true,
-    order: 1,
+    order: 2,
 
     coverImage: "/images/fipet-cover.webp",
     heroImage: "/images/fipet-hero.webp",
     heroImageMobile: "/images/fipet-mobile-hero.webp",
     thumbBg: "#2d1810",
 
-    role: "UI/UX Intern, Lead on Quiz Battle",
+    role: "Product Design Intern, Lead on Quiz Battle",
     team: "1 PM, 2 other designers, 10 engineers",
     timeline: "Jan – May 2026",
     tools: "Figma, Maze, Claude Code",
     impact: "Led design end-to-end for the 1v1 Quiz Battle feature on a 13-person team. Established a design system the entire team adopted for a broader app redesign. Introduced usability testing as a default practice, the first in company history.",
 
     // ── OVERVIEW ──────────────────────────────────────
-    problemTitle: "The Problem",
+    problemTitle: "Built for kids, shipped like enterprise software",
     problemBody: "FiPet shipped to the App Store with no usability testing. Few downloads. Poor reviews. Users weren't coming back. The original design was too complex for the 8–15 audience it was built for, heavy gradients, ambiguous icons, a flow no one could follow on the first try. No one described the app as fun. The team had built a financial literacy product for kids and shipped it the way you'd ship enterprise software.",
     problemPoints: [
       "Heavy gradients and visual complexity that didn't fit a kids' app",
@@ -491,7 +623,7 @@ export const projects: Project[] = [
       "No fun factor, one interview participant described it as homework",
     ],
 
-    solutionTitle: "The Solution",
+    solutionTitle: "Learning inside play, not before it",
     solutionBody: "I led the redesign around a new feature the team aligned on in a company-wide meeting: 1v1 Quiz Battle. Sixty-second matches against a friend, competitive framing, learning happens inside play rather than before it. I built a design system around a single primary color (#FF8C2E), Inter typography, SVG line icons, and an 8pt grid, and the entire team adopted it for a broader app redesign beyond my feature. And I introduced usability testing as a default practice. The original ship had skipped it. This one didn't.",
 
     showcasePanels: [
@@ -519,7 +651,7 @@ export const projects: Project[] = [
     ],
 
     // ── RESEARCH ──────────────────────────────────────
-    researchWhyTitle: "Why Redesign Now",
+    researchWhyTitle: "The launch had skipped the users",
     researchWhyBody: [
       "FiPet had already shipped to the App Store, which was the central fact I came into. The decision had been made to launch without usability testing, and the result was visible in every available signal: App Store reviews kept flagging the same handful of problems, downloads were slow, retention was poor. The team had built a financial literacy app for kids and shipped it without verifying that the kids could actually use it.",
       "The brief I was given was to redesign the experience around a new 1v1 Quiz Battle feature that the team had aligned on in a company-wide meeting. But before designing anything new, I wanted to understand what was wrong with the current product. App Store reviews told part of the story. I needed to hear from real users to get the rest.",
@@ -530,7 +662,7 @@ export const projects: Project[] = [
     researchDomainBody: "Apps that hold 8–15 year olds, Duolingo, Roblox, even Khan Kids, share a pattern: short sessions, visible progress, and a clear reason to come back. None of them lead with content. They lead with a hook. FiPet had content. It didn't have a hook. The original home screen treated kids like adult learners with a curriculum to complete, which is the opposite of how kids actually use their phones.",
     researchDomainInsight: "Apps that succeed with 8–15 year olds make a habit before they make a curriculum.",
 
-    researchUserTitle: "What the Interviews Surfaced",
+    researchUserTitle: "'It feels like homework'",
     researchUserBody: [
       "Across the 10 interviews, the most consistent feedback wasn't about the financial content. It was about the experience wrapping it. Parents described the app as 'too much', visually overwhelming for their kids. One participant compared it to a textbook. Another said it felt like homework, which was exactly the frame the product was trying to avoid.",
       "I ran the interviews in my first week at the company. Public intercepts in coffee shops, parks, and on the street, ten participants, parents alongside their kids, so I could observe how kids actually approached the app and how parents read what they were seeing. A formal focus group would have been better. Setting one up wasn't realistic in the time available. The pattern was unambiguous: kids opened the app once, weren't sure what to do, and didn't come back. The drop-off was at the moment of confusion, not at the moment of disengagement with financial content. Most kids never got far enough to be bored by the curriculum.",
@@ -556,7 +688,7 @@ export const projects: Project[] = [
         name: "Kids, ages 8 to 15",
         meta: "First-time users · Public intercepts",
         quote: "It's so confusing. I don't even know what this app is for.",
-        quoteAttribution: "— kid, intercepted in a public space",
+        quoteAttribution: "– kid, intercepted in a public space",
         image: "/images/persona-kid.webp",
         keyNeeds: [
           "Something to tap within the first ten seconds",
@@ -571,7 +703,7 @@ export const projects: Project[] = [
         name: "Parents of kids 8 to 15",
         meta: "Decision-makers · Interviewed with their kid",
         quote: "It's too overwhelming. I don't even know where to tap first.",
-        quoteAttribution: "— parent, watching their child use the app",
+        quoteAttribution: "– parent, watching their child use the app",
         image: "/images/persona-parent.webp",
         keyNeeds: [
           "Visible proof their kid is engaged, not bored",
@@ -588,7 +720,7 @@ export const projects: Project[] = [
     // ── DESIGN ────────────────────────────────────────
     designIntro: "The design phase had one constraint that shaped everything: 1v1 Quiz Battle had already been chosen as the feature. My job wasn't to invent it, it was to figure out the experience around it. That meant the design alternatives weren't about whether to ship a quiz battle. They were about how the home screen and battle loop framed it, and what made users want to come back. I explored two directions before the chosen one, and both got rejected for the same underlying reason.",
 
-    designWhereTitle: "Where the Real Problem Was",
+    designWhereTitle: "Kids dropped off before the lesson, not during it",
     designWhereBody: [
       "My first instinct was to redesign the lessons themselves, shorter modules, more visuals, gamification inside each one. The interviews kept pointing somewhere else. Kids weren't dropping off in the middle of a lesson. They were dropping off before the lesson started. The intervention point wasn't inside the curriculum. It was the home screen, and whether it answered the question of why anyone should open the app on day two.",
       "So the design work focused on the loop, not the content. What does the user see first? What happens in the first 60 seconds? What makes them come back tomorrow? Every screen had to earn its place inside that question.",
@@ -690,19 +822,19 @@ export const projects: Project[] = [
     redesignChanges: [
       {
         label: "Single primary color: #FF8C2E",
-        description: "I reduced the multi-color palette to a single orange accent on a flat cream background. The original gradient-heavy palette had created visual noise that made the interface harder to parse, especially for the 8–15 audience who shouldn't have to decode the UI before learning about money. One accent color, applied consistently, gave the system an identity and gave kids fewer things to process at once.",
+        description: "The multi-color gradient palette became a flat cream background with one orange accent, applied consistently. Fewer things for an 8-year-old to process before the content lands, and a visual identity the system could scale on.",
       },
       {
         label: "SVG line icons familiar from mobile",
-        description: "The original app had custom icons whose meaning users had to guess at, plus emojis that rendered inconsistently across iOS and Android. I replaced both with standard SVG line icons from common mobile patterns. Clarity over novelty. The cross-platform rendering issue resolved itself once the icons standardized, an engineering complaint that fixed itself.",
+        description: "Guess-what-this-means custom icons and inconsistently rendering emojis were replaced with standard SVG line icons. Clarity over novelty, and the iOS/Android rendering complaints resolved themselves once the icons standardized.",
       },
       {
         label: "Inter throughout, migrated from Nunito",
-        description: "The original system used Nunito, which had weight inconsistencies at the small sizes our 14 base screens required. I migrated to Inter, which solved the consistency problem and gave the system a more neutral foundation. This was a legibility decision, not a brand decision. Kids need the type to recede so the content lands.",
+        description: "Nunito had weight inconsistencies at the small sizes the base screens required. Inter fixed the consistency problem. A legibility decision, not a brand decision: the type has to recede so the content lands.",
       },
       {
         label: "Quick Battle card as the primary home action",
-        description: "The original home screen led with a lesson list. The redesign leads with a Quick Battle card, challenge a friend now, win streak counter below it, friends online below that. The primary action on the home screen is the action we actually want users to take. That alignment between visual hierarchy and behavioral intent was what was missing in the original.",
+        description: "The home screen leads with a Quick Battle card instead of a lesson list, win streak and friends online below it. The primary action on the screen is the action we actually want users to take, which was the alignment the original was missing.",
       },
     ],
 
@@ -712,7 +844,7 @@ export const projects: Project[] = [
 
     // ── USABILITY TESTING (Round 1) ───────────────────
     usabilityTesting: {
-      round: "Round 1 — Figma Prototype Testing",
+      round: "Round 1: Figma Prototype Testing",
       context: "FiPet had shipped without a single usability test, which was the original problem. After designing the 1v1 Quiz Battle feature, the question wasn't whether to test. It was how fast we could get evidence before shipping the next iteration. I built the test plan in Maze, ran it against the hi-fi Figma prototype, and made it the first usability test in the company's history.",
       participants: "22 recorded sessions were logged across the core task flow; 10 participants completed the test end to end, including the post-task opinion scales (33 total responses across all tasks and follow-ups). Recruited as adults briefed as proxies for the 8–15 target audience, direct child testing required parental consent infrastructure we didn't have yet, so adults walked through the task flows imagining they were the target age. 97% of participants were aged 16 or older.",
       method: "Maze prototype test with three core tasks: start a quiz battle, answer a question, complete all five questions. Each task surfaced a different layer of friction. Open-ended follow-up questions captured the reasoning behind specific moments of confusion or surprise. Three task flows, fourteen blocks total.",
@@ -755,7 +887,7 @@ export const projects: Project[] = [
           finding: 'Round 1 participants wanted reward variability beyond winning the match',
           evidence: '3 users quoted that they wanted more gamification elements and more dynamic reward layers throughout the quizzes to entertain the users',
           refinement: 'Added three Round 2 mechanics: a combo system (chaining correct answers triggers a streak multiplier on points), a mystery box reveal after each battle (variable reward instead of a fixed coin payout), and a daily missions track that funnels into the same mystery box reward on full completion.',
-          refinementReason: 'Variable reward schedules sustain the "one more game" loop without forcing transactions, which extends the Play Again primary CTA decision from earlier. The mystery box becomes reachable through two parallel paths — in-session (post-battle) and cross-session (daily missions) — so the same reward anchors both immediate replay and next-day return. The Round 2 coded prototype tests whether this multi-path structure raises retention over Round 1 baseline.',
+          refinementReason: 'Variable reward schedules sustain the "one more game" loop without forcing transactions, which extends the Play Again primary CTA decision from earlier. The mystery box becomes reachable through two parallel paths, in-session (post-battle) and cross-session (daily missions), so the same reward anchors both immediate replay and next-day return. The Round 2 coded prototype tests whether this multi-path structure raises retention over Round 1 baseline.',
         },
       ],
       conclusion: "Round 1 validated the macro design (90% would play again, 4.2/5 fun rating, 100% task success on the core flow) and surfaced four refinements specific enough to act on. Rather than iterate on the Figma prototype, I moved the refinements into a coded React prototype. Real timer behavior, real rival turn-taking, and real answer-switching couldn't be faithfully simulated in a static prototype, and Round 1 had made it clear those exact behaviors were where the remaining unknowns lived. Round 2 is currently running on the coded build.",
@@ -819,7 +951,7 @@ export const projects: Project[] = [
       {
         title: "Integrate Gamification Effects per Engineer Feedback",
         body: [
-          "Engineers proposed adding a combo system and a Mystery Box reward (both detailed in the Beyond section below). These weren't from Round 1 user findings. They came from designer- and engineer-anticipated patterns based on what makes similar games engaging. Round 2 includes both, and the test will tell us whether they materially shift the 4.2/5 fun rating, or whether they read as decorative.",
+          "Engineers proposed adding a combo system and a Mystery Box reward (both described in Finding 05 above). These weren't from Round 1 user findings. They came from designer- and engineer-anticipated patterns based on what makes similar games engaging. Round 2 includes both, and the test will tell us whether they materially shift the 4.2/5 fun rating, or whether they read as decorative.",
         ],
       },
       {
@@ -848,7 +980,7 @@ export const projects: Project[] = [
     ],
 
     // ── OUTCOME ───────────────────────────────────────
-    impactTitle: "Outcome",
+    impactTitle: "Decisions start from data now",
     impactBody: "Round 1 was the company's first usability test. It validated the macro design (90% would play again, 4.2/5 fun, 100% task success on the core flow) and produced four specific refinements that moved into a coded React prototype for Round 2. The design system I built for the Quiz Battle feature was adopted across the team for the broader app redesign. The shift the team is still feeling, the one that won't show up in a portfolio metric, is that decisions now start from data, not intuition.",
     impactMethod: "Round 1: 22 recorded sessions on the core task · Maze prototype testing · 3 task flows · open-ended follow-up · adults briefed as proxies for the 8–15 target audience. Round 2 currently running on the coded prototype.",
     metrics: [
@@ -887,7 +1019,7 @@ export const projects: Project[] = [
       "Dock imbalance costs Lyft millions in truck redistribution. Rebalancing moves dropped 80% from 2014 to 2022, but the cost is still material (NYC Comptroller, 2023)",
     ],
 
-    solutionTitle: "The Solution",
+    solutionTitle: "Surface what Lyft already runs",
     solutionBody: "Lyft already has everything it needs. AirControl monitors stations in real time. Bike Angels pays riders to rebalance the network, with top users earning $3K a month (Bloomberg, 2022). Internal prediction algorithms forecast dock availability. The iOS Live Activities API can deliver mid-ride notifications without making the rider touch their phone. None of this reaches riders today. My design is the UX layer that exposes it. There's no new technology involved, mostly a frontend lift.",
 
     showcasePanels: [
@@ -1195,6 +1327,240 @@ export const projects: Project[] = [
       { value: "Zero", label: "New technology required", context: "Every feature maps to AirControl, Bike Angels, Live Activities, or Lyft's internal prediction algorithms. The engineering lift is mostly frontend" },
     ],
   },
+  {
+    slug: "biasly",
+    title: "Biasly Mobile App",
+    description: "Biasly helps users understand political bias before engaging with content. The feed made that context easy to miss.",
+    year: "2025",
+    category: "Mobile",
+    featured: true,
+    order: 4,
+
+    coverImage: "/images/biasly-cover.webp",
+    heroImage: "/images/biasly-hero.webp",
+    heroImageMobile: "/images/biasly-mobile-hero.webp",
+    thumbBg: "#1c2340",
+
+    role: "Product Design Intern",
+    team: "PM, 2 Engineers",
+    timeline: "3 months",
+    tools: "Figma, Maze, Notion",
+    // TODO(dean): verify 31-to-78 against session data
+    impact: "Led the mobile feed redesign end-to-end. Bias recognition improved from 31% to 78%, and users identified bias 3× faster in testing.",
+
+    // ── OVERVIEW ──────────────────────────────────────
+    problemTitle: "Bias arrived after the opinion did",
+    problemBody: "Casual news readers who use Biasly to stay politically informed often find themselves reacting to headlines before ever registering bias context beneath them. The bias indicator existed, but it just appeared too late. By the time users reached it, they had already formed an opinion.",
+    problemPoints: [
+      "Bias indicators appeared below the primary scan path and were frequently missed",
+      "Text labels communicated category only, not direction or strength at a glance",
+      "Large article images dominated the card, leaving bias information visually secondary",
+    ],
+
+    solutionTitle: "Fix the sequence, not the label",
+    solutionBody: "I redesigned the mobile news feed to place bias context at the top of every card, anchored before the headline. A visual spectrum replaced text labels, encoding direction and intensity at scan speed. Image size was reduced to rebalance the visual hierarchy in favor of the information the product was built to surface.",
+
+    showcasePanels: [
+      {
+        number: "01",
+        title: "Bias Before the Headline",
+        subtitle: "Political context appears before users form an opinion.",
+        body: "The redesigned card anchors bias at the top, next to the source name. Users see direction and intensity before reading a single word of the headline, shifting the moment of awareness from after-the-fact to before the first impression.",
+        image: "/images/biasly-panel-1.webp",
+      },
+      {
+        number: "02",
+        title: "Instantly Read the Spectrum",
+        subtitle: "Direction and intensity at a glance. No reading required.",
+        body: "A left-to-right color-coded spectrum replaces the vague text label. Blue for Left, Purple for Center, Red for Right. The position and intensity of the fill communicates both direction and strength simultaneously, the way a gauge communicates data, not a label.",
+        video: "/images/biasly-panel-2.mp4",
+      },
+      {
+        number: "03",
+        title: "You Stay in Control",
+        subtitle: "Tap any card to read the full article with full bias context intact.",
+        body: "The article view preserves the same bias encoding at the top of the page. Users who want to read a story have full context visible throughout, not just on the feed. The system stays consistent so the encoding becomes second nature.",
+        image: "/images/biasly-panel-3.webp",
+      },
+    ],
+
+    // ── RESEARCH ──────────────────────────────────────
+    researchWhyTitle: "The layout was letting me off the hook",
+    researchWhyBody: [
+      "I use Biasly myself. As a user, I noticed that I'd often read a headline, form a reaction, and only then notice the bias tag at the bottom of the card, at which point I'd already processed the content through whatever lens I brought to it. The app was designed to change my behavior, but the layout was letting me off the hook.",
+      "As a designer, I wanted to understand whether this was a personal pattern or a systemic one. The product's value depends entirely on users engaging with bias context before they read. If the layout is preventing that, the app isn't delivering on its promise, regardless of how good the bias detection engine is.",
+      "I approached the research with one specific question: is the problem that users don't care about bias information, or that the design isn't giving them a chance to see it in time?",
+    ],
+
+    researchDomainTitle: "Nobody intervenes where impressions actually form",
+    researchDomainBody: "I reviewed how other news apps handle political context and source labeling. AllSides and Ground News both surface bias information, but primarily at the article level, after the user has already clicked. None of the products I reviewed positioned bias metadata at the moment of feed browsing, before the headline is read.",
+    researchDomainInsight: "No existing product intervenes at the moment users actually form impressions, which is during fast-scroll browsing, not after clicking into an article.",
+
+    researchUserTitle: "69% missed the bias they had just read past",
+    researchUserBody: [
+      "I ran 12 moderated usability sessions with participants aged 22–45 who identified as regular news readers. The task was simple: browse the feed naturally for 3 minutes, then answer questions about the bias of articles they had seen.",
+      "The results were consistent: 69% of participants could not correctly identify the bias of articles they had spent time reading. When probed, almost all of them said the same thing, they hadn't noticed it. Not because they didn't care. The indicator never showed up at the right moment.",
+      "I asked participants to walk me through a session using think-aloud protocol. The pattern was immediate. Every participant followed the same path: headline → image → scroll. The bias tag at the bottom was processed, when it was processed at all, as an afterthought.",
+    ],
+    researchUserFindingsTitle: "Key Research Findings",
+    researchUserFindings: [
+      "69% of participants could not identify bias on articles they had spent time reading",
+      "100% of participants began scanning at the top of each card",
+      "The bias label was the last element registered in card scan order",
+      "When told where to look, users found the bias information immediately useful",
+      "No participant voluntarily scrolled back up to re-check bias after forming an impression",
+    ],
+    researchQuote: "I usually just read the headline. I didn't even see the bias tag.",
+    researchQuoteAuthor: "Maksym, 28, usability participant",
+    researchMethod: "12 moderated sessions · 5-second exposure test · think-aloud protocol · n=12, aged 22–45",
+
+    researchPersonasBody: "The primary user is a politically aware news reader who wants to be informed without being manipulated. They open the feed to get a fast read on the day, not to spend time evaluating each source. The anti-persona is a user who has already decided which sources to trust and has no interest in being challenged. The redesign is not for them.",
+
+    researchGoalsTitle: "Design Goals",
+    researchGoalsBody: "Based on the research, I defined three goals for the redesign: (1) make bias context visible before users read the headline, (2) encode bias visually so it registers without requiring active reading, and (3) maintain the speed and scannability of the feed so the change doesn't create friction.",
+
+    // ── DESIGN ────────────────────────────────────────
+    designIntro: "The further I got into the research, the more it stopped feeling like a visibility problem. It wasn't that users couldn't see the indicator. It was that they saw it in the wrong order. That's when it clicked, the fix wasn't making the indicator bigger or bolder. It was when it showed up that mattered.",
+
+    designWhereTitle: "Where Should the Change Happen?",
+    designWhereBody: [
+      "My first instinct was to move the bias tag higher on the card. But before committing to that, I asked whether the feed was the right surface at all. Could the problem be addressed through onboarding, article pages, or a dedicated bias dashboard instead?",
+      "I went back to the session recordings. Users who engaged most with bias information did so during feed browsing, not after clicking into articles. The feed is where impressions are formed and decisions are made about what to read. That's the intervention point. Changing any other surface leaves the core behavior untouched.",
+      "So the feed was the right place. The question was how much to change.",
+    ],
+
+    designAlternativesTitle: "Three ways to surface bias earlier",
+    designAlternativesIntro: "I explored three structural approaches to surfacing bias earlier in the scan path. Each made a different trade-off between visibility, disruption to existing patterns, and technical complexity.",
+    designAlternativesFeasibility: "I had access to the PM and two engineers for feedback on feasibility. The main technical constraint: any overlay or animation approach would require client-side state tracking that added complexity. A static position change, moving the bias element to the card header, was the cleanest implementation path and the most reliable behavior across scroll speeds.",
+    designAlternatives: [
+      {
+        number: "01",
+        title: "Floating overlay on scroll pause",
+        description: "A bias badge appears when the user pauses scrolling over a card, overlaid on the image.",
+        pros: ["No layout change required", "Preserves existing card hierarchy"],
+        cons: ["Dismissed as an ad within 1 second in every test session", "Conditional visibility means users who scroll at constant speed never see it", "Overlays can be trained out, structural position cannot"],
+        video: "/images/biasly-alt-1.mp4",
+      },
+      {
+        number: "02",
+        title: "Bias bar below headline",
+        description: "A thin color bar replaces the text label, positioned between the headline and the article body text.",
+        pros: ["Visual encoding improves on text label", "Lower disruption to card layout"],
+        cons: ["Still below the headline, users form impressions before reaching it", "Thin bar is easy to overlook during fast scrolling", "Does not solve the sequence problem"],
+        image: "/images/biasly-alt-2.webp",
+      },
+      {
+        number: "03",
+        title: "Bias anchored to card header",
+        description: "Bias pill and spectrum bar move to the top of the card, adjacent to the source name, before the headline.",
+        pros: ["Appears before the headline in every scan sequence", "Cannot be skipped without seeing it", "Consistent position across all cards builds pattern recognition"],
+        cons: ["Requires image size reduction to maintain visual balance", "More layout change than the other options"],
+        image: "/images/biasly-alt-3.webp",
+      },
+    ],
+    designAlternativesConclusion: "I developed Alternative 03 further. The floating overlay and the below-headline bar both left the core sequence problem unsolved, they were just moving the label to a marginally better position. Moving bias to the header was the only option that structurally guaranteed it would be seen before the headline.",
+
+    designFeedbackTitle: "The users I wasn't designing for pushed back",
+    designFeedbackBody: [
+      "When I showed the header-positioned prototype to users, one piece of feedback surprised me. Two participants said they found the bias label distracting when it appeared before the headline for topics they already had strong opinions on. They didn't want to know the source's political leaning before deciding whether to read, they wanted to evaluate the headline first.",
+      "That was something I hadn't anticipated. The design I was building to increase bias awareness was creating friction for users who were already politically engaged. I had to decide: is the product for users who want to be more aware, or for users who already are?",
+      "I brought this back to the PM. The product's positioning is squarely around helping users become more aware of bias, not serving users who are already expert at it. The header position stays. But the finding influenced the onboarding copy, which now sets clearer expectations about how the feed works.",
+    ],
+
+    designDecisionsTitle: "I changed the order. Everything else followed.",
+    designDecisionsBody: "Three decisions shaped how that single move played out in practice.",
+    strategyPrinciples: [
+      {
+        label: "Move bias into the scan path",
+        description: "Bias information was placed at the top of the card, where users naturally begin scanning. This is not about visual preference, it is about sequence. If bias appears after the headline, users have already formed their first impression. The only way to change that is to intervene before it happens.",
+      },
+      {
+        label: "Encode information visually",
+        description: "A left-to-right spectrum communicates direction and intensity simultaneously without requiring the user to read and interpret text. At scroll speed, the difference between a text label and a visual encoding determines whether the information registers at all.",
+      },
+      {
+        label: "Rebalance visual hierarchy",
+        description: "Images were scaled from full-width banners to constrained thumbnails. This was not an aesthetic decision, it was the only way to give bias information enough visual weight to compete for attention when a large image is also present. The image reduction and the bias elevation are the same decision.",
+      },
+    ],
+    strategyRejected: "I explored a floating overlay that appeared when users paused on a card. It was dismissed as an ad within one second in every test session. Users have been trained to ignore overlays. Structural position cannot be ignored the same way. The overlay direction was abandoned after three test sessions confirmed the pattern.",
+
+    redesignTitle: "One structural change",
+    redesignBody: "The redesigned feed makes one structural change: bias shows up before users even start reading the headline. Every other decision supports that.",
+    redesignChanges: [
+      {
+        label: "Bias moved into the header",
+        description: "The bias pill moved from the bottom of the card to the header, next to the source name. It is now the first element in the scan sequence, before the headline.",
+      },
+      {
+        label: "Spectrum replaces text label",
+        description: "A color-coded left-to-right scale replaced the text label: blue for Left, purple for Center, red for Right. Direction and intensity in one glance, readable at scroll speed.",
+      },
+      {
+        label: "Images reduced to thumbnails",
+        description: "Article images scaled from full-width banners to constrained thumbnails, giving bias data enough visual weight to register against a competing image.",
+      },
+      {
+        label: "Consistent encoding across surfaces",
+        description: "The same color encoding applies to the article view and all detail surfaces, so the system learned on the feed needs no re-interpretation anywhere else.",
+      },
+    ],
+
+    beforeImage: "/images/biasly-before.webp",
+    afterImage: "/images/biasly-after.webp",
+    outcomeImage: "/images/biasly-outcome.webp",
+
+
+    // ── FUTURE STEPS ──────────────────────────────────
+    futureStepsTitle: "Future Steps",
+    futureSteps: [
+      {
+        title: "Onboarding the Color System",
+        body: [
+          "The spectrum bar assumes users understand that blue represents Left and red represents Right in the US political context. That assumption is not universal, it depends on familiarity with American political color coding, which is not shared globally and is relatively recent even domestically.",
+          "If I returned to this project, I would design a single annotated card that appears on first use, not a tutorial, just one card with labels explaining the spectrum. That one touchpoint would calibrate expectations without creating meaningful friction. I would test whether users who received this onboarding card demonstrated higher bias recognition accuracy in the first session.",
+        ],
+      },
+      {
+        title: "Evaluating Behavioral Change Over Time",
+        body: [
+          "The usability testing I ran measured recognition accuracy in a controlled session. What I couldn't measure was whether the redesign actually changed reading behavior over time, whether users who browsed the redesigned feed were more likely to notice bias before forming opinions in their daily news consumption.",
+          "A longer-term study tracking reading behavior across sessions would answer this. Are users clicking into articles from sources with opposing bias more often? Are they flagging bias less (suggesting the indicator is doing its job) or more (suggesting increased engagement)? These longitudinal signals would tell me whether the redesign achieved its actual goal.",
+        ],
+      },
+      {
+        title: "Extending the System to the Article View",
+        body: [
+          "The redesign currently applies to the feed card only. The article view still uses a smaller, text-based bias indicator. Extending the spectrum encoding to the article header, keeping the same visual language throughout the reading experience, would reinforce the system and maintain context as users move from scanning to reading.",
+        ],
+      },
+    ],
+
+    // ── REFLECTION ────────────────────────────────────
+    reflectionTitle: "What I Learned",
+    reflections: [
+      {
+        title: "Structural changes are harder to advocate for than visual ones",
+        body: "Moving the bias indicator from the bottom to the top of the card sounds like a small change. In practice, it required renegotiating the entire visual hierarchy of the card, which affected image treatment, source name positioning, and the overall balance of the design. Every stakeholder I showed it to had a reaction to the image reduction before they noticed the bias placement change. Advocating for a structural change means being prepared to defend every downstream consequence of it.",
+      },
+      {
+        title: "The unexpected finding was the most valuable output",
+        body: "The feedback from politically engaged users who found the upfront bias labeling distracting was more useful than the confirming data. It clarified who the product is actually for and influenced decisions beyond the feed redesign. The most important research outputs are often the ones that challenge the design direction, not the ones that confirm it.",
+      },
+    ],
+
+    // ── OUTCOME ───────────────────────────────────────
+    impactTitle: "Same users, same task, one variable",
+    impactBody: "Post-redesign sessions used the same participants, same task, same duration. One variable: the layout. Users were now seeing bias before they reacted to the headline, and it showed in the numbers. The shift was not marginal. After handoff and QA, a version based on this design is rolling out with team refinements.",
+    impactMethod: "12 sessions · matched profile · 3-min exposure · 5-article recall · observer-coded",
+    metrics: [
+      { value: "3×", label: "Faster recognition", context: "9s → 3s median time-to-identify (n=12)" },
+      // TODO(dean): verify 31-to-78 against session data (renders in both the case hero and the outcome section)
+      { value: "78%", label: "Accuracy", context: "Up from 31%, same task, different layout (n=12)" },
+      { value: "60%", label: "Drop in missed indicators", context: "Observer-coded overlooked bias data (n=12)" },
+    ],
+  },
+
 ]
 
 export function getProject(slug: string) {

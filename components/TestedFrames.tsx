@@ -6,18 +6,17 @@ import Image from 'next/image'
 // are matched and both images top-align inside contain-fit boxes.
 
 const monoLabel: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)',
   fontSize: '11px',
   fontWeight: 600,
   letterSpacing: '0.09em',
   textTransform: 'uppercase',
-  color: 'var(--text-1)',
+  color: 'var(--ink)',
   margin: 0,
 }
 
 const subText: React.CSSProperties = {
   fontSize: '12px',
-  color: 'var(--text-3)',
+  color: 'var(--ink-3)',
   lineHeight: 1.5,
   margin: '4px 0 14px',
 }
@@ -72,7 +71,7 @@ export default function TestedFrames() {
       {/* Bottom rule + centered method caption */}
       <div
         style={{
-          borderTop: '1px dotted var(--border)',
+          borderTop: '1px solid var(--hairline)',
           marginTop: '24px',
           paddingTop: '10px',
           transition: 'border-color 0.25s ease',
@@ -80,11 +79,10 @@ export default function TestedFrames() {
       >
         <p
           style={{
-            fontFamily: 'var(--font-mono)',
             fontSize: '10px',
             fontWeight: 600,
             letterSpacing: '0.09em',
-            color: 'var(--text-3)',
+            color: 'var(--ink-3)',
             textAlign: 'center',
             margin: 0,
           }}
@@ -101,7 +99,7 @@ export default function TestedFrames() {
           align-items: start;
         }
         .tj-tested-divider {
-          border-left: 1px dotted var(--border);
+          border-left: 1px solid var(--hairline);
           align-self: stretch;
           transition: border-color 0.25s ease;
         }
@@ -110,7 +108,7 @@ export default function TestedFrames() {
           .tj-tested-grid { grid-template-columns: 1fr; gap: 24px; }
           .tj-tested-divider {
             border-left: none;
-            border-top: 1px dotted var(--border);
+            border-top: 1px solid var(--hairline);
             height: 1px;
             align-self: auto;
           }

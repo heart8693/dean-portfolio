@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import type { CSSProperties } from 'react'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Dean Yoo, product designer in Chicago. SAIC BFA, Dec 2026. Test before design, measure after ship.',
+  description:
+    'Dean Yoo, product designer in Chicago. SAIC BFA, Dec 2026. Test before design, measure after ship.',
   alternates: { canonical: '/about' },
 }
 
@@ -11,38 +13,58 @@ const ABOUT = {
   name: 'Dean Yoo',
   role: 'Product Designer',
   location: 'Chicago, IL',
-  available: true,
+  availability: 'Available for work',
   email: 'hyart2021@gmail.com',
-  image: "/images/about.webp",
+  image: '/images/about.webp',
+  statement: 'I don\u2019t trust assumptions.',
+  lede: 'I test before I design and measure after I ship.',
   bio: [
-    "I'm a product designer who doesn't trust assumptions. I test before I design and measure after I ship. The work here started the same way every time: a product that launched before anyone checked whether it worked.",
-    "At one of these companies I ran the first usability test it had ever done. I'm the kind of designer who will defend a decision if the research backs it, and drop it the moment it doesn't. I study at SAIC, live in Chicago, and share a desk with three cats.",
+    'The work here started the same way every time: a product that launched before anyone checked whether it worked. At one of these companies I ran the first usability test it had ever done.',
+    'I\u2019m the kind of designer who will defend a decision if the research backs it, and drop it the moment it doesn\u2019t. I study at SAIC, live in Chicago, and share a desk with three cats.',
   ],
   experience: [
     {
       company: 'FiPet',
-      role: 'UI/UX Intern, Lead on Quiz Battle',
-      period: 'Jan 2026 – May 2026',
-      description: 'Led the end-to-end design of the 1v1 Quiz Battle feature on a 13-person cross-functional team, from concept through hi-fi prototype, owning every screen and state. Introduced the company\'s first usability testing and ran it in Maze to validate the design before the next build.',
+      role: 'Product Design Intern, Lead on Quiz Battle',
+      period: 'Jan 2026 \u2013 May 2026',
+      description:
+        'Led the end-to-end design of the 1v1 Quiz Battle feature on a 13-person cross-functional team, from concept through hi-fi prototype, owning every screen and state. Introduced the company\u2019s first usability testing and ran it in Maze to validate the design before the next build.',
     },
     {
       company: 'Biasly',
       role: 'Product Design Intern',
-      period: 'Oct 2025 – Dec 2025',
-      description: 'Sole mobile designer on the team. Owned every mobile screen end-to-end. Redesigned the core news feed to surface political bias before users read a single headline.',
+      period: 'Oct 2025 \u2013 Dec 2025',
+      description:
+        'Sole mobile designer on the team. Owned every mobile screen end-to-end. Redesigned the core news feed to surface political bias before users read a single headline.',
     },
     {
       company: 'Urban Creator',
       role: 'Graphic Designer',
-      period: 'May 2025 – Jan 2026',
-      description: 'Designed responsive digital interfaces using Webflow and HTML/CSS. Refined component-based design patterns and updated design system documentation.',
+      period: 'May 2025 \u2013 Jan 2026',
+      description:
+        'Designed responsive digital interfaces using Webflow and HTML/CSS. Refined component-based design patterns and updated design system documentation.',
     },
   ],
   skills: [
-    { category: 'Design', items: ['Product Design', 'Interaction Design', 'Information Architecture', 'Design Systems', 'Usability Testing'] },
-    { category: 'Tools', items: ['Figma', 'Adobe Creative Suite', 'Maze', 'Framer', 'Webflow', 'Protopie'] },
+    {
+      category: 'Design',
+      items: [
+        'Product Design',
+        'Interaction Design',
+        'Information Architecture',
+        'Design Systems',
+        'Usability Testing',
+      ],
+    },
+    {
+      category: 'Tools',
+      items: ['Figma', 'Adobe Creative Suite', 'Maze', 'Framer', 'Webflow', 'Protopie'],
+    },
     { category: 'Code', items: ['HTML/CSS', 'React'] },
-    { category: 'AI', items: ['Claude Code','Google Stitch','UX Pilot', 'AI-assisted design workflows'] },
+    {
+      category: 'AI',
+      items: ['Claude Code', 'Google Stitch', 'UX Pilot', 'AI-assisted design workflows'],
+    },
   ],
   education: {
     school: 'School of the Art Institute of Chicago',
@@ -51,255 +73,199 @@ const ABOUT = {
   },
 }
 
-const microLbl: React.CSSProperties = {
+/* Section eyebrow: the only uppercase voice on the page */
+const eyebrow: CSSProperties = {
   fontSize: '12px',
   fontWeight: 600,
   letterSpacing: '0.08em',
   textTransform: 'uppercase',
-  color: 'var(--text-3)',
+  color: 'var(--ink-3)',
 }
 
+const titleType: CSSProperties = {
+  fontSize: 'var(--text-title)',
+  letterSpacing: '-0.012em',
+  lineHeight: 1.25,
+}
+
+const rowGrid = 'grid gap-2 md:grid-cols-[168px_minmax(0,1fr)] md:gap-12'
+
 export default function AboutPage() {
-  const sidebarNav = [
-    { id: 'intro', label: 'About' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'education', label: 'Education' },
-  ]
-
   return (
-    <main className="tj-marketing" style={{ paddingTop: '64px' }}>
-      <div style={{ display: 'flex', maxWidth: '1380px', margin: '0 auto' }}>
+    <main className="px-6 pb-28 md:pb-36">
+      {/* ── Intro ─────────────────────────────────────── */}
+      <section id="intro" className="mx-auto max-w-[1100px] pt-36 md:pt-44">
+        <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_300px] md:gap-20">
+          {/* Text */}
+          <div>
+            <p style={eyebrow}>About</p>
 
-        {/* ── LEFT SIDEBAR — same as case study ── */}
-        <aside style={{
-          width: '224px',
-          flexShrink: 0,
-          position: 'sticky',
-          top: '64px',
-          height: 'calc(100vh - 64px)',
-          borderRight: '1px solid var(--text-1)',
-          padding: '40px 0',
-          transition: 'border-color 0.25s ease',
-        }}>
-          <Link href="/" style={{
-            display: 'flex', alignItems: 'center', gap: '6px',
-            fontSize: '11px', fontWeight: 600, letterSpacing: '0.08em',
-            textTransform: 'uppercase', color: 'var(--text-2)',
-            textDecoration: 'none', marginBottom: '40px',
-            padding: '0 20px', transition: 'color 0.15s ease',
-          }} className="tj-link">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-              <path d="M7 1L3 5l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            Back
-          </Link>
+            <h1
+              className="mt-5 font-semibold text-[color:var(--ink)]"
+              style={{
+                fontSize: 'var(--text-display)',
+                letterSpacing: 'var(--track-display)',
+                lineHeight: 1.04,
+              }}
+            >
+              {ABOUT.statement}
+            </h1>
 
-          <nav>
-            {sidebarNav.map(item => (
-              <a key={item.id} href={'#' + item.id} className="tj-link" style={{
-                display: 'block', padding: '8px 20px',
-                fontSize: '13px', fontWeight: 600,
-                letterSpacing: '0.04em', textTransform: 'uppercase',
-                color: 'var(--text-1)',
-                textDecoration: 'none', transition: 'color 0.15s ease',
-              }}>
-                {item.label}
+            <p
+              className="mt-6 font-medium text-[color:var(--ink)]"
+              style={{
+                fontSize: 'var(--text-lede)',
+                letterSpacing: 'var(--track-lede)',
+                lineHeight: 1.35,
+              }}
+            >
+              {ABOUT.lede}
+            </p>
+
+            <p className="mt-8 text-[14px] text-[color:var(--ink-3)]">
+              <span className="font-medium text-[color:var(--ink)]">{ABOUT.name}</span>
+              {' \u00b7 '}
+              {ABOUT.role}
+              {' \u00b7 '}
+              {ABOUT.location}
+              {' \u00b7 '}
+              <span className="font-medium text-[color:var(--ink)]">{ABOUT.availability}</span>
+            </p>
+
+            <div className="mt-8 max-w-[58ch] space-y-5">
+              {ABOUT.bio.map((para) => (
+                <p
+                  key={para}
+                  className="text-[16px] leading-[1.7] text-[color:var(--ink-2)] md:text-[17px]"
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
+
+            <p className="mt-9 text-[15px]">
+              <a
+                href={`mailto:${ABOUT.email}`}
+                className="link-quiet pb-[2px] font-medium text-[color:var(--ink)]"
+              >
+                {ABOUT.email}
               </a>
-            ))}
-          </nav>
-
-          <div style={{ margin: '24px 20px 0', paddingTop: '20px', borderTop: '1.5px solid var(--text-1)' }}>
-            <a href={`mailto:${ABOUT.email}`} className="tj-cta-underline" style={{ fontSize: '13px' }}>
-              <span>Get in touch</span>
-              <span aria-hidden="true">→</span>
-            </a>
+            </p>
           </div>
-        </aside>
 
-        {/* ── MAIN CONTENT — 900px same as case study ── */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <article style={{ maxWidth: '900px', margin: '0 auto', padding: '56px 60px 120px' }}>
-
-            {/* ── INTRO ─────────────────────────── */}
-            <section id="intro" style={{ marginBottom: '80px', paddingBottom: '72px', borderBottom: '1px solid var(--text-1)' }}>
-              <p style={{ ...microLbl, marginBottom: '20px' }}>About</p>
-
-              {/* 2-col: text left, photo right */}
-              <div className="tj-about-intro" style={{ display: 'grid', gridTemplateColumns: '1fr 240px', gap: '56px', alignItems: 'start' }}>
-
-                {/* Left — text */}
-                <div>
-                  <h1 className="tj-billboard" style={{
-                    color: 'var(--text-1)',
-                    marginBottom: '32px',
-                  }}>{ABOUT.name}</h1>
-
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '40px' }}>
-                    {[ABOUT.role, ABOUT.location, ABOUT.available ? 'Available for work' : ''].filter(Boolean).map(t => (
-                      <span key={t} className="tj-flag">{t}</span>
-                    ))}
-                  </div>
-
-                  {ABOUT.bio.map((para, i) => (
-                    <p key={i} className="tj-body" style={{
-                      color: i === 0 ? 'var(--text-1)' : 'var(--text-2)',
-                      lineHeight: 1.6,
-                      marginBottom: '20px',
-                      fontWeight: i === 0 ? 500 : 400,
-                    }}>{para}</p>
-                  ))}
-
-                  <a href={`mailto:${ABOUT.email}`} className="tj-cta-block" style={{ marginTop: '20px' }}>
-                    {ABOUT.email}
-                  </a>
-                </div>
-
-                {/* Right — photo (sharp corners, flat field) */}
-                <div className="tj-about-photo" style={{ position: 'sticky', top: '88px' }}>
-                  <div style={{
-                    width: '240px',
-                    aspectRatio: '6/9',
-                    background: 'var(--bg)',
-                    borderRadius: 0,
-                    overflow: 'hidden',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                    {/* Photo */}
-                    <img
-                      src="/images/about.webp"
-                      alt="Dean Yoo"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'contain',
-                        display: 'block',
-                      }}
-                    />
-                  </div>
-                </div>
-
-              </div>
-            </section>
-
-            {/* ── EXPERIENCE ────────────────────── */}
-            <section id="experience" style={{ marginBottom: '80px', paddingBottom: '72px', borderBottom: '1px solid var(--text-1)' }}>
-              <p style={{ ...microLbl, marginBottom: '12px' }}>Experience</p>
-              <hr style={{ border: 'none', borderTop: '1.5px solid var(--text-1)', margin: '0 0 40px 0' }} />
-
-              {ABOUT.experience.map((exp, i) => (
-                <div key={exp.company} className="tj-about-row" style={{
-                  display: 'grid',
-                  gridTemplateColumns: '200px 1fr',
-                  gap: '32px',
-                  paddingBottom: i < ABOUT.experience.length - 1 ? '32px' : 0,
-                  marginBottom: i < ABOUT.experience.length - 1 ? '32px' : 0,
-                  borderBottom: i < ABOUT.experience.length - 1 ? '1px solid var(--text-1)' : 'none',
-                }}>
-                  <div>
-                    <p style={{
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      letterSpacing: '0.04em',
-                      textTransform: 'uppercase',
-                      color: 'var(--text-2)',
-                      marginBottom: '4px',
-                    }}>{exp.period}</p>
-                  </div>
-                  <div>
-                    <p className="tj-display-2" style={{
-                      color: 'var(--text-1)',
-                      marginBottom: '6px',
-                      textTransform: 'uppercase',
-                    }}>{exp.company}</p>
-                    <p style={{ ...microLbl, marginBottom: '14px', color: 'var(--accent)' }}>{exp.role}</p>
-                    <p className="tj-body" style={{ color: 'var(--text-2)' }}>{exp.description}</p>
-                  </div>
-                </div>
-              ))}
-            </section>
-
-            {/* ── SKILLS ────────────────────────── */}
-            <section id="skills" style={{ marginBottom: '80px', paddingBottom: '72px', borderBottom: '1px solid var(--text-1)' }}>
-              <p style={{ ...microLbl, marginBottom: '12px' }}>Skills</p>
-              <hr style={{ border: 'none', borderTop: '1.5px solid var(--text-1)', margin: '0 0 40px 0' }} />
-
-              {ABOUT.skills.map(({ category, items }) => (
-                <div key={category} className="tj-about-row" style={{
-                  display: 'grid',
-                  gridTemplateColumns: '200px 1fr',
-                  gap: '32px',
-                  marginBottom: '24px',
-                  alignItems: 'start',
-                }}>
-                  <p style={{ ...microLbl, paddingTop: '8px' }}>{category}</p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                    {items.map(skill => (
-                      <span key={skill} className="tj-flag">{skill}</span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </section>
-
-            {/* ── EDUCATION ─────────────────────── */}
-            <section id="education" style={{ marginBottom: '40px' }}>
-              <p style={{ ...microLbl, marginBottom: '12px' }}>Education</p>
-              <hr style={{ border: 'none', borderTop: '1.5px solid var(--text-1)', margin: '0 0 40px 0' }} />
-
-              <div className="tj-about-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '32px' }}>
-                <p style={{
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
-                  color: 'var(--text-2)',
-                }}>{ABOUT.education.year}</p>
-                <div>
-                  <p className="tj-display-2" style={{
-                    color: 'var(--text-1)',
-                    marginBottom: '6px',
-                    textTransform: 'uppercase',
-                  }}>
-                    {ABOUT.education.school}
-                  </p>
-                  <p className="tj-body" style={{ color: 'var(--text-2)' }}>{ABOUT.education.degree}</p>
-                </div>
-              </div>
-            </section>
-
-          </article>
+          {/* Photo: no fill, no frame. Sits directly on the page. */}
+          <div className="mx-auto w-full max-w-[300px] md:mx-0 md:sticky md:top-24">
+            <div className="relative aspect-[2/3] overflow-hidden rounded-[14px]">
+              <Image
+                src={ABOUT.image}
+                alt="Portrait of Dean Yoo"
+                fill
+                sizes="300px"
+                className="object-contain"
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <style>{`
-        .tj-link:hover { color: var(--text-1) !important; }
-        @media (max-width: 1024px) { aside { display: none !important; } }
-        @media (max-width: 720px) {
-          article { padding: 40px 24px 80px !important; }
-          
-          /* Intro: stack, photo first (mobile profile pattern) */
-          .tj-about-intro {
-            grid-template-columns: 1fr !important;
-            gap: 32px !important;
-          }
-          .tj-about-photo {
-            position: static !important;
-            order: -1 !important;
-          }
-          .tj-about-photo > div {
-            margin: 0 auto !important;
-          }
-          
-          /* Experience / Skills / Education: stack label above content */
-          .tj-about-row {
-            grid-template-columns: 1fr !important;
-            gap: 8px !important;
-          }
-        }
-      `}</style>
+      {/* ── Experience ────────────────────────────────── */}
+      <section id="experience" className="mx-auto max-w-[1100px] pt-24 md:pt-32">
+        <h2 style={eyebrow}>Experience</h2>
+        <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
+
+        {ABOUT.experience.map((exp, i) => (
+          <div
+            key={exp.company}
+            className={`${rowGrid} border-b py-10`}
+            style={{
+              borderColor:
+                i < ABOUT.experience.length - 1 ? 'var(--hairline)' : 'transparent',
+            }}
+          >
+            <p className="text-[13px] font-medium text-[color:var(--ink-3)] md:pt-[7px]">
+              {exp.period}
+            </p>
+            <div>
+              <h3 className="font-semibold text-[color:var(--ink)]" style={titleType}>
+                {exp.company}
+              </h3>
+              <p className="mt-1.5 text-[14px] font-medium text-[color:var(--ink)]">
+                {exp.role}
+              </p>
+              <p className="mt-4 max-w-[62ch] text-[15.5px] leading-[1.65] text-[color:var(--ink-2)]">
+                {exp.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* ── Skills ────────────────────────────────────── */}
+      <section id="skills" className="mx-auto max-w-[1100px] pt-20 md:pt-24">
+        <h2 style={eyebrow}>Skills</h2>
+        <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
+
+        <div className="space-y-7 pt-10">
+          {ABOUT.skills.map(({ category, items }) => (
+            <div key={category} className={rowGrid}>
+              <p className="text-[13px] font-medium text-[color:var(--ink-3)] md:pt-[4px]">
+                {category}
+              </p>
+              <p className="max-w-[62ch] text-[15.5px] leading-[1.8] text-[color:var(--ink)]">
+                {items.join(' \u00b7 ')}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Education ─────────────────────────────────── */}
+      <section id="education" className="mx-auto max-w-[1100px] pt-20 md:pt-24">
+        <h2 style={eyebrow}>Education</h2>
+        <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
+
+        <div className={`${rowGrid} pt-10`}>
+          <p className="text-[13px] font-medium text-[color:var(--ink-3)] md:pt-[7px]">
+            {ABOUT.education.year}
+          </p>
+          <div>
+            <h3 className="font-semibold text-[color:var(--ink)]" style={titleType}>
+              {ABOUT.education.school}
+            </h3>
+            <p className="mt-1.5 text-[15.5px] text-[color:var(--ink-2)]">
+              {ABOUT.education.degree}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Contact ───────────────────────────────────── */}
+      <section id="contact" className="mx-auto max-w-[1100px] pt-20 md:pt-24">
+        <h2 style={eyebrow}>Contact</h2>
+        <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
+
+        <div className="pt-12">
+          <p
+            className="font-semibold text-[color:var(--ink)]"
+            style={{
+              fontSize: 'var(--text-lede)',
+              letterSpacing: 'var(--track-lede)',
+              lineHeight: 1.3,
+            }}
+          >
+            Get in touch.
+          </p>
+          <p className="mt-5">
+            <a
+              href={`mailto:${ABOUT.email}`}
+              className="link-quiet pb-[3px] font-medium text-[color:var(--ink)]"
+              style={{ fontSize: 'var(--text-title)', letterSpacing: '-0.012em' }}
+            >
+              {ABOUT.email}
+            </a>
+          </p>
+        </div>
+      </section>
     </main>
   )
 }

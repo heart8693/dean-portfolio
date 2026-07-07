@@ -14,12 +14,11 @@ export default function SessionScript() {
       {/* Header */}
       <p
         style={{
-          fontFamily: 'var(--font-mono)',
           fontSize: '11px',
           fontWeight: 600,
           letterSpacing: '0.09em',
           textTransform: 'uppercase',
-          color: 'var(--text-1)',
+          color: 'var(--ink)',
           marginBottom: '6px',
         }}
       >
@@ -36,28 +35,27 @@ export default function SessionScript() {
               gap: '18px',
               alignItems: 'baseline',
               padding: '14px 0',
-              borderBottom: '1px dotted var(--border)',
+              borderBottom: '1px solid var(--hairline)',
               transition: 'border-color 0.25s ease',
             }}
           >
             <span
               style={{
-                fontFamily: 'var(--font-mono)',
                 fontSize: '11px',
                 fontWeight: 600,
-                color: 'var(--text-3)',
+                color: 'var(--ink-3)',
                 flexShrink: 0,
               }}
             >
               {String(i + 1).padStart(2, '0')}
             </span>
-            <p style={{ fontSize: '15px', color: 'var(--text-1)', lineHeight: 1.7, margin: 0 }}>{q}</p>
+            <p style={{ fontSize: '15px', color: 'var(--ink)', lineHeight: 1.7, margin: 0 }}>{q}</p>
           </li>
         ))}
       </ol>
 
       {/* Caption */}
-      <p style={{ fontSize: '12px', color: 'var(--text-3)', lineHeight: 1.6, marginTop: '10px' }}>
+      <p style={{ fontSize: '12px', color: 'var(--ink-3)', lineHeight: 1.6, marginTop: '10px' }}>
         Four representative prompts from the moderated session script.
       </p>
     </div>

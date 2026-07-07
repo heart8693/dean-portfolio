@@ -1,9 +1,8 @@
 import type { Persona } from '@/lib/cms'
 
 const monoLabel: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)',
   fontSize: '10px',
-  color: 'var(--text-3)',
+  color: 'var(--ink-3)',
   letterSpacing: '0.08em',
   textTransform: 'uppercase',
   margin: 0,
@@ -15,9 +14,9 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
   return (
     <article
       style={{
-        background: 'var(--card)',
-        border: '1px solid var(--border)',
-        borderRadius: '24px',
+        background: 'var(--surface)',
+        border: '1px solid var(--hairline)',
+        borderRadius: '14px',
         overflow: 'hidden',
         fontFamily: 'var(--font-sans)',
         display: 'flex',
@@ -65,9 +64,8 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
         {/* AI disclosure */}
         <p
           style={{
-            fontFamily: 'var(--font-mono)',
             fontSize: '9px',
-            color: 'var(--text-3)',
+            color: 'var(--ink-3)',
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
             margin: 0,
@@ -88,7 +86,7 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
               fontSize: '18px',
               fontWeight: 600,
               letterSpacing: 0,
-              color: 'var(--text-1)',
+              color: 'var(--ink)',
               margin: '0 0 4px',
               lineHeight: 1.33,
             }}
@@ -97,9 +95,8 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
           </h3>
           <p
             style={{
-              fontFamily: 'var(--font-mono)',
               fontSize: '11px',
-              color: 'var(--text-3)',
+              color: 'var(--ink-3)',
               margin: 0,
               letterSpacing: '0.01em',
             }}
@@ -113,9 +110,9 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
           style={{
             margin: 0,
             padding: '16px',
-            background: 'var(--surface-strong)',
+            background: 'var(--bg)',
             borderRadius: '12px',
-            borderLeft: '3px solid var(--accent)',
+            borderLeft: '3px solid var(--ink)',
             transition: 'background 0.25s ease',
           }}
         >
@@ -124,7 +121,7 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
               fontSize: '13px',
               fontWeight: 500,
               lineHeight: 1.5,
-              color: 'var(--text-1)',
+              color: 'var(--ink)',
               margin: 0,
               letterSpacing: '-0.005em',
             }}
@@ -134,9 +131,8 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
           {p.quoteAttribution && (
             <p
               style={{
-                fontFamily: 'var(--font-mono)',
                 fontSize: '10px',
-                color: 'var(--text-3)',
+                color: 'var(--ink-3)',
                 margin: '6px 0 0',
                 letterSpacing: '0.01em',
               }}
@@ -165,7 +161,7 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
                 style={{
                   fontSize: '12.5px',
                   lineHeight: 1.5,
-                  color: 'var(--text-2)',
+                  color: 'var(--ink-2)',
                   paddingLeft: '14px',
                   position: 'relative',
                 }}
@@ -174,7 +170,7 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
                   style={{
                     position: 'absolute',
                     left: 0,
-                    color: 'var(--text-3)',
+                    color: 'var(--ink-3)',
                     fontWeight: 600,
                   }}
                 >
@@ -191,18 +187,18 @@ export default function PersonaCard({ persona: p }: { persona: Persona }) {
           style={{
             marginTop: 'auto',
             paddingTop: '16px',
-            borderTop: '1px solid var(--border)',
+            borderTop: '1px solid var(--hairline)',
             transition: 'border-color 0.25s ease',
           }}
         >
-          <p style={{ ...monoLabel, color: 'var(--accent)', marginBottom: '8px' }}>
+          <p style={{ ...monoLabel, color: 'var(--ink)', marginBottom: '8px' }}>
             DESIGN IMPLICATION
           </p>
           <p
             style={{
               fontSize: '13px',
               lineHeight: 1.55,
-              color: 'var(--text-1)',
+              color: 'var(--ink)',
               margin: 0,
               fontWeight: 500,
             }}

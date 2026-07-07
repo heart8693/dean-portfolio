@@ -1,140 +1,200 @@
 'use client'
+import { useEffect, useRef, useState } from 'react'
 
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
+type SubItem = { id: string; label: string }
+type Section = { id: string; label: string; sub: SubItem[] }
 
-type Sub = { id: string; label: string }
-type Section = { id: string; label: string; sub?: Sub[] }
+/* Case study table of contents.
+   v3 skin: no blocks, no fills. A hairline rail, quiet type, and a single
+   2px ink bar marking the current position. Cobalt appears on hover only.
 
-// Active indicator color follows the case-study route theme:
-// `<main className="tj-case tj-case--{slug}">` sets --accent-text per project.
-const ACTIVE = 'var(--accent-text)'
+   Accordion behavior: sub-items stay collapsed and only the section you
+   are currently reading expands. Expansion is instant (content snap);
+   the indicator slide is the one animated element.
 
+   Performance contract:
+   - Scroll path does zero layout reads. Section offsets are cached once and
+     re-measured only when the page height actually changes (lazy images,
+     resize), via ResizeObserver on <body>.
+   - The indicator moves with transform only, so its motion never triggers
+     layout or paint beyond compositing. */
 export default function CaseStudyNav({ sections }: { sections: Section[] }) {
-  const [activeSection, setActiveSection] = useState<string>(sections[0]?.id ?? '')
-  const [activeSub, setActiveSub] = useState<string>('')
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const indicatorRef = useRef<HTMLSpanElement | null>(null)
+  const linkRefs = useRef(new Map<string, HTMLAnchorElement>())
 
   useEffect(() => {
-    const sectionIds = sections.map(s => s.id)
-
+    const ids = sections.flatMap(s => [s.id, ...s.sub.map(x => x.id)])
+    let tops: { id: string; top: number }[] = []
     let ticking = false
-    const compute = () => {
-      ticking = false
-      const threshold = 120 // px from top of viewport
 
-      // Active section = last section element whose top has scrolled past the threshold
-      let curSection = sectionIds[0] ?? ''
-      for (const id of sectionIds) {
-        const el = document.getElementById(id)
-        if (el && el.getBoundingClientRect().top <= threshold) curSection = id
+    const update = () => {
+      /* Activation line: a quarter down the viewport, past the nav pill. */
+      const line = window.scrollY + Math.max(120, window.innerHeight * 0.25)
+      let current: string | null = tops.length ? tops[0].id : null
+      for (const t of tops) {
+        if (t.top <= line) current = t.id
+        else break
       }
-      setActiveSection(curSection)
+      setActiveId(prev => (prev === current ? prev : current))
+    }
 
-      // Active sub = last sub-heading in the current section past the threshold
-      const subs = sections.find(s => s.id === curSection)?.sub ?? []
-      let curSub = subs[0]?.id ?? ''
-      for (const sub of subs) {
-        const el = document.getElementById(sub.id)
-        if (el && el.getBoundingClientRect().top <= threshold) curSub = sub.id
-      }
-      setActiveSub(curSub)
+    const measure = () => {
+      tops = ids
+        .map(id => {
+          const el = document.getElementById(id)
+          return el ? { id, top: el.getBoundingClientRect().top + window.scrollY } : null
+        })
+        .filter((t): t is { id: string; top: number } => t !== null)
+        .sort((a, b) => a.top - b.top)
+      update()
     }
 
     const onScroll = () => {
-      if (!ticking) {
-        ticking = true
-        requestAnimationFrame(compute)
-      }
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        update()
+        ticking = false
+      })
     }
 
-    compute()
+    measure()
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+    window.addEventListener('resize', measure)
+
+    /* Lazy images and videos change section offsets as they load. */
+    const ro = new ResizeObserver(() => requestAnimationFrame(measure))
+    ro.observe(document.body)
+
     return () => {
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      window.removeEventListener('resize', measure)
+      ro.disconnect()
     }
   }, [sections])
 
+  /* Which section owns the current position (itself, or the parent of an
+     active sub-item). Its sub list is the only one expanded. */
+  const activeParent = (() => {
+    if (!activeId) return null
+    for (const s of sections) {
+      if (s.id === activeId) return s.id
+      if (s.sub.some(x => x.id === activeId)) return s.id
+    }
+    return null
+  })()
+
+  /* Indicator position: measured only when the active item changes, and
+     after the accordion has committed, so offsets are already settled. */
+  useEffect(() => {
+    const bar = indicatorRef.current
+    if (!bar) return
+    const link = activeId ? linkRefs.current.get(activeId) : null
+    if (!link) {
+      bar.style.opacity = '0'
+      return
+    }
+    const y = link.offsetTop + link.offsetHeight / 2 - 8
+    bar.style.transform = `translateY(${y}px)`
+    bar.style.opacity = '1'
+  }, [activeId, activeParent])
+
+  const setLinkRef = (id: string) => (el: HTMLAnchorElement | null) => {
+    if (el) linkRefs.current.set(id, el)
+    else linkRefs.current.delete(id)
+  }
+
   return (
-    <aside className="cs-nav" style={{
-      width: '224px', flexShrink: 0,
-      position: 'sticky', top: '60px',
-      height: 'calc(100vh - 60px)',
-      overflowY: 'auto',
-      borderRight: '1px solid var(--border)',
-      padding: '40px 0',
-      transition: 'border-color 0.25s ease',
-    }}>
-      <Link href="/" className="tj-link" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 500, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--text-3)', textDecoration: 'none', marginBottom: '32px', padding: '0 20px', transition: 'color 0.15s ease' }}>
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M7 1L3 5l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-        Back
-      </Link>
-
-      {sections.map(s => {
-        const isActiveSection = s.id === activeSection
-        const subs = s.sub ?? []
-        return (
-          <div key={s.id} style={{ marginBottom: '2px' }}>
-            {/* Section label */}
-            <a href={'#' + s.id} className="tj-link" style={{
-              display: 'block',
-              padding: '6px 20px',
-              fontSize: '13px',
-              color: isActiveSection ? 'var(--text-1)' : 'var(--text-2)',
-              fontWeight: isActiveSection ? 600 : 500,
-              textDecoration: 'none',
-              transition: 'color 0.15s ease, font-weight 0.15s ease',
-            }}>
-              {s.label}
-            </a>
-
-            {/* Sub-items — always mounted, collapsed unless this section is active (smooth expand/collapse) */}
-            {subs.length > 0 && (
-              <div style={{
-                maxHeight: isActiveSection ? subs.length * 30 + 'px' : '0px',
-                opacity: isActiveSection ? 1 : 0,
-                overflow: 'hidden',
-                transition: 'max-height 0.32s ease, opacity 0.22s ease',
-              }}>
-                {subs.map(sub => {
-                  const isActiveSub = isActiveSection && sub.id === activeSub
+    <aside
+      className="csnav"
+      style={{
+        width: '224px',
+        flexShrink: 0,
+        position: 'sticky',
+        top: '88px',
+        maxHeight: 'calc(100vh - 112px)',
+        overflowY: 'auto',
+        padding: '4px 0 40px',
+      }}
+    >
+      <nav
+        aria-label="Case study sections"
+        style={{ position: 'relative', borderLeft: '1px solid var(--hairline)' }}
+      >
+        {/* Current position: 2px ink bar on the rail, transform-only motion */}
+        <span
+          ref={indicatorRef}
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            left: '-1px',
+            top: 0,
+            width: '2px',
+            height: '16px',
+            background: 'var(--ink)',
+            opacity: 0,
+            transition: 'transform 200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 150ms ease',
+            willChange: 'transform',
+          }}
+        />
+        {sections.map(s => {
+          const parentActive = s.id === activeId
+          const expanded = s.id === activeParent && s.sub.length > 0
+          return (
+            <div key={s.id}>
+              <a
+                href={`#${s.id}`}
+                ref={setLinkRef(s.id)}
+                aria-current={parentActive ? 'location' : undefined}
+                className={`csnav-link${parentActive ? ' is-active' : ''}${expanded && !parentActive ? ' is-trail' : ''}`}
+                style={{
+                  display: 'block',
+                  padding: '7px 0 7px 18px',
+                  fontSize: '13px',
+                  letterSpacing: '0.01em',
+                  lineHeight: 1.35,
+                }}
+              >
+                {s.label}
+              </a>
+              {expanded &&
+                s.sub.map(x => {
+                  const subActive = x.id === activeId
                   return (
-                    <a key={sub.id} href={'#' + sub.id} className="tj-link" style={{
-                      display: 'block',
-                      marginLeft: '20px',
-                      paddingLeft: '12px',
-                      paddingRight: '20px',
-                      paddingTop: '4px',
-                      paddingBottom: '4px',
-                      fontSize: '12px',
-                      color: isActiveSub ? 'var(--text-1)' : 'var(--text-3)',
-                      fontWeight: isActiveSub ? 500 : 400,
-                      textDecoration: 'none',
-                      borderLeft: isActiveSub ? `2px solid ${ACTIVE}` : '2px solid transparent',
-                      transition: 'color 0.15s ease, border-color 0.15s ease',
-                    }}>
-                      {sub.label}
+                    <a
+                      key={x.id}
+                      href={`#${x.id}`}
+                      ref={setLinkRef(x.id)}
+                      aria-current={subActive ? 'location' : undefined}
+                      className={`csnav-link${subActive ? ' is-active' : ''}`}
+                      style={{
+                        display: 'block',
+                        padding: '5px 0 5px 32px',
+                        fontSize: '12px',
+                        letterSpacing: '0.01em',
+                        lineHeight: 1.35,
+                      }}
+                    >
+                      {x.label}
                     </a>
                   )
                 })}
-              </div>
-            )}
-          </div>
-        )
-      })}
+            </div>
+          )
+        })}
+      </nav>
 
-      <div style={{ margin: '20px 20px 0', paddingTop: '16px', borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
-        <a href="#outcome" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 500, color: 'var(--accent-text)', textDecoration: 'none' }}>
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          Jump to Outcome
-        </a>
-      </div>
-
-      {/* Hide the scrollbar but keep it scrollable */}
       <style>{`
-        .cs-nav { scrollbar-width: none; -ms-overflow-style: none; }
-        .cs-nav::-webkit-scrollbar { display: none; width: 0; height: 0; }
+        .csnav-link {
+          color: var(--ink-3);
+          font-weight: 500;
+          transition: color 0.15s ease;
+        }
+        .csnav-link:hover { color: var(--accent); }
+        .csnav-link.is-active { color: var(--ink); font-weight: 600; }
+        .csnav-link.is-trail { color: var(--ink); }
+        @media (max-width: 1024px) { .csnav { display: none; } }
       `}</style>
     </aside>
   )

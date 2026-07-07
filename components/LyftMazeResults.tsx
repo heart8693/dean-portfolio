@@ -1,148 +1,112 @@
-import Image from 'next/image'
+/* Lyft Round 1 evidence: Maze result exports.
+   Evidence-family pattern shared with SessionScript and TestedFrames:
+   topic label above, hairline frame, interpretive caption below.
+   Includes the two blocks that pushed back on the pricing hypothesis,
+   because evidence that argues with the design is the point. */
 
-// Maze Round 1 result panels for the Lyft measurement evidence
-// section, split into two groups: what the data supports and what
-// the test pushed back on. Mirrors the FiPet/Biasly evidence styling:
-// monospace label above, dotted hairline frame, small gray caption.
-
-type Panel = {
-  src: string
-  alt: string
-  label: string
-  caption: string
-}
-
-const SUPPORTS: Panel[] = [
-  {
-    src: '/images/lyft-maze-planride.png',
-    alt: 'Maze result panel for the Plan Your Ride flow showing 100% success and 0% drop-off across 10 sessions',
-    label: 'PLAN YOUR RIDE · 100%',
-    caption: 'Dock planning flow: 100% success, 0% drop-off across 10 sessions. The task was exploratory; Maze counts taps outside hotspots as misclicks.',
-  },
-  {
-    src: '/images/lyft-maze-confidence.png',
-    alt: 'Maze opinion-scale panel showing a 4.4 out of 5 dock confidence rating',
-    label: 'CONFIDENCE · 4.4/5',
-    caption: 'How confident did you feel that you would find an available dock at your destination (n=10).',
-  },
-  {
-    src: '/images/lyft-maze-ease.png',
-    alt: 'Maze opinion-scale panel showing a 4.4 out of 5 ease rating for the redesigned experience',
-    label: 'EASE · 4.4/5',
-    caption: 'Overall ease of the redesigned experience (n=5).',
-  },
-  {
-    src: '/images/lyft-maze-trust.png',
-    alt: 'Maze opinion-scale panel showing a 4.2 out of 5 trust rating',
-    label: 'TRUST · 4.2/5',
-    caption: 'Would you trust this system to help you find a dock on future rides (n=5).',
-  },
-]
-
-const PUSHBACK: Panel[] = [
-  {
-    src: '/images/lyft-maze-task.png',
-    alt: 'Maze result panel for the station comparison task showing 7 of 8 sessions completing it',
-    label: 'COMPARE STATIONS · 87.5%',
-    caption: '7 of 8 sessions completed the comparison task; 1 dropped. The flow needed more guidance than the planning flow.',
-  },
-  {
-    src: '/images/lyft-maze-pricenotice.png',
-    alt: 'Maze panel showing half of participants did not notice the price difference between stations',
-    label: 'PRICE NOTICED · 50/50',
-    caption: 'Half of participants did not notice the price difference between stations (n=8).',
-  },
-  {
-    src: '/images/lyft-maze-choice.png',
-    alt: 'Maze panel showing dock choice reasons: 56% fastest, 22% closest, 11% price',
-    label: 'WHY THIS DOCK · SPEED WINS',
-    caption: 'Asked why they chose a dock, 56% said fastest and 22% closest; 11% chose on price (n=9). Price alone is a weak steering signal; availability and time dominate.',
-  },
-]
-
-const groupHeader: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)',
-  fontSize: '11px',
-  fontWeight: 600,
-  letterSpacing: '0.09em',
-  textTransform: 'uppercase',
-  color: 'var(--text-1)',
-  margin: '0 0 16px',
-}
-
-const monoLabel: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)',
-  fontSize: '11px',
-  fontWeight: 600,
-  letterSpacing: '0.09em',
-  textTransform: 'uppercase',
-  color: 'var(--text-1)',
-  margin: '0 0 8px',
-}
-
-function MazePanel({ panel, fullWidth }: { panel: Panel; fullWidth?: boolean }) {
-  return (
-    <figure style={{ margin: 0, gridColumn: fullWidth ? '1 / -1' : 'auto' }}>
-      <p style={monoLabel}>{panel.label}</p>
+   type Fig = {
+    src: string
+    alt: string
+    label: string
+    caption: string
+    span?: boolean
+  }
+  
+  const FIGS: Fig[] = [
+    {
+      src: '/images/lyft-maze-planride.webp',
+      span: true,
+      label: 'PLAN YOUR RIDE \u00b7 SUCCESS WITH FRICTION',
+      alt: 'Maze block: Plan your ride. 10 responses, 100% success rate, 0% drop-off, 52.9% misclick rate, 68.8s average duration.',
+      caption:
+        'All 10 sessions completed the dock planning flow, but a 52.9% misclick rate means the path was findable, not obvious. Affordance fixes moved to Round 2.',
+    },
+    {
+      src: '/images/lyft-maze-task.webp',
+      span: true,
+      label: 'COMPARE STATIONS \u00b7 THE FRICTION TASK',
+      alt: 'Maze block: Compare stations. 8 responses, 87.5% success rate, 12.5% drop-off, 76.3% misclick rate.',
+      caption:
+        '7 of 8 sessions completed the comparison (87.5%), with a 12.5% drop-off. The densest screen produced the most hesitation.',
+    },
+    {
+      src: '/images/lyft-maze-confidence.webp',
+      label: 'DOCK CONFIDENCE \u00b7 4.4 OF 5',
+      alt: 'Maze opinion scale: how confident did you feel that you would find an available dock at your destination. 10 responses, 4.4 average.',
+      caption:
+        'How confident were riders of finding a dock at the destination: 4.4 of 5 (n=10). The core hypothesis held.',
+    },
+    {
+      src: '/images/lyft-maze-trust.webp',
+      label: 'FUTURE TRUST \u00b7 4.2 OF 5',
+      alt: 'Maze opinion scale: would you trust this system to help you find a dock on future rides. 5 responses, 4.2 average.',
+      caption: 'Would they trust the system on future rides: 4.2 of 5 (n=5).',
+    },
+    {
+      src: '/images/lyft-maze-pricenotice.webp',
+      label: 'PRICE SIGNAL \u00b7 HALF MISSED IT',
+      alt: 'Maze yes/no question: did you notice any price difference between the two stations. 4 yes, 4 no.',
+      caption:
+        '4 of 8 never noticed the price difference between stations. The first crack in the pricing hypothesis.',
+    },
+    {
+      src: '/images/lyft-maze-choice.webp',
+      label: 'WHY THIS DOCK \u00b7 SPEED WINS',
+      alt: 'Maze multiple choice: which dock option did you choose and why. Fastest 56%, Closest 22%, Cheapest 11%, unsure 11%. 9 responses.',
+      caption:
+        'Asked why they chose a dock, 56% said fastest and 22% closest; 11% chose on price (n=9). Price alone is a weak steering signal; availability and time dominate.',
+    },
+  ]
+  
+  const labelStyle: React.CSSProperties = {
+    fontSize: '11px',
+    fontWeight: 600,
+    letterSpacing: '0.09em',
+    textTransform: 'uppercase',
+    color: 'var(--ink)',
+    margin: '0 0 8px',
+  }
+  
+  const frame: React.CSSProperties = {
+    border: '1px solid var(--hairline)',
+    borderRadius: '8px',
+    overflow: 'hidden',
+    transition: 'border-color 0.25s ease',
+  }
+  
+  const cap: React.CSSProperties = {
+    marginTop: '8px',
+    fontSize: '12px',
+    color: 'var(--ink-3)',
+    lineHeight: 1.6,
+  }
+  
+  export default function LyftMazeResults() {
+    return (
       <div
+        className="tj-split"
         style={{
-          border: '1px dotted var(--border)',
-          borderRadius: '8px',
-          overflow: 'hidden',
-          transition: 'border-color 0.25s ease',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '32px 20px',
+          marginTop: '28px',
         }}
       >
-        <Image
-          src={panel.src}
-          alt={panel.alt}
-          width={2240}
-          height={1148}
-          sizes={fullWidth ? '(max-width: 720px) 100vw, 780px' : '(max-width: 720px) 100vw, 380px'}
-          style={{ width: '100%', height: 'auto', display: 'block' }}
-        />
-      </div>
-      <figcaption
-        style={{
-          marginTop: '8px',
-          fontSize: '12px',
-          color: 'var(--text-3)',
-          lineHeight: 1.6,
-        }}
-      >
-        {panel.caption}
-      </figcaption>
-    </figure>
-  )
-}
-
-export default function LyftMazeResults() {
-  return (
-    <div style={{ margin: '28px 0 0' }}>
-      <p style={groupHeader}>WHAT THE DATA SUPPORTS</p>
-      <div className="tj-maze-grid">
-        {SUPPORTS.map(panel => (
-          <MazePanel key={panel.src} panel={panel} />
+        {FIGS.map(f => (
+          <figure key={f.src} style={{ margin: 0, gridColumn: f.span ? '1 / -1' : 'auto' }}>
+            <p style={labelStyle}>{f.label}</p>
+            <div style={frame}>
+              <img
+                src={f.src}
+                alt={f.alt}
+                loading="lazy"
+                decoding="async"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </div>
+            <figcaption style={cap}>{f.caption}</figcaption>
+          </figure>
         ))}
       </div>
-
-      <p style={{ ...groupHeader, marginTop: '40px' }}>WHAT THE TEST PUSHED BACK ON</p>
-      <div className="tj-maze-grid">
-        {PUSHBACK.map((panel, i) => (
-          <MazePanel key={panel.src} panel={panel} fullWidth={i === PUSHBACK.length - 1} />
-        ))}
-      </div>
-
-      <style>{`
-        .tj-maze-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 28px;
-          align-items: start;
-        }
-        @media (max-width: 720px) {
-          .tj-maze-grid { grid-template-columns: 1fr; gap: 24px; }
-        }
-      `}</style>
-    </div>
-  )
-}
+    )
+  }

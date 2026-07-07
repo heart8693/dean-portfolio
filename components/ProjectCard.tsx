@@ -1,174 +1,56 @@
-'use client'
-import Link from 'next/link'
-import { useState } from 'react'
-import type { Project } from '@/lib/cms'
+// ─────────────────────────────────────────────────────
+// ProjectCard — the visual signature lives here.
+// Thumbnails are grayscale; the work reveals its own
+// color on hover/focus. The site stays monochrome so
+// the work is the only color on the page.
+// Drop into components/site/ProjectCard.tsx
+// Usage: getFeatured().map(p => <ProjectCard key={p.slug} project={p} />)
+// ─────────────────────────────────────────────────────
 
-// ── Per-project hover CTA copy ─────────────────────────
-//    Question-style hooks that pair with HOVER_METRIC below.
-//    Default fallback: 'View case study →'
-const HOVER_CTA: Record<string, string> = {
-  'biasly':           'How bias became visible →',
-  'fipet':            'When testing changed everything →',
-  'ride-availability': 'How pricing became the interface →',
-}
+import Link from "next/link"
+import Image from "next/image"
+import type { Project } from "@/data/projects"
 
-// ── Per-project hover metric ───────────────────────────
-//    Contrast pattern (before → after) for quantitative lifts,
-//    or categorical milestone for narrative-driven projects.
-//    Each project shows a DIFFERENT type of impact on purpose:
-//      Biasly → quantitative lift
-//      FiPet  → categorical milestone (first-ever practice)
-//      Ride   → categorical restraint (reframing — surface, don't build)
-const HOVER_METRIC: Record<string, { value: string; label: string }> = {
-  // TODO(dean): verify 31-to-78 against session data
-  'biasly':           { value: '31 → 78%',   label: 'bias recognition' },
-  'fipet':            { value: '90%',      label: 'would play again' },
-  'ride-availability': { value: '4.4/5',     label: 'confidence they would find a dock' },
-}
-
-// Method caption shown under the metric
-const METRIC_CAPTION: Record<string, string> = {
-  'biasly': '12 moderated sessions, Oct - Dec 2025, observer-coded',
-  'fipet': 'n=10 · unmoderated Maze test · adult proxies for ages 8 - 15',
-  'ride-availability': 'n=10 · unmoderated Maze test',
-}
-
-// ── Per-project underlined-link color (AA-safe on white).
-//    Mirrors each case-study route theme's --accent-text so the
-//    homepage card link reads in the same hue as the case study.
-const LINK_COLOR: Record<string, string> = {
-  'biasly':            '#1D4ED8',   // matches .tj-case--biasly --accent-text
-  'fipet':             '#C2410C',   // matches .tj-case--fipet --accent-text
-  'ride-availability': '#A21CAF',   // matches .tj-case--ride-availability --accent-text
-}
-
-export default function ProjectCard({ project: p }: { project: Project }) {
-  const [hovered, setHovered] = useState(false)
-
-  const hoverCta   = HOVER_CTA[p.slug]    ?? 'View case study →'
-  const defaultCta = 'View case study →'
-  const metric     = HOVER_METRIC[p.slug]
-  const linkColor  = LINK_COLOR[p.slug]   ?? 'var(--text-1)'
-
+export default function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
-      href={`/work/${p.slug}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: 'block',
-        background: 'transparent',
-        borderRadius: 0,
-        overflow: 'hidden',
-        textDecoration: 'none',
-        color: 'inherit',
-      }}
+      href={`/work/${project.slug}`}
+      className="group-card block"
+      aria-label={`${project.title} case study`}
     >
-      {/* ── IMAGE — full-bleed, no radius, no border, no shadow ── */}
-      <div style={{
-        aspectRatio: '4/3',
-        background: p.thumbBg || 'var(--surface-soft)',
-        overflow: 'hidden',
-        position: 'relative',
-      }}>
-        {p.coverImage && (
-          <img
-            src={p.coverImage}
-            alt={p.title}
-            loading="lazy" decoding="async"
-            style={{
-              width: '100%', height: '100%',
-              objectFit: 'cover', display: 'block',
-              transform: hovered ? 'scale(1.02)' : 'scale(1)',
-              transition: 'transform 0.6s cubic-bezier(0.16,1,0.3,1)',
-            }}
+      <div
+        className="thumb-reveal relative overflow-hidden rounded-[14px] border"
+        style={{ borderColor: "var(--hairline)", background: "var(--surface)" }}
+      >
+        <div className="relative aspect-[16/10]">
+          <Image
+            src={project.coverImage}
+            alt={`${project.title} cover`}
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
           />
-        )}
+        </div>
       </div>
 
-      {/* ── TEXT — sits directly under image, no container padding ── */}
-      <div style={{ paddingTop: '20px' }}>
-        {/* Tags — flat eyebrow row, no pill, no background */}
-        <p
-          className="tj-eyebrow"
-          style={{ color: 'var(--text-2)', marginBottom: '10px' }}
-        >
-          {p.category} · {p.year}
-        </p>
-
-        {/* Title — Nike display tier, uppercase, ink */}
+      <div className="mt-4 flex items-baseline justify-between gap-4">
         <h3
-          className="tj-display-2"
+          className="card-title font-semibold text-[color:var(--ink)] transition-colors duration-150"
           style={{
-            color: 'var(--text-1)',
-            marginBottom: '12px',
-            textTransform: 'uppercase',
+            fontSize: "var(--text-title)",
+            letterSpacing: "-0.02em",
           }}
         >
-          {p.title}
+          {project.title}
         </h3>
-
-        {/* ── METRIC AREA — always visible at rest (no hover needed).
-            Mobile has no hover and recruiters scan fast, so the impact
-            number leads. Value stays ink. */}
-        {metric && (
-          <div style={{ marginBottom: '16px' }}>
-            <p
-              className="tj-tnum"
-              style={{
-                fontFamily: 'inherit',
-                fontSize: 'clamp(28px, 3.4vw, 40px)',
-                fontWeight: 700,
-                letterSpacing: '-0.01em',
-                color: 'var(--text-1)',
-                lineHeight: 1,
-                marginBottom: '6px',
-              }}
-            >
-              {metric.value}
-            </p>
-            <p className="tj-eyebrow" style={{ color: 'var(--text-2)' }}>
-              {metric.label}
-            </p>
-            {METRIC_CAPTION[p.slug] && (
-              <p style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '10px',
-                color: 'var(--text-3)',
-                lineHeight: 1.5,
-                marginTop: '6px',
-              }}>
-                {METRIC_CAPTION[p.slug]}
-              </p>
-            )}
-          </div>
-        )}
-
-        {/* CTA — type-driven, underlined. Color = the project's own
-            theme color (LINK_COLOR map) at all times so the link reads
-            in the same hue as its case study. Subtle hover = full
-            saturation; rest of card unchanged. */}
-        <span style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '8px',
-          maxWidth: '100%',
-          fontSize: '14px',
-          fontWeight: 600,
-          letterSpacing: '0.04em',
-          textTransform: 'uppercase',
-          lineHeight: 1.2,
-          color: linkColor,
-          borderBottom: `2px solid ${linkColor}`,
-          paddingBottom: '2px',
-          opacity: hovered ? 1 : 0.92,
-          transition: 'opacity 0.18s ease',
-        }}>
-          <span>{(hovered ? hoverCta : defaultCta).replace(/\s*→\s*$/, '')}</span>
-          <span aria-hidden="true">↗</span>
+        <span className="shrink-0 text-[13px] tabular-nums text-[color:var(--ink-3)]">
+          {project.year} · {project.category}
         </span>
       </div>
+
+      <p className="mt-1.5 max-w-[58ch] text-[15px] leading-relaxed text-[color:var(--ink-2)]">
+        {project.description}
+      </p>
     </Link>
   )
 }

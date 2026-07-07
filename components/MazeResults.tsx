@@ -1,114 +1,105 @@
-import Image from 'next/image'
+/* FiPet Round 1 evidence: Maze result exports.
+   Evidence-family pattern shared with SessionScript and TestedFrames:
+   topic label above, hairline frame, interpretive caption below.
+   Every figure maps to a number cited in the case copy. */
 
-// Maze Round 1 result panels for the FiPet measurement evidence
-// section. Two-column grid on desktop with the last panel full width,
-// stacked on mobile. Mirrors the Biasly evidence styling: monospace
-// label above, small gray caption below.
-
-type Panel = {
-  src: string
-  alt: string
-  label: string
-  caption: string
-}
-
-const PANELS: Panel[] = [
-  {
-    src: '/images/fipet-maze-task1.png',
-    alt: 'Maze result panel for Task 1, starting a battle, showing 100% success across 22 recorded sessions',
-    label: 'TASK 1 · START A BATTLE',
-    caption: '100% success across 22 recorded sessions. The task was framed as open exploration; Maze counts any tap outside prototype hotspots as a misclick, which inflates misclick rate on exploratory tasks.',
-  },
-  {
-    src: '/images/fipet-maze-task2.png',
-    alt: 'Maze result panel for Task 2, completing the quiz, showing 100% success with 10 full completions',
-    label: 'TASK 2 · COMPLETE THE QUIZ',
-    caption: '100% success, 10 full completions.',
-  },
-  {
-    src: '/images/fipet-maze-ease.png',
-    alt: 'Maze opinion-scale panel showing a 4.8 out of 5 ease rating',
-    label: 'EASE · 4.8/5',
-    caption: 'How easy was it to go through all the quiz questions (n=10).',
-  },
-  {
-    src: '/images/fipet-maze-fun.png',
-    alt: 'Maze opinion-scale panel showing a 4.2 out of 5 fun rating',
-    label: 'FUN · 4.2/5',
-    caption: 'How fun was the Quiz Battle (n=10).',
-  },
-  {
-    src: '/images/fipet-maze-replay.png',
-    alt: 'Maze opinion panel showing 9 of 10 participants would play the Quiz Battle again',
-    label: 'REPLAY INTENT · 90%',
-    caption: '9 of 10 participants would play again.',
-  },
-]
-
-const monoLabel: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)',
-  fontSize: '11px',
-  fontWeight: 600,
-  letterSpacing: '0.09em',
-  textTransform: 'uppercase',
-  color: 'var(--text-1)',
-  margin: '0 0 8px',
-}
-
-function MazePanel({ panel, fullWidth }: { panel: Panel; fullWidth?: boolean }) {
-  return (
-    <figure style={{ margin: 0, gridColumn: fullWidth ? '1 / -1' : 'auto' }}>
-      <p style={monoLabel}>{panel.label}</p>
+   type Fig = {
+    src: string
+    alt: string
+    label: string
+    caption: string
+    span?: boolean
+  }
+  
+  const FIGS: Fig[] = [
+    {
+      src: '/images/fipet-maze-task1.webp',
+      span: true,
+      label: 'START A QUIZ BATTLE \u00b7 THE MISCLICK FINDING',
+      alt: 'Maze block: Start a Quiz Battle. 22 responses, 100% success rate, 0% drop-off, 65.9% misclick rate, 228.1s average duration.',
+      caption:
+        'All 22 sessions succeeded, but 65.9% misclicked on the way in: the below-the-fold start button made everyone work for the entrance. This became Finding 01.',
+    },
+    {
+      src: '/images/fipet-maze-task2.webp',
+      span: true,
+      label: 'COMPLETE ALL 5 QUESTIONS \u00b7 THE LOOP HOLDS',
+      alt: 'Maze block: Complete All 5 Questions. 10 responses, 100% success rate, 0% drop-off, 23.1% misclick rate, 77.1s average duration.',
+      caption:
+        'Ten sessions, 100% success, 23.1% misclick, 77.1s average. Once inside the battle, the loop carried players through without friction.',
+    },
+    {
+      src: '/images/fipet-maze-ease.webp',
+      label: 'EASE \u00b7 4.8 OF 5',
+      alt: 'Maze opinion scale: how easy was it to go through all the quiz questions. 10 responses, 4.8 average.',
+      caption:
+        'Completing the quiz rated 4.8 of 5 (n=10). The flow itself was not the obstacle; finding the entrance was.',
+    },
+    {
+      src: '/images/fipet-maze-fun.webp',
+      label: 'FUN \u00b7 4.2 OF 5',
+      alt: 'Maze opinion scale: how fun was the Quiz Battle. 10 responses, 4.2 average.',
+      caption: 'The first measurable engagement signal in the product\u2019s history (n=10).',
+    },
+    {
+      src: '/images/fipet-maze-replay.webp',
+      span: true,
+      label: 'REPLAY INTENT \u00b7 90% YES',
+      alt: 'Maze yes/no question: would you want to play the Quiz Battle again. 9 of 10 answered yes.',
+      caption:
+        '9 of 10 said they would play again. This is the number behind the Play Again CTA call.',
+    },
+  ]
+  
+  const labelStyle: React.CSSProperties = {
+    fontSize: '11px',
+    fontWeight: 600,
+    letterSpacing: '0.09em',
+    textTransform: 'uppercase',
+    color: 'var(--ink)',
+    margin: '0 0 8px',
+  }
+  
+  const frame: React.CSSProperties = {
+    border: '1px solid var(--hairline)',
+    borderRadius: '8px',
+    overflow: 'hidden',
+    transition: 'border-color 0.25s ease',
+  }
+  
+  const cap: React.CSSProperties = {
+    marginTop: '8px',
+    fontSize: '12px',
+    color: 'var(--ink-3)',
+    lineHeight: 1.6,
+  }
+  
+  export default function MazeResults() {
+    return (
       <div
+        className="tj-split"
         style={{
-          border: '1px dotted var(--border)',
-          borderRadius: '8px',
-          overflow: 'hidden',
-          transition: 'border-color 0.25s ease',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '32px 20px',
+          marginTop: '28px',
         }}
       >
-        <Image
-          src={panel.src}
-          alt={panel.alt}
-          width={2240}
-          height={1148}
-          sizes={fullWidth ? '(max-width: 720px) 100vw, 780px' : '(max-width: 720px) 100vw, 380px'}
-          style={{ width: '100%', height: 'auto', display: 'block' }}
-        />
-      </div>
-      <figcaption
-        style={{
-          marginTop: '8px',
-          fontSize: '12px',
-          color: 'var(--text-3)',
-          lineHeight: 1.6,
-        }}
-      >
-        {panel.caption}
-      </figcaption>
-    </figure>
-  )
-}
-
-export default function MazeResults() {
-  return (
-    <div style={{ margin: '28px 0 0' }}>
-      <div className="tj-maze-grid">
-        {PANELS.map((panel, i) => (
-          <MazePanel key={panel.src} panel={panel} fullWidth={i === PANELS.length - 1} />
+        {FIGS.map(f => (
+          <figure key={f.src} style={{ margin: 0, gridColumn: f.span ? '1 / -1' : 'auto' }}>
+            <p style={labelStyle}>{f.label}</p>
+            <div style={frame}>
+              <img
+                src={f.src}
+                alt={f.alt}
+                loading="lazy"
+                decoding="async"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </div>
+            <figcaption style={cap}>{f.caption}</figcaption>
+          </figure>
         ))}
       </div>
-      <style>{`
-        .tj-maze-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 28px;
-          align-items: start;
-        }
-        @media (max-width: 720px) {
-          .tj-maze-grid { grid-template-columns: 1fr; gap: 24px; }
-        }
-      `}</style>
-    </div>
-  )
-}
+    )
+  }

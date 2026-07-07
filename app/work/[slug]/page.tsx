@@ -44,9 +44,8 @@ function H({ children }: { children: React.ReactNode }) {
 // Uniform method caption under every Biasly metric (page + homepage card)
 const BIASLY_METHOD_CAPTION = '12 moderated sessions, Oct - Dec 2025, observer-coded'
 const methodCaptionStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)',
   fontSize: '10px',
-  color: 'var(--text-3)',
+  color: 'var(--ink-3)',
   lineHeight: 1.5,
   marginTop: '6px',
 }
@@ -76,13 +75,13 @@ export default async function CaseStudy({ params }: Props) {
   
   return (
     <main className={`tj-case tj-case--${slug}`} style={{ paddingTop: '60px', background: 'var(--bg)', transition: 'background 0.25s ease' }}>
-      <div style={{ display: 'flex', maxWidth: '1380px', margin: '0 auto' }}>
+      <div className="tj-case-grid" style={{ display: 'grid', gridTemplateColumns: '1fr minmax(0, 900px) 1fr' }}>
 
         {/* ── LEFT SIDEBAR — scroll-spy, collapsible (client component) ── */}
         <CaseStudyNav sections={sections} />
 
         {/* ── MAIN CONTENT — 900px single column ── */}
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ minWidth: 0 }}>
 
           {/* ── HERO IMAGE — unified for all case studies ── */}
           {(p.heroImage || p.coverImage) && (
@@ -117,18 +116,18 @@ export default async function CaseStudy({ params }: Props) {
                 display: 'grid',
                 gridTemplateColumns: `repeat(${Math.min(p.metrics.length, 3)}, 1fr)`,
                 gap: '1px',
-                background: 'var(--border)',
-                border: '1px solid var(--border)',
-                borderRadius: '10px',
+                background: 'var(--hairline)',
+                border: '1px solid var(--hairline)',
+                borderRadius: '14px',
                 overflow: 'hidden',
                 marginBottom: '40px',
                 transition: 'border-color 0.25s ease',
               }}>
                 {p.metrics.slice(0, 3).map((m: Metric) => (
-                  <div key={m.label} style={{ padding: '28px 24px', background: 'var(--card)', transition: 'background 0.25s ease' }}>
-                    <p style={{ fontSize: 'clamp(2rem, 4vw, 2.75rem)', fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--text-1)', lineHeight: 1, marginBottom: '10px' }}>{m.value}</p>
-                    <p style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-1)', marginBottom: '3px', letterSpacing: '-0.01em' }}>{m.label}</p>
-                    <p style={{ fontSize: '11px', color: 'var(--text-3)', lineHeight: 1.5 }}>{m.context}</p>
+                  <div key={m.label} style={{ padding: '28px 24px', background: 'var(--bg)', transition: 'background 0.25s ease' }}>
+                    <p style={{ fontSize: 'clamp(2rem, 4vw, 2.75rem)', fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--ink)', lineHeight: 1, marginBottom: '10px' }}>{m.value}</p>
+                    <p style={{ fontSize: '13px', fontWeight: 700, color: 'var(--ink)', marginBottom: '3px', letterSpacing: '-0.01em' }}>{m.label}</p>
+                    <p style={{ fontSize: '11px', color: 'var(--ink-3)', lineHeight: 1.5 }}>{m.context}</p>
                     {p.slug === 'biasly' && <p style={methodCaptionStyle}>{BIASLY_METHOD_CAPTION}</p>}
                   </div>
                 ))}
@@ -143,7 +142,7 @@ export default async function CaseStudy({ params }: Props) {
               {/* Description — large lede, visual anchor */}
               <p style={{
                 fontSize: 'clamp(1.375rem, 2.2vw, 1.625rem)',
-                color: 'var(--text-1)',
+                color: 'var(--ink)',
                 fontWeight: 500,
                 lineHeight: 1.5,
                 letterSpacing: '-0.015em',
@@ -159,8 +158,8 @@ export default async function CaseStudy({ params }: Props) {
                 gridTemplateColumns: 'repeat(4, 1fr)',
                 gap: '32px',
                 padding: '20px 0',
-                borderTop: '1px solid var(--border)',
-                borderBottom: '1px solid var(--border)',
+                borderTop: '1px solid var(--hairline)',
+                borderBottom: '1px solid var(--hairline)',
                 transition: 'border-color 0.25s ease',
               }} className="tj-meta-strip">
                 {[
@@ -171,7 +170,7 @@ export default async function CaseStudy({ params }: Props) {
                 ].map(({ label, value }) => (
                   <div key={label} style={{ minWidth: '120px' }}>
                     <p style={{ ...microLbl, marginBottom: '4px' }}>{label}</p>
-                    <p style={{ fontSize: '13px', color: 'var(--text-1)', fontWeight: 500, lineHeight: 1.4 }}>{value}</p>
+                    <p style={{ fontSize: '13px', color: 'var(--ink)', fontWeight: 500, lineHeight: 1.4 }}>{value}</p>
                   </div>
                 ))}
               </div>
@@ -184,7 +183,7 @@ export default async function CaseStudy({ params }: Props) {
 
               {/* Problem — text left, full mobile screenshot right */}
               <H2 id="overview-problem">Problem</H2>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 260px', gap: '48px', alignItems: 'start', marginBottom: '40px' }} className="tj-split">
+              <div style={{ display: 'grid', gridTemplateColumns: p.beforeImage ? '1fr 260px' : '1fr', gap: '48px', alignItems: 'start', marginBottom: '40px' }} className="tj-split">
                 {/* Text left */}
                 <div>
                   {p.slug === 'biasly' ? (
@@ -206,9 +205,9 @@ export default async function CaseStudy({ params }: Props) {
                   {/* Pain points */}
                   <div style={{ marginTop: '24px' }}>
                     {p.problemPoints.map((pt, i) => (
-                      <div key={i} style={{ display: 'flex', gap: '14px', padding: '12px 0', borderBottom: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
-                        <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-3)', flexShrink: 0, minWidth: '16px' }}>{i + 1}.</span>
-                        <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.75 }}>{pt}</p>
+                      <div key={i} style={{ display: 'flex', gap: '14px', padding: '12px 0', borderBottom: '1px solid var(--hairline)', transition: 'border-color 0.25s ease' }}>
+                        <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--ink-3)', flexShrink: 0, minWidth: '16px' }}>{i + 1}.</span>
+                        <p style={{ fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.75 }}>{pt}</p>
                       </div>
                     ))}
                   </div>
@@ -241,20 +240,20 @@ export default async function CaseStudy({ params }: Props) {
                 {p.showcasePanels.map((panel: ShowcasePanel, panelIdx: number) => {
                   const flipped = panelIdx === 1
                   const imageEl = (
-                    <div style={{ background: panel.video ? 'transparent' : 'var(--surface)', borderRadius: '14px', overflow: 'hidden', width: 'fit-content', justifySelf: flipped ? 'end' : 'start', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', transition: 'background 0.25s ease' }}>
+                    <div style={{ background: panel.video ? 'transparent' : 'var(--surface)', borderRadius: '14px', overflow: 'hidden', width: 'fit-content', minWidth: 0, maxWidth: '100%', justifySelf: flipped ? 'end' : 'start', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', transition: 'background 0.25s ease' }}>
                       {panel.video
                         ? <video src={panel.video} autoPlay loop muted playsInline style={{ maxWidth: '100%', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }} />
                         : panel.image
-                          ? <img src={panel.image} alt={panel.title} loading="lazy" decoding="async" style={{ maxWidth: '420px', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }} />
-                          : <p style={{ fontSize: '11px', color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Add mockup</p>
+                          ? <img src={panel.image} alt={panel.title} loading="lazy" decoding="async" style={{ maxWidth: 'min(420px, 100%)', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }} />
+                          : <p style={{ fontSize: '11px', color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Add mockup</p>
                       }
                     </div>
                   )
                   const textEl = (
                     <div>
-                      <p style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-3)', marginBottom: '10px', letterSpacing: '0.04em' }}>{panel.number}.</p>
-                      <h3 style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--accent-text)', marginBottom: '6px' }}>{panel.title}</h3>
-                      <p style={{ fontSize: '14px', color: 'var(--text-3)', fontStyle: 'italic', marginBottom: '14px', lineHeight: 1.5 }}>{panel.subtitle}</p>
+                      <p style={{ fontSize: '12px', fontWeight: 700, color: 'var(--ink-3)', marginBottom: '10px', letterSpacing: '0.04em' }}>{panel.number}.</p>
+                      <h3 style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--ink)', marginBottom: '6px' }}>{panel.title}</h3>
+                      <p style={{ fontSize: '14px', color: 'var(--ink-3)', fontStyle: 'italic', marginBottom: '14px', lineHeight: 1.5 }}>{panel.subtitle}</p>
                       <p style={body}>{panel.body}</p>
                     </div>
                   )
@@ -266,6 +265,56 @@ export default async function CaseStudy({ params }: Props) {
                   )
                 })}
               </div>
+              {/* 3 showcase panels — triage: stacked full-width | others: 1st/3rd image left, 2nd flipped */}
+<div style={{ marginTop: '48px' }}>
+  {p.showcasePanels.map((panel: ShowcasePanel, panelIdx: number) => {
+    // ── SIFT ONLY: landscape desktop crops get a stacked layout.
+    // Header → full-width image tile → body. No two-column contention, no overlap.
+    if (p.slug === 'triage') {
+      return (
+        <div key={panel.number} style={{ marginBottom: '64px' }}>
+          <p style={{ fontSize: '12px', fontWeight: 700, color: 'var(--ink-3)', marginBottom: '10px', letterSpacing: '0.04em' }}>{panel.number}.</p>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--ink)', marginBottom: '6px' }}>{panel.title}</h3>
+          <p style={{ fontSize: '14px', color: 'var(--ink-3)', fontStyle: 'italic', marginBottom: '20px', lineHeight: 1.5 }}>{panel.subtitle}</p>
+          <div style={{ background: 'var(--surface)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '32px 0', marginBottom: '20px', transition: 'background 0.25s ease' }}>
+            {panel.video
+              ? <video src={panel.video} autoPlay loop muted playsInline style={{ maxWidth: '92%', maxHeight: '560px', width: 'auto', height: 'auto', display: 'block', borderRadius: '10px' }} />
+              : <img src={panel.image} alt={panel.title} loading="lazy" decoding="async" style={{ maxWidth: '92%', maxHeight: '560px', width: 'auto', height: 'auto', display: 'block', borderRadius: '10px' }} />
+            }
+          </div>
+          <p style={{ fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.8, maxWidth: '720px' }}>{panel.body}</p>
+        </div>
+      )
+    }
+
+    // ── ALL OTHER CASES: original two-column behavior, verbatim. FiPet / Biasly / Lyft render exactly as before.
+    const flipped = panelIdx === 1
+    const imageEl = (
+      <div style={{ background: panel.video ? 'transparent' : 'var(--surface)', borderRadius: '14px', overflow: 'hidden', width: 'fit-content', justifySelf: flipped ? 'end' : 'start', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', transition: 'background 0.25s ease' }}>
+        {panel.video
+          ? <video src={panel.video} autoPlay loop muted playsInline style={{ maxWidth: '100%', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }} />
+          : panel.image
+            ? <img src={panel.image} alt={panel.title} loading="lazy" decoding="async" style={{ maxWidth: '420px', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }} />
+            : <p style={{ fontSize: '11px', color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Add mockup</p>
+        }
+      </div>
+    )
+    const textEl = (
+      <div>
+        <p style={{ fontSize: '12px', fontWeight: 700, color: 'var(--ink-3)', marginBottom: '10px', letterSpacing: '0.04em' }}>{panel.number}.</p>
+        <h3 style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--ink)', marginBottom: '6px' }}>{panel.title}</h3>
+        <p style={{ fontSize: '14px', color: 'var(--ink-3)', fontStyle: 'italic', marginBottom: '14px', lineHeight: 1.5 }}>{panel.subtitle}</p>
+        <p style={body}>{panel.body}</p>
+      </div>
+    )
+    return (
+      <div key={panel.number} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center', marginBottom: '56px' }} className={`tj-split tj-panel ${flipped ? 'tj-panel-flipped' : ''}`}>
+        {imageEl}
+        {textEl}
+      </div>
+    )
+  })}
+</div>
             </section>
 
             {/* ── BEYOND THE HOME SCREEN — shows if project has beyondFlows in cms.ts ── */}
@@ -284,15 +333,15 @@ export default async function CaseStudy({ params }: Props) {
                     <div key={flow.number} style={{
                       marginBottom: isLast ? 0 : '80px',
                       paddingBottom: isLast ? 0 : '72px',
-                      borderBottom: isLast ? 'none' : '1px solid var(--border)',
+                      borderBottom: isLast ? 'none' : '1px solid var(--hairline)',
                       transition: 'border-color 0.25s ease',
                     }}>
                       {/* Header — number + category + title */}
                       <div style={{ marginBottom: '28px' }}>
-                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-3)', letterSpacing: '0.08em', marginBottom: '8px' }}>
+                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.08em', marginBottom: '8px' }}>
                           {flow.number}. {flow.category}
                         </p>
-                        <h3 style={{ fontSize: '1.5rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--text-1)' }}>
+                        <h3 style={{ fontSize: '1.5rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--ink)' }}>
                           {flow.title}
                         </h3>
                       </div>
@@ -300,7 +349,7 @@ export default async function CaseStudy({ params }: Props) {
                       {/* Image — full width, prominent */}
                       <div style={{
                         background: 'var(--surface)',
-                        borderRadius: '10px',
+                        borderRadius: '14px',
                         overflow: 'hidden',
                         aspectRatio: '16/10',
                         display: 'flex',
@@ -311,18 +360,18 @@ export default async function CaseStudy({ params }: Props) {
                       }}>
                         {flow.image
                           ? <img src={flow.image} alt={flow.title} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                          : <p style={{ fontSize: '11px', color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Add UI image</p>
+                          : <p style={{ fontSize: '11px', color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Add UI image</p>
                         }
                       </div>
 
                       {/* Problem / Decision / Outcome — clean label + content */}
                       <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: '16px 28px', rowGap: '14px' }}>
-                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-3)', letterSpacing: '0.06em', paddingTop: '3px' }}>PROBLEM</p>
-                        <p style={{ fontSize: '15px', color: 'var(--text-2)', lineHeight: 1.7 }}>{flow.problem}</p>
-                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-3)', letterSpacing: '0.06em', paddingTop: '3px' }}>DECISION</p>
-                        <p style={{ fontSize: '15px', color: 'var(--text-2)', lineHeight: 1.7 }}>{flow.decision}</p>
-                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--accent-text)', letterSpacing: '0.06em', paddingTop: '3px' }}>OUTCOME</p>
-                        <p style={{ fontSize: '15px', color: 'var(--text-1)', lineHeight: 1.7, fontWeight: 500 }}>{flow.outcome}</p>
+                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.06em', paddingTop: '3px' }}>PROBLEM</p>
+                        <p style={{ fontSize: '15px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{flow.problem}</p>
+                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.06em', paddingTop: '3px' }}>DECISION</p>
+                        <p style={{ fontSize: '15px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{flow.decision}</p>
+                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink)', letterSpacing: '0.06em', paddingTop: '3px' }}>OUTCOME</p>
+                        <p style={{ fontSize: '15px', color: 'var(--ink)', lineHeight: 1.7, fontWeight: 500 }}>{flow.outcome}</p>
                       </div>
                     </div>
                   )
@@ -344,18 +393,18 @@ export default async function CaseStudy({ params }: Props) {
               {/* Domain */}
               <H2 top id="research-domain">{p.researchDomainTitle}</H2>
               <p style={bodyLg}>{p.researchDomainBody}</p>
-              <blockquote style={{ margin: '24px 0', padding: '16px 20px', background: 'var(--surface)', borderLeft: '3px solid var(--border)', borderRadius: '0 6px 6px 0', transition: 'background 0.25s ease' }}>
-                <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-1)', lineHeight: 1.6 }}>{p.researchDomainInsight}</p>
+              <blockquote style={{ margin: '24px 0', padding: '16px 20px', background: 'var(--surface)', borderLeft: '3px solid var(--ink)', borderRadius: '0 6px 6px 0', transition: 'background 0.25s ease' }}>
+                <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--ink)', lineHeight: 1.6 }}>{p.researchDomainInsight}</p>
               </blockquote>
 
               {/* User research */}
               <H2 top id="research-user">{p.researchUserTitle}</H2>
               {p.researchQuote && (
-                <div style={{ margin: '0 0 32px', padding: '0 0 0 24px', borderLeft: '3px solid var(--accent-text)' }}>
-                  <p style={{ fontSize: '20px', fontWeight: 500, color: 'var(--text-1)', lineHeight: 1.5, letterSpacing: '-0.01em', marginBottom: '10px' }}>
+                <div style={{ margin: '0 0 32px', padding: '0 0 0 24px', borderLeft: '3px solid var(--ink)' }}>
+                  <p style={{ fontSize: '20px', fontWeight: 500, color: 'var(--ink)', lineHeight: 1.5, letterSpacing: '-0.01em', marginBottom: '10px' }}>
                     {'"' + p.researchQuote + '"'}
                   </p>
-                  {p.researchQuoteAuthor && <p style={{ fontSize: '12px', color: 'var(--text-3)', fontWeight: 500 }}>{'— ' + p.researchQuoteAuthor}</p>}
+                  {p.researchQuoteAuthor && <p style={{ fontSize: '12px', color: 'var(--ink-3)', fontWeight: 500 }}>{'– ' + p.researchQuoteAuthor}</p>}
                 </div>
               )}
               {p.slug === 'biasly' ? (<>
@@ -363,7 +412,7 @@ export default async function CaseStudy({ params }: Props) {
                   I ran 12 moderated usability sessions with participants aged 22–45 who identified as regular news readers. The task was simple: browse the feed naturally for 3 minutes, then answer questions about the bias of articles they had seen.
                 </p>
                 <p style={{ ...bodyLg, marginBottom: '16px' }}>
-                  The results were consistent: 69% of participants could not correctly identify the bias of articles they had spent time reading. When probed, almost all of them said the same thing — <H>they hadn't noticed it</H>. Not because they didn't care. The indicator <H>never showed up at the right moment</H>.
+                  The results were consistent: 69% of participants could not correctly identify the bias of articles they had spent time reading. When probed, almost all of them said the same thing: <H>they hadn't noticed it</H>. Not because they didn't care. The indicator <H>never showed up at the right moment</H>.
                 </p>
                 <p style={{ ...bodyLg, marginBottom: '16px' }}>
                   I asked participants to walk me through a session using think-aloud protocol. The pattern was immediate. Every participant followed the same path: <H>headline → image → scroll</H>. The bias tag at the bottom was processed, when it was processed at all, as an afterthought.
@@ -397,9 +446,9 @@ export default async function CaseStudy({ params }: Props) {
               <H3>{p.researchUserFindingsTitle}</H3>
               <div style={{ marginTop: '12px' }}>
                 {p.researchUserFindings.map((f, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '14px', padding: '12px 0', borderBottom: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
-                    <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-3)', flexShrink: 0, marginTop: '2px' }}>{i + 1}.</span>
-                    <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.7 }}>{f}</p>
+                  <div key={i} style={{ display: 'flex', gap: '14px', padding: '12px 0', borderBottom: '1px solid var(--hairline)', transition: 'border-color 0.25s ease' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', flexShrink: 0, marginTop: '2px' }}>{i + 1}.</span>
+                    <p style={{ fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{f}</p>
                   </div>
                 ))}
               </div>
@@ -438,7 +487,7 @@ export default async function CaseStudy({ params }: Props) {
 
               {p.slug === 'biasly' ? (
                 <p style={{ ...bodyLg, marginBottom: '40px' }}>
-                  The further I got into the research, the more <H>it stopped feeling like a visibility problem</H>. It wasn't that users couldn't see the indicator. It was that they saw it in the wrong order. <H>That's when it clicked</H> — the fix wasn't making the indicator bigger or bolder. <H>It was when it showed up</H> that mattered.
+                  The further I got into the research, the more <H>it stopped feeling like a visibility problem</H>. It wasn't that users couldn't see the indicator. It was that they saw it in the wrong order. <H>That's when it clicked</H>. The fix wasn't making the indicator bigger or bolder. <H>It was when it showed up</H> that mattered.
                 </p>
               ) : p.slug === 'fipet' ? (
                 <p style={{ ...bodyLg, marginBottom: '40px' }}>
@@ -480,9 +529,9 @@ export default async function CaseStudy({ params }: Props) {
               <p style={{ ...bodyLg, marginBottom: '32px' }}>{p.designAlternativesIntro}</p>
 
               {p.designAlternativesFeasibility && (
-                <div style={{ padding: '16px 20px', background: 'var(--surface)', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '32px', transition: 'background 0.25s ease' }}>
+                <div style={{ padding: '16px 20px', background: 'var(--surface)', borderRadius: '8px', border: '1px solid var(--hairline)', marginBottom: '32px', transition: 'background 0.25s ease' }}>
                   <p style={{ ...microLbl, marginBottom: '6px' }}>Technical feasibility</p>
-                  <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.7 }}>{p.designAlternativesFeasibility}</p>
+                  <p style={{ fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{p.designAlternativesFeasibility}</p>
                 </div>
               )}
 
@@ -493,19 +542,19 @@ export default async function CaseStudy({ params }: Props) {
                   marginBottom: '48px',
                   position: 'relative',
                   paddingLeft: isChosen ? '20px' : '0',
-                  borderLeft: isChosen ? '3px solid var(--accent-text)' : 'none',
+                  borderLeft: isChosen ? '3px solid var(--ink)' : 'none',
                   transition: 'border-color 0.25s ease',
                 }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }} className="tj-split">
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                        <p style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-3)' }}>
+                        <p style={{ fontSize: '12px', fontWeight: 700, color: 'var(--ink-3)' }}>
                           {isChosen ? `Direction ${alt.number}` : `Alternative ${alt.number}`}
                         </p>
                         {isChosen && (
                           <span style={{
                             fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em',
-                            color: 'var(--accent-text)', background: 'color-mix(in srgb, var(--accent) 12%, transparent)',
+                            color: 'var(--bg)', background: 'var(--ink)',
                             padding: '3px 8px', borderRadius: '4px', textTransform: 'uppercase',
                           }}>CHOSEN</span>
                         )}
@@ -515,24 +564,24 @@ export default async function CaseStudy({ params }: Props) {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '4px' }}>
                         {/* PROS */}
                         <div>
-                          <p style={{ fontSize: '11px', fontWeight: 700, color: '#4CAF50', letterSpacing: '0.08em', marginBottom: '8px' }}>PROS</p>
+                          <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.08em', marginBottom: '8px' }}>PROS</p>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                             {alt.pros.map((pro, i) => (
                               <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                                <span style={{ color: '#4CAF50', fontWeight: 700, fontSize: '13px', flexShrink: 0, marginTop: '1px' }}>+</span>
-                                <p style={{ fontSize: '13px', color: 'var(--text-2)', lineHeight: 1.65 }}>{pro}</p>
+                                <span style={{ color: 'var(--ink)', fontWeight: 700, fontSize: '13px', flexShrink: 0, marginTop: '1px' }}>+</span>
+                                <p style={{ fontSize: '13px', color: 'var(--ink-2)', lineHeight: 1.65 }}>{pro}</p>
                               </div>
                             ))}
                           </div>
                         </div>
                         {/* CONS */}
                         <div>
-                          <p style={{ fontSize: '11px', fontWeight: 700, color: '#E05C5C', letterSpacing: '0.08em', marginBottom: '8px' }}>CONS</p>
+                          <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.08em', marginBottom: '8px' }}>CONS</p>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                             {alt.cons.map((con, i) => (
                               <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                                <span style={{ color: '#E05C5C', fontWeight: 700, fontSize: '13px', flexShrink: 0, marginTop: '1px' }}>−</span>
-                                <p style={{ fontSize: '13px', color: 'var(--text-2)', lineHeight: 1.65 }}>{con}</p>
+                                <span style={{ color: 'var(--ink-3)', fontWeight: 700, fontSize: '13px', flexShrink: 0, marginTop: '1px' }}>−</span>
+                                <p style={{ fontSize: '13px', color: 'var(--ink-2)', lineHeight: 1.65 }}>{con}</p>
                               </div>
                             ))}
                           </div>
@@ -541,8 +590,8 @@ export default async function CaseStudy({ params }: Props) {
                     </div>
                     <div style={{
                       position: 'relative',
-                      borderRadius: p.slug === 'fipet' ? '0' : '15px',
-                      border: p.slug === 'fipet' ? 'none' : (isChosen ? '1px solid var(--accent-text)' : '1px solid var(--border)'),
+                      borderRadius: p.slug === 'fipet' ? '0' : '14px',
+                      border: p.slug === 'fipet' ? 'none' : (isChosen ? '1px solid var(--ink)' : '1px solid var(--hairline)'),
                       overflow: 'hidden',
                       display: 'flex',
                       alignItems: 'center',
@@ -559,16 +608,16 @@ export default async function CaseStudy({ params }: Props) {
                               ? { maxWidth: '100%', maxHeight: '560px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }
                               : { width: '100%', height: 'auto', display: 'block' }
                             } />
-                          : <div style={{ aspectRatio: '4/3', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p style={{ fontSize: '11px', color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Alt {alt.number}</p></div>
+                          : <div style={{ aspectRatio: '4/3', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p style={{ fontSize: '11px', color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Alt {alt.number}</p></div>
                       }
                     </div>
                   </div>
                 </div>
               )})}
 
-              <div style={{ padding: '20px 24px', background: 'var(--surface)', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '56px', transition: 'background 0.25s ease' }}>
+              <div style={{ padding: '20px 24px', background: 'var(--surface)', borderRadius: '8px', border: '1px solid var(--hairline)', marginBottom: '56px', transition: 'background 0.25s ease' }}>
                 <p style={{ ...microLbl, marginBottom: '6px' }}>Why I moved forward with this direction</p>
-                <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.75 }}>{p.designAlternativesConclusion}</p>
+                <p style={{ fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.75 }}>{p.designAlternativesConclusion}</p>
               </div>
 
               {/* User feedback */}
@@ -619,23 +668,23 @@ export default async function CaseStudy({ params }: Props) {
 
               <div style={{ marginBottom: '32px' }}>
                 {p.strategyPrinciples.map((pr: Principle, i: number) => (
-                  <div key={pr.label} className="tj-principles-grid" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '32px', padding: '22px 0', borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
+                  <div key={pr.label} className="tj-principles-grid" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '32px', padding: '22px 0', borderTop: '1px solid var(--hairline)', transition: 'border-color 0.25s ease' }}>
                     <div>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-3)', display: 'block', marginBottom: '6px', letterSpacing: '0.04em' }}>{String(i + 1).padStart(2, '0')}</span>
-                      <p style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-1)', lineHeight: 1.3, letterSpacing: '-0.01em' }}>{pr.label}</p>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', display: 'block', marginBottom: '6px', letterSpacing: '0.04em' }}>{String(i + 1).padStart(2, '0')}</span>
+                      <p style={{ fontSize: '14px', fontWeight: 700, color: 'var(--ink)', lineHeight: 1.3, letterSpacing: '-0.01em' }}>{pr.label}</p>
                     </div>
-                    <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.8 }}>{pr.description}</p>
+                    <p style={{ fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.8 }}>{pr.description}</p>
                   </div>
                 ))}
-                <div style={{ borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }} />
+                <div style={{ borderTop: '1px solid var(--hairline)', transition: 'border-color 0.25s ease' }} />
               </div>
 
               {p.strategyRejected && (
-                <div style={{ padding: '18px 22px', background: 'var(--surface)', borderRadius: '8px', border: '1px solid var(--border)', display: 'flex', gap: '14px', marginBottom: '48px', transition: 'background 0.25s ease' }}>
-                  <span style={{ fontWeight: 700, color: 'var(--text-3)', flexShrink: 0, fontSize: '13px' }}>✕</span>
+                <div style={{ padding: '18px 22px', background: 'var(--surface)', borderRadius: '8px', border: '1px solid var(--hairline)', display: 'flex', gap: '14px', marginBottom: '48px', transition: 'background 0.25s ease' }}>
+                  <span style={{ fontWeight: 700, color: 'var(--ink-3)', flexShrink: 0, fontSize: '13px' }}>✕</span>
                   <div>
                     <p style={{ ...microLbl, marginBottom: '5px' }}>Direction rejected</p>
-                    <p style={{ fontSize: '13px', color: 'var(--text-2)', lineHeight: 1.75 }}>{p.strategyRejected}</p>
+                    <p style={{ fontSize: '13px', color: 'var(--ink-2)', lineHeight: 1.75 }}>{p.strategyRejected}</p>
                   </div>
                 </div>
               )}
@@ -661,15 +710,15 @@ export default async function CaseStudy({ params }: Props) {
               {/* What changed — full width list */}
               <div style={{ marginBottom: '48px' }}>
                 {p.redesignChanges.map((c: Change, i: number) => (
-                  <div key={c.label} className="tj-changes-grid" style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '20px', padding: '16px 0', borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }}>
+                  <div key={c.label} className="tj-changes-grid" style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '20px', padding: '16px 0', borderTop: '1px solid var(--hairline)', transition: 'border-color 0.25s ease' }}>
                     <div>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-3)', display: 'block', marginBottom: '3px' }}>{String(i + 1).padStart(2, '0')}</span>
-                      <p style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-1)', lineHeight: 1.3 }}>{c.label}</p>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', display: 'block', marginBottom: '3px' }}>{String(i + 1).padStart(2, '0')}</span>
+                      <p style={{ fontSize: '13px', fontWeight: 700, color: 'var(--ink)', lineHeight: 1.3 }}>{c.label}</p>
                     </div>
-                    <p style={{ fontSize: '13px', color: 'var(--text-2)', lineHeight: 1.7 }}>{c.description}</p>
+                    <p style={{ fontSize: '13px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{c.description}</p>
                   </div>
                 ))}
-                <div style={{ borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }} />
+                <div style={{ borderTop: '1px solid var(--hairline)', transition: 'border-color 0.25s ease' }} />
               </div>
 
               {/* Before / After — side by side, pulled toward the center to shrink the gap.
@@ -680,7 +729,7 @@ export default async function CaseStudy({ params }: Props) {
                     <figure key={lbl} className="tj-ba-fig" style={{ margin: 0, width: 'fit-content', maxWidth: '100%', justifySelf: i === 0 ? 'end' : 'start' }}>
                       {img
                         ? <img src={img} alt={lbl} loading="lazy" decoding="async" style={{ maxWidth: '100%', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block'}} />
-                        : <div style={{ width: '320px', maxWidth: '100%', aspectRatio: '4/3', background: 'var(--surface)', borderRadius: '12px', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p style={microLbl}>Add image</p></div>
+                        : <div style={{ width: '320px', maxWidth: '100%', aspectRatio: '4/3', background: 'var(--surface)', borderRadius: '12px', border: '1px solid var(--hairline)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p style={microLbl}>Add image</p></div>
                       }
                       <figcaption style={captionStyle}>{lbl}</figcaption>
                     </figure>
@@ -696,7 +745,7 @@ export default async function CaseStudy({ params }: Props) {
                 <SectionHR />
 
                 {/* Round label */}
-                <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: 'var(--accent-text)', marginBottom: '14px' }}>
+                <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: 'var(--ink)', marginBottom: '14px' }}>
                   {p.usabilityTesting.round}
                 </p>
 
@@ -717,7 +766,7 @@ export default async function CaseStudy({ params }: Props) {
                 <div style={{
                   background: 'var(--surface)',
                   borderRadius: '8px',
-                  border: '1px solid var(--border)',
+                  border: '1px solid var(--hairline)',
                   padding: '20px 24px',
                   marginBottom: '40px',
                   display: 'grid',
@@ -726,9 +775,9 @@ export default async function CaseStudy({ params }: Props) {
                   transition: 'background 0.25s ease',
                 }} className="tj-info-card">
                   <p style={{ ...microLbl, paddingTop: '3px' }}>PARTICIPANTS</p>
-                  <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.7 }}>{p.usabilityTesting.participants}</p>
+                  <p style={{ fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{p.usabilityTesting.participants}</p>
                   <p style={{ ...microLbl, paddingTop: '3px' }}>METHOD</p>
-                  <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.7 }}>{p.usabilityTesting.method}</p>
+                  <p style={{ fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{p.usabilityTesting.method}</p>
                 </div>
 
                 {/* Metrics grid — n columns based on metrics count */}
@@ -736,18 +785,18 @@ export default async function CaseStudy({ params }: Props) {
                   display: 'grid',
                   gridTemplateColumns: 'repeat(' + Math.min(p.usabilityTesting.metrics.length, 4) + ', 1fr)',
                   gap: '1px',
-                  background: 'var(--border)',
-                  border: '1px solid var(--border)',
-                  borderRadius: '10px',
+                  background: 'var(--hairline)',
+                  border: '1px solid var(--hairline)',
+                  borderRadius: '14px',
                   overflow: 'hidden',
                   marginBottom: '64px',
                   transition: 'border-color 0.25s ease',
                 }} className="tj-metrics-grid">
                   {p.usabilityTesting.metrics.map((m: Metric) => (
-                    <div key={m.label} style={{ padding: '28px 22px', background: 'var(--card)', transition: 'background 0.25s ease' }}>
-                      <p style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--text-1)', lineHeight: 1, marginBottom: '10px' }}>{m.value}</p>
-                      <p style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-1)', marginBottom: '4px', letterSpacing: '-0.01em' }}>{m.label}</p>
-                      <p style={{ fontSize: '11px', color: 'var(--text-3)', lineHeight: 1.5 }}>{m.context}</p>
+                    <div key={m.label} style={{ padding: '28px 22px', background: 'var(--bg)', transition: 'background 0.25s ease' }}>
+                      <p style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--ink)', lineHeight: 1, marginBottom: '10px' }}>{m.value}</p>
+                      <p style={{ fontSize: '13px', fontWeight: 700, color: 'var(--ink)', marginBottom: '4px', letterSpacing: '-0.01em' }}>{m.label}</p>
+                      <p style={{ fontSize: '11px', color: 'var(--ink-3)', lineHeight: 1.5 }}>{m.context}</p>
                     </div>
                   ))}
                 </div>
@@ -765,15 +814,15 @@ export default async function CaseStudy({ params }: Props) {
                       <div key={f.number} style={{
                         marginBottom: isLast ? 0 : '40px',
                         paddingBottom: isLast ? 0 : '36px',
-                        borderBottom: isLast ? 'none' : '1px solid var(--border)',
+                        borderBottom: isLast ? 'none' : '1px solid var(--hairline)',
                         transition: 'border-color 0.25s ease',
                       }}>
                         {/* Number + finding title */}
                         <div style={{ marginBottom: '16px' }}>
-                          <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-3)', letterSpacing: '0.08em', marginBottom: '8px' }}>
+                          <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.08em', marginBottom: '8px' }}>
                             FINDING {f.number}
                           </p>
-                          <h3 style={{ fontSize: '1.125rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.35, color: 'var(--text-1)' }}>
+                          <h3 style={{ fontSize: '1.125rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.35, color: 'var(--ink)' }}>
                             {f.finding}
                           </h3>
                         </div>
@@ -782,13 +831,13 @@ export default async function CaseStudy({ params }: Props) {
                         <div style={{
                           padding: '14px 20px',
                           background: 'var(--surface)',
-                          borderLeft: '3px solid var(--border)',
+                          borderLeft: '3px solid var(--ink)',
                           borderRadius: '0 6px 6px 0',
                           marginBottom: '22px',
                           transition: 'background 0.25s ease',
                         }}>
                           <p style={{ ...microLbl, marginBottom: '6px' }}>EVIDENCE</p>
-                          <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.7 }}>{f.evidence}</p>
+                          <p style={{ fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{f.evidence}</p>
                         </div>
 
                         {/* Refinement + reason — two-column grid */}
@@ -798,10 +847,10 @@ export default async function CaseStudy({ params }: Props) {
                           gap: '14px 28px',
                           rowGap: '16px',
                         }} className="tj-refinement-grid">
-                          <p style={{ ...microLbl, paddingTop: '2px', color: 'var(--accent-text)' }}>WHAT WE CHANGED</p>
-                          <p style={{ fontSize: '14px', color: 'var(--text-1)', lineHeight: 1.7, fontWeight: 500 }}>{f.refinement}</p>
+                          <p style={{ ...microLbl, paddingTop: '2px', color: 'var(--ink)' }}>WHAT WE CHANGED</p>
+                          <p style={{ fontSize: '14px', color: 'var(--ink)', lineHeight: 1.7, fontWeight: 500 }}>{f.refinement}</p>
                           <p style={{ ...microLbl, paddingTop: '2px' }}>WHY THIS FIX</p>
-                          <p style={{ fontSize: '13px', color: 'var(--text-2)', lineHeight: 1.7 }}>{f.refinementReason}</p>
+                          <p style={{ fontSize: '13px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{f.refinementReason}</p>
                         </div>
                       </div>
                     )
@@ -819,11 +868,11 @@ export default async function CaseStudy({ params }: Props) {
                     padding: '20px 24px',
                     background: 'var(--surface)',
                     borderRadius: '8px',
-                    borderLeft: '3px solid var(--accent-text)',
+                    borderLeft: '3px solid var(--ink)',
                     transition: 'background 0.25s ease',
                   }}>
-                    <p style={{ ...microLbl, marginBottom: '8px', color: 'var(--accent-text)' }}>WHAT THIS CHANGED</p>
-                    <p style={{ fontSize: '15px', color: 'var(--text-1)', lineHeight: 1.7, fontWeight: 500 }}>{p.usabilityTesting.cultureNote}</p>
+                    <p style={{ ...microLbl, marginBottom: '8px', color: 'var(--ink)' }}>WHAT THIS CHANGED</p>
+                    <p style={{ fontSize: '15px', color: 'var(--ink)', lineHeight: 1.7, fontWeight: 500 }}>{p.usabilityTesting.cultureNote}</p>
                   </div>
                 )}
 
@@ -863,7 +912,7 @@ export default async function CaseStudy({ params }: Props) {
                 <H2>{p.prototypeSpotlight.title}</H2>
                 <p style={{
                   fontSize: '15px',
-                  color: 'var(--text-3)',
+                  color: 'var(--ink-3)',
                   fontStyle: 'italic',
                   marginBottom: '24px',
                   lineHeight: 1.6,
@@ -889,7 +938,7 @@ export default async function CaseStudy({ params }: Props) {
                       gap: '8px',
                       padding: '12px 22px',
                       background: 'var(--accent)',
-                      color: 'var(--accent-contrast)',
+                      color: '#ffffff',
                       fontSize: '14px',
                       fontWeight: 600,
                       textDecoration: 'none',
@@ -920,14 +969,14 @@ export default async function CaseStudy({ params }: Props) {
                       gridTemplateColumns: '200px 1fr',
                       gap: '24px',
                       padding: '20px 0',
-                      borderTop: '1px solid var(--border)',
+                      borderTop: '1px solid var(--hairline)',
                       transition: 'border-color 0.25s ease',
                     }} className="tj-whycoded-grid">
                       <div>
                         <span style={{
                           fontSize: '11px',
                           fontWeight: 700,
-                          color: 'var(--text-3)',
+                          color: 'var(--ink-3)',
                           display: 'block',
                           marginBottom: '5px',
                           letterSpacing: '0.04em',
@@ -935,15 +984,15 @@ export default async function CaseStudy({ params }: Props) {
                         <p style={{
                           fontSize: '13px',
                           fontWeight: 700,
-                          color: 'var(--text-1)',
+                          color: 'var(--ink)',
                           lineHeight: 1.35,
                           letterSpacing: '-0.01em',
                         }}>{item.label}</p>
                       </div>
-                      <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.75 }}>{item.description}</p>
+                      <p style={{ fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.75 }}>{item.description}</p>
                     </div>
                   ))}
-                  <div style={{ borderTop: '1px solid var(--border)', transition: 'border-color 0.25s ease' }} />
+                  <div style={{ borderTop: '1px solid var(--hairline)', transition: 'border-color 0.25s ease' }} />
                 </div>
 
                 {/* Videos — autoplay loop muted, side-by-side if 2 */}
@@ -964,9 +1013,9 @@ export default async function CaseStudy({ params }: Props) {
                           }
                         : {
                             background: 'var(--surface)',
-                            borderRadius: '10px',
+                            borderRadius: '14px',
                             overflow: 'hidden',
-                            border: '1px solid var(--border)',
+                            border: '1px solid var(--hairline)',
                             transition: 'background 0.25s ease, border-color 0.25s ease',
                           }
                       }>
@@ -993,9 +1042,9 @@ export default async function CaseStudy({ params }: Props) {
                   <figure style={{ margin: 0 }}>
                     <div style={{
                       background: 'var(--surface)',
-                      borderRadius: '10px',
+                      borderRadius: '14px',
                       overflow: 'hidden',
-                      border: '1px solid var(--border)',
+                      border: '1px solid var(--hairline)',
                       transition: 'background 0.25s ease, border-color 0.25s ease',
                     }}>
                       <img
@@ -1016,10 +1065,10 @@ export default async function CaseStudy({ params }: Props) {
               <SectionHR />
 
               <H2>{p.impactTitle}</H2>
-              <p style={{ fontSize: '12px', color: 'var(--text-3)', marginBottom: '20px', fontStyle: 'italic' }}>{p.impactMethod}</p>
+              <p style={{ fontSize: '12px', color: 'var(--ink-3)', marginBottom: '20px', fontStyle: 'italic' }}>{p.impactMethod}</p>
               {p.slug === 'biasly' ? (
                 <p style={{ ...bodyLg, marginBottom: '40px' }}>
-                  Post-redesign sessions used the same participants, same task, same duration. One variable: the layout. Users were now seeing bias <H>before they reacted to the headline</H> — and it showed in the numbers. The shift was not marginal. After handoff and QA, <H>a version based on this design is rolling out with team refinements</H>.
+                  Post-redesign sessions used the same participants, same task, same duration. One variable: the layout. Users were now seeing bias <H>before they reacted to the headline</H>, and it showed in the numbers. The shift was not marginal. After handoff and QA, <H>a version based on this design is rolling out with team refinements</H>.
                 </p>
               ) : p.slug === 'fipet' ? (
                 <p style={{ ...bodyLg, marginBottom: '40px' }}>
@@ -1027,18 +1076,18 @@ export default async function CaseStudy({ params }: Props) {
                 </p>
               ) : p.slug === 'ride-availability' ? (
                 <p style={{ ...bodyLg, marginBottom: '40px' }}>
-                  <H>Two reframes mattered more than any individual screen</H>. Existing tools are research artifacts — AirControl and Bike Angels exist because the primary product has a UX gap. Internal workarounds are diagnostic for primary product failure. And <H>the brief itself is a design decision</H> — changing the scope from 'add dock info' to 'surface existing infrastructure as UX' was the most important contribution of the project, more than any pixel.
+                  <H>Two reframes mattered more than any individual screen</H>. Existing tools are research artifacts: AirControl and Bike Angels exist because the primary product has a UX gap. Internal workarounds are diagnostic for primary product failure. And <H>the brief itself is a design decision</H>. Changing the scope from 'add dock info' to 'surface existing infrastructure as UX' was the most important contribution of the project, more than any pixel.
                 </p>
               ) : (
                 <p style={{ ...bodyLg, marginBottom: '40px' }}>{p.impactBody}</p>
               )}
 
-              <div className="tj-metrics-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(' + Math.min(p.metrics.length, 3) + ', 1fr)', gap: '1px', background: 'var(--border)', border: '1px solid var(--border)', borderRadius: '10px', overflow: 'hidden', marginBottom: '48px', transition: 'border-color 0.25s ease' }}>
+              <div className="tj-metrics-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(' + Math.min(p.metrics.length, 3) + ', 1fr)', gap: '1px', background: 'var(--hairline)', border: '1px solid var(--hairline)', borderRadius: '14px', overflow: 'hidden', marginBottom: '48px', transition: 'border-color 0.25s ease' }}>
                 {p.metrics.map((m: Metric) => (
-                  <div key={m.label} style={{ padding: '36px 28px', background: 'var(--card)', transition: 'background 0.25s ease' }}>
-                    <p style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)', fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--text-1)', lineHeight: 1, marginBottom: '10px' }}>{(p.slug === 'biasly' || p.slug === 'fipet' || p.slug === 'ride-availability') ? <H>{m.value}</H> : m.value}</p>
-                    <p style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-1)', marginBottom: '4px', letterSpacing: '-0.01em' }}>{m.label}</p>
-                    <p style={{ fontSize: '12px', color: 'var(--text-3)', lineHeight: 1.6 }}>{m.context}</p>
+                  <div key={m.label} style={{ padding: '36px 28px', background: 'var(--bg)', transition: 'background 0.25s ease' }}>
+                    <p style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)', fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--ink)', lineHeight: 1, marginBottom: '10px' }}>{m.value}</p>
+                    <p style={{ fontSize: '14px', fontWeight: 700, color: 'var(--ink)', marginBottom: '4px', letterSpacing: '-0.01em' }}>{m.label}</p>
+                    <p style={{ fontSize: '12px', color: 'var(--ink-3)', lineHeight: 1.6 }}>{m.context}</p>
                     {p.slug === 'biasly' && <p style={methodCaptionStyle}>{BIASLY_METHOD_CAPTION}</p>}
                   </div>
                 ))}
@@ -1057,16 +1106,15 @@ export default async function CaseStudy({ params }: Props) {
                   {/* Working file — Figma canvas of the test file */}
                   <figure style={{ margin: '28px 0 0' }}>
                     <p style={{
-                      fontFamily: 'var(--font-mono)',
                       fontSize: '11px',
                       fontWeight: 600,
                       letterSpacing: '0.09em',
                       textTransform: 'uppercase',
-                      color: 'var(--text-1)',
+                      color: 'var(--ink)',
                       margin: '0 0 10px',
                     }}>WORKING FILE</p>
                     <div style={{
-                      border: '1px dotted var(--border)',
+                      border: '1px solid var(--hairline)',
                       borderRadius: '8px',
                       overflow: 'hidden',
                       transition: 'border-color 0.25s ease',
@@ -1082,9 +1130,8 @@ export default async function CaseStudy({ params }: Props) {
                     </div>
                     <figcaption style={{
                       marginTop: '8px',
-                      fontFamily: 'var(--font-mono)',
                       fontSize: '11px',
-                      color: 'var(--text-3)',
+                      color: 'var(--ink-3)',
                       lineHeight: 1.6,
                     }}>
                       Working Figma file for the moderated sessions, canvas view of the tested frames.
@@ -1099,7 +1146,7 @@ export default async function CaseStudy({ params }: Props) {
                   src={(p as any).outcomeImage ?? p.afterImage}
                   alt="Final design"
                   loading="lazy" decoding="async"
-                  style={{ width: '100%', display: 'block', borderRadius: '8px' }}
+                  style={{ width: '100%', display: 'block', borderRadius: '14px' }}
                 />
               </figure>
             )}
@@ -1136,12 +1183,12 @@ export default async function CaseStudy({ params }: Props) {
           </article>
 
           {/* PREV / NEXT */}
-          <div style={{ borderTop: '1px solid var(--border)', display: 'grid', gridTemplateColumns: '1fr 1fr', transition: 'border-color 0.25s ease' }}>
-            <div style={{ borderRight: '1px solid var(--border)' }}>
+          <div style={{ borderTop: '1px solid var(--hairline)', display: 'grid', gridTemplateColumns: '1fr 1fr', transition: 'border-color 0.25s ease' }}>
+            <div style={{ borderRight: '1px solid var(--hairline)' }}>
               {prev && (
                 <Link href={'/work/' + prev.slug} className="tj-nav-card" style={{ display: 'block', padding: '40px 60px', textDecoration: 'none', transition: 'background 0.15s ease' }}>
                   <p style={{ ...microLbl, marginBottom: '8px' }}>← Previous</p>
-                  <p style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)', fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--text-1)', lineHeight: 1.2 }}>{prev.title}</p>
+                  <p style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)', fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--ink)', lineHeight: 1.2 }}>{prev.title}</p>
                 </Link>
               )}
             </div>
@@ -1149,7 +1196,7 @@ export default async function CaseStudy({ params }: Props) {
               {next && (
                 <Link href={'/work/' + next.slug} className="tj-nav-card" style={{ display: 'block', padding: '40px 60px', textDecoration: 'none', textAlign: 'right', transition: 'background 0.15s ease' }}>
                   <p style={{ ...microLbl, marginBottom: '8px' }}>Next →</p>
-                  <p style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)', fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--text-1)', lineHeight: 1.2 }}>{next.title}</p>
+                  <p style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)', fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--ink)', lineHeight: 1.2 }}>{next.title}</p>
                 </Link>
               )}
             </div>
@@ -1158,10 +1205,10 @@ export default async function CaseStudy({ params }: Props) {
       </div>
 
       <style>{`
-        .tj-link:hover { color: var(--text-1) !important; }
-        section[id], h2[id] { scroll-margin-top: 84px; }
+        section[id], h2[id] { scroll-margin-top: 88px; }
         .tj-nav-card:hover { background: var(--surface) !important; }
         .tj-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+        .tj-case-grid aside { justify-self: end; }
         @media (max-width: 1024px) { aside { display: none !important; } }
         /* Desktop: flipped panels visually swap (image goes right) */
         @media (min-width: 721px) {
@@ -1190,26 +1237,26 @@ export default async function CaseStudy({ params }: Props) {
 
 // ── Shared styles ──────────────────────────────────
 
-const bodyLg: React.CSSProperties = { fontSize: '16px', color: 'var(--text-2)', lineHeight: 1.85, marginBottom: '20px' }
-const body: React.CSSProperties = { fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.8, marginBottom: '16px' }
-const microLbl: React.CSSProperties = { fontSize: '10px', fontWeight: 600, letterSpacing: '0.09em', textTransform: 'uppercase', color: 'var(--text-3)' }
-const tagStyle: React.CSSProperties = { fontSize: '11px', fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-3)', border: '1px solid var(--border)', borderRadius: '4px', padding: '3px 10px', background: 'var(--surface)' }
-const captionStyle: React.CSSProperties = { marginTop: '8px', fontSize: '12px', color: 'var(--text-3)', textAlign: 'center' as const }
+const bodyLg: React.CSSProperties = { fontSize: '16px', color: 'var(--ink-2)', lineHeight: 1.85, marginBottom: '20px' }
+const body: React.CSSProperties = { fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.8, marginBottom: '16px' }
+const microLbl: React.CSSProperties = { fontSize: '10px', fontWeight: 600, letterSpacing: '0.09em', textTransform: 'uppercase', color: 'var(--ink-3)' }
+const tagStyle: React.CSSProperties = { fontSize: '11px', fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--ink-3)', border: '1px solid var(--hairline)', borderRadius: '4px', padding: '3px 10px', background: 'var(--surface)' }
+const captionStyle: React.CSSProperties = { marginTop: '8px', fontSize: '12px', color: 'var(--ink-3)', textAlign: 'center' as const }
 
 // ── Sub-components ─────────────────────────────────
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return <p style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-3)', marginBottom: '12px' }}>{children}</p>
+  return <p style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-3)', marginBottom: '12px' }}>{children}</p>
 }
 
 function SectionHR() {
-  return <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '0 0 40px 0', transition: 'border-color 0.25s ease' }} />
+  return <hr style={{ border: 'none', borderTop: '1px solid var(--hairline)', margin: '0 0 40px 0', transition: 'border-color 0.25s ease' }} />
 }
 
 function H2({ children, top, id }: { children: React.ReactNode; top?: boolean; id?: string }) {
-  return <h2 id={id} style={{ fontSize: 'clamp(1.375rem, 3vw, 2rem)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--text-1)', marginBottom: '18px', marginTop: top ? '48px' : '0' }}>{children}</h2>
+  return <h2 id={id} style={{ fontSize: 'clamp(1.375rem, 3vw, 2rem)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--ink)', marginBottom: '18px', marginTop: top ? '48px' : '0' }}>{children}</h2>
 }
 
 function H3({ children, noTop }: { children: React.ReactNode; noTop?: boolean }) {
-  return <h3 style={{ fontSize: '1.125rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--text-1)', marginBottom: '12px', marginTop: noTop ? '0' : '32px' }}>{children}</h3>
+  return <h3 style={{ fontSize: '1.125rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--ink)', marginBottom: '12px', marginTop: noTop ? '0' : '32px' }}>{children}</h3>
 }
