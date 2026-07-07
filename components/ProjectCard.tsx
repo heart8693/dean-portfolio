@@ -9,7 +9,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import type { Project } from "@/data/projects"
+import type { Project } from "@/lib/cms"
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (

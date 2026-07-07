@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 // 아래 경로가 다르면 네 projects.ts 위치로만 바꿔줘 (이 파일에서 유일하게 손댈 수 있는 줄)
-import { getFeatured, type Project } from "lib/cms.ts"
+import { getFeatured, type Project } from "@/lib/cms"
 
 export default function Home() {
   const projects = getFeatured()
