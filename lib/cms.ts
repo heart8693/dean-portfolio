@@ -234,7 +234,7 @@ export const projects: Project[] = [
     year: "2026",
     category: "B2B SaaS",
     featured: true,
-    order: 1,
+    order: 4,
 
     coverImage: "/images/triage-cover.webp",
     heroImage: "/images/triage-hero.webp",
@@ -600,7 +600,7 @@ export const projects: Project[] = [
     year: "2026",
     category: "Mobile",
     featured: true,
-    order: 2,
+    order: 1,
 
     coverImage: "/images/fipet-cover.webp",
     heroImage: "/images/fipet-hero.webp",
@@ -997,7 +997,7 @@ export const projects: Project[] = [
     year: "2026",
     category: "Mobile",
     featured: true,
-    order: 3,
+    order: 2,
 
     coverImage: "/images/lyft-cover.webp",
     heroImage: "/images/lyft-hero.webp",
@@ -1334,7 +1334,7 @@ export const projects: Project[] = [
     year: "2025",
     category: "Mobile",
     featured: true,
-    order: 4,
+    order: 3,
 
     coverImage: "/images/biasly-cover.webp",
     heroImage: "/images/biasly-hero.webp",
