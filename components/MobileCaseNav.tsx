@@ -13,13 +13,16 @@ type Section = { id: string; label: string; sub: SubSection[] }
 export default function MobileCaseNav({ sections }: { sections: Section[] }) {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(sections[0]?.id ?? '')
+  const [visible, setVisible] = useState(false)
   const ticking = useRef(false)
 
   // Scroll spy: the last top-level section whose top has passed the 120px line.
+  // The pill itself only appears once the reader is past the hero.
   useEffect(() => {
     const ids = sections.map(s => s.id)
     const update = () => {
       ticking.current = false
+      setVisible(window.scrollY > 320)
       let current = ids[0]
       for (const id of ids) {
         const el = document.getElementById(id)
@@ -67,7 +70,7 @@ export default function MobileCaseNav({ sections }: { sections: Section[] }) {
 
   return (
     <div className="tj-mtoc">
-      <button className="tj-mtoc-pill" aria-expanded={open} aria-label="Open table of contents" onClick={() => setOpen(true)}>
+      <button className={'tj-mtoc-pill' + (visible ? ' is-shown' : '')} aria-hidden={!visible} tabIndex={visible ? 0 : -1} aria-expanded={open} aria-label="Open table of contents" onClick={() => setOpen(true)}>
         {/* Lucide: list */}
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M3 5h.01" /><path d="M3 12h.01" /><path d="M3 19h.01" /><path d="M8 5h13" /><path d="M8 12h13" /><path d="M8 19h13" />
@@ -115,7 +118,10 @@ export default function MobileCaseNav({ sections }: { sections: Section[] }) {
             backdrop-filter: blur(8px) saturate(1.8);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 16px rgba(0, 0, 0, 0.12);
             cursor: pointer;
+            opacity: 0; transform: translateY(8px); pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
           }
+          .tj-mtoc-pill.is-shown { opacity: 1; transform: none; pointer-events: auto; }
           .tj-mtoc-layer { position: fixed; inset: 0; z-index: 70; }
           .tj-mtoc-scrim { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); animation: tjMtocFade 0.2s ease; }
           .tj-mtoc-sheet {
