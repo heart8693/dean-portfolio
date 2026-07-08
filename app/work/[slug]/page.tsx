@@ -6,6 +6,7 @@ import Image from 'next/image'
 import type { Metadata } from 'next'
 import ScrollHighlight from '@/components/ScrollHighlight'
 import CaseStudyNav from '@/components/CaseStudyNav'
+import MobileCaseNav from '@/components/MobileCaseNav'
 import PersonaCard from '@/components/PersonaCard'
 import SessionScript from '@/components/SessionScript'
 import TestedFrames from '@/components/TestedFrames'
@@ -79,6 +80,7 @@ export default async function CaseStudy({ params }: Props) {
 
         {/* ── LEFT SIDEBAR — scroll-spy, collapsible (client component) ── */}
         <CaseStudyNav sections={sections} />
+        <MobileCaseNav sections={sections} />
 
         {/* ── MAIN CONTENT — 900px single column ── */}
         <div style={{ minWidth: 0, gridColumn: 2 }}>
