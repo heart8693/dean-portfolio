@@ -81,7 +81,7 @@ export default async function CaseStudy({ params }: Props) {
         <CaseStudyNav sections={sections} />
 
         {/* ── MAIN CONTENT — 900px single column ── */}
-        <div style={{ minWidth: 0 }}>
+        <div style={{ minWidth: 0, gridColumn: 2 }}>
 
           {/* ── HERO IMAGE — unified for all case studies ── */}
           {(p.heroImage || p.coverImage) && (
@@ -1208,7 +1208,8 @@ export default async function CaseStudy({ params }: Props) {
         section[id], h2[id] { scroll-margin-top: 88px; }
         .tj-nav-card:hover { background: var(--surface) !important; }
         .tj-cta:hover { opacity: 0.88; transform: translateY(-1px); }
-        .tj-case-grid aside { justify-self: end; }
+        .tj-case-grid aside { grid-column: 1; justify-self: end; }
+        @media (max-width: 720px) { .tj-nav-card { padding: 24px !important; } }
         @media (max-width: 1024px) { aside { display: none !important; } }
         /* Desktop: flipped panels visually swap (image goes right) */
         @media (min-width: 721px) {
