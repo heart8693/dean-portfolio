@@ -72,7 +72,7 @@ export default function MobileCaseNav({ sections }: { sections: Section[] }) {
     <div className="tj-mtoc">
       <button className={'tj-mtoc-pill' + (visible ? ' is-shown' : '')} aria-hidden={!visible} tabIndex={visible ? 0 : -1} aria-expanded={open} aria-label="Open table of contents" onClick={() => setOpen(true)}>
         {/* Lucide: list */}
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M3 5h.01" /><path d="M3 12h.01" /><path d="M3 19h.01" /><path d="M8 5h13" /><path d="M8 12h13" /><path d="M8 19h13" />
         </svg>
         <span>{activeLabel}</span>
@@ -110,8 +110,8 @@ export default function MobileCaseNav({ sections }: { sections: Section[] }) {
           .tj-mtoc-pill {
             position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom));
             z-index: 60; display: inline-flex; align-items: center; gap: 8px;
-            padding: 10px 16px; border-radius: 999px; border: 1px solid var(--hairline);
-            color: var(--ink); font-size: 13px; font-weight: 600; letter-spacing: -0.01em;
+            min-height: 44px; padding: 12px 18px; border-radius: 999px; border: 1px solid var(--hairline);
+            color: var(--ink); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
             background: rgba(255, 255, 255, 0.4);
             background: color-mix(in srgb, var(--bg) 45%, transparent);
             -webkit-backdrop-filter: blur(8px) saturate(1.8);
@@ -134,11 +134,11 @@ export default function MobileCaseNav({ sections }: { sections: Section[] }) {
           }
           .tj-mtoc-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 0 8px; }
           .tj-mtoc-head p { font-size: 11px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); }
-          .tj-mtoc-head button { background: none; border: none; color: var(--ink-2); padding: 6px; margin: -6px; cursor: pointer; }
-          .tj-mtoc-item { display: block; position: relative; padding: 11px 0 11px 12px; font-size: 15px; font-weight: 500; color: var(--ink-2); text-decoration: none; }
+          .tj-mtoc-head button { background: none; border: none; color: var(--ink-2); padding: 14px; margin: -14px; cursor: pointer; }
+          .tj-mtoc-item { display: flex; align-items: center; min-height: 44px; position: relative; padding: 0 0 0 12px; font-size: 15px; font-weight: 500; color: var(--ink-2); text-decoration: none; }
           .tj-mtoc-item.is-active { color: var(--ink); font-weight: 700; }
           .tj-mtoc-item.is-active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 2px; height: 14px; background: var(--ink); border-radius: 1px; }
-          .tj-mtoc-sub { display: block; padding: 7px 0 7px 28px; font-size: 13px; color: var(--ink-3); text-decoration: none; }
+          .tj-mtoc-sub { display: flex; align-items: center; min-height: 44px; padding: 0 0 0 28px; font-size: 13px; color: var(--ink-3); text-decoration: none; }
         }
         @keyframes tjMtocUp { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes tjMtocFade { from { opacity: 0; } to { opacity: 1; } }

@@ -232,7 +232,7 @@ export const projects: Project[] = [
     title: "Sift · AI ticket triage",
     description: "AI ticket tools compete on how much they can automate. Agents don't need more automation, they need to see what the AI did, why, and how to take it back. Sift is a 13-screen concept built around that gap.",
     year: "2026",
-    category: "B2B SaaS",
+    category: "Concept · B2B SaaS",
     featured: true,
     order: 4,
 
@@ -598,7 +598,7 @@ export const projects: Project[] = [
     title: "FiPet",
     description: "FiPet shipped to the App Store without a single usability test. I led the redesign around a new 1v1 Quiz Battle feature, established a design system the whole team adopted, and ran the company's first usability test.",
     year: "2026",
-    category: "Mobile",
+    category: "Internship · Mobile",
     featured: true,
     order: 1,
 
@@ -995,7 +995,7 @@ export const projects: Project[] = [
     title: "Lyft Bike Redesign",
     description: "Lyft has the prediction algorithms, real-time monitoring, and incentive programs already built. None of it reaches riders. I designed the UX layer that puts it in front of them.",
     year: "2026",
-    category: "Mobile",
+    category: "Concept · Mobile",
     featured: true,
     order: 2,
 
@@ -1332,7 +1332,7 @@ export const projects: Project[] = [
     title: "Biasly Mobile App",
     description: "Biasly helps users understand political bias before engaging with content. The feed made that context easy to miss.",
     year: "2025",
-    category: "Mobile",
+    category: "Internship · Mobile",
     featured: true,
     order: 3,
 
