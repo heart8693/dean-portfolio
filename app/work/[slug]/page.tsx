@@ -237,36 +237,6 @@ export default async function CaseStudy({ params }: Props) {
               <H2 top id="overview-solution">{p.solutionTitle}</H2>
               <p style={bodyLg}>{p.solutionBody}</p>
 
-              {/* 3 showcase panels — 1st/3rd: image left text right | 2nd: text left image right */}
-              <div style={{ marginTop: '48px' }}>
-                {p.showcasePanels.map((panel: ShowcasePanel, panelIdx: number) => {
-                  const flipped = panelIdx === 1
-                  const imageEl = (
-                    <div style={{ background: panel.video ? 'transparent' : 'var(--surface)', borderRadius: '14px', overflow: 'hidden', width: 'fit-content', minWidth: 0, maxWidth: '100%', justifySelf: flipped ? 'end' : 'start', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', transition: 'background 0.25s ease' }}>
-                      {panel.video
-                        ? <video src={panel.video} autoPlay loop muted playsInline style={{ maxWidth: '100%', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }} />
-                        : panel.image
-                          ? <img src={panel.image} alt={panel.title} loading="lazy" decoding="async" style={{ maxWidth: 'min(420px, 100%)', maxHeight: '600px', width: 'auto', height: 'auto', display: 'block', borderRadius: '14px' }} />
-                          : <p style={{ fontSize: '11px', color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Add mockup</p>
-                      }
-                    </div>
-                  )
-                  const textEl = (
-                    <div>
-                      <p style={{ fontSize: '12px', fontWeight: 700, color: 'var(--ink-3)', marginBottom: '10px', letterSpacing: '0.04em' }}>{panel.number}.</p>
-                      <h3 style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--ink)', marginBottom: '6px' }}>{panel.title}</h3>
-                      <p style={{ fontSize: '14px', color: 'var(--ink-3)', fontStyle: 'italic', marginBottom: '14px', lineHeight: 1.5 }}>{panel.subtitle}</p>
-                      <p style={body}>{panel.body}</p>
-                    </div>
-                  )
-                  return (
-                    <div key={panel.number} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center', marginBottom: '56px' }} className={`tj-split tj-panel ${flipped ? 'tj-panel-flipped' : ''}`}>
-                      {imageEl}
-                      {textEl}
-                    </div>
-                  )
-                })}
-              </div>
               {/* 3 showcase panels — triage: stacked full-width | others: 1st/3rd image left, 2nd flipped */}
 <div style={{ marginTop: '48px' }}>
   {p.showcasePanels.map((panel: ShowcasePanel, panelIdx: number) => {
