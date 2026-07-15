@@ -72,7 +72,7 @@ export default function MobileCaseNav({ sections }: { sections: Section[] }) {
     <div className="tj-mtoc">
       <button className={'tj-mtoc-pill' + (visible ? ' is-shown' : '')} aria-hidden={!visible} tabIndex={visible ? 0 : -1} aria-expanded={open} aria-label="Open table of contents" onClick={() => setOpen(true)}>
         {/* Lucide: list */}
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M3 5h.01" /><path d="M3 12h.01" /><path d="M3 19h.01" /><path d="M8 5h13" /><path d="M8 12h13" /><path d="M8 19h13" />
         </svg>
         <span>{activeLabel}</span>
@@ -109,16 +109,13 @@ export default function MobileCaseNav({ sections }: { sections: Section[] }) {
           .tj-mtoc { display: block; }
           .tj-mtoc-pill {
             position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom));
-            z-index: 60; display: inline-flex; align-items: center; gap: 8px;
-            min-height: 44px; padding: 12px 18px; border-radius: 999px; border: 1px solid var(--hairline);
-            color: var(--ink); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
-            background: rgba(255, 255, 255, 0.4);
-            background: color-mix(in srgb, var(--bg) 45%, transparent);
-            -webkit-backdrop-filter: blur(8px) saturate(1.8);
-            backdrop-filter: blur(8px) saturate(1.8);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 16px rgba(0, 0, 0, 0.12);
+            z-index: 60; display: inline-flex; align-items: center; gap: 9px;
+            min-height: 48px; padding: 13px 20px; border-radius: 999px; border: none;
+            color: var(--bg); font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+            background: var(--ink);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
             cursor: pointer;
-            opacity: 0; transform: translateY(8px); pointer-events: none;
+            opacity: 0; transform: translateY(12px); pointer-events: none;
             transition: opacity 0.2s ease, transform 0.2s ease;
           }
           .tj-mtoc-pill.is-shown { opacity: 1; transform: none; pointer-events: auto; }
@@ -142,6 +139,10 @@ export default function MobileCaseNav({ sections }: { sections: Section[] }) {
         }
         @keyframes tjMtocUp { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes tjMtocFade { from { opacity: 0; } to { opacity: 1; } }
+        @media (prefers-reduced-motion: reduce) {
+          .tj-mtoc-pill { transition: none; transform: none; }
+          .tj-mtoc-sheet, .tj-mtoc-scrim { animation: none; }
+        }
       `}</style>
     </div>
   )

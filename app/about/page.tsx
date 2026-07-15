@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import type { CSSProperties } from 'react'
 import Image from 'next/image'
+import Reveal from './Reveal'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -73,6 +74,14 @@ const ABOUT = {
   },
 }
 
+/* ── Photo wall ──────────────────────────────────
+   TODO(dean): 실제 사진 파일이 생기면 채운다 — 고양이 / 요리 / 서울 패션.
+   src는 업로드한 실제 파일명만 (경로 추측 금지, 표준 규칙).
+   캡션용 IBM Plex Mono는 사진 들어올 때 layout.tsx에서 next/font로 로드하고
+   --font-mono 변수로 연결 — 그 전까지는 ui-monospace 폴백으로 동작.
+   배열이 비어 있으면 섹션 자체가 렌더되지 않는다. */
+const PHOTOS: { src: string; alt: string; caption: string }[] = []
+
 /* Section eyebrow: the only uppercase voice on the page */
 const eyebrow: CSSProperties = {
   fontSize: '12px',
@@ -88,6 +97,13 @@ const titleType: CSSProperties = {
   lineHeight: 1.25,
 }
 
+const monoCaption: CSSProperties = {
+  fontFamily: 'var(--font-mono, ui-monospace, "SF Mono", monospace)',
+  fontSize: '12px',
+  letterSpacing: '0',
+  color: 'var(--ink-3)',
+}
+
 const rowGrid = 'grid gap-2 md:grid-cols-[168px_minmax(0,1fr)] md:gap-12'
 
 export default function AboutPage() {
@@ -96,12 +112,12 @@ export default function AboutPage() {
       {/* ── Intro ─────────────────────────────────────── */}
       <section id="intro" className="mx-auto max-w-[1100px] pt-36 md:pt-44">
         <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_300px] md:gap-20">
-          {/* Text */}
+          {/* Text — 홈 히어로와 같은 3박자 로드 시그니처 (딜레이 클래스는 위치 독립) */}
           <div>
             <p style={eyebrow}>About</p>
 
             <h1
-              className="mt-5 font-semibold text-[color:var(--ink)]"
+              className="reveal-line reveal-d1 mt-5 font-semibold text-[color:var(--ink)]"
               style={{
                 fontSize: 'var(--text-display)',
                 letterSpacing: 'var(--track-display)',
@@ -112,7 +128,7 @@ export default function AboutPage() {
             </h1>
 
             <p
-              className="mt-6 font-medium text-[color:var(--ink)]"
+              className="reveal-line reveal-d2 mt-6 font-medium text-[color:var(--ink)]"
               style={{
                 fontSize: 'var(--text-lede)',
                 letterSpacing: 'var(--track-lede)',
@@ -122,7 +138,7 @@ export default function AboutPage() {
               {ABOUT.lede}
             </p>
 
-            <p className="mt-8 text-[14px] text-[color:var(--ink-3)]">
+            <p className="reveal-line reveal-d3 mt-8 text-[14px] text-[color:var(--ink-3)]">
               <span className="font-medium text-[color:var(--ink)]">{ABOUT.name}</span>
               {' \u00b7 '}
               {ABOUT.role}
@@ -170,101 +186,138 @@ export default function AboutPage() {
 
       {/* ── Experience ────────────────────────────────── */}
       <section id="experience" className="mx-auto max-w-[1100px] pt-24 md:pt-32">
-        <h2 style={eyebrow}>Experience</h2>
-        <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
+        <Reveal>
+          <h2 style={eyebrow}>Experience</h2>
+          <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
 
-        {ABOUT.experience.map((exp, i) => (
-          <div
-            key={exp.company}
-            className={`${rowGrid} border-b py-10`}
-            style={{
-              borderColor:
-                i < ABOUT.experience.length - 1 ? 'var(--hairline)' : 'transparent',
-            }}
-          >
-            <p className="text-[13px] font-medium text-[color:var(--ink-3)] md:pt-[7px]">
-              {exp.period}
-            </p>
-            <div>
-              <h3 className="font-semibold text-[color:var(--ink)]" style={titleType}>
-                {exp.company}
-              </h3>
-              <p className="mt-1.5 text-[14px] font-medium text-[color:var(--ink)]">
-                {exp.role}
+          {ABOUT.experience.map((exp, i) => (
+            <div
+              key={exp.company}
+              className={`${rowGrid} border-b py-10`}
+              style={{
+                borderColor:
+                  i < ABOUT.experience.length - 1 ? 'var(--hairline)' : 'transparent',
+              }}
+            >
+              <p className="text-[13px] font-medium text-[color:var(--ink-3)] md:pt-[7px]">
+                {exp.period}
               </p>
-              <p className="mt-4 max-w-[62ch] text-[15.5px] leading-[1.65] text-[color:var(--ink-2)]">
-                {exp.description}
-              </p>
+              <div>
+                <h3 className="font-semibold text-[color:var(--ink)]" style={titleType}>
+                  {exp.company}
+                </h3>
+                <p className="mt-1.5 text-[14px] font-medium text-[color:var(--ink)]">
+                  {exp.role}
+                </p>
+                <p className="mt-4 max-w-[62ch] text-[15.5px] leading-[1.65] text-[color:var(--ink-2)]">
+                  {exp.description}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </Reveal>
       </section>
 
       {/* ── Skills ────────────────────────────────────── */}
       <section id="skills" className="mx-auto max-w-[1100px] pt-20 md:pt-24">
-        <h2 style={eyebrow}>Skills</h2>
-        <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
+        <Reveal>
+          <h2 style={eyebrow}>Skills</h2>
+          <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
 
-        <div className="space-y-7 pt-10">
-          {ABOUT.skills.map(({ category, items }) => (
-            <div key={category} className={rowGrid}>
-              <p className="text-[13px] font-medium text-[color:var(--ink-3)] md:pt-[4px]">
-                {category}
-              </p>
-              <p className="max-w-[62ch] text-[15.5px] leading-[1.8] text-[color:var(--ink)]">
-                {items.join(' \u00b7 ')}
-              </p>
-            </div>
-          ))}
-        </div>
+          <div className="space-y-7 pt-10">
+            {ABOUT.skills.map(({ category, items }) => (
+              <div key={category} className={rowGrid}>
+                <p className="text-[13px] font-medium text-[color:var(--ink-3)] md:pt-[4px]">
+                  {category}
+                </p>
+                <p className="max-w-[62ch] text-[15.5px] leading-[1.8] text-[color:var(--ink)]">
+                  {items.join(' \u00b7 ')}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </section>
 
       {/* ── Education ─────────────────────────────────── */}
       <section id="education" className="mx-auto max-w-[1100px] pt-20 md:pt-24">
-        <h2 style={eyebrow}>Education</h2>
-        <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
+        <Reveal>
+          <h2 style={eyebrow}>Education</h2>
+          <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
 
-        <div className={`${rowGrid} pt-10`}>
-          <p className="text-[13px] font-medium text-[color:var(--ink-3)] md:pt-[7px]">
-            {ABOUT.education.year}
-          </p>
-          <div>
-            <h3 className="font-semibold text-[color:var(--ink)]" style={titleType}>
-              {ABOUT.education.school}
-            </h3>
-            <p className="mt-1.5 text-[15.5px] text-[color:var(--ink-2)]">
-              {ABOUT.education.degree}
+          <div className={`${rowGrid} pt-10`}>
+            <p className="text-[13px] font-medium text-[color:var(--ink-3)] md:pt-[7px]">
+              {ABOUT.education.year}
             </p>
+            <div>
+              <h3 className="font-semibold text-[color:var(--ink)]" style={titleType}>
+                {ABOUT.education.school}
+              </h3>
+              <p className="mt-1.5 text-[15.5px] text-[color:var(--ink-2)]">
+                {ABOUT.education.degree}
+              </p>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </section>
+
+      {/* ── Off the clock — 포토월 (PHOTOS 비어 있으면 렌더 안 됨) ── */}
+      {PHOTOS.length > 0 && (
+        <section id="life" className="mx-auto max-w-[1100px] pt-20 md:pt-24">
+          <Reveal>
+            <h2 style={eyebrow}>Off the clock</h2>
+            <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
+
+            <div className="grid grid-cols-2 gap-5 pt-10 md:grid-cols-3 md:gap-6">
+              {PHOTOS.map((photo) => (
+                <figure key={photo.src}>
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-[10px]">
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes="(min-width: 768px) 33vw, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <figcaption className="mt-2.5" style={monoCaption}>
+                    {photo.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+      )}
 
       {/* ── Contact ───────────────────────────────────── */}
       <section id="contact" className="mx-auto max-w-[1100px] pt-20 md:pt-24">
-        <h2 style={eyebrow}>Contact</h2>
-        <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
+        <Reveal>
+          <h2 style={eyebrow}>Contact</h2>
+          <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
 
-        <div className="pt-12">
-          <p
-            className="font-semibold text-[color:var(--ink)]"
-            style={{
-              fontSize: 'var(--text-lede)',
-              letterSpacing: 'var(--track-lede)',
-              lineHeight: 1.3,
-            }}
-          >
-            Get in touch.
-          </p>
-          <p className="mt-5">
-            <a
-              href={`mailto:${ABOUT.email}`}
-              className="link-quiet pb-[3px] font-medium text-[color:var(--ink)]"
-              style={{ fontSize: 'var(--text-title)', letterSpacing: '-0.012em' }}
+          <div className="pt-12">
+            <p
+              className="font-semibold text-[color:var(--ink)]"
+              style={{
+                fontSize: 'var(--text-lede)',
+                letterSpacing: 'var(--track-lede)',
+                lineHeight: 1.3,
+              }}
             >
-              {ABOUT.email}
-            </a>
-          </p>
-        </div>
+              Get in touch.
+            </p>
+            <p className="mt-5">
+              <a
+                href={`mailto:${ABOUT.email}`}
+                className="link-quiet pb-[3px] font-medium text-[color:var(--ink)]"
+                style={{ fontSize: 'var(--text-title)', letterSpacing: '-0.012em' }}
+              >
+                {ABOUT.email}
+              </a>
+            </p>
+          </div>
+        </Reveal>
       </section>
     </main>
   )

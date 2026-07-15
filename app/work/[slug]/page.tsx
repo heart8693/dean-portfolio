@@ -7,6 +7,7 @@ import type { Metadata } from 'next'
 import ScrollHighlight from '@/components/ScrollHighlight'
 import CaseStudyNav from '@/components/CaseStudyNav'
 import MobileCaseNav from '@/components/MobileCaseNav'
+import CaseSectionTracker from '@/components/CaseSectionTracker'
 import PersonaCard from '@/components/PersonaCard'
 import SessionScript from '@/components/SessionScript'
 import TestedFrames from '@/components/TestedFrames'
@@ -81,6 +82,7 @@ export default async function CaseStudy({ params }: Props) {
         {/* ── LEFT SIDEBAR — scroll-spy, collapsible (client component) ── */}
         <CaseStudyNav sections={sections} />
         <MobileCaseNav sections={sections} />
+        <CaseSectionTracker slug={slug} sections={sections} />
 
         {/* ── MAIN CONTENT — 900px single column ── */}
         <div style={{ minWidth: 0, gridColumn: 2 }}>

@@ -5,9 +5,10 @@
    @tailwind base; @tailwind components; @tailwind utilities;
 
    /* ─────────────────────────────────────────────
-      dean-yoo.com · Ultimate Skin v3
+      dean-yoo.com · Ultimate Skin v3 + Motion Charter v1
       Black & white · cobalt = interactive only
       Liquid glass = navigation pill only
+      모션 헌장: /motion.md — 하나의 이징, 하나의 스케일, 하나의 진입 문법
       ───────────────────────────────────────────── */
    
    :root {
@@ -36,6 +37,14 @@
      --text-title: clamp(1.25rem, 2vw, 1.5rem);
      --track-display: -0.045em;
      --track-lede: -0.022em;
+   
+     /* ── Motion Charter v1 ──
+        배포된 히어로 값에서 도출. 히어로는 그대로, 이름만 붙였다. */
+     --ease-out: cubic-bezier(0.22, 1, 0.36, 1); /* 유일한 커브 */
+     --dur-sm: 150ms;  /* 호버 색상 · 프레스 · 밑줄 */
+     --dur-md: 300ms;  /* 오버레이 · 상태 전환 (UI 상한) */
+     --dur-lg: 600ms;  /* 내러티브 진입 전용 */
+     --rise: 14px;     /* 진입 이동량, 항상 아래→위 */
    }
    
    .dark {
@@ -81,7 +90,9 @@
      text-decoration-thickness: 2px;
      text-underline-offset: 0.18em;
      text-decoration-color: color-mix(in srgb, var(--ink) 30%, transparent);
-     transition: color 0.18s ease, text-decoration-color 0.18s ease;
+     transition:
+       color var(--dur-sm) var(--ease-out),
+       text-decoration-color var(--dur-sm) var(--ease-out);
    }
    .link-quiet:hover {
      color: var(--accent);
@@ -149,7 +160,10 @@
      font-weight: 500;
      letter-spacing: -0.01em;
      color: var(--ink-2);
-     transition: color 0.15s ease, background-color 0.15s ease;
+     transition:
+       color var(--dur-sm) var(--ease-out),
+       background-color var(--dur-sm) var(--ease-out),
+       transform var(--dur-sm) var(--ease-out);
    }
    .pill-link:hover {
      color: var(--accent);
@@ -172,12 +186,22 @@
      color: var(--ink-2);
      background: transparent;
      border: 0;
-     transition: color 0.15s ease, background-color 0.15s ease;
+     transition:
+       color var(--dur-sm) var(--ease-out),
+       background-color var(--dur-sm) var(--ease-out),
+       transform var(--dur-sm) var(--ease-out);
    }
    .pill-item:hover {
      color: var(--accent);
      background: color-mix(in srgb, var(--ink) 6%, transparent);
    }
+   
+   /* 프레스 피드백 — pointer-down 즉시. 릴리즈 대기 = 죽은 느낌 */
+   .pill-link:active,
+   .pill-item:active {
+     transform: scale(0.96);
+   }
+   
    .pill-divider {
      width: 1px;
      height: 18px;
@@ -191,39 +215,65 @@
    .dark .icon-moon { display: block; }
    
    /* ─────────────────────────────────────────────
-      히어로 시그니처 — 3행 순차 점등
+      진입 문법 — fade + 14px rise (유일한 진입 모션)
+      1) 로드 시그니처: .reveal-line (히어로 · About 인트로)
+      2) 스크롤 리빌: .reveal-pending → .reveal-in (Reveal.tsx가 부여)
       ───────────────────────────────────────────── */
    .reveal-line {
      opacity: 0;
-     transform: translateY(14px);
-     animation: line-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+     transform: translateY(var(--rise));
+     animation: line-in var(--dur-lg) var(--ease-out) forwards;
    }
+   /* 레거시 — 배포된 홈 히어로 전용. 새 페이지는 아래 딜레이 클래스 사용 */
    .reveal-line:nth-child(1) { animation-delay: 0.05s; }
    .reveal-line:nth-child(2) { animation-delay: 0.22s; }
    .reveal-line:nth-child(3) { animation-delay: 0.39s; }
+   /* 위치 독립 딜레이 — nth-child 뒤에 선언해 동점 시 이긴다 */
+   .reveal-line.reveal-d1 { animation-delay: 0.05s; }
+   .reveal-line.reveal-d2 { animation-delay: 0.22s; }
+   .reveal-line.reveal-d3 { animation-delay: 0.39s; }
    @keyframes line-in { to { opacity: 1; transform: translateY(0); } }
    
    @media (prefers-reduced-motion: reduce) {
      .reveal-line { animation: none; opacity: 1; transform: none; }
    }
    
+   /* 스크롤 리빌 — 클래스는 JS(Reveal.tsx)가 뷰포트 아래 요소에만 부여.
+      JS 실패·리듀스드 모션 = 클래스 없음 = 항상 보임 (fail-visible) */
+   .reveal-pending {
+     opacity: 0;
+     transform: translateY(var(--rise));
+   }
+   .reveal-in {
+     opacity: 1;
+     transform: none;
+     transition:
+       opacity var(--dur-lg) var(--ease-out),
+       transform var(--dur-lg) var(--ease-out);
+   }
+   @media (prefers-reduced-motion: reduce) {
+     .reveal-pending { opacity: 1; transform: none; }
+   }
+   
    /* ─────────────────────────────────────────────
       썸네일 — 풀컬러 상시, hover는 스케일 + 타이틀 코발트만
+      호버 모션은 정밀 포인터에서만. 포커스는 게이트 밖(키보드 접근성)
       ───────────────────────────────────────────── */
    .thumb-reveal img {
      transform: scale(1.001);
-     transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+     transition: transform var(--dur-lg) var(--ease-out);
    }
-   .group-card:hover .thumb-reveal img,
-   .group-card:focus-within .thumb-reveal img {
-     transform: scale(1.02);
+   @media (hover: hover) and (pointer: fine) {
+     .group-card:hover .thumb-reveal img { transform: scale(1.02); }
+     .group-card:hover .card-title { color: var(--accent); }
    }
-   .group-card:hover .card-title,
+   .group-card:focus-within .thumb-reveal img { transform: scale(1.02); }
    .group-card:focus-within .card-title { color: var(--accent); }
    
    @media (prefers-reduced-motion: reduce) {
      .thumb-reveal img { transition: none; transform: none; }
-     .group-card:hover .thumb-reveal img { transform: none; }
+     .group-card:hover .thumb-reveal img,
+     .group-card:focus-within .thumb-reveal img { transform: none; }
    }
    
    /* grain — 기본 OFF. 최종 검토 후에만 주석 해제.
