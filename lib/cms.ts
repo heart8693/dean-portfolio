@@ -94,8 +94,16 @@ export type PrototypeSpotlight = {
   liveLinkLabel?: string
   videos?: PrototypeVideo[]   // mp4 demos of key interactions
   fallbackImage?: string      // shown if videos aren't ready
+  
 }
-
+// ── Live demo section types ──────────────────────────
+// In-browser model demo rendered by components/SiftLiveDemo.tsx.
+export type LiveDemo = {
+  title: string
+  subtitle: string
+  body: string
+  modelNote: string
+}
 // ── Persona section types ────────────────────────────
 // Compact persona cards rendered by components/PersonaCard.tsx in a 2 or
 // 3-column grid alongside the Research section.
@@ -200,7 +208,8 @@ export type Project = {
 
   // ── PROTOTYPE SPOTLIGHT (optional, FiPet only for now) ──
   prototypeSpotlight?: PrototypeSpotlight
-
+  // ── LIVE DEMO (optional, Sift only) ──
+  liveDemo?: LiveDemo
   // ── FUTURE STEPS (Tony Jin: 3-4 sub-sections) ──
   futureStepsTitle: string
   futureSteps: Array<{
@@ -450,6 +459,13 @@ export const projects: Project[] = [
     ],
 
     outcomeImage: "/images/triage-outcome.webp",
+     // ── LIVE DEMO ─────────────────────────────────────
+     liveDemo: {
+      title: "Try the model behind this design",
+      subtitle: "A DistilBERT classifier I trained, calibrated, and compressed to run in your browser",
+      body: "Every confidence number in this design assumes a model that tells the truth about its own uncertainty, so I built one. I fine-tuned DistilBERT on 24,370 support tickets, calibrated it so stated confidence matches measured accuracy (ECE 0.0016 on a held-out test set), and quantized it to 68 MB of int8 weights that run entirely client-side. Type a ticket or pick a sample, choose an automation preset, and the routing decision happens the way the design intends: high confidence files automatically, low confidence goes to a person.",
+      modelNote: "Runs fully in your browser via transformers.js. Nothing you type leaves this page.",
+    },
 
     // ── USABILITY TESTING ─────────────────────────────
     // ── Fill after Maze Round 1. Delete this entire block

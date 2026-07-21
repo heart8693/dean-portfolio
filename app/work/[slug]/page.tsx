@@ -12,6 +12,7 @@ import SessionScript from '@/components/SessionScript'
 import TestedFrames from '@/components/TestedFrames'
 import MazeResults from '@/components/MazeResults'
 import LyftMazeResults from '@/components/LyftMazeResults'
+import SiftLiveDemo from '@/components/SiftLiveDemo'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -69,6 +70,7 @@ export default async function CaseStudy({ params }: Props) {
     { id: 'design', label: 'Design', sub: [{ id: 'design-framing', label: 'Framing' }, { id: 'design-alternatives', label: 'Alternatives' }, { id: 'design-feedback', label: 'Feedback' }, { id: 'design-decisions', label: 'Decisions' }] },
     ...(p.usabilityTesting ? [{ id: 'usability-testing', label: 'Usability Testing', sub: [] }] : []),
     ...(p.prototypeSpotlight ? [{ id: 'prototype-spotlight', label: 'Prototype Spotlight', sub: [] }] : []),
+    ...(p.liveDemo ? [{ id: 'live-demo', label: 'Live Demo', sub: [] }] : []),
     { id: 'outcome', label: 'Outcome', sub: [] },
     { id: 'future', label: 'Future Steps', sub: [] },
     { id: 'reflection', label: 'What I Learned', sub: [] },
@@ -134,7 +136,28 @@ export default async function CaseStudy({ params }: Props) {
                   </div>
                 ))}
               </div>
-
+              {p.liveDemo && (
+                <a href="#live-demo" className="tj-cta" style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '12px 22px',
+                  background: 'var(--accent)',
+                  color: '#ffffff',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  borderRadius: '6px',
+                  marginBottom: '32px',
+                  letterSpacing: '-0.01em',
+                  transition: 'opacity 0.15s ease, transform 0.15s ease',
+                }}>
+                  Try the AI model I trained
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M6 2v8M2 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+              )}
               {/* Tags */}
               <div style={{ display: 'flex', gap: '8px', marginBottom: '32px' }}>
                 <span style={tagStyle}>{p.category}</span>
@@ -1028,6 +1051,26 @@ export default async function CaseStudy({ params }: Props) {
                     </div>
                   </figure>
                 )}
+              </section>
+            )}
+
+             {/* ── LIVE DEMO — shows if project has liveDemo in cms.ts ── */}
+             {p.liveDemo && (
+              <section id="live-demo" style={{ marginBottom: '96px' }}>
+                <SectionLabel>Live Demo</SectionLabel>
+                <SectionHR />
+
+                <H2>{p.liveDemo.title}</H2>
+                <p style={{
+                  fontSize: '15px',
+                  color: 'var(--ink-3)',
+                  fontStyle: 'italic',
+                  marginBottom: '24px',
+                  lineHeight: 1.6,
+                }}>{p.liveDemo.subtitle}</p>
+                <p style={bodyLg}>{p.liveDemo.body}</p>
+
+                <SiftLiveDemo note={p.liveDemo.modelNote} />
               </section>
             )}
 
