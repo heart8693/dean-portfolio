@@ -85,6 +85,12 @@ export type PrototypeVideo = {
   caption: string
 }
 
+export type TryPrototype = {
+  label: string
+  url: string
+  note?: string
+}
+
 export type PrototypeSpotlight = {
   title: string
   subtitle: string
@@ -130,6 +136,7 @@ export type Project = {
   coverImage: string    // 홈페이지 카드 썸네일
   heroImage?: string    // 케이스 스터디 상단 hero (없으면 coverImage 사용)
   heroImageMobile?: string
+  heroImageMobileDark?: string
   thumbBg: string
 
   // Meta
@@ -202,12 +209,17 @@ export type Project = {
   beforeImage?: string
   afterImage?: string
   outcomeImage?: string
+  // dark-mode variants (rendered via .light-only / .dark-only utilities)
+  heroImageDark?: string
+  outcomeImageDark?: string
 
   // ── USABILITY TESTING (optional, FiPet only for now) ──
   usabilityTesting?: UsabilityTesting
 
   // ── PROTOTYPE SPOTLIGHT (optional, FiPet only for now) ──
   prototypeSpotlight?: PrototypeSpotlight
+  // ── TRY THE PROTOTYPE (optional, lightweight CTA near the testing section) ──
+  tryPrototype?: TryPrototype
   // ── LIVE DEMO (optional, Sift only) ──
   liveDemo?: LiveDemo
   // ── FUTURE STEPS (Tony Jin: 3-4 sub-sections) ──
@@ -238,12 +250,15 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "triage",
+    heroImageDark: "/images/triage-hero-dark.webp",
+    heroImageMobileDark: "/images/triage-mobile-hero-dark.webp",
+    outcomeImageDark: "/images/triage-outcome-dark.webp",
     title: "Sift · AI ticket triage",
     description: "AI ticket tools compete on how much they can automate. Agents don't need more automation, they need to see what the AI did, why, and how to take it back. Sift is a 13-screen concept built around that gap.",
     year: "2026",
     category: "Concept · B2B SaaS",
     featured: true,
-    order: 4,
+    order: 1,
 
     coverImage: "/images/triage-cover.webp",
     heroImage: "/images/triage-hero.webp",
@@ -467,55 +482,61 @@ export const projects: Project[] = [
       modelNote: "Runs fully in your browser via transformers.js. Nothing you type leaves this page.",
     },
 
-    // ── USABILITY TESTING ─────────────────────────────
-    // ── Fill after Maze Round 1. Delete this entire block
-    // ── if publishing before results exist. Do not ship TODOs.
-    /* RESTORE AFTER MAZE ROUND 1 — remove this comment, fill the TODOs.
+    // ── TRY THE PROTOTYPE ─────────────────────────────
+    // NOTE(dean): before deploy, open Figma > Share > copy prototype link and
+    // confirm link access is set to anyone-with-link. Swap the URL below if
+    // your copied link differs.
+    tryPrototype: {
+      label: "Try the prototype",
+      url: "https://www.figma.com/proto/WnhBcVjCxsqABf2mBbvPXf?node-id=206-2",
+      note: "21 screens, fully wired. Starts on the dashboard. Every door in the testing story below is clickable.",
+    },
 
+    // ── USABILITY TESTING ─────────────────────────────
     usabilityTesting: {
-      round: "Round 1, Maze prototype test",
-      context: "The design's central bets are testable claims, so the test plan targets them directly instead of asking whether the screens are pleasant. The most important block in the plan checks whether frequency framing actually reads the way the research predicts: shown 'right about 41 of 100', do people conclude the AI is wrong more often than right on tickets like this? If that fails, the centerpiece of the thesis changes.",
-      participants: "TODO(dean): sessions and completion counts from Maze after Round 1",
-      method: "Maze · 10 blocks · about 5 to 6 minutes · 3 missions (find the review queue, decide on a 41% suggestion, find the automation dial) · 2 comprehension checks · 1 control rating · 1 open question. The plan is deliberately short: previous rounds on other projects showed long tests bleed participants mid-way, so every block here earns its place.",
+      round: "Rounds 1 and 2, Maze prototype tests",
+      context: "The design's central bets are testable claims, so both rounds target them directly instead of asking whether the screens are pleasant. Round 1 checked the bets and broke one of them: people could read the AI's honesty but could not find the dial that controls it. Round 2 re-ran the identical missions on the redesign, with the same population, to verify the repair.",
+      participants: "Round 1: 7 working CX professionals. Round 2: 10 participants behind a screener, analyzed on the 5 currently working in customer support so both rounds compare the same population. Recruited from support communities, not a student pool.",
+      method: "Maze prototype tests. Three missions (find the review queue, decide on a 41% suggestion, find the automation control), two comprehension checks, one control rating, one open question. Round 2 kept every Round 1 block word for word and added a confidence-perception check: the same ticket panel at 75, 85, and 95 percent, asking whether they would accept without reading.",
       metrics: [
-        { value: "TODO", label: "Mission success", context: "TODO(dean): fill from Maze block results" },
-        { value: "TODO", label: "Frequency framing comprehension", context: "TODO(dean): % choosing 'wrong more often than right' on the 41 of 100 check" },
-        { value: "TODO", label: "Felt in control", context: "TODO(dean): mean on the 1 to 7 control scale" },
+        { value: "83.5% → 0%", label: "Misclick rate, automation mission", context: "Round 1 to Round 2, same task, same population. In Round 1 one participant searched for five minutes and gave up. In Round 2 all five went straight there." },
+        { value: "3.0 → 4.4", label: "Felt sense of control, 1 to 5", context: "Round 1 split into a cluster at 4 and a cluster at 1 to 2. In Round 2 every CX participant answered 4 or 5." },
+        { value: "80%", label: "Frequency framing read correctly", context: "Shown 'right about 41 of 100', 8 of 10 concluded the AI is wrong more often than right on tickets like this, up from 71% in Round 1. Nobody in either round chose a dangerous misreading." },
       ],
       findings: [
         {
           number: "01",
-          finding: "TODO(dean): frequency framing comprehension result",
-          evidence: "TODO(dean): Block 6 results and any open-response quotes",
-          refinement: "TODO(dean)",
-          refinementReason: "TODO(dean)",
+          finding: "Frequency framing survived two rounds of contact with real practitioners.",
+          evidence: "Round 1: 5 of 7 read 'right about 41 of 100' as the AI being wrong more often than right. Round 2: 8 of 10. Zero participants in either round picked the literal misreading, 41 tickets waiting for review.",
+          refinement: "Kept word for word.",
+          refinementReason: "The sentence is the thesis. It earned its space twice, so it does not move.",
         },
         {
           number: "02",
-          finding: "TODO(dean): routing comprehension result (what happens to low-confidence tickets)",
-          evidence: "TODO(dean): Block 4 results",
-          refinement: "TODO(dean)",
-          refinementReason: "TODO(dean)",
+          finding: "The safety story reads correctly: low-confidence tickets go to a person.",
+          evidence: "Round 1: 71% answered correctly, and nobody chose 'it sorts them anyway' or 'it deletes them'. Round 2: 80% correct, with a single participant choosing 'it sorts them anyway'.",
+          refinement: "None shipped. Logged against the audit-trail line on the auto-sorted ticket panel.",
+          refinementReason: "One response at this sample size is an observation, not a signal. It stays on the watchlist for the next round.",
         },
         {
           number: "03",
-          finding: "TODO(dean): threshold discoverability result",
-          evidence: "TODO(dean): Mission 3 success, misclicks, duration",
-          refinement: "TODO(dean)",
-          refinementReason: "TODO(dean)",
+          finding: "The automation control existed in Round 1. Nobody could find it.",
+          evidence: "Round 1: 83.5% misclick rate, 20% gave up, and the heatmap showed people clicking every surface where the AI announces itself, the assist toggle, the status card, the banner, while the Settings entry went untouched. One participant searched for five minutes across thirteen screens before quitting.",
+          refinement: "One destination, multiple doors. The settings page kept the control and gained presets with an outcome preview, and entry points were added exactly where people had already clicked: the AI assist toggle, the auto-triage status card, the inbox banner, and the ticket panel's threshold line.",
+          refinementReason: "Round 2 verdict: 100% success, 0% misclicks, zero drop-offs, average 45 seconds. The heatmap's busiest door was the same toggle that dead-ended Round 1's most desperate search.",
         },
       ],
-      conclusion: "TODO(dean): what Round 1 validated, what it pushed back on, what moves to Round 2",
-    }, */
+      conclusion: "Round 1 validated the calibration thesis and broke the control story. Round 2 verified the repair with the same population and surfaced one finding the design did not ask for: even at 95 percent confidence, three of five professionals still skim the ticket before accepting. Trust-but-verify is the default posture of people who do this work, which is the strongest argument yet for the product's human-in-the-loop shape. The control was never the problem. The doors were.",
+    },
 
     // ── FUTURE STEPS ──────────────────────────────────
     futureStepsTitle: "Future Steps",
     futureSteps: [
       {
-        title: "Let Round 1 argue with the thesis",
+        title: "Round 3 has a scope, not a date",
         body: [
-          "The Maze plan is built to falsify the design's specific bets, not to collect praise. The frequency-framing comprehension check matters most: if people read 'right about 41 of 100' and still conclude the AI is usually right, the calibration centerpiece needs a new form, and that finding would be worth more than a clean pass.",
-          "The control rating and the open question are there to catch what the missions can't: whether the layered-control model produces an actual felt sense of being in charge, or just more switches.",
+          "Two rounds settled the big questions, and the leftovers are precise. Mission 2 keeps flagging a badge-affordance debt: chips that say 'you can change it anytime' but do not press, worth a focused fix and re-measure. One participant argued 'Adjust automation' should be sort-family wording, which is a cheap A/B on copy. And one open response asked whether the product is automated or human-in-the-loop, a sign the philosophy could be legible on the surface, not just in behavior.",
+          "None of these block the thesis. All of them are written down, because a roadmap you can defend is part of the design.",
         ],
       },
       {
@@ -558,13 +579,12 @@ export const projects: Project[] = [
 
     // ── OUTCOME ───────────────────────────────────────
     impactTitle: "Where it stands",
-    impactBody: "The system is complete and testable: thirteen screens covering every state of the product, a token architecture proven by the dark-mode remap, a FigJam user flow of the full decision loop, and a Maze plan aimed at the design's riskiest claims. Two structured self-audits already changed the design three times. What it doesn't have yet is user evidence, and the honest version of this page says so: Round 1 is in progress, and this section updates when the data lands.",
-    // TODO(dean): after Round 1, swap the first metric for the headline test result
-    impactMethod: "Structured self-evaluation to date: Nielsen heuristic pass across 13 screens, problem-to-solution audit, AI-tell craft audit. User evidence: Maze Round 1 in progress, discovery interviews recruiting.",
+    impactBody: "The system is complete and tested: twenty-one screens covering every state of the product, a token architecture proven by the dark-mode remap, a fully wired prototype, and two rounds of Maze testing against the design's riskiest claims with working CX professionals. Round 1 broke the control story. The redesign fixed it, and Round 2 measured the fix: the same mission that produced an 83.5% misclick rate and a five-minute failed search now completes at 100% with zero misclicks.",
+    impactMethod: "Structured self-evaluation: Nielsen heuristic pass, problem-to-solution audit, AI-tell craft audit. User evidence: two Maze rounds, 12 working CX professionals across both, identical mission blocks for a clean before and after.",
     metrics: [
-      { value: "13", label: "Screens, every state designed", context: "Both AI modes, both ends of confidence, empty, loading, error, settings, dashboard, dark" },
+      { value: "83.5% → 0%", label: "Misclick rate on the automation mission", context: "Round 1 to Round 2, same task, same population of working CX professionals" },
       { value: "41 of 100", label: "How the AI states confidence", context: "Frequency framing over raw percentages, backed by peer-reviewed calibration research" },
-      { value: "3", label: "Gaps caught by self-audit, shipped as design", context: "High-confidence explainability, learning-loop closure, priority ownership" },
+      { value: "12", label: "Working CX professionals tested with", context: "Two rounds, identical mission blocks, screened to the product's real population" },
     ],
 
     // ── BEYOND THE MAIN FLOW ──────────────────────────
@@ -611,12 +631,15 @@ export const projects: Project[] = [
 
   {
     slug: "fipet",
+    heroImageDark: "/images/fipet-hero-dark.webp",
+    heroImageMobileDark: "/images/fipet-mobile-hero-dark.webp",
+    outcomeImageDark: "/images/fipet-outcome-dark.webp",
     title: "FiPet",
     description: "FiPet shipped to the App Store without a single usability test. I led the redesign around a new 1v1 Quiz Battle feature, established a design system the whole team adopted, and ran the company's first usability test.",
     year: "2026",
     category: "Internship · Mobile",
     featured: true,
-    order: 1,
+    order: 2,
 
     coverImage: "/images/fipet-cover.webp",
     heroImage: "/images/fipet-hero.webp",
@@ -1008,14 +1031,24 @@ export const projects: Project[] = [
 
   {
     slug: "ride-availability",
+    heroImageDark: "/images/lyft-hero-dark.webp",
+    heroImageMobileDark: "/images/lyft-mobile-hero-dark.webp",
+    outcomeImageDark: "/images/lyft-outcome-dark.webp",
     title: "Lyft Bike Redesign",
     description: "Lyft has the prediction algorithms, real-time monitoring, and incentive programs already built. None of it reaches riders. I designed the UX layer that puts it in front of them.",
     year: "2026",
     category: "Concept · Mobile",
     featured: true,
-    order: 2,
+    order: 3,
 
     coverImage: "/images/lyft-cover.webp",
+
+    // ── TRY THE PROTOTYPE ─────────────────────────────
+    tryPrototype: {
+      label: "Try the prototype",
+      url: "https://www.figma.com/proto/iE519vGwIttO6MSAx6sTxd/Lyft-redesign-testing?node-id=0-662&p=f&viewport=147%2C263%2C0.06&t=74jDV8rh0zKvjcmj-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=0%3A662&page-id=0%3A1",
+      note: "The full ride flow, including the live activity sequence below.",
+    },
     heroImage: "/images/lyft-hero.webp",
     heroImageMobile: "/images/lyft-mobile-hero.webp",
     thumbBg: "#1a1a2e",
@@ -1342,15 +1375,33 @@ export const projects: Project[] = [
       { value: "100%", label: "Success on the dock planning flow", context: "Every recorded session completed the dock planning flow (10 sessions)" },
       { value: "Zero", label: "New technology required", context: "Every feature maps to AirControl, Bike Angels, Live Activities, or Lyft's internal prediction algorithms. The engineering lift is mostly frontend" },
     ],
+
+    // ── BEYOND THE MAIN FLOW ──────────────────────────
+    beyondIntro: "One moment from outside the main flow, where the system keeps its promise after you stop looking at the app.",
+    beyondFlows: [
+      {
+        number: "01",
+        category: "LIVE ACTIVITY",
+        title: "The ride keeps reporting, even when the plan breaks twice",
+        problem: "A dock that looks open when you unlock can be full by the time you arrive, and the rider finds out at the curb.",
+        decision: "A Dynamic Island live activity treats the dock as part of the ride. It warns when the destination is filling, reroutes before failure, and when the backup fills too, it reroutes again and applies a $1 credit for the trouble.",
+        outcome: "The failure case this whole redesign started from now resolves on the lock screen, without reopening the app.",
+        image: "/images/lyft-live-activity-dark.mp4",
+      },
+    ],
+
   },
   {
     slug: "biasly",
+    heroImageDark: "/images/biasly-hero-dark.webp",
+    heroImageMobileDark: "/images/biasly-mobile-hero-dark.webp",
+    outcomeImageDark: "/images/biasly-outcome-dark.webp",
     title: "Biasly Mobile App",
     description: "Biasly helps users understand political bias before engaging with content. The feed made that context easy to miss.",
     year: "2025",
     category: "Internship · Mobile",
     featured: true,
-    order: 3,
+    order: 4,
 
     coverImage: "/images/biasly-cover.webp",
     heroImage: "/images/biasly-hero.webp",

@@ -13,6 +13,7 @@ import TestedFrames from '@/components/TestedFrames'
 import MazeResults from '@/components/MazeResults'
 import LyftMazeResults from '@/components/LyftMazeResults'
 import SiftLiveDemo from '@/components/SiftLiveDemo'
+import TryPrototypeCta from '@/components/TryPrototypeCta'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -65,9 +66,9 @@ export default async function CaseStudy({ params }: Props) {
 
   const sections = [
     { id: 'overview', label: 'Overview', sub: [{ id: 'overview-problem', label: 'Problem' }, { id: 'overview-solution', label: 'Solution' }] },
-    ...(p.beyondFlows && p.beyondFlows.length > 0 ? [{ id: 'beyond', label: 'Beyond the Home Screen', sub: [] }] : []),
     { id: 'research', label: 'Research', sub: [{ id: 'research-why', label: 'Why This Project' }, { id: 'research-domain', label: 'Competitive Landscape' }, { id: 'research-user', label: 'User Research' }, { id: 'research-goals', label: 'Design Goals' }] },
     { id: 'design', label: 'Design', sub: [{ id: 'design-framing', label: 'Framing' }, { id: 'design-alternatives', label: 'Alternatives' }, { id: 'design-feedback', label: 'Feedback' }, { id: 'design-decisions', label: 'Decisions' }] },
+    ...(p.beyondFlows && p.beyondFlows.length > 0 ? [{ id: 'beyond', label: 'Beyond the Home Screen', sub: [] }] : []),
     ...(p.usabilityTesting ? [{ id: 'usability-testing', label: 'Usability Testing', sub: [] }] : []),
     ...(p.prototypeSpotlight ? [{ id: 'prototype-spotlight', label: 'Prototype Spotlight', sub: [] }] : []),
     ...(p.liveDemo ? [{ id: 'live-demo', label: 'Live Demo', sub: [] }] : []),
@@ -90,7 +91,7 @@ export default async function CaseStudy({ params }: Props) {
           {/* ── HERO IMAGE — unified for all case studies ── */}
           {(p.heroImage || p.coverImage) && (
            <div className="tj-hero-wrap" style={{ padding: '40px 0 80px' }}>
-            <picture>
+            <picture className={p.heroImageDark ? 'light-only' : undefined}>
               {p.heroImageMobile && (
                 <source media="(max-width: 720px)" srcSet={p.heroImageMobile} />
               )}
@@ -101,6 +102,19 @@ export default async function CaseStudy({ params }: Props) {
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </picture>
+            {p.heroImageDark && (
+              <picture className="dark-only">
+                {(p.heroImageMobileDark ?? p.heroImageMobile) && (
+                  <source media="(max-width: 720px)" srcSet={p.heroImageMobileDark ?? p.heroImageMobile} />
+                )}
+                <img
+                  src={p.heroImageDark}
+                  alt={p.title}
+                  fetchPriority="high"
+                  style={{ width: '100%', height: 'auto' }}
+                />
+              </picture>
+            )}
          </div>
           )}
 
@@ -311,69 +325,6 @@ export default async function CaseStudy({ params }: Props) {
   })}
 </div>
             </section>
-
-            {/* ── BEYOND THE HOME SCREEN — shows if project has beyondFlows in cms.ts ── */}
-            {p.beyondFlows && p.beyondFlows.length > 0 && (
-              <section id="beyond" style={{ marginBottom: '96px' }}>
-                <SectionLabel>Beyond the Home Screen</SectionLabel>
-                <SectionHR />
-
-                {p.beyondIntro && (
-                  <p style={{ ...bodyLg, marginBottom: '72px' }}>{p.beyondIntro}</p>
-                )}
-
-                {p.beyondFlows.map((flow, i) => {
-                  const isLast = i === p.beyondFlows!.length - 1
-                  return (
-                    <div key={flow.number} style={{
-                      marginBottom: isLast ? 0 : '80px',
-                      paddingBottom: isLast ? 0 : '72px',
-                      borderBottom: isLast ? 'none' : '1px solid var(--hairline)',
-                      transition: 'border-color 0.25s ease',
-                    }}>
-                      {/* Header — number + category + title */}
-                      <div style={{ marginBottom: '28px' }}>
-                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.08em', marginBottom: '8px' }}>
-                          {flow.number}. {flow.category}
-                        </p>
-                        <h3 style={{ fontSize: '1.5rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--ink)' }}>
-                          {flow.title}
-                        </h3>
-                      </div>
-
-                      {/* Image — full width, prominent */}
-                      <div style={{
-                        background: 'var(--surface)',
-                        borderRadius: '14px',
-                        overflow: 'hidden',
-                        aspectRatio: '16/10',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        marginBottom: '28px',
-                        transition: 'background 0.25s ease',
-                      }}>
-                        {flow.image
-                          ? <img src={flow.image} alt={flow.title} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                          : <p style={{ fontSize: '11px', color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Add UI image</p>
-                        }
-                      </div>
-
-                      {/* Problem / Decision / Outcome — clean label + content */}
-                      <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: '16px 28px', rowGap: '14px' }}>
-                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.06em', paddingTop: '3px' }}>PROBLEM</p>
-                        <p style={{ fontSize: '15px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{flow.problem}</p>
-                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.06em', paddingTop: '3px' }}>DECISION</p>
-                        <p style={{ fontSize: '15px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{flow.decision}</p>
-                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink)', letterSpacing: '0.06em', paddingTop: '3px' }}>OUTCOME</p>
-                        <p style={{ fontSize: '15px', color: 'var(--ink)', lineHeight: 1.7, fontWeight: 500 }}>{flow.outcome}</p>
-                      </div>
-                    </div>
-                  )
-                })}
-              </section>
-            )}
-
             {/* ── RESEARCH ────────────────────────── */}
             <section id="research" style={{ marginBottom: '96px' }}>
               <SectionLabel>Research</SectionLabel>
@@ -732,6 +683,101 @@ export default async function CaseStudy({ params }: Props) {
                 </div>
               )}
             </section>
+
+            {/* ── BEYOND THE HOME SCREEN — shows if project has beyondFlows in cms.ts ── */}
+            {p.beyondFlows && p.beyondFlows.length > 0 && (
+              <section id="beyond" style={{ marginBottom: '96px' }}>
+                <SectionLabel>Beyond the Home Screen</SectionLabel>
+                <SectionHR />
+
+                {p.beyondIntro && (
+                  <p style={{ ...bodyLg, marginBottom: '72px' }}>{p.beyondIntro}</p>
+                )}
+
+                {p.beyondFlows.map((flow, i) => {
+                  const isLast = i === p.beyondFlows!.length - 1
+                  return (
+                    <div key={flow.number} style={{
+                      marginBottom: isLast ? 0 : '80px',
+                      paddingBottom: isLast ? 0 : '72px',
+                      borderBottom: isLast ? 'none' : '1px solid var(--hairline)',
+                      transition: 'border-color 0.25s ease',
+                    }}>
+                      {/* Header — number + category + title */}
+                      <div style={{ marginBottom: '28px' }}>
+                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.08em', marginBottom: '8px' }}>
+                          {flow.number}. {flow.category}
+                        </p>
+                        <h3 style={{ fontSize: '1.5rem', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--ink)' }}>
+                          {flow.title}
+                        </h3>
+                      </div>
+
+                      {flow.image ? (
+                        flow.image.endsWith('.mp4') ? (
+                          <video
+                            src={flow.image}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '14px', marginBottom: '28px' }}
+                          />
+                        ) : (
+                          <div style={{
+                            background: 'var(--surface)',
+                            borderRadius: '14px',
+                            overflow: 'hidden',
+                            aspectRatio: '16/10',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginBottom: '28px',
+                            transition: 'background 0.25s ease',
+                          }}>
+                            <img
+                              src={flow.image}
+                              alt={flow.title}
+                              loading="lazy"
+                              decoding="async"
+                              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            />
+                          </div>
+                        )
+                      ) : (
+                        <div style={{
+                          background: 'var(--surface)',
+                          borderRadius: '14px',
+                          aspectRatio: '16/10',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          marginBottom: '28px',
+                          transition: 'background 0.25s ease',
+                        }}>
+                          <p style={{ fontSize: '11px', color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                            Add media
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Problem / Decision / Outcome — clean label + content */}
+                      <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: '16px 28px', rowGap: '14px' }}>
+                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.06em', paddingTop: '3px' }}>PROBLEM</p>
+                        <p style={{ fontSize: '15px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{flow.problem}</p>
+                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink-3)', letterSpacing: '0.06em', paddingTop: '3px' }}>DECISION</p>
+                        <p style={{ fontSize: '15px', color: 'var(--ink-2)', lineHeight: 1.7 }}>{flow.decision}</p>
+                        <p style={{ fontSize: '11px', fontWeight: 700, color: 'var(--ink)', letterSpacing: '0.06em', paddingTop: '3px' }}>OUTCOME</p>
+                        <p style={{ fontSize: '15px', color: 'var(--ink)', lineHeight: 1.7, fontWeight: 500 }}>{flow.outcome}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </section>
+            )}
+
+            {/* ── TRY THE PROTOTYPE — shows if project has tryPrototype in cms.ts ── */}
+            {p.tryPrototype && <TryPrototypeCta data={p.tryPrototype} />}
 
             {/* ── USABILITY TESTING — shows if project has usabilityTesting in cms.ts ── */}
             {p.usabilityTesting && (
@@ -1161,8 +1207,18 @@ export default async function CaseStudy({ params }: Props) {
                   src={(p as any).outcomeImage ?? p.afterImage}
                   alt="Final design"
                   loading="lazy" decoding="async"
+                  className={p.outcomeImageDark ? 'light-only' : undefined}
                   style={{ width: '100%', display: 'block', borderRadius: '14px' }}
                 />
+                {p.outcomeImageDark && (
+                  <img
+                    src={p.outcomeImageDark}
+                    alt="Final design"
+                    loading="lazy" decoding="async"
+                    className="dark-only"
+                    style={{ width: '100%', borderRadius: '14px' }}
+                  />
+                )}
               </figure>
             )}
             </section>
