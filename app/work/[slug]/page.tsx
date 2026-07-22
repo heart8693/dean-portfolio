@@ -12,6 +12,7 @@ import SessionScript from '@/components/SessionScript'
 import TestedFrames from '@/components/TestedFrames'
 import MazeResults from '@/components/MazeResults'
 import LyftMazeResults from '@/components/LyftMazeResults'
+import SiftMazeResults from '@/components/SiftMazeResults'
 import SiftLiveDemo from '@/components/SiftLiveDemo'
 import TryPrototypeCta from '@/components/TryPrototypeCta'
 
@@ -69,6 +70,7 @@ export default async function CaseStudy({ params }: Props) {
     { id: 'research', label: 'Research', sub: [{ id: 'research-why', label: 'Why This Project' }, { id: 'research-domain', label: 'Competitive Landscape' }, { id: 'research-user', label: 'User Research' }, { id: 'research-goals', label: 'Design Goals' }] },
     { id: 'design', label: 'Design', sub: [{ id: 'design-framing', label: 'Framing' }, { id: 'design-alternatives', label: 'Alternatives' }, { id: 'design-feedback', label: 'Feedback' }, { id: 'design-decisions', label: 'Decisions' }] },
     ...(p.beyondFlows && p.beyondFlows.length > 0 ? [{ id: 'beyond', label: 'Beyond the Home Screen', sub: [] }] : []),
+    ...(p.tryPrototype ? [{ id: 'prototype', label: 'Prototype', sub: [] }] : []),
     ...(p.usabilityTesting ? [{ id: 'usability-testing', label: 'Usability Testing', sub: [] }] : []),
     ...(p.prototypeSpotlight ? [{ id: 'prototype-spotlight', label: 'Prototype Spotlight', sub: [] }] : []),
     ...(p.liveDemo ? [{ id: 'live-demo', label: 'Live Demo', sub: [] }] : []),
@@ -325,6 +327,8 @@ export default async function CaseStudy({ params }: Props) {
   })}
 </div>
             </section>
+
+
             {/* ── RESEARCH ────────────────────────── */}
             <section id="research" style={{ marginBottom: '96px' }}>
               <SectionLabel>Research</SectionLabel>
@@ -777,7 +781,13 @@ export default async function CaseStudy({ params }: Props) {
             )}
 
             {/* ── TRY THE PROTOTYPE — shows if project has tryPrototype in cms.ts ── */}
-            {p.tryPrototype && <TryPrototypeCta data={p.tryPrototype} />}
+            {p.tryPrototype && (
+              <section id="prototype" style={{ marginBottom: '96px' }}>
+                <SectionLabel>Try the Prototype</SectionLabel>
+                <SectionHR />
+                <TryPrototypeCta data={p.tryPrototype} />
+              </section>
+            )}
 
             {/* ── USABILITY TESTING — shows if project has usabilityTesting in cms.ts ── */}
             {p.usabilityTesting && (
@@ -939,6 +949,17 @@ export default async function CaseStudy({ params }: Props) {
                     <p style={{ ...bodyLg, marginTop: '32px' }}>
                       The core hypothesis held: surfacing dock information removes the uncertainty riders feel at the end of a ride. The pricing hypothesis did not: riders optimized for speed and proximity, and half never noticed the price signal. If this shipped, I would lead with availability and arrival time, and treat price as a secondary nudge rather than the primary lever.
                     </p>
+                  </div>
+                )}
+
+                {/* ── How these numbers were measured — Sift evidence subsection ── */}
+                {p.slug === 'triage' && (
+                  <div style={{ marginTop: '48px' }}>
+                    <H2 top>How these numbers were measured</H2>
+                    <p style={bodyLg}>
+                      Both rounds ran unmoderated in Maze on the fully wired Figma prototype. Round 1 tested with 7 working CX professionals. Round 2 recruited 10 participants behind a screener and is analyzed on the 5 currently working in customer support, so both rounds compare the same population. Blocks 1 through 10 were identical word for word across rounds; the evidence below is the before and after of one redesign.
+                    </p>
+                    <SiftMazeResults />
                   </div>
                 )}
               </section>

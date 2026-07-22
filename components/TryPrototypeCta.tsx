@@ -1,27 +1,39 @@
-// TryPrototypeCta.tsx — drop into your components dir, render inside the case
-// page wherever project.tryPrototype exists (recommended: directly above the
-// usability testing section). Matches the locked skin: cobalt interactive only,
-// no new patterns.
-//
-// Usage in the case page:
-//   {project.tryPrototype && <TryPrototypeCta data={project.tryPrototype} />}
+// TryPrototypeCta — matches the FiPet prototype spotlight button exactly
+// (tj-cta, var(--accent), radius 6, same arrow) so every prototype CTA
+// on the site shares one shape.
 
-import type { TryPrototype } from "@/lib/cms"
+import type { TryPrototype } from '@/lib/cms'
 
 export default function TryPrototypeCta({ data }: { data: TryPrototype }) {
   return (
-    <div className="my-10 flex flex-col items-start gap-2">
+    <div>
       <a
         href={data.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full bg-[#2055E6] px-5 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-[#1A46C2]"
+        className="tj-cta"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '12px 22px',
+          background: 'var(--accent)',
+          color: '#ffffff',
+          fontSize: '14px',
+          fontWeight: 600,
+          borderRadius: '6px',
+          letterSpacing: '-0.01em',
+          textDecoration: 'none',
+          transition: 'opacity 0.15s ease, transform 0.15s ease',
+        }}
       >
         {data.label}
-        <span aria-hidden>↗</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M4 2h6v6M10 2L2 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
       </a>
       {data.note && (
-        <p className="text-[13px] leading-relaxed text-[color:var(--ink-3,#8b8b92)]">
+        <p style={{ marginTop: '12px', fontSize: '12px', color: 'var(--ink-3)', lineHeight: 1.6 }}>
           {data.note}
         </p>
       )}
