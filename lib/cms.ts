@@ -267,7 +267,7 @@ export const projects: Project[] = [
 
     role: "Solo designer, end to end",
     team: "Self-directed concept project",
-    timeline: "Jun – Aug 2026",
+    timeline: "Jun – Jul 2026",
     tools: "Figma, FigJam, Maze",
     impact: "Designed a 13-screen AI triage system around a single thesis: AI classification should make human judgment faster and more accurate, not replace it. Confidence is written in frequencies people can calibrate, every automated action is reversible, and the riskiest categories never leave human hands. Round 1 usability testing is in progress.",
 
@@ -648,7 +648,7 @@ export const projects: Project[] = [
 
     role: "Product Design Intern, Lead on Quiz Battle",
     team: "1 PM, 2 other designers, 10 engineers",
-    timeline: "Jan – May 2026",
+    timeline: "Mar – May 2026",
     tools: "Figma, Maze, Claude Code",
     impact: "Led design end-to-end for the 1v1 Quiz Battle feature on a 13-person team. Established a design system the entire team adopted for a broader app redesign. Introduced usability testing as a default practice, the first in company history.",
 
@@ -1055,7 +1055,7 @@ export const projects: Project[] = [
 
     role: "Solo designer",
     team: "Self-directed personal project",
-    timeline: "Ongoing, Round 2 testing in progress",
+    timeline: "Mar – May 2026",
     tools: "Figma, Maze",
     impact: "Reframed the project from 'add dock info' to 'surface the infrastructure Lyft already has.' That reframing shaped everything downstream. In testing: 4.4/5 confidence they would find a dock (n=10) and 100% success on the dock planning flow (10 sessions). The pricing hypothesis did not hold; riders optimized for speed and proximity.",
 
@@ -1410,7 +1410,7 @@ export const projects: Project[] = [
 
     role: "Product Design Intern",
     team: "PM, 2 Engineers",
-    timeline: "3 months",
+    timeline: "Oct – Dec 2025",
     tools: "Figma, Maze, Notion",
     // TODO(dean): verify 31-to-78 against session data
     impact: "Led the mobile feed redesign end-to-end. Bias recognition improved from 31% to 78%, and users identified bias 3× faster in testing.",
