@@ -12,7 +12,7 @@
 // 2. app/page.tsx: data-wk hooks + <HeroOverlays /> (delivered page.tsx has them)
 // 3. Replace the welcome-kit-extras block in globals.css with the new one
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'
 
@@ -91,7 +91,7 @@ export function CursorTag({ label = 'you 👋' }: { label?: string }) {
 type ToolDef = {
   key: string
   shortcut: string
-  icon: JSX.Element
+  icon: ReactNode
   onMsg: string
   offMsg: string
   apply: (on: boolean) => void
