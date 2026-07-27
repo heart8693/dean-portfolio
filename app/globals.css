@@ -94,10 +94,6 @@
      border-radius: 2px;
    }
    
-   /* 발바닥 커서 — 인터랙티브 hover 시에만 (흰 테두리라 다크에서도 보임) */
-   a:hover, button:hover, [role="button"]:hover, summary:hover, label:hover {
-     cursor: url("/cursors/paw.svg") 12 12, pointer;
-   }
    
    /* ─────────────────────────────────────────────
       Liquid glass pill — 중앙 플로팅 내비
@@ -244,7 +240,566 @@
   .hero-mobile { display: block; }
 }
 
-/* dark mode cursor: white paw, same hover-only targets as the light rule */
-.dark a:hover, .dark button:hover, .dark [role="button"]:hover, .dark summary:hover, .dark label:hover {
-  cursor: url("/cursors/paw-white.svg") 12 12, pointer;
+
+/* ── welcome-kit: append to app/globals.css ──
+   Motion follows the site charter: one easing, fade + rise entrances,
+   150/300/600ms tiers. Stickers wobble on hover only. */
+
+   .wk-sticker {
+    opacity: 0;
+    transform: rotate(var(--rot, 0deg));
+    animation: wk-drop 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    filter: drop-shadow(0 2px 6px rgba(10, 10, 12, 0.12));
+    user-select: none;
+  }
+  .wk-sticker:hover {
+    transform: rotate(calc(var(--rot, 0deg) + 5deg)) scale(1.08);
+  }
+  
+  @keyframes wk-drop {
+    from { opacity: 0; transform: translateY(-14px) rotate(var(--rot, 0deg)) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)) scale(1); }
+  }
+  
+  .wk-tool:hover {
+    transform: translateY(-2px);
+  }
+  .wk-tool:active {
+    transform: translateY(0) scale(0.96);
+  }
+  
+  .wk-bubble {
+    animation: wk-rise 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes wk-rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* stickers stay out of the way on small screens */
+  @media (max-width: 720px) {
+    .wk-stickers { display: none; }
+  }
+  
+  /* keep the dock readable in dark mode (vars already flip) */
+  @media (prefers-reduced-motion: reduce) {
+    .wk-sticker, .wk-bubble { animation: none; opacity: 1; }
+    .wk-sticker, .wk-tool { transition: none; }
+  }
+
+/* ============================================================
+   WelcomeKit extras v7 — SINGLE consolidated block.
+   BEFORE PASTING: delete the previous welcome-kit-extras block
+   from globals.css, then append this. This is the only block.
+
+   A. SelectedWord: drag-select entrance, 28px cursor, drift
+   B. Visitor cursor tag: hidden on touch devices
+   C. Stickers: shuffle, mobile trim, big-monitor upscale
+   C2. Pen tool: hand-drawn loop around "Dean!"
+   D. ToolDock: Figma UI3 toolbar in site tokens (auto theme)
+   E. Tool actions: frame, caret, rect, comment pin,
+      measure guides, token chip
+   ============================================================ */
+
+/* ─────────── A. SelectedWord ─────────── */
+
+.sw {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.sw-word {
+  position: relative;
+  z-index: 1;
+  font-style: italic;
+}
+
+.sw-frame {
+  position: absolute;
+  inset: -0.08em -0.1em;
+  border: 1.5px solid #2055e6;
+  background: rgba(32, 85, 230, 0.08);
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scaleX(0.05);
+  transform-origin: left center;
+  animation: sw-frame-sweep 550ms cubic-bezier(0.22, 1, 0.36, 1) 1100ms forwards;
+}
+
+.sw-handle {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: #ffffff;
+  border: 1.5px solid #2055e6;
+  border-radius: 1px;
+  opacity: 0;
+  animation: sw-fade-in 200ms cubic-bezier(0.22, 1, 0.36, 1) 1680ms forwards;
+}
+
+.sw-tl { top: -4px; left: -4px; }
+.sw-tr { top: -4px; right: -4px; }
+.sw-bl { bottom: -4px; left: -4px; }
+.sw-br { bottom: -4px; right: -4px; }
+
+.sw-cursor {
+  position: absolute;
+  right: -0.55em;
+  bottom: -0.5em;
+  z-index: 2;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: flex-start;
+  pointer-events: none;
+  opacity: 0;
+  animation:
+    sw-sweep 550ms cubic-bezier(0.22, 1, 0.36, 1) 1100ms forwards,
+    sw-drift 6s ease-in-out 2200ms infinite;
+}
+
+.sw-arrow {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
+
+.sw-arrow path {
+  fill: #2055e6;
+}
+
+.sw-flag {
+  margin-left: 2px;
+  margin-top: 19px;
+  padding: 3px 10px 4px;
+  background: #2055e6;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  border-radius: 4px 10px 10px 10px;
+}
+
+@keyframes sw-frame-sweep {
+  0%   { opacity: 1; transform: scaleX(0.05); }
+  100% { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes sw-sweep {
+  0%   { opacity: 0; transform: translate(-4.4em, -0.55em); }
+  15%  { opacity: 1; }
+  100% { opacity: 1; transform: translate(0, 0); }
+}
+
+@keyframes sw-fade-in {
+  to { opacity: 1; }
+}
+
+@keyframes sw-drift {
+  0%, 100% { translate: 0 0; }
+  25%      { translate: 4px 2px; }
+  55%      { translate: 1px -3px; }
+  80%      { translate: -3px 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sw-frame,
+  .sw-handle,
+  .sw-cursor {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .sw-frame { border-width: 1px; }
+  .sw-handle {
+    width: 5px;
+    height: 5px;
+    border-width: 1px;
+  }
+  .sw-tl { top: -3px; left: -3px; }
+  .sw-tr { top: -3px; right: -3px; }
+  .sw-bl { bottom: -3px; left: -3px; }
+  .sw-br { bottom: -3px; right: -3px; }
+
+  .sw-cursor { right: -0.3em; bottom: -0.3em; }
+  .sw-arrow { width: 18px; height: 18px; }
+  .sw-flag {
+    margin-top: 12px;
+    font-size: 10px;
+    padding: 2px 7px;
+  }
+  @keyframes sw-sweep {
+    0%   { opacity: 0; transform: translate(-3.6em, -0.4em); }
+    15%  { opacity: 1; }
+    100% { opacity: 1; transform: translate(0, 0); }
+  }
+}
+
+/* ─────────── B. no mouse, no cursor tag ─────────── */
+
+@media (pointer: coarse) {
+  .wk-cursor-tag { display: none; }
+}
+
+/* ─────────── C. stickers ─────────── */
+
+.wk-stickerwrap {
+  transition: rotate 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wk-sticker {
+  transition: opacity 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Pen tool: hand-drawn cobalt loop around "Dean!" in the h1 */
+.wk-dean {
+  position: relative;
+  display: inline-block;
+}
+
+.wk-loop {
+  position: absolute;
+  inset: -0.14em -0.22em;
+  width: calc(100% + 0.44em);
+  height: calc(100% + 0.28em);
+  overflow: visible;
+  pointer-events: none;
+  transform: rotate(-2deg);
+}
+
+.wk-loop path {
+  fill: none;
+  stroke: var(--accent, #2055e6);
+  stroke-opacity: 0.6;
+  stroke-width: 4;
+  stroke-linecap: round;
+  /* 240 comfortably exceeds the real path length (~230 in viewBox units);
+     pathLength + non-scaling-stroke breaks dash math in Chromium, so we
+     use raw units instead */
+  stroke-dasharray: 240;
+  stroke-dashoffset: 240;
+  transition: stroke-dashoffset 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.wk-pen .wk-loop path {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wk-loop path { transition: none; }
+}
+
+body.wk-shuffle .wk-stickerwrap:nth-child(1) { rotate: 16deg; }
+body.wk-shuffle .wk-stickerwrap:nth-child(2) { rotate: -11deg; }
+body.wk-shuffle .wk-stickerwrap:nth-child(3) { rotate: 13deg; }
+body.wk-shuffle .wk-stickerwrap:nth-child(4) { rotate: -15deg; }
+
+@media (max-width: 640px) {
+  .wk-stickerwrap:nth-child(n + 3) { display: none; }
+  .wk-stickerwrap { scale: 0.62; }
+}
+
+/* big monitors: slight upscale only; stickers stay in orbit */
+@media (min-width: 1600px) {
+  .wk-stickerwrap { scale: 1.12; }
+}
+
+/* ─────────── D. ToolDock: Figma UI3 toolbar, site tokens ─────────── */
+
+.wk-dock {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 10px;
+  background: var(--surface, #f5f5f7);
+  border: 1px solid var(--hairline, #e6e8ec);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(10, 10, 12, 0.08);
+}
+
+.wk-tool {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ink, #111113);
+  cursor: pointer;
+  transition:
+    background 150ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 150ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wk-tool:hover {
+  background: color-mix(in srgb, var(--ink, #111113) 8%, transparent);
+}
+
+.wk-tool.wk-tool-on {
+  background: var(--accent, #2055e6);
+  color: #fff;
+}
+
+.wk-chev {
+  display: grid;
+  place-items: center;
+  width: 12px;
+  height: 36px;
+  color: var(--ink-3, #8a93a2);
+  cursor: default;
+  user-select: none;
+}
+
+.wk-divider {
+  width: 1px;
+  height: 26px;
+  margin: 0 8px;
+  background: var(--hairline, #e6e8ec);
+}
+
+.wk-devseg {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--bg, #ffffff);
+  border: 1px solid var(--hairline, #e6e8ec);
+  border-radius: 10px;
+}
+
+.wk-devseg .wk-tool {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+}
+
+@media (max-width: 640px) {
+  .wk-chev { display: none; }
+  .wk-divider { display: none; }
+  .wk-devseg { display: none; }
+  .wk-dock { padding: 6px 8px; }
+  .wk-tool { width: 34px; height: 34px; }
+}
+
+/* ─────────── E. tool actions ─────────── */
+
+/* Frame: Figma frame selection on the h1 */
+[data-wk="h1"].wk-framed {
+  position: relative;
+  outline: 1.5px solid var(--accent, #2055e6);
+  outline-offset: 16px;
+}
+
+[data-wk="h1"].wk-framed::before {
+  content: "Frame 1";
+  position: absolute;
+  top: -42px;
+  left: -16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent, #2055e6);
+}
+
+/* Text: blinking editing caret at the end of the h1 */
+[data-wk="h1"].wk-editing::after {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 0.8em;
+  margin-left: 8px;
+  background: var(--accent, #2055e6);
+  vertical-align: -0.06em;
+  animation: wk-blink 1s steps(1) infinite;
+}
+
+@keyframes wk-blink {
+  50% { opacity: 0; }
+}
+
+/* Rectangle: stray shape layer in the empty lower-right zone */
+.wk-stray {
+  position: absolute;
+  right: 10%;
+  bottom: 16%;
+  width: 150px;
+  height: 96px;
+  border: 1.5px solid var(--accent, #2055e6);
+  border-radius: 2px;
+  display: none;
+  pointer-events: none;
+}
+
+.wk-stray::before {
+  content: "Rectangle 1";
+  position: absolute;
+  top: -24px;
+  left: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent, #2055e6);
+  white-space: nowrap;
+}
+
+body.wk-rect .wk-stray {
+  display: block;
+  animation: wk-pin-pop 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Comment: Dean's pin */
+.wk-pin {
+  position: absolute;
+  top: 31%;
+  right: 3%;
+  z-index: 25;
+  display: none;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 240px;
+  text-align: left;
+  pointer-events: none;
+}
+
+body.wk-commented .wk-pin {
+  display: flex;
+  animation: wk-pin-pop 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.wk-pin-avatar {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  background: var(--accent, #2055e6);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  border: 2px solid var(--bg, #fff);
+  border-radius: 50% 50% 50% 0;
+  box-shadow: 0 4px 14px rgba(10, 10, 12, 0.18);
+}
+
+.wk-pin-note {
+  padding: 8px 12px;
+  background: var(--bg, #fff);
+  border: 1px solid var(--hairline, #e6e8ec);
+  border-radius: 4px 12px 12px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink, #111113);
+  box-shadow: 0 6px 20px rgba(10, 10, 12, 0.08);
+}
+
+@keyframes wk-pin-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Measure: Sift token guides on the three text blocks */
+body.wk-measure [data-wk="h1"],
+body.wk-measure [data-wk="lede"],
+body.wk-measure [data-wk="lately"] {
+  outline: 1px dashed rgba(32, 85, 230, 0.45);
+  outline-offset: 5px;
+}
+
+body.wk-measure [data-wk="lede"],
+body.wk-measure [data-wk="lately"] {
+  position: relative;
+}
+
+body.wk-measure [data-wk="lede"]::before,
+body.wk-measure [data-wk="lately"]::before {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent, #2055e6);
+  background: var(--bg, #fff);
+  padding: 0 6px;
+  white-space: nowrap;
+}
+
+body.wk-measure [data-wk="lede"]::before {
+  content: "32 · space-07";
+  top: -25px;
+}
+
+body.wk-measure [data-wk="lately"]::before {
+  content: "8 · space-03";
+  top: -13px;
+}
+
+/* Code: token chip under the dock */
+.wk-tokens {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 36px);
+  transform: translateX(-50%);
+  padding: 5px 12px;
+  background: var(--surface, #f5f5f7);
+  border: 1px solid var(--hairline, #e6e8ec);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2, #4a5160);
+  white-space: nowrap;
+}
+
+body.wk-code .wk-tokens {
+  display: block;
+  animation: wk-status-in 250ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* status caption */
+.wk-status {
+  animation: wk-status-in 250ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes wk-status-in {
+  from { opacity: 0; transform: translate(-50%, 4px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wk-pin,
+  .wk-stray,
+  .wk-tokens,
+  .wk-status,
+  [data-wk="h1"].wk-editing::after {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .wk-pin {
+    top: 32%;
+    right: 4%;
+    max-width: 180px;
+  }
+  .wk-stray {
+    width: 100px;
+    height: 64px;
+    bottom: 12%;
+  }
+  [data-wk="h1"].wk-framed { outline-offset: 10px; }
+  [data-wk="h1"].wk-framed::before { top: -32px; left: -10px; }
 }

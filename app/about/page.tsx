@@ -16,7 +16,7 @@ const ABOUT = {
   location: 'Chicago, IL',
   availability: 'Available for work',
   email: 'hyart2021@gmail.com',
-  image: '/images/about.webp',
+  image: '/stickers/dean-thumbsup.png',
   statement: 'I don\u2019t trust assumptions.',
   lede: 'I test before I design and measure after I ship.',
   bio: [
@@ -169,16 +169,51 @@ export default function AboutPage() {
             </p>
           </div>
 
-          {/* Photo: no fill, no frame. Sits directly on the page. */}
-          <div className="mx-auto w-full max-w-[300px] md:mx-0 md:sticky md:top-24">
-            <div className="relative aspect-[2/3] overflow-hidden rounded-[14px]">
-              <Image
-                src={ABOUT.image}
-                alt="Portrait of Dean Yoo"
-                fill
-                sizes="300px"
-                className="object-contain"
-              />
+          {/* Sticker portrait: no fill, no frame, natural ratio.
+              drop-shadow follows the alpha contour, so it reads as a
+              sticker resting on the page, not a flat inserted image.
+              The pin below is this page's one canvas moment (comment tool). */}
+          <div className="mx-auto w-full max-w-[280px] md:mx-0 md:sticky md:top-24 md:mt-14">
+            <Image
+              src={ABOUT.image}
+              alt="Illustration of Dean giving a thumbs up"
+              width={756}
+              height={419}
+              sizes="280px"
+              className="h-auto w-full"
+              style={{
+                transform: 'rotate(-5deg)',
+                filter: 'drop-shadow(0 10px 22px rgba(10, 10, 12, 0.16))',
+              }}
+              priority
+            />
+
+            <div aria-hidden className="mt-6 flex items-start gap-2 pl-4">
+              <span
+                className="grid shrink-0 place-items-center text-[12px] font-bold text-white"
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  background: 'var(--accent)',
+                  border: '2px solid var(--bg)',
+                  borderRadius: '50% 50% 50% 0',
+                  boxShadow: '0 4px 12px rgba(10, 10, 12, 0.16)',
+                }}
+              >
+                D
+              </span>
+              <span
+                className="text-[13px] leading-[1.45] text-[color:var(--ink)]"
+                style={{
+                  padding: '7px 11px',
+                  background: 'var(--bg)',
+                  border: '1px solid var(--hairline)',
+                  borderRadius: '4px 12px 12px 12px',
+                  boxShadow: '0 6px 18px rgba(10, 10, 12, 0.07)',
+                }}
+              >
+                Approved by all three supervisors.
+              </span>
             </div>
           </div>
         </div>
