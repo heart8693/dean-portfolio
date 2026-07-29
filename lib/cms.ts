@@ -254,7 +254,7 @@ export const projects: Project[] = [
     heroImageMobileDark: "/images/triage-mobile-hero-dark.webp",
     outcomeImageDark: "/images/triage-outcome-dark.webp",
     title: "Sift · AI ticket triage",
-    description: "AI ticket tools compete on how much they can automate. Agents don't need more automation, they need to see what the AI did, why, and how to take it back. Sift is a 13-screen concept built around that gap.",
+    description: "AI ticket tools compete on how much they can automate. Agents don't need more automation, they need to see what the AI did, why, and how to take it back. Sift is a 21-screen concept built around that gap.",
     year: "2026",
     category: "Concept · B2B SaaS",
     featured: true,
@@ -269,7 +269,7 @@ export const projects: Project[] = [
     team: "Self-directed concept project",
     timeline: "Jun – Jul 2026",
     tools: "Figma, FigJam, Maze",
-    impact: "Designed a 13-screen AI triage system around a single thesis: AI classification should make human judgment faster and more accurate, not replace it. Confidence is written in frequencies people can calibrate, every automated action is reversible, and the riskiest categories never leave human hands. Round 1 usability testing is in progress.",
+    impact: "Designed a 21-screen AI triage system around a single thesis: AI classification should make human judgment faster and more accurate, not replace it. Confidence is written in frequencies people can calibrate, every automated action is reversible, and the riskiest categories never leave human hands. Two rounds of Maze testing with working CX professionals took the automation-mission misclick rate from 83.5% to 0%.",
 
     // ── OVERVIEW ──────────────────────────────────────
     problemTitle: "The tools automate more. Agents trust less.",
@@ -281,7 +281,7 @@ export const projects: Project[] = [
     ],
 
     solutionTitle: "The opposite bet: make the human faster",
-    solutionBody: "Sift is a concept for an AI ticket sorter built on the opposite bet: the product wins by making the human faster, not by making the human optional. The AI states its confidence in frequencies (right about 41 of 100 on tickets like this), routes anything below a per-category threshold to a person, locks sensitive categories to humans permanently, explains its reasoning at both ends of the confidence spectrum, and logs every automated action behind a one-tap undo. Thirteen screens cover the full reality of the product: AI on, AI off, high and low confidence, empty, loading, failure, settings, dashboard, and dark mode.",
+    solutionBody: "Sift is a concept for an AI ticket sorter built on the opposite bet: the product wins by making the human faster, not by making the human optional. The AI states its confidence in frequencies (right about 41 of 100 on tickets like this), routes anything below a per-category threshold to a person, locks sensitive categories to humans permanently, explains its reasoning at both ends of the confidence spectrum, and logs every automated action behind a one-tap undo. Twenty-one screens cover the full reality of the product: AI on, AI off, high and low confidence, empty, loading, failure, settings, dashboard, dark mode, and every state in between.",
 
     showcasePanels: [
       {
@@ -323,7 +323,7 @@ export const projects: Project[] = [
     researchUserBody: [
       "Concept projects have a research credibility problem: it is easy to collect quotes that agree with the design you already wanted to make. To keep myself honest, I graded every source into three tiers before letting it influence a decision. Verified meant peer-reviewed or replicated findings. Directional meant a single credible study or strong practitioner consensus. Vendor claim meant marketing numbers, used only as signals of what companies believe, never as evidence of what works.",
       "The tiering changed the design. The frequency-framing decision rests on Verified research about how people read uncertainty. The feedback-framing decision rests on a Directional finding, so the design treats it as a hypothesis to test rather than a settled fact. Resolution-rate numbers from vendors shaped my read of the market but never justified a screen.",
-      "In parallel I wrote a 30-minute discovery interview script for working support agents, deliberately free of embedded hypotheses, and started recruiting. The interviews run alongside usability testing, and the design is structured so their findings can move thresholds, copy, and defaults without breaking the system.",
+      "In parallel I wrote a 30-minute discovery interview script for working support agents, deliberately free of embedded hypotheses. I ultimately chose not to run it: the graded secondary research base already answered the framing questions the script was written for, and recruiting effort went where the uncertainty actually lived, two rounds of task-based testing with working CX professionals. The script survives as the opening move of a production research phase, and the design is structured so interview findings can move thresholds, copy, and defaults without breaking the system.",
     ],
     researchUserFindingsTitle: "What the graded evidence said",
     researchUserFindings: [
@@ -333,7 +333,7 @@ export const projects: Project[] = [
       "Vendor-reported AI resolution rates cluster near half of volume, leaving the ambiguous half to humans (Vendor claim, treated as market signal only)",
       "B2B support agents work overwhelmingly on desktop, 68 to 83% across sources, which set the 1440px desktop format (Directional)",
     ],
-    researchMethod: "Secondary research with three-tier evidence grading · competitive audit of Zendesk, Intercom Fin, Freshdesk · 30-minute discovery interview script written, recruiting in progress",
+    researchMethod: "Secondary research with three-tier evidence grading · competitive audit of Zendesk, Intercom Fin, Freshdesk · 30-minute discovery interview script written, superseded by two rounds of task-based testing",
 
     researchPersonasBody: "One persona, deliberately. Maya is the agent who answers for the AI's decisions, and the entire product is designed from her seat. Team leads and admins who set policy, review audit trails, and manage permissions are a real second surface, but scoping them out was the decision that let the agent experience go deep instead of wide. That boundary is documented as Layer B in the future steps, not forgotten.",
     personas: [
@@ -363,7 +363,7 @@ export const projects: Project[] = [
     designWhereBody: [
       "Before the AI acts, the question is what will it do with this. That moment lives in settings and thresholds: the agent deciding, per category, how confident the AI must be before it moves without asking. If that dial doesn't exist or isn't legible, trust never forms, it's just hope.",
       "While the AI acts, the question is what is it doing right now. That moment lives in the status banner, the loading state with real progress, and the dashboard. Silence here reads as something being hidden.",
-      "After the AI acts, the question is what did it do and can I take it back. That moment lives in the activity log, the undo toast, and the explanation card on every classified ticket. This is where the major tools are thinnest, and where the accountability asymmetry bites hardest. The thirteen screens exist because each of these moments needed to be designed on purpose, including the ones where the AI is off, wrong, or down.",
+      "After the AI acts, the question is what did it do and can I take it back. That moment lives in the activity log, the undo toast, and the explanation card on every classified ticket. This is where the major tools are thinnest, and where the accountability asymmetry bites hardest. The twenty-one screens exist because each of these moments needed to be designed on purpose, including the ones where the AI is off, wrong, or down.",
     ],
 
     designAlternativesTitle: "Three answers to one question: how much should the AI do on its own?",
@@ -450,10 +450,10 @@ export const projects: Project[] = [
         description: "Empty, loading, and error are full screens, not afterthoughts. The empty state says what the AI actually did today instead of celebrating vaguely. The loading state shows real progress, 64 of 142 classified. The error state's whole message is that the human can keep working: AI triage is temporarily unavailable, keep sorting manually, with a retry. An AI product earns trust on the day the model is down.",
       },
     ],
-    strategyRejected: "I cut the standard feedback pattern, star ratings and thumbs on AI answers, before it reached hi-fi. A directional finding suggests asking users to grade the AI can reduce trust in the product, the interaction reframes the tool as a student you supervise for free. Sift replaces it with contribution framing at the moment of correction: this pattern looks new, your judgment here helps the model learn. The correction itself is the feedback. Whether that framing lands is one of the specific things Round 1 testing is designed to check, because the evidence grade here is Directional, not Verified.",
+    strategyRejected: "I cut the standard feedback pattern, star ratings and thumbs on AI answers, before it reached hi-fi. A directional finding suggests asking users to grade the AI can reduce trust in the product, the interaction reframes the tool as a student you supervise for free. Sift replaces it with contribution framing at the moment of correction: this pattern looks new, your judgment here helps the model learn. The correction itself is the feedback. Whether that framing lands was one of the specific things Round 1 was built to check, because the evidence grade here was Directional, not Verified. Two rounds later, the adjacent bet held: frequency framing read correctly for 80% of CX participants, and nobody in either round chose a dangerous misreading.",
 
     redesignTitle: "The system",
-    redesignBody: "Thirteen screens at 1440px on one token system: a single cobalt accent, tinted neutrals, IBM Plex Sans for interface and IBM Plex Mono for data. Enterprise restraint was the aesthetic bet: an agent lives here eight hours a day, and the AI-forward products this competes with mostly signal intelligence with gradients and glow. Sift signals it with legibility.",
+    redesignBody: "Twenty-one screens at 1440px on one token system: a single cobalt accent, tinted neutrals, IBM Plex Sans for interface and IBM Plex Mono for data. Enterprise restraint was the aesthetic bet: an agent lives here eight hours a day, and the AI-forward products this competes with mostly signal intelligence with gradients and glow. Sift signals it with legibility.",
     redesignChanges: [
       {
         label: "Control has layers, not a switch",
@@ -542,7 +542,7 @@ export const projects: Project[] = [
       {
         title: "Discovery interviews with working agents",
         body: [
-          "The interview script exists and recruiting is in progress: 30 minutes, working support agents, no embedded hypotheses. The design's framing of the trust gap comes from graded secondary research, and practitioners will bend it. The threshold defaults, the category set, and the copy on the frequency lines are all built to move when they do.",
+          "The interview script exists and is ready to run: 30 minutes, working support agents, no embedded hypotheses. I skipped it deliberately during the concept phase, because the graded secondary base covered the framing questions and testing covered the risk. In a production setting this is the first study I would run. The design's framing of the trust gap comes from graded secondary research, and practitioners will bend it. The threshold defaults, the category set, and the copy on the frequency lines are all built to move when they do.",
           "A planned dashboard layer, richer team-level views on the overview screen, is deliberately gated behind these interviews rather than designed from assumption.",
         ],
       },
@@ -555,7 +555,7 @@ export const projects: Project[] = [
       {
         title: "A coded prototype for the moments static frames can't carry",
         body: [
-          "Undo has a timing window, the loading state has real progress, and the glass confirmation has a rhythm that a static frame can only imply. The same lesson carried over from my FiPet work: when the remaining unknowns are behavioral, the honest next prototype is code. A React build of the inbox loop, accept, undo, error fallback, is the planned vehicle for Round 2.",
+          "Undo has a timing window, the loading state has real progress, and the glass confirmation has a rhythm that a static frame can only imply. The same lesson carried over from my FiPet work: when the remaining unknowns are behavioral, the honest next prototype is code. A React build of the inbox loop, accept, undo, error fallback, is the planned vehicle for Round 3. The live classifier demo above is its first piece already running: the model is real, and the next step is wrapping the full accept-undo loop around it.",
         ],
       },
     ],
@@ -926,10 +926,10 @@ export const projects: Project[] = [
           finding: 'Round 1 participants wanted reward variability beyond winning the match',
           evidence: '3 users quoted that they wanted more gamification elements and more dynamic reward layers throughout the quizzes to entertain the users',
           refinement: 'Added three Round 2 mechanics: a combo system (chaining correct answers triggers a streak multiplier on points), a mystery box reveal after each battle (variable reward instead of a fixed coin payout), and a daily missions track that funnels into the same mystery box reward on full completion.',
-          refinementReason: 'Variable reward schedules sustain the "one more game" loop without forcing transactions, which extends the Play Again primary CTA decision from earlier. The mystery box becomes reachable through two parallel paths, in-session (post-battle) and cross-session (daily missions), so the same reward anchors both immediate replay and next-day return. The Round 2 coded prototype tests whether this multi-path structure raises retention over Round 1 baseline.',
+          refinementReason: 'Variable reward schedules sustain the "one more game" loop without forcing transactions, which extends the Play Again primary CTA decision from earlier. The mystery box becomes reachable through two parallel paths, in-session (post-battle) and cross-session (daily missions), so the same reward anchors both immediate replay and next-day return. The mechanics are live in the coded prototype; whether the multi-path structure raises retention over the Round 1 baseline is a question for a moderated round.',
         },
       ],
-      conclusion: "Round 1 validated the macro design (90% would play again, 4.2/5 fun rating, 100% task success on the core flow) and surfaced four refinements specific enough to act on. Rather than iterate on the Figma prototype, I moved the refinements into a coded React prototype. Real timer behavior, real rival turn-taking, and real answer-switching couldn't be faithfully simulated in a static prototype, and Round 1 had made it clear those exact behaviors were where the remaining unknowns lived. Round 2 is currently running on the coded build.",
+      conclusion: "Round 1 validated the macro design (90% would play again, 4.2/5 fun rating, 100% task success on the core flow) and surfaced four refinements specific enough to act on. Rather than iterate on the Figma prototype, I moved the refinements into a coded React prototype. Real timer behavior, real rival turn-taking, and real answer-switching couldn't be faithfully simulated in a static prototype, and Round 1 had made it clear those exact behaviors were where the remaining unknowns lived. Round 2 launched unmoderated on the coded build with 7 participants, and every one of them dropped off mid-test. That produced no reportable data and one expensive lesson: unmoderated tests on external prototypes bleed participants at every context switch. The refinements stay live in the build, and the open questions now belong to a moderated round.",
       cultureNote: "This was the first usability test in the company's history. The shift mattered more than any single screen: decisions moved from gut feeling to evidence. The team adopted testing as a default practice for the features that came after.",
     },
 
@@ -937,7 +937,7 @@ export const projects: Project[] = [
     prototypeSpotlight: {
       title: "From Figma to Coded Prototype",
       subtitle: "Some things a static prototype couldn't validate.",
-      body: "After Round 1, the obvious next step was another Figma iteration. I argued against it. The remaining unknowns, real timer behavior, live score updates, rival turn-taking, answer-switching mid-question, couldn't be tested faithfully in a static prototype. So I built the next iteration in React, deployed it to Vercel, and ran Round 2 testing against the live build. The trade-off was time. The payoff was that the validation could now reflect the real behavior, not a Figma approximation of it.",
+      body: "After Round 1, the obvious next step was another Figma iteration. I argued against it. The remaining unknowns, real timer behavior, live score updates, rival turn-taking, answer-switching mid-question, couldn't be tested faithfully in a static prototype. So I built the next iteration in React, deployed it to Vercel, and ran Round 2 testing against the live build. The trade-off was time. The payoff was that the validation could now reflect the real behavior, not a Figma approximation of it. An unmoderated Round 2 launched on the live build; all seven participants dropped off mid-test, a lesson in pairing unmoderated tests with external prototypes.",
       whyCoded: [
         {
           label: "Real 12-second timer",
@@ -949,7 +949,7 @@ export const projects: Project[] = [
         },
         {
           label: "Answer-switching mid-question",
-          description: "Round 1 participants sometimes wanted to change their answer before the reveal. Figma's prototype mode couldn't support that. The coded version does, and Round 2 will tell us whether the option helps comprehension or creates indecision.",
+          description: "Round 1 participants sometimes wanted to change their answer before the reveal. Figma's prototype mode couldn't support that. The coded version does, so the question is ready to answer the moment a moderated round runs.",
         },
         {
           label: "Rival turn-taking state",
@@ -976,7 +976,7 @@ export const projects: Project[] = [
       {
         title: "Complete Round 2 Testing on the Coded Prototype",
         body: [
-          "Round 2 is currently running. All four Round 1 refinements, Start button repositioning, 1.5s transition delay, rival visibility, question illustrations, are live in the coded build. The questions I want answered: does fixing the misclick close it to single digits? Does rival visibility actually shift the 20% 'competing against a rival' number on the favorite-element question? And does the 1.5s pacing land for the target age or feel too slow?",
+          "Round 2 launched unmoderated on the live coded build with 7 participants, and every one of them dropped off before finishing. Zero completions is a result too: unmoderated tests on external prototypes bleed participants at every context switch, and a portfolio-grade build does not fix a recruitment-grade problem. All four Round 1 refinements remain live in the build, and the open questions are unchanged: does the Start button fix close the misclick to single digits, does rival visibility shift the 20% 'competing against a rival' number, and does the 1.5s pacing land for the target age? The right vehicle for those answers is a moderated session, where drop-off is not a variable.",
           "The most valuable signal from Round 2 will be whether the behavioral evidence matches the qualitative requests from Round 1. Participants told us what they wanted. Round 2 tells us whether what they wanted actually solved the problem they were describing.",
         ],
       },
@@ -990,7 +990,7 @@ export const projects: Project[] = [
       {
         title: "Integrate Gamification Effects per Engineer Feedback",
         body: [
-          "Engineers proposed adding a combo system and a Mystery Box reward (both described in Finding 05 above). These weren't from Round 1 user findings. They came from designer- and engineer-anticipated patterns based on what makes similar games engaging. Round 2 includes both, and the test will tell us whether they materially shift the 4.2/5 fun rating, or whether they read as decorative.",
+          "Engineers proposed adding a combo system and a Mystery Box reward (both described in Finding 05 above). These weren't from Round 1 user findings. They came from designer- and engineer-anticipated patterns based on what makes similar games engaging. Both are live in the coded build; whether they materially shift the 4.2/5 fun rating, or read as decorative, is queued for a moderated round.",
         ],
       },
       {
@@ -1021,7 +1021,7 @@ export const projects: Project[] = [
     // ── OUTCOME ───────────────────────────────────────
     impactTitle: "Decisions start from data now",
     impactBody: "Round 1 was the company's first usability test. It validated the macro design (90% would play again, 4.2/5 fun, 100% task success on the core flow) and produced four specific refinements that moved into a coded React prototype for Round 2. The design system I built for the Quiz Battle feature was adopted across the team for the broader app redesign. The shift the team is still feeling, the one that won't show up in a portfolio metric, is that decisions now start from data, not intuition.",
-    impactMethod: "Round 1: 22 recorded sessions on the core task · Maze prototype testing · 3 task flows · open-ended follow-up · adults briefed as proxies for the 8–15 target audience. Round 2 currently running on the coded prototype.",
+    impactMethod: "Round 1: 22 recorded sessions on the core task · Maze prototype testing · 3 task flows · open-ended follow-up · adults briefed as proxies for the 8–15 target audience. Round 2 launched on the coded prototype; full drop-off ended it without reportable data.",
     metrics: [
       { value: "90%", label: "Would play again", context: "Validated my Play Again CTA over PM's commerce-first preference (n=10 full completions)" },
       { value: "4.2/5", label: "Fun rating", context: "First measurable engagement signal in the product's history (n=10 full completions)" },
@@ -1274,7 +1274,7 @@ export const projects: Project[] = [
     // ── USABILITY TESTING ─────────────────────────────
     usabilityTesting: {
       round: "Round 1",
-      context: "The first Maze test on this project, a structured check on the dynamic pricing direction and the dock prediction display. Round 2 is in progress.",
+      context: "The first Maze test on this project, a structured check on the dynamic pricing direction and the dock prediction display. Round 2 is scoped against its findings, with pass/fail targets below.",
       participants: "Maze counts sessions, not unique people, so response counts vary by block (Plan Your Ride: 10 sessions · Compare Stations: 8 · opinion scales: 5 to 10)",
       method: "Maze · 15 blocks · 2 prototype task flows · opinion scales · open response · 5-second tests · unmoderated",
       metrics: [
@@ -1287,7 +1287,7 @@ export const projects: Project[] = [
           number: "01",
           finding: "45% misclick rate on dock selection",
           evidence: "Task 1 had a 45% misclick rate even though everyone eventually succeeded. Participants got to the goal, but with measurable friction along the way, which means the tap targets and visual affordances on the dock selection screen need work.",
-          refinement: "Increase the tap target size on the dock option cards and make it clearer which part of each option is interactive. Tested in Round 2.",
+          refinement: "Increase the tap target size on the dock option cards and make it clearer which part of each option is interactive. Queued for Round 2.",
           refinementReason: "Eventual success hides an affordance failure. A 45% misclick rate would mean real frustration in production even when the funnel completes, so I want it fixed before scaling the testing.",
         },
         {
@@ -1305,15 +1305,15 @@ export const projects: Project[] = [
           refinementReason: "When several participants independently flag the same density problem, it's the design's fault, not theirs. The cognitive load is real and it will only compound in production.",
         },
       ],
-      conclusion: "Round 1 validated the dock planning flow and surfaced three things to fix: affordance on dock selection, clarity on the prediction display, and overall information density. It also pushed back on the pricing hypothesis, detailed in the measurement section below. Round 2 is in progress with the refined design.",
+      conclusion: "Round 1 validated the dock planning flow and surfaced three things to fix: affordance on dock selection, clarity on the prediction display, and overall information density. It also pushed back on the pricing hypothesis, detailed in the measurement section below. Round 2 is scoped against the refined design with concrete targets: misclick under 25%, prediction comprehension above 80%, dock confidence held at 4.4 or higher.",
       cultureNote: "The project started from my own frustration, but frustration is only a signal until you do something with it. When the same problem keeps hitting the same rider, it's worth treating as a system failure instead of bad luck. The Maze test was where I turned that signal into evidence other people could actually evaluate.",
     },
 
     // ── FUTURE STEPS ──────────────────────────────────
-    futureStepsTitle: "Further Steps",
+    futureStepsTitle: "Future Steps",
     futureSteps: [
       {
-        title: "Continue Round 2 Maze testing",
+        title: "Run Round 2 against pass/fail targets",
         body: [
           "Target 10–15 participants for Round 2 with the refined prototype. Same two task flows, same opinion scales, but with the prediction display simplified and dock selection affordance improved.",
           "Specific targets: misclick rate below 25% on Task 1, comprehension on the prediction display above 80%, dock confidence rating maintained at 4.4+.",
@@ -1369,7 +1369,7 @@ export const projects: Project[] = [
     // ── OUTCOME ───────────────────────────────────────
     impactTitle: "No new technology needed.",
     impactBody: "Every feature in the redesign maps to something Lyft already runs. AirControl supplies the real-time station state. Bike Angels already proves riders will rebalance for an incentive. The Live Activities API delivers the passive mid-ride alerts. Internal demand prediction supplies the dock forecasts. The contribution wasn't new technology. It was the UX layer that puts what Lyft already has in front of riders. Round 1 testing validated the dock prediction direction (4.4/5 dock confidence, 100% on the dock planning flow), pushed back on the pricing hypothesis, and surfaced specific fixes for Round 2. The project is ongoing.",
-    impactMethod: "Maze remote usability testing · unmoderated, session-based counts · 15 blocks · 2 task flows · Round 2 targeting 10–15 participants",
+    impactMethod: "Maze remote usability testing · unmoderated, session-based counts · 15 blocks · 2 task flows · Round 2 scoped at 10–15 participants with pass/fail targets",
     metrics: [
       { value: "4.4/5", label: "Confidence they would find a dock", context: "How confident did you feel you'd find an available dock at your destination? (n=10)" },
       { value: "100%", label: "Success on the dock planning flow", context: "Every recorded session completed the dock planning flow (10 sessions)" },
@@ -1618,7 +1618,7 @@ export const projects: Project[] = [
 
     // ── OUTCOME ───────────────────────────────────────
     impactTitle: "Same users, same task, one variable",
-    impactBody: "Post-redesign sessions used the same participants, same task, same duration. One variable: the layout. Users were now seeing bias before they reacted to the headline, and it showed in the numbers. The shift was not marginal. After handoff and QA, a version based on this design is rolling out with team refinements.",
+    impactBody: "Post-redesign sessions used the same participants, same task, same duration. One variable: the layout. Users were now seeing bias before they reacted to the headline, and it showed in the numbers. The shift was not marginal. After handoff and QA, my design became the basis of the final version the team prepared to ship, with their own refinements.",
     impactMethod: "12 sessions · matched profile · 3-min exposure · 5-article recall · observer-coded",
     metrics: [
       { value: "3×", label: "Faster recognition", context: "9s → 3s median time-to-identify (n=12)" },
