@@ -913,6 +913,13 @@ body.wk-code .wk-tokens {
      .case-head { padding-top: 112px; }
    }
 
+   /* 섹션 상단 여백. 실측 결과 mt-28 / mt-20 / mt-12 / 없음 이 섞여
+      bars · flow-compare · research-notes 는 간격이 0 이었다.
+      앵커가 붙는 모든 섹션이 이 하나를 쓴다. */
+   /* Col 은 항상 Reveal 의 첫 자식이라 :first-child 로 지우면
+      모든 섹션의 여백이 0 이 된다. 그 규칙은 쓰지 않는다. */
+   .case-section { margin-top: 80px; }
+
    /* 레일 자체. sticky 로 따라오되 자리는 그리드가 잡아준다. */
    .case-rail-inner {
      position: sticky;
@@ -975,7 +982,7 @@ body.wk-code .wk-tokens {
    :root {
      /* 라벨 컬럼. 모든 2단 구조가 이 하나를 쓴다. */
      --label-col: 180px;       /* 모노 라벨: Role, Scope, Evidence */
-     --label-gap: 32px;
+     --label-gap: 40px;  /* Split 의 원래 값. 32 로 줄이니 라벨과 본문이 붙어 보였다 */
 
      /* 본문 폭. 괄호 안은 해당 글자 크기에서의 한 줄 글자 수. */
      --measure-lead: 640px;  /* 24px→55자, 21px→63자  소제목 */
@@ -987,7 +994,7 @@ body.wk-code .wk-tokens {
    /* 라벨 + 내용 2단. 왼쪽 정렬선이 둘만 생긴다. */
    .case-split {
      display: grid;
-     gap: 12px var(--label-gap);
+     gap: 16px var(--label-gap);
    }
    @media (min-width: 768px) {
      .case-split { grid-template-columns: var(--label-col) minmax(0, 1fr); }

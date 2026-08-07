@@ -249,6 +249,9 @@ export type CaseV2 = {
   beforeAfter?: {
     r1Image: string; r2Image: string
     r1Alt: string; r2Alt: string
+    /* 토글 버튼 라벨. Round 1/2 를 하드코딩하면 Lyft 와 Biasly 처럼
+       라운드 개념이 없는 비교에서 칩 문구와 어긋난다. */
+    r1Label: string; r2Label: string
     r1Chip: string; r2Chip: string
     hint: string
     r1Hotspots: V2Hotspot[]
@@ -383,6 +386,7 @@ export const siftCaseV2: CaseV2 = {
     r2Image: '/images/sift-ba-r2-inbox.png',
     r1Alt: 'Round 1: the only control, buried in Settings',
     r2Alt: 'Round 2: automation controls surfaced as four doors in the inbox',
+    r1Label: 'Round 1', r2Label: 'Round 2',
     r1Chip: 'Round 1 · one entry, buried in Settings',
     r2Chip: 'Round 2 · four doors, in the flow',
     hint: 'Same mission, same population, one redesign apart. Hover a marker to see what moved.',
@@ -607,7 +611,8 @@ export const fipetCaseV2: CaseV2 = {
     { id: 'evidence', label: 'What testing found' },
     { id: 'solution-1', label: 'The disagreement' },
     { id: 'solution-2', label: 'Design system' },
-    { id: 'exploration', label: 'Three home screens' },
+    { id: 'flow-compare', label: 'The fork' },
+    { id: 'figures', label: 'Three home screens' },
     { id: 'under-hood', label: 'Coded prototype' },
   ],
 
@@ -928,9 +933,9 @@ export const lyftCaseV2: CaseV2 = {
     { id: 'outcome', label: 'Outcome' },
     { id: 'system-gap', label: 'The gap' },
     { id: 'evidence', label: 'What testing found' },
-    { id: 'demand-cycle', label: 'Why docks empty' },
     { id: 'solution-1', label: 'Dynamic pricing' },
-    { id: 'exploration', label: 'Three directions' },
+    { id: 'research-notes', label: 'What it rests on' },
+    { id: 'demand-cycle', label: 'Why docks empty' },
     { id: 'under-hood', label: 'Already running' },
   ],
 
@@ -1035,6 +1040,7 @@ export const lyftCaseV2: CaseV2 = {
     r2Image: '/images/lyft-ba-after.webp',
     r1Alt: 'The shipped Lyft app: four counts, all of them current',
     r2Alt: 'The redesign: availability on arrival, with the price that follows from it',
+    r1Label: 'Shipped', r2Label: 'Redesign',
     r1Chip: 'Shipped today · counts, right now',
     r2Chip: 'Redesign · what will be there',
     hint: 'The station sheet, as it ships and as I redesigned it. Toggle to see what the rider gains.',
@@ -1046,10 +1052,10 @@ export const lyftCaseV2: CaseV2 = {
     ],
 
     r2Hotspots: [
-      { x: '46%', y: '58%',
+      { x: '52%', y: '72%',
         title: 'Availability when you arrive',
         body: 'The same prediction Lyft already runs internally, stated in the rider’s tense rather than the operator’s.' },
-      { x: '72%', y: '48%',
+      { x: '43%', y: '68%',
         title: 'Lower rate',
         body: 'The price moves because the network needs bikes cleared from here. The pill is the only new element on the screen.' },
     ],
@@ -1362,21 +1368,22 @@ export const biaslyCaseV2: CaseV2 = {
     r2Image: '/images/biasly-ba-after.webp',
     r1Alt: 'Before: the bias chip sits under the headline',
     r2Alt: 'After: the bias chip sits on the image, above the headline',
+    r1Label: 'Before', r2Label: 'After',
     r1Chip: 'Before · chip under the headline',
     r2Chip: 'After · chip above it',
     hint: 'Same card, same data. Toggle to see where the lean moves.',
 
     r1Hotspots: [
-      { x: '52%', y: '62%',
+      { x: '45%', y: '54%',
         title: 'Last thing on the card',
         body: 'Source, headline, then the lean. By the time the chip is read, the headline has already been read, and the reader has a position on the story.' },
     ],
 
     r2Hotspots: [
-      { x: '30%', y: '46%',
+      { x: '50%', y: '34%',
         title: 'On the image',
         body: 'The chip sits over the photograph, above the headline. It cannot be skipped on the way to the text.' },
-      { x: '62%', y: '58%',
+      { x: '45%', y: '45%',
         title: 'Source stays below',
         body: 'Outlet and timestamp move under the headline. The lean is the only thing promoted, so the hierarchy still reads.' },
     ],

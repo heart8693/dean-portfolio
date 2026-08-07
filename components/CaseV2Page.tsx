@@ -141,8 +141,8 @@ const BodyP = ({ b }: { b: V2Body }) => (
    Tailwind 임의값은 이 프로젝트에서 생성이 불안정해서, 둘이 같은
    규칙을 쓰도록 평범한 CSS 로 옮겼다. 그래야 제목과 이미지의
    왼쪽 끝이 어긋날 수 없다. */
-const Col = ({ children }: { children: ReactNode }) => (
-  <div className="case-col">{children}</div>
+const Col = ({ children, className = '' }: { children: ReactNode; className?: string }) => (
+  <div className={`case-col ${className}`.trim()}>{children}</div>
 );
 
 const MEDIA = 'case-media';
@@ -304,7 +304,7 @@ function BeforeAfterToggle() {
                 <motion.span layoutId="ba-pill" transition={SNAP}
                   className="absolute inset-0 rounded-full" style={{ background: INK }} />
               )}
-              <span className="relative">Round {r}</span>
+              <span className="relative">{r === 1 ? d.r1Label : d.r2Label}</span>
             </button>
           ))}
         </div>
@@ -467,11 +467,14 @@ function Alternatives() {
               </div>
 
               <div>
-                <div className="text-[17px] leading-[1.5] tracking-[-0.02em] measure"
+                {/* 제목이 본문과 같은 크기·굵기면 한 덩어리로 읽힌다.
+                    별도 컬럼에 있을 때는 위치가 계층을 만들었지만
+                    같은 컬럼으로 옮겼으니 굵기와 간격이 그 일을 해야 한다. */}
+                <div className="text-[17px] font-medium leading-[1.5] tracking-[-0.02em] measure"
                   style={{ color: INK }}>
                   {c.title}
                 </div>
-                <p className="text-[17px] leading-[1.6] mt-2 measure" style={{ color: INK }}>{c.what}</p>
+                <p className="text-[17px] leading-[1.6] mt-4 measure" style={{ color: INK }}>{c.what}</p>
                 <p className="text-[15px] leading-[1.7] mt-3 measure-sm" style={{ color: BODY }}>{c.why}</p>
               </div>
             </div>
@@ -1085,7 +1088,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {/* before / after, 두 라운드를 비교할 자료가 있는 케이스만 */}
       {cms.bars && (
         <Reveal>
-          <Col>
+          <Col className="case-section">
             <span id="bars" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.bars.label}</SectionLabel>
             <Statement>{cms.bars.statement}</Statement>
@@ -1099,7 +1102,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
 
       {cms.systemGap && (
         <Reveal>
-          <Col>
+          <Col className="case-section">
             <span id="system-gap" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.systemGap.label}</SectionLabel>
             <Statement>{cms.systemGap.statement}</Statement>
@@ -1195,8 +1198,8 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
                     <div className="font-mono text-[13px] mt-2" style={{ color: LABEL }}>{m.surface}</div>
                   </div>
                   <div>
-                    <div className="text-[17px] leading-[1.5] measure" style={{ color: INK }}>{m.phase}</div>
-                    <div className="text-[17px] leading-[1.6] mt-2 measure" style={{ color: INK }}>{m.question}</div>
+                    <div className="text-[17px] font-medium leading-[1.5] measure" style={{ color: INK }}>{m.phase}</div>
+                    <div className="text-[17px] leading-[1.6] mt-4 measure" style={{ color: INK }}>{m.question}</div>
                     <p className="text-[15px] leading-[1.7] mt-2 measure-sm" style={{ color: BODY }}>{m.breaks}</p>
                   </div>
                 </li>
@@ -1246,7 +1249,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {/* exploration */}
       {cms.flowCompare && (
         <Reveal>
-          <Col>
+          <Col className="case-section">
             <span id="flow-compare" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.flowCompare.label}</SectionLabel>
             <Statement>{cms.flowCompare.statement}</Statement>
@@ -1260,7 +1263,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
 
       {cms.researchNotes && (
         <Reveal>
-          <Col>
+          <Col className="case-section">
             <span id="research-notes" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.researchNotes.label}</SectionLabel>
             <Statement>{cms.researchNotes.statement}</Statement>
@@ -1274,7 +1277,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
 
       {cms.redacted && (
         <Reveal>
-          <Col>
+          <Col className="case-section">
             <span id="redacted" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.redacted.label}</SectionLabel>
             <Statement>{cms.redacted.statement}</Statement>
@@ -1286,11 +1289,18 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
         </Reveal>
       )}
 
+      {/* figures 는 배열이라 섹션 앵커가 없었다. nav 가 이 구간을 가리킬 수
+          있도록 첫 항목 앞에 앵커를 둔다. */}
+      {(cms.figures ?? []).length > 0 && (
+        <Col className="case-section">
+          <span id="figures" className="block scroll-mt-28" aria-hidden />
+        </Col>
+      )}
       {(cms.figures ?? []).map((f) => <FigureBlock key={f.image} fig={f} />)}
 
       {cms.demandCycle && (
         <Reveal>
-          <Col>
+          <Col className="case-section">
             <span id="demand-cycle" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.demandCycle.label}</SectionLabel>
             <Statement>{cms.demandCycle.statement}</Statement>

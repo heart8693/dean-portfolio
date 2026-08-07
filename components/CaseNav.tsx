@@ -18,10 +18,19 @@ type NavItem = { id: string; label: string }
 
 export default function CaseNav({ items }: { items: NavItem[] }) {
   const [active, setActive] = useState<string | null>(null)
+  /* cms 의 nav 는 케이스마다 섹션 구성이 달라 존재하지 않는 앵커를
+     가리킬 수 있다. 실제로 FiPet 과 Lyft 가 없는 exploration 을
+     가리켜 클릭해도 아무 일도 일어나지 않았다.
+     렌더 시점에 걸러 죽은 링크를 아예 그리지 않는다. */
+  const [live, setLive] = useState<NavItem[]>(items)
   const ticking = useRef(false)
 
   useEffect(() => {
-    if (!items.length) return
+    setLive(items.filter((it) => document.getElementById(it.id)))
+  }, [items])
+
+  useEffect(() => {
+    if (!live.length) return
 
     /* IntersectionObserver 대신 스크롤 위치로 판정한다.
        관찰자는 섹션이 길면 여러 개가 동시에 교차해 활성 항목이 튄다.
@@ -29,7 +38,7 @@ export default function CaseNav({ items }: { items: NavItem[] }) {
     const pick = () => {
       const line = window.scrollY + window.innerHeight * 0.3
       let current: string | null = null
-      for (const it of items) {
+      for (const it of live) {
         const el = document.getElementById(it.id)
         if (!el) continue
         if (el.getBoundingClientRect().top + window.scrollY <= line) current = it.id
@@ -47,9 +56,9 @@ export default function CaseNav({ items }: { items: NavItem[] }) {
     pick()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [items])
+  }, [live])
 
-  if (!items.length) return null
+  if (!live.length) return null
 
   return (
     <nav aria-label="Sections" className="case-rail-inner">
@@ -62,7 +71,7 @@ export default function CaseNav({ items }: { items: NavItem[] }) {
       </Link>
 
       <ul className="case-rail-list">
-        {items.map((it) => (
+        {live.map((it) => (
           <li key={it.id} className="case-rail-item" data-on={active === it.id ? 'true' : 'false'}>
             {/* 활성 표시는 점이다. 글자만 진해지면 훑을 때 안 잡힌다.
                 라벨 왼쪽 밖에 두어 목록 정렬을 흔들지 않는다. */}
