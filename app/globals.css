@@ -920,7 +920,11 @@ body.wk-code .wk-tokens {
       모든 섹션의 여백이 0 이 된다. 그 규칙은 쓰지 않는다. */
    .case-section { margin-top: 80px; }
 
-   /* 케이스 끝 다음·이전. 좁은 화면에서는 세로로 쌓는다.
+   /* 케이스 끝 다음·이전. 선 대신 공백으로 구분한다.
+      Footer 가 border-t 를 갖고 있어 선을 또 넣으면 두 줄이 된다. */
+   .case-footer-nav-wrap { margin-top: 96px; }
+
+   /* 좁은 화면에서는 세로로 쌓는다.
       가로 2단을 유지하면 제목이 잘게 접혀 읽기 어렵다. */
    .case-footer-nav { display: grid; gap: 8px; }
    @media (min-width: 768px) {
@@ -1033,3 +1037,110 @@ body.wk-code .wk-tokens {
    .measure      { max-width: var(--measure); }
    .measure-sm   { max-width: var(--measure-sm); }
    .measure-wide { max-width: var(--measure-wide); }
+
+   /* ─────────────────────────────────────────────
+      전체 이야기. 기본은 접힘.
+
+      본문에 그대로 두면 케이스당 250단어가 더해지고
+      이 구간은 이미지가 하나도 없는 순수 텍스트라
+      밀도 문제를 정면으로 악화시킨다.
+      훑는 사람은 지나가고 깊이 보는 사람만 편다.
+      ───────────────────────────────────────────── */
+   /* 밑줄이다. 알약 버튼도 만들어 봤지만 케이스 안에서 알약 모양은
+      이미 '상태 표시' 를 뜻한다 (Conservative·Balanced·Aggressive,
+      Auto-sorted, Needs review). 버튼으로 하나 더 만들면 뜻이 늘고,
+      그것 하나뿐이라 페이지 끝에서 혼자 튄다.
+
+      원래 문제는 밑줄이 있다는 게 아니라 안 보였다는 것이었다.
+      --hairline 은 대비 1.08 이라 사실상 없는 것과 같았다.
+      글자를 --ink 로 올리고 밑줄을 --ink-3 로 두면 SectionLabel 과
+      확실히 구분되면서도 새 어휘를 만들지 않는다. */
+   .case-story summary {
+     display: inline-flex;
+     align-items: center;
+     gap: 10px;
+     cursor: pointer;
+     list-style: none;
+     padding: 16px 0;
+     font-family: var(--font-mono, ui-monospace, "SF Mono", monospace);
+     font-size: 13px;
+     color: var(--ink);
+   }
+   .case-story summary .case-story-label {
+     text-decoration: underline;
+     text-decoration-color: var(--ink-3);
+     text-decoration-thickness: 1px;
+     text-underline-offset: 5px;
+     transition: text-decoration-color 0.2s ease;
+   }
+   .case-story summary:hover .case-story-label {
+     text-decoration-color: var(--ink);
+   }
+   .case-story summary::-webkit-details-marker { display: none; }
+   .case-story summary:focus-visible {
+     outline: 2px solid var(--accent);
+     outline-offset: 4px;
+     border-radius: 2px;
+   }
+
+   /* 열림 방향을 화살표 회전으로 알린다. 텍스트가 바뀌는 것보다
+      상태 변화가 조용하고, 다시 접을 수 있다는 것도 같이 전한다. */
+   .case-story-caret {
+     flex-shrink: 0;
+     transition: transform 0.2s ease;
+   }
+   .case-story[open] .case-story-caret { transform: rotate(90deg); }
+
+   /* 커서를 따라다니는 알약. 홈의 wk-cursor-tag 와 같은 규칙.
+      기본 커서를 숨기지 않는다. 숨기면 클릭 지점을 놓친다. */
+   .case-story-cursor {
+     position: fixed;
+     top: 0;
+     left: 0;
+     z-index: 60;
+     display: inline-flex;
+     align-items: center;
+     gap: 6px;
+     padding: 6px 12px;
+     border-radius: 999px;
+     /* 코발트. 사이트에 색이 둘뿐이라(코발트·플래그) 새 색을 만들면
+        세 번째가 늘어난다. 플래그는 경고색이라 여기 쓰면 뜻이 어긋난다.
+
+        var(--accent) 를 쓰지 않고 값을 고정한 이유가 있다.
+        다크 모드의 accent 는 #4d7cff 로 밝아지는데, 흰 글자를 올리면
+        대비가 3.72 로 AA 에 미달한다. 알약은 자기 배경을 갖고 있어
+        페이지 배경과 무관하므로 두 테마에서 같은 값을 쓴다. 대비 5.99. */
+     background: #2055e6;
+     color: #ffffff;
+     font-family: var(--font-mono, ui-monospace, "SF Mono", monospace);
+     font-size: 12px;
+     white-space: nowrap;
+     pointer-events: none;
+     opacity: 0;
+     transform: translate(-50%, calc(-100% - 14px)) scale(0.9);
+     transition: opacity 140ms ease, transform 140ms cubic-bezier(0.22, 1, 0.36, 1);
+   }
+   .case-story-cursor[data-on='true'] {
+     opacity: 1;
+     transform: translate(-50%, calc(-100% - 14px)) scale(1);
+   }
+   /* 누르는 순간 살짝 어두워지고 줄어든다. 클릭이 손에 잡힌다. */
+   .case-story-cursor[data-press='true'] {
+     background: #1a46c2;
+     transform: translate(-50%, calc(-100% - 14px)) scale(0.94);
+   }
+
+   /* 손가락이 있는 기기에는 커서가 없다. 홈과 같은 판정. */
+   @media (pointer: coarse) {
+     .case-story-cursor { display: none; }
+   }
+   @media (prefers-reduced-motion: reduce) {
+     .case-story-cursor { transition: opacity 140ms ease; transform: translate(-50%, calc(-100% - 14px)); }
+   }
+
+   .case-story-body { padding-top: 36px; padding-bottom: 8px; }
+   .case-story-item + .case-story-item { margin-top: 36px; }
+
+   @media (prefers-reduced-motion: reduce) {
+     .case-story summary, .case-story-caret { transition: none; }
+   }

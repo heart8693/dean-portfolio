@@ -32,6 +32,7 @@ import {
 import SiftLiveDemo from '@/components/SiftLiveDemo';
 import CaseNav from '@/components/CaseNav';
 import CaseFooterNav from '@/components/CaseFooterNav';
+import CaseStory from '@/components/CaseStory';
 
 /* 네 케이스가 같은 문법을 쓴다. 데이터만 갈아끼운다.
    컨텍스트로 내려서 하위 피규어들이 prop drilling 없이 읽는다. */
@@ -1366,22 +1367,23 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       </Col>
       )}
 
-      {/* full story. 선택 섹션이다. /thoughts 로 옮기면 뺀다. */}
+      {/* 전체 이야기. 기본 접힘. 이 구간은 이미지가 없는 순수 텍스트라
+          펼쳐두면 케이스가 250단어 길어지고 밀도가 나빠진다. */}
       {cms.fullStory && (
       <Col>
         <Reveal>
-          <section className="mt-20 pt-10" style={{ borderTop: `1px solid ${INK}` }}>
-            <div className="font-mono text-[13px] mb-8" style={{ color: LABEL }}>{cms.fullStory.heading}</div>
-            <div className="space-y-8 measure">
+          <section className="mt-20 pt-10" style={{ borderTop: `1px solid ${RULE}` }}>
+            <CaseStory heading={cms.fullStory.heading}>
               {cms.fullStory.paragraphs.map((p) => (
-                <div key={p.title}>
-                  <h3 className="text-[21px] font-medium tracking-[-0.02em] mb-3" style={{ color: INK }}>{p.title}</h3>
-                  <p className="text-[17px] leading-[1.7]" style={{ color: BODY }}>
+                <div key={p.title} className="case-story-item">
+                  <h3 className="text-[21px] font-medium tracking-[-0.02em] mb-3 measure"
+                    style={{ color: INK }}>{p.title}</h3>
+                  <p className="text-[17px] leading-[1.7] measure" style={{ color: BODY }}>
                     <Mixed text={p.body.text} bold={p.body.bold} />
                   </p>
                 </div>
               ))}
-            </div>
+            </CaseStory>
           </section>
         </Reveal>
       </Col>
@@ -1390,7 +1392,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {/* reflection */}
       <Col>
         <Reveal>
-          <section className="mt-20 pb-4">
+          <section className="mt-20">
             <SectionLabel>Reflection</SectionLabel>
             <div className="space-y-10 mt-2">
               {cms.reflections.map((r) => (

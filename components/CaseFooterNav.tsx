@@ -66,11 +66,11 @@ export default function CaseFooterNav({ slug }: { slug: string }) {
   }
 
   return (
-    <nav
-      aria-label="More projects"
-      className="case-col case-section pb-24"
-      style={{ borderTop: '1px solid var(--hairline)' }}
-    >
+    /* 헤어라인을 넣지 않는다. Footer 가 이미 border-t 를 갖고 있어
+       260px 간격으로 선이 두 줄이 된다. 케이스 안에 헤어라인이 이미
+       22개라 하나 더 쓰면 그냥 또 하나의 구분선으로 읽힌다.
+       아래 여백도 0 이다. Footer 의 mt-32 가 간격을 만든다. */
+    <nav aria-label="More projects" className="case-col case-footer-nav-wrap">
       <div className="case-footer-nav">
         <Item to={n.prev} dir="prev" />
         <Item to={n.next} dir="next" />

@@ -551,6 +551,33 @@ export const siftCaseV2: CaseV2 = {
   },
 
 
+  fullStory: {
+    heading: 'The full story',
+    paragraphs: [
+      {
+        title: 'Why this product',
+        body: {
+          text: 'AI can classify tickets. Every support tool proves it daily. The open question is whether the person held accountable for the output can understand it, calibrate it, and take it back. Triage makes that asymmetry concrete: when the AI misfiles an account deletion as product feedback, the agent answers for it, not the model. I audited Zendesk, Intercom Fin, and Freshdesk. All three lead with resolution volume, show confidence as a raw score, and bury the path to reverse an action.',
+          bold: ['the agent answers for it, not the model'],
+        },
+      },
+      {
+        title: 'How the evidence was graded',
+        body: {
+          text: 'Concept projects invite cherry-picking, so I graded every source before it could influence a decision. Verified meant peer-reviewed or replicated. Directional meant a single credible study. Vendor claim meant marketing numbers, treated only as a signal of what companies believe. The grading changed the design. Frequency framing rests on Verified research and shipped as a core pattern. The feedback-framing decision rested on a Directional finding and shipped as a hypothesis Round 1 was built to check.',
+          bold: ['The grading changed the design'],
+        },
+      },
+      {
+        title: 'What testing did not settle',
+        body: {
+          text: 'Both rounds ran unmoderated in Maze on the wired prototype, blocks identical word for word. Five to seven participants per round is enough to expose a broken flow and not enough to estimate an effect size, so 83.5% to 0% is a before and after of one redesign, not a controlled experiment. With no production data, the model calibration outside my held-out set is untested.',
+          bold: ['not a controlled experiment'],
+        },
+      },
+    ],
+  },
+
   reflections: [
     { num: '01', title: 'Failing in front of seven people',
       body: 'Round 1 broke publicly on my own site. Nobody made me run it, and rebuilding after it is the part of this project I would defend hardest.' },
@@ -879,6 +906,33 @@ export const fipetCaseV2: CaseV2 = {
   },
 
 
+  fullStory: {
+    heading: 'The full story',
+    paragraphs: [
+      {
+        title: 'Why the first test mattered more than the feature',
+        body: {
+          text: 'The app had shipped to the App Store with no usability testing and reviews that repeated the same complaints. I was hired to design one feature. The feature was the reason to run the first test, not the goal of it. Ten interviews came first, and all ten described the app as overwhelming. One said it felt like homework, which is the word a financial literacy app for children cannot afford.',
+          bold: ['The feature was the reason to run the first test, not the goal of it.'],
+        },
+      },
+      {
+        title: 'How the evidence was graded',
+        body: {
+          text: 'Two findings were Verified: only 20% chose competing against a rival as what they liked most, and participants asked to see what the rival answered. Those shipped as design changes. Requests for more game-like mechanics beyond the quiz were Directional, from a smaller number of sessions, and did not change the build. Separating the two kept the round from turning into a wish list.',
+          bold: ['Separating the two kept the round from turning into a wish list.'],
+        },
+      },
+      {
+        title: 'What testing did not settle',
+        body: {
+          text: 'Twenty-two sessions is enough to find a broken entry point and not enough to prove a retention effect. Task success read 100% while misclicks ran at 65.9%, which is the clearest evidence that the metric the company watched was not measuring the thing it believed. I left before the release cycle closed and cannot confirm what shipped.',
+          bold: ['the metric the company watched was not measuring the thing it believed'],
+        },
+      },
+    ],
+  },
+
   reflections: [
     { num: '01', title: 'Introducing testing changed more than any screen',
       body: 'Once everyone had a shared evidence base, the PM stopped defending preferences with intuition and engineers stopped pushing back with their own assumptions. The arguments got smaller and the work got faster.' },
@@ -1198,6 +1252,33 @@ export const lyftCaseV2: CaseV2 = {
   },
 
 
+  fullStory: {
+    heading: 'The full story',
+    paragraphs: [
+      {
+        title: 'Why this problem',
+        body: {
+          text: 'I checked availability at home, rode fifteen minutes, and found every dock taken. Then it happened again. Getting burned by a full dock is an anecdote. It became a brief when I started logging it and looking for the systemic cause. What I found was that Lyft already monitors stations, pays riders to rebalance, and forecasts availability internally. None of it reaches the rider.',
+          bold: ['None of it reaches the rider.'],
+        },
+      },
+      {
+        title: 'How the evidence was graded',
+        body: {
+          text: 'Three figures on price-led rebalancing are Verified, from published work on real systems: revenue up against fixed pricing, rebalancing cost down, and no trucks needed. I used them to size the argument, not to promise an outcome on Lyft specifically. The Bike Angels earnings figure is Directional, a single public report, and it supports only the weaker claim that riders will rebalance for an incentive.',
+          bold: ['to size the argument, not to promise an outcome'],
+        },
+      },
+      {
+        title: 'What testing did not settle',
+        body: {
+          text: 'Ten sessions found a comprehension split, not a preference. Half read the predicted-versus-actual count correctly and half read it as something else entirely. A split is worse than a low score, because trust requires everyone reading the same thing the same way. Round 2 has three fixes queued and no results yet. This project is ongoing and the numbers are honest about their sample sizes.',
+          bold: ['A split is worse than a low score'],
+        },
+      },
+    ],
+  },
+
   reflections: [
     { num: '01', title: 'Reframing the brief was the design decision',
       body: 'Moving from add dock info to surface existing infrastructure changed what I was solving for, how success would be measured, and which directions were worth exploring at all. Two obvious approaches died the moment the brief shifted.' },
@@ -1461,6 +1542,33 @@ export const biaslyCaseV2: CaseV2 = {
 
 
 
+  fullStory: {
+    heading: 'The full story',
+    paragraphs: [
+      {
+        title: 'Why position, not visibility',
+        body: {
+          text: 'The bias indicator was never missing. It sat at the bottom of every card, and 69% of participants could not name the bias of an article they had just spent time reading. Almost all of them said the same thing: they never noticed it. The problem was not that the signal was absent. It was that it arrived after the reader had already formed an opinion.',
+          bold: ['It was that it arrived after the reader had already formed an opinion.'],
+        },
+      },
+      {
+        title: 'What the overlay taught me',
+        body: {
+          text: 'Before moving the chip, I tested a floating badge that appeared when the reader paused on a card. Every session dismissed it inside a second. A decade of the web has trained readers to ignore anything that floats on content, and that training cannot be undone by a better badge. Structural position cannot be trained away the same way. Three sessions ended that direction.',
+          bold: ['Structural position cannot be trained away the same way.'],
+        },
+      },
+      {
+        title: 'What this comparison does not prove',
+        body: {
+          text: 'Twelve people, moderated, same cohort across both rounds, on the prototype rather than in production. The comparison is worth reading only because nothing else moved: same articles, same time on task, one layout change. It is not evidence that the redesign changes what readers believe, only that they can name the lean afterward. Participant footage and internal scoring stayed with the company.',
+          bold: ['only that they can name the lean afterward'],
+        },
+      },
+    ],
+  },
+
   reflections: [
     { num: '01', title: 'The disconfirming finding was the valuable one',
       body: 'Feedback from politically engaged users who found the upfront label distracting was more useful than the data that agreed with me. It clarified who the product is for and changed decisions beyond the feed.' },
@@ -1497,26 +1605,6 @@ export function getCaseV2(slug: string): CaseV2 | null {
 
 export const caseV2Slugs = Object.keys(casesV2)
 
-/* 케이스 끝에서 다음·이전으로 넘어가기 위한 이웃 조회.
-   순서는 casesV2 의 키 순서이고, 그건 홈의 프로젝트 순서와 같다.
-   끝에서 처음으로 돌아가게 순환시킨다. 마지막 케이스에서 막다른 길이
-   되면 읽던 사람이 뒤로가기 말고는 갈 곳이 없다. */
-export type CaseNeighbor = { slug: string; title: string; meta: string }
-
-export function getCaseNeighbors(slug: string): { prev: CaseNeighbor; next: CaseNeighbor } | null {
-  const i = caseV2Slugs.indexOf(slug)
-  if (i === -1) return null
-  const n = caseV2Slugs.length
-  if (n < 2) return null
-  const at = (k: number): CaseNeighbor => {
-    const s = caseV2Slugs[(k + n) % n]
-    const c = casesV2[s]
-    /* 제목과 슬러그는 CaseV2 가 아니라 card 에 있다. */
-    return { slug: c.card.slug, title: c.card.title, meta: c.meta }
-  }
-  return { prev: at(i - 1), next: at(i + 1) }
-}
-
 
 // ═══════════════════════════════════════════════════════
 //  홈 목록용 헬퍼.
@@ -1538,4 +1626,27 @@ export function getFeatured(): CaseCard[] {
 
 export function getAllSorted(): CaseCard[] {
   return [...projects].sort((a, b) => a.order - b.order)
+}
+
+// ═══════════════════════════════════════════════════════
+//  케이스 끝의 다음·이전 이동.
+//  순서는 casesV2 의 키 순서이고 그건 홈의 프로젝트 순서와 같다.
+//  끝에서 처음으로 순환한다. 마지막 케이스가 막다른 길이 되면
+//  읽던 사람이 뒤로가기 말고는 갈 곳이 없다.
+// ═══════════════════════════════════════════════════════
+
+export type CaseNeighbor = { slug: string; title: string; meta: string }
+
+export function getCaseNeighbors(slug: string): { prev: CaseNeighbor; next: CaseNeighbor } | null {
+  const i = caseV2Slugs.indexOf(slug)
+  if (i === -1) return null
+  const n = caseV2Slugs.length
+  if (n < 2) return null
+  const at = (k: number): CaseNeighbor => {
+    const s = caseV2Slugs[(k + n) % n]
+    const c = casesV2[s]
+    /* 제목과 슬러그는 CaseV2 가 아니라 card 에 있다. */
+    return { slug: c.card.slug, title: c.card.title, meta: c.meta }
+  }
+  return { prev: at(i - 1), next: at(i + 1) }
 }
