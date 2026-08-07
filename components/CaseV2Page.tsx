@@ -31,6 +31,7 @@ import {
 } from '@/lib/cms';
 import SiftLiveDemo from '@/components/SiftLiveDemo';
 import CaseNav from '@/components/CaseNav';
+import CaseFooterNav from '@/components/CaseFooterNav';
 
 /* 네 케이스가 같은 문법을 쓴다. 데이터만 갈아끼운다.
    컨텍스트로 내려서 하위 피규어들이 prop drilling 없이 읽는다. */
@@ -1389,7 +1390,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {/* reflection */}
       <Col>
         <Reveal>
-          <section className="mt-20 pb-28">
+          <section className="mt-20 pb-4">
             <SectionLabel>Reflection</SectionLabel>
             <div className="space-y-10 mt-2">
               {cms.reflections.map((r) => (
@@ -1403,6 +1404,9 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
           </section>
         </Reveal>
       </Col>
+
+      {/* 다음·이전 프로젝트. Reflection 으로 끝나면 갈 곳이 뒤로가기뿐이다. */}
+      <CaseFooterNav slug={cms.card.slug} />
 
         </div>
       </div>

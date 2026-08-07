@@ -1497,6 +1497,26 @@ export function getCaseV2(slug: string): CaseV2 | null {
 
 export const caseV2Slugs = Object.keys(casesV2)
 
+/* 케이스 끝에서 다음·이전으로 넘어가기 위한 이웃 조회.
+   순서는 casesV2 의 키 순서이고, 그건 홈의 프로젝트 순서와 같다.
+   끝에서 처음으로 돌아가게 순환시킨다. 마지막 케이스에서 막다른 길이
+   되면 읽던 사람이 뒤로가기 말고는 갈 곳이 없다. */
+export type CaseNeighbor = { slug: string; title: string; meta: string }
+
+export function getCaseNeighbors(slug: string): { prev: CaseNeighbor; next: CaseNeighbor } | null {
+  const i = caseV2Slugs.indexOf(slug)
+  if (i === -1) return null
+  const n = caseV2Slugs.length
+  if (n < 2) return null
+  const at = (k: number): CaseNeighbor => {
+    const s = caseV2Slugs[(k + n) % n]
+    const c = casesV2[s]
+    /* 제목과 슬러그는 CaseV2 가 아니라 card 에 있다. */
+    return { slug: c.card.slug, title: c.card.title, meta: c.meta }
+  }
+  return { prev: at(i - 1), next: at(i + 1) }
+}
+
 
 // ═══════════════════════════════════════════════════════
 //  홈 목록용 헬퍼.

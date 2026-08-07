@@ -920,6 +920,17 @@ body.wk-code .wk-tokens {
       모든 섹션의 여백이 0 이 된다. 그 규칙은 쓰지 않는다. */
    .case-section { margin-top: 80px; }
 
+   /* 케이스 끝 다음·이전. 좁은 화면에서는 세로로 쌓는다.
+      가로 2단을 유지하면 제목이 잘게 접혀 읽기 어렵다. */
+   .case-footer-nav { display: grid; gap: 8px; }
+   @media (min-width: 768px) {
+     .case-footer-nav {
+       grid-template-columns: 1fr 1fr;
+       gap: 40px;
+       align-items: start;
+     }
+   }
+
    /* 레일 자체. sticky 로 따라오되 자리는 그리드가 잡아준다. */
    .case-rail-inner {
      position: sticky;
