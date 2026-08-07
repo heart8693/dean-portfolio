@@ -1380,10 +1380,10 @@ export const biaslyCaseV2: CaseV2 = {
     ],
 
     r2Hotspots: [
-      { x: '50%', y: '34%',
+      { x: '43%', y: '46%',
         title: 'On the image',
         body: 'The chip sits over the photograph, above the headline. It cannot be skipped on the way to the text.' },
-      { x: '45%', y: '45%',
+      { x: '51%', y: '54%',
         title: 'Source stays below',
         body: 'Outlet and timestamp move under the headline. The lean is the only thing promoted, so the hierarchy still reads.' },
     ],
