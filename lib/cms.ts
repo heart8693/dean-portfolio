@@ -324,7 +324,7 @@ export const siftCaseV2: CaseV2 = {
   overview: {
     label: 'Overview',
     body: {
-      text: 'AI ticket tools compete on how much they can automate. Agents don’t need more automation. They need to see what the AI did, why, and how to take it back. I designed Sift end to end, tested it in two rounds with twelve working CX professionals, and fine-tuned the classification model myself.',
+      text: 'Agents do not need more automation. They need to see what the AI did, why, and how to take it back. Designed end to end, tested in two rounds with twelve CX professionals, model fine-tuned by me.',
       bold: ['see what the AI did, why, and how to take it back', 'fine-tuned the classification model myself'],
     },
     linkLabel: 'Open the prototype',
@@ -334,7 +334,7 @@ export const siftCaseV2: CaseV2 = {
   outcome: {
     label: 'Outcome',
     body: {
-      text: 'Two rounds of usability testing, a redesign between them, and a working model underneath. The design shipped as 21 wired screens with a live in-browser demo. Not a mockup of intelligence, but the thing itself.',
+      text: '21 wired screens and a live in-browser demo. Not a mockup of intelligence, but the thing itself.',
       bold: ['21 wired screens with a live in-browser demo', 'not a mockup of intelligence, but the thing itself'],
     },
     results: [
@@ -396,7 +396,7 @@ export const siftCaseV2: CaseV2 = {
     label: 'Evidence',
     statement: 'Averages hide fights. Distributions show them.',
     body: {
-      text: 'Round 1’s average of 3.0 looked unremarkable. The distribution wasn’t: a cluster at 4 and a cluster at 1 to 2, split by whether people ever found the control. Round 2 asked the same question of the same population. Every participant answered 4 or 5.',
+      text: 'A cluster at 4 and a cluster at 1 to 2, split by whether people ever found the control. Round 2 asked the same question of the same population.',
       bold: ['a cluster at 4 and a cluster at 1 to 2', 'every participant answered 4 or 5'],
     },
     rounds: [
@@ -411,7 +411,7 @@ export const siftCaseV2: CaseV2 = {
     label: 'Solution 01',
     statement: 'Confidence, written as a sentence people can calibrate',
     body: {
-      text: 'Raw percentages lie to the gut. Every number carries a frequency line, right about 41 of 100 on tickets like this, and it appears in all three places the agent meets the AI.',
+      text: 'Raw percentages lie to the gut. Every number carries a frequency line: right about 41 of 100 on tickets like this.',
       bold: ['right about 41 of 100', 'all three places'],
     },
     bento: {
@@ -454,7 +454,7 @@ export const siftCaseV2: CaseV2 = {
     label: 'Solution 02',
     statement: 'A dial the agent owns, and friction only where it earns its cost',
     body: {
-      text: 'How much the AI does is a setting, not a policy handed down. One threshold per category, because a bug report and an account deletion are not the same risk. Account deletion stays Always human, permanently.',
+      text: 'One threshold per category, because a bug report and an account deletion are not the same risk. Account deletion stays Always human.',
       bold: ['a setting, not a policy', 'Always human, permanently'],
     },
     image: '/images/sift-friction-confirm.png',
@@ -479,7 +479,7 @@ export const siftCaseV2: CaseV2 = {
         verdict: '✗',
         title: 'Automate everything, undo after',
         what: 'The AI files every ticket on its own. The agent gets a complete activity log and a global undo.',
-        why: 'When everything is automatic, review atrophies. An auto-processed account deletion is not an undo story, it is an incident.',
+        why: 'When everything is automatic, review atrophies. An auto-processed account deletion is an incident.',
       },
       {
         verdict: '✓',
@@ -501,7 +501,7 @@ export const siftCaseV2: CaseV2 = {
     label: 'Under the hood',
     statement: 'The model is real, and it runs in the browser',
     body: {
-      text: 'Rather than mock the intelligence, I built it: a DistilBERT classifier fine-tuned on 24,370 support tickets, calibrated to ECE 0.0016, quantized to 68 MB and deployed with transformers.js. Every confidence number in the design comes from a model that actually produces it, and nothing you type leaves the page.',
+      text: 'A DistilBERT classifier fine-tuned on 24,370 tickets, calibrated to ECE 0.0016, quantized to 68 MB, deployed with transformers.js. Nothing you type leaves the page.',
       bold: ['I built it', 'calibrated to ECE 0.0016', 'nothing you type leaves the page'],
     },
     specs: [
@@ -524,7 +524,7 @@ export const siftCaseV2: CaseV2 = {
     label: 'Research',
     statement: 'Even at 95%, experts still read the ticket',
     body: {
-      text: 'Four stimuli, one identical ticket, only the stated confidence varied. Three of five professionals checked the source before accepting at 95%. That isn’t distrust. It’s their name on the decision. So the design stopped asking for trust and started making verifying fast.',
+      text: 'Three of five checked the source before accepting at 95%. That is not distrust. It is their name on the decision, so the design stopped asking for trust and made verifying fast.',
       bold: ['Three of five professionals checked the source', 'making verifying fast'],
     },
   },
@@ -586,7 +586,7 @@ export const fipetCaseV2: CaseV2 = {
   overview: {
     label: 'Overview',
     body: {
-      text: 'FiPet launched with no usability testing, few downloads, and reviews that repeated the same complaints. I led design for a new 1v1 Quiz Battle feature, built the design system the rest of the team adopted, and ran the first usability test in the company’s history.',
+      text: 'Launched with no usability testing and reviews that repeated the same complaints. I led design on a new 1v1 Quiz Battle, built the design system the team adopted, and ran the company’s first usability test.',
       bold: ['no usability testing', 'the first usability test in the company’s history'],
     },
     linkLabel: 'Open the coded prototype',
@@ -596,7 +596,7 @@ export const fipetCaseV2: CaseV2 = {
   outcome: {
     label: 'Outcome',
     body: {
-      text: 'Thirty screens, a design system adopted beyond my feature, and a testing practice the team kept. The numbers below come from Round 1, the company’s first test.',
+      text: 'Thirty screens, a design system adopted beyond my feature, and a testing practice the team kept.',
       bold: ['a design system adopted beyond my feature', 'the company’s first test'],
     },
     results: [
@@ -627,7 +627,7 @@ export const fipetCaseV2: CaseV2 = {
     label: 'Evidence',
     statement: 'The first task failed before anyone reached the game.',
     body: {
-      text: 'Round 1 logged 22 recorded sessions. Task success was 100%, which looked fine until the misclick rate came in at 65.9% on the first task. One participant explained it plainly: the Start button sat below the fold, so they read the page as a buffer screen. Average duration was 228 seconds for what should have been an obvious entry point.',
+      text: 'Task success was 100%, which looked fine until misclicks came in at 65.9%. The Start button sat below the fold, so people read the page as a buffer screen.',
       bold: ['65.9% on the first task', 'the Start button sat below the fold'],
     },
   },
@@ -636,7 +636,7 @@ export const fipetCaseV2: CaseV2 = {
     label: 'Research',
     statement: 'Naming a feature 1v1 is not enough if it plays solo.',
     body: {
-      text: 'When asked what they liked most, only 20% chose competing against a rival, the lowest of three options. Participants wanted to see what the rival answered, not just a score at the end. The fix was to show the rival’s answer on the reveal screen and add a waiting state during their turn, so the competition is visible while it happens rather than summarised afterward.',
+      text: 'Only 20% chose competing against a rival, the lowest of three options. They wanted to see what the rival answered, not a score at the end.',
       bold: ['only 20% chose competing against a rival'],
     },
   },
@@ -645,7 +645,7 @@ export const fipetCaseV2: CaseV2 = {
     label: 'Solution 01',
     statement: 'Play Again, not Buy with earned coins',
     body: {
-      text: 'The PM wanted the shop as the primary action on the result screen. Users had just earned coins, and conversion would never be higher. I argued the opposite, and the disagreement was about who the user actually is.',
+      text: 'The PM wanted the shop as the primary action. Conversion would never be higher. I argued the opposite, and the disagreement was about who the user actually is.',
       bold: ['The PM wanted the shop as the primary action'],
     },
     bento: {
@@ -688,7 +688,7 @@ export const fipetCaseV2: CaseV2 = {
     label: 'Solution 02',
     statement: 'A system four decisions wide, so the team could actually use it',
     body: {
-      text: 'One orange accent on a flat cream background, Inter throughout, SVG line icons, an 8pt grid. I scoped it small on purpose. The rest of the team adopted it for the broader redesign, which is the only measure of a design system that matters.',
+      text: 'One orange accent, Inter, SVG icons, an 8pt grid. Scoped small on purpose. The team adopted it for the broader redesign, which is the only measure that matters.',
       bold: ['I scoped it small on purpose', 'the only measure of a design system that matters'],
     },
     image: '/images/fipet-system-v2.webp',
@@ -765,7 +765,7 @@ export const fipetCaseV2: CaseV2 = {
       { label: 'task success', value: 100, display: '100%',
         note: 'Per task block, across 22 recorded sessions on the core flow.' },
       { label: 'misclick rate, task 1', value: 65.9, display: '65.9%', hot: true,
-        note: 'The Start button sat below the fold, so participants read the page as a buffer screen and tapped everywhere else first.' },
+        note: 'The Start button sat below the fold, so the page read as a buffer screen.' },
       { label: 'avg duration, task 1', value: 228, display: '228s',
         note: 'For an entry point that should have been obvious.' },
       { label: 'would play again', value: 90, display: '90%',
@@ -799,7 +799,7 @@ export const fipetCaseV2: CaseV2 = {
           { label: 'Match ends' }, { label: 'Coins awarded' },
           { label: 'Play Again', fork: true }, { label: 'Next match' }, { label: 'Shop, from home' },
         ],
-        note: 'The shop stays one tap from home, so nothing is lost. What changes is which action gets the emotional peak.',
+        note: 'The shop stays one tap from home. What changes is which action gets the emotional peak.',
       },
     ],
     forkNote: 'Round 1 later measured the call: 90% said they would play again.',
@@ -832,7 +832,7 @@ export const fipetCaseV2: CaseV2 = {
     label: 'Under the hood',
     statement: 'Some questions a static prototype cannot answer',
     body: {
-      text: 'After Round 1 the obvious next step was another Figma iteration. I argued against it. Real timer pressure, live score updates, rival turn-taking, and answer-switching mid-question cannot be faked in a static prototype, and Round 1 had shown that is exactly where the remaining unknowns lived. I built it in React and deployed it.',
+      text: 'The obvious next step was another Figma iteration. I argued against it. Timer pressure, live scores, and answer-switching cannot be faked in a static prototype, and that is where the unknowns lived.',
       bold: ['I argued against it', 'is exactly where the remaining unknowns lived'],
     },
     specs: [
@@ -898,7 +898,7 @@ export const lyftCaseV2: CaseV2 = {
   overview: {
     label: 'Overview',
     body: {
-      text: 'Lyft already runs AirControl for real-time station monitoring, pays riders through Bike Angels to rebalance the network, and forecasts dock availability internally. None of it reaches the rider. I designed the UX layer that surfaces what already exists, which makes this mostly a frontend lift rather than new technology.',
+      text: 'Lyft already monitors stations, pays riders to rebalance, and forecasts dock availability. None of it reaches the rider. I designed the layer that surfaces what already exists.',
       bold: ['None of it reaches the rider', 'mostly a frontend lift rather than new technology'],
     },
     linkLabel: 'Open the prototype',
@@ -908,7 +908,7 @@ export const lyftCaseV2: CaseV2 = {
   outcome: {
     label: 'Outcome',
     body: {
-      text: 'Round 1 validated the dock prediction direction, pushed back on the pricing hypothesis, and produced three specific fixes for Round 2. The project is ongoing and the numbers below are honest about their sample sizes.',
+      text: 'Round 1 validated the prediction direction and pushed back on the pricing hypothesis. The project is ongoing and the numbers are honest about their sample sizes.',
       bold: ['pushed back on the pricing hypothesis'],
     },
     results: [
@@ -917,7 +917,7 @@ export const lyftCaseV2: CaseV2 = {
       { value: 100, suffix: '%', label: 'dock planning success',
         desc: 'Every recorded session completed the dock planning flow. 10 sessions.' },
       { value: 4, suffix: ' / 4', label: 'features already running at Lyft',
-        desc: 'AirControl supplies station state, Bike Angels proves riders rebalance for an incentive, internal prediction supplies the forecast, and Live Activities delivers the mid-ride alert. The contribution is the display layer.' },
+        desc: 'Station state, rider incentives, forecasts, and mid-ride alerts all run today. The contribution is the display layer.' },
     ],
   },
 
@@ -927,7 +927,7 @@ export const lyftCaseV2: CaseV2 = {
     label: 'Evidence',
     statement: 'The display meant two different things to two halves of the room.',
     body: {
-      text: 'Half the participants read the predicted-versus-actual dock count correctly. The other half did not: one took it as walking-speed variance, another as the number of riders currently unlocking bikes. A comprehension split is worse than a low score, because trust requires everyone reading the same thing the same way.',
+      text: 'Half read the predicted-versus-actual count correctly. The other half took it as walking-speed variance, or as riders currently unlocking. A split is worse than a low score.',
       bold: ['A comprehension split is worse than a low score'],
     },
   },
@@ -936,7 +936,7 @@ export const lyftCaseV2: CaseV2 = {
     label: 'Research',
     statement: 'Existing internal tools are a tell.',
     body: {
-      text: 'AirControl and Bike Angels exist because the rider-facing product could not steer the network, so the network had to be managed from outside it. When a company builds tooling that operates around its primary product, the primary product usually has a gap. That question, what is the operations team using that the product cannot do, is the one I now ask at the start of a project.',
+      text: 'These tools exist because the rider-facing product could not steer the network. When a company builds tooling around its primary product, the product usually has a gap. That is the question I now ask first.',
       bold: ['the primary product usually has a gap'],
     },
   },
@@ -945,7 +945,7 @@ export const lyftCaseV2: CaseV2 = {
     label: 'Solution 01',
     statement: 'The incentive lives inside a number riders already compare',
     body: {
-      text: 'Per-minute rate moves with station supply. Overstocked stations price lower to clear bikes, understocked stations price higher to protect what is left. No badge, no banner, no new UI to learn.',
+      text: 'Overstocked stations price lower to clear bikes, understocked price higher to protect what is left. No badge, no banner, no new UI.',
       bold: ['No badge, no banner, no new UI to learn'],
     },
     bento: {
@@ -1089,7 +1089,7 @@ export const lyftCaseV2: CaseV2 = {
     label: 'The gap',
     statement: 'Everything needed already runs. None of it reaches the rider.',
     body: {
-      text: 'This is not a technology problem, which is why it is worth designing. The forecasts, the incentives, and the live station state all exist inside Lyft. They stop at the operations layer.',
+      text: 'The forecasts, the incentives, and the live station state all exist inside Lyft. They stop at the operations layer.',
       bold: ['They stop at the operations layer'],
     },
     leftLabel: 'What Lyft already runs',
@@ -1106,7 +1106,7 @@ export const lyftCaseV2: CaseV2 = {
       { name: 'Why this station is cheaper', detail: 'Not shown. The rate moves without explanation.', missing: true },
       { name: 'What happens if the dock fills', detail: 'Not shown until you are standing at it.', missing: true },
     ],
-    note: 'Three of four rider-facing gaps are display problems, not modelling problems. That is what makes this mostly a frontend lift.',
+    note: 'Three of four gaps are display problems, not modelling problems.',
   },
 
   /* underHood.specs 에 있는 수치의 출처를 펼친다. */
@@ -1139,7 +1139,7 @@ export const lyftCaseV2: CaseV2 = {
     label: 'Under the hood',
     statement: 'Every feature maps to something Lyft already runs',
     body: {
-      text: 'AirControl supplies real-time station state. Bike Angels already proves riders will rebalance for an incentive, with top users earning $3K a month. The Live Activities API delivers passive mid-ride alerts. Internal demand prediction supplies the forecasts. The contribution is the UX layer, not the technology.',
+      text: 'Station state, rider incentives, mid-ride alerts, demand forecasts. All four already run. The contribution is the display layer, not the technology.',
       bold: ['The contribution is the UX layer, not the technology'],
     },
     specs: [
@@ -1205,7 +1205,7 @@ export const biaslyCaseV2: CaseV2 = {
   overview: {
     label: 'Overview',
     body: {
-      text: 'Biasly exists to show political bias before you engage with a story. The indicator was there, at the bottom of every card, arriving after the reader had already formed an opinion. I moved it above the headline and replaced the text label with a spectrum that reads at scroll speed.',
+      text: 'The indicator was already there, at the bottom of every card, arriving after the reader had formed an opinion. I moved it above the headline and made it a spectrum.',
       bold: ['arriving after the reader had already formed an opinion'],
     },
     linkLabel: 'Open the prototype',
@@ -1246,7 +1246,7 @@ export const biaslyCaseV2: CaseV2 = {
     label: 'Evidence',
     statement: 'An overlay was dismissed as an ad within one second, every time.',
     body: {
-      text: 'I tested a floating badge that appeared when the reader paused on a card. Every session dismissed it inside a second. Readers have been trained by a decade of the web to ignore anything that floats on top of content. Structural position cannot be trained away the same way, and that finding ended the overlay direction after three sessions.',
+      text: 'Every session dismissed the floating badge inside a second. A decade of the web has trained readers to ignore anything that floats on content. Structural position cannot be trained away.',
       bold: ['Every session dismissed it inside a second', 'Structural position cannot be trained away'],
     },
   },
@@ -1255,7 +1255,7 @@ export const biaslyCaseV2: CaseV2 = {
     label: 'Research',
     statement: 'The most useful finding came from users I was not designing for.',
     body: {
-      text: 'Two politically engaged participants said the upfront label was distracting on topics where they already held a firm view. They wanted to judge the headline before knowing the source’s leaning. That forced a real decision with the PM about who the product is for, and the answer was readers becoming more aware rather than readers who already are. The header position stayed, and the finding rewrote the onboarding copy instead.',
+      text: 'Two politically engaged participants wanted to judge the headline before knowing the leaning. That forced a decision about who the product is for. The header stayed, and the finding rewrote the onboarding copy.',
       bold: ['who the product is for'],
     },
   },
@@ -1264,7 +1264,7 @@ export const biaslyCaseV2: CaseV2 = {
     label: 'Solution 01',
     statement: 'Bias arrives before the headline, encoded rather than written',
     body: {
-      text: 'The pill moved to the card header, next to the source name, first in every scan sequence. The text label became a left-to-right spectrum, so direction and intensity register together without reading.',
+      text: 'The pill moved to the card header, first in every scan sequence. The label became a spectrum, so direction and intensity register without reading.',
       bold: ['first in every scan sequence'],
     },
     bento: {
@@ -1288,7 +1288,7 @@ export const biaslyCaseV2: CaseV2 = {
           { label: 'Constrained thumbnail', active: true },
         ],
         sliderPct: 40,
-        note: 'Not an aesthetic call. It was the only way to give bias enough visual weight to compete with a large image.',
+        note: 'The only way to give bias enough weight to compete with a large image.',
       },
       c: {
         tag: 'Across surfaces',
@@ -1357,7 +1357,7 @@ export const biaslyCaseV2: CaseV2 = {
       },
       image: '/images/biasly-spectrum.webp',
       imageAlt: 'The bias spectrum colours and the three things that changed between versions',
-      caption: 'Blue as left and red as right is an American convention, and a recent one. That is a limit of this design.',
+      caption: 'Blue as left and red as right is an American convention. A limit of this design.',
       layout: 'inset',
       ratio: '1536 / 707',
     },
@@ -1367,7 +1367,7 @@ export const biaslyCaseV2: CaseV2 = {
     label: 'Before and after',
     statement: 'Same participants, same task, one variable changed.',
     body: {
-      text: 'The comparison is only worth reading because nothing else moved. Same twelve people, same articles, same time on task. The layout was the single change between the two rounds.',
+      text: 'Same twelve people, same articles, same time on task. The layout was the single change.',
       bold: ['nothing else moved'],
     },
     rows: [
@@ -1390,18 +1390,18 @@ export const biaslyCaseV2: CaseV2 = {
     label: 'What is not here',
     statement: 'Some of this work is not mine to publish',
     body: {
-      text: 'This was internship work on a live product. The screens above are the ones I can show. Two things are missing from this case, and the reason is the same for both.',
+      text: 'Internship work on a live product. Two things are missing, and the reason is the same for both.',
       bold: ['the ones I can show'],
     },
     items: [
       { tag: 'not published',
         what: 'The production feed',
-        why: 'I left before the release cycle closed and cannot confirm what shipped. Claiming a launch I did not witness would be the easiest thing in this case study to disprove.' },
+        why: 'I left before the release cycle closed and cannot confirm what shipped. Claiming a launch I did not witness would be the easiest thing here to disprove.' },
       { tag: 'internal',
         what: 'Session recordings and the raw scoring sheet',
-        why: 'Participant footage and internal scoring stayed with the company. The figures above are what I am able to report from my own notes.' },
+        why: 'Participant footage and internal scoring stayed with the company. The figures are from my own notes.' },
     ],
-    note: 'Deciding what to withhold is part of the work. A case study that shows everything either had nothing confidential in it or should not be public.',
+    note: 'A case study that shows everything either had nothing confidential in it or should not be public.',
   },
 
 
@@ -1410,7 +1410,7 @@ export const biaslyCaseV2: CaseV2 = {
     { num: '01', title: 'The disconfirming finding was the valuable one',
       body: 'Feedback from politically engaged users who found the upfront label distracting was more useful than the data that agreed with me. It clarified who the product is for and changed decisions beyond the feed.' },
     { num: '02', title: 'Sequence is a design material',
-      body: 'The indicator was always visible. It was never early. Changing when something appears turned out to be a larger intervention than changing how it looks.' },
+      body: 'The indicator was always visible. It was never early. When something appears is a larger intervention than how it looks.' },
   ],
 
   footer: {
