@@ -192,6 +192,12 @@ export type V2DemandCycle = {
   failures: { title: string; body: string }[]
 }
 
+
+/* 좌측 레일 항목. 자동 생성하지 않는 이유는 섹션이 열넷까지 있어서다.
+   전부 나열하면 목록이 스크롤되고, 그 순간 목차 구실을 못 한다.
+   라벨은 내부 필드명이 아니라 읽는 사람의 말로 다시 쓴다. */
+export type V2NavItem = { id: string; label: string }
+
 /* 홈 목록 카드에 쓰는 정보. 케이스 본문과 한 곳에서 관리한다. */
 export type CaseCard = {
   slug: string
@@ -213,6 +219,7 @@ export type CaseV2 = {
   h1: [string, string]           // 두 줄
   heroImage: string
   heroAlt: string
+  nav?: V2NavItem[]
   demandCycle?: V2DemandCycle
   figures?: V2Figure[]
   bars?: V2Bars
@@ -320,6 +327,16 @@ export const siftCaseV2: CaseV2 = {
     text: '83.5% of support professionals clicked everywhere except the control that decides how much the AI does.',
     bold: '83.5% of support professionals',
   },
+
+  nav: [
+    { id: 'overview', label: 'Overview' },
+    { id: 'outcome', label: 'Outcome' },
+    { id: 'evidence', label: 'What testing found' },
+    { id: 'solution-1', label: 'Confidence' },
+    { id: 'solution-2', label: 'Controls' },
+    { id: 'exploration', label: 'Three architectures' },
+    { id: 'under-hood', label: 'The model' },
+  ],
 
   overview: {
     label: 'Overview',
@@ -582,6 +599,17 @@ export const fipetCaseV2: CaseV2 = {
     text: '10 of 10 interview participants called the app overwhelming. One said it felt like homework, which is the exact word a financial literacy app for kids cannot afford.',
     bold: '10 of 10 interview participants',
   },
+
+  nav: [
+    { id: 'overview', label: 'Overview' },
+    { id: 'outcome', label: 'Outcome' },
+    { id: 'bars', label: 'Round 1 numbers' },
+    { id: 'evidence', label: 'What testing found' },
+    { id: 'solution-1', label: 'The disagreement' },
+    { id: 'solution-2', label: 'Design system' },
+    { id: 'exploration', label: 'Three home screens' },
+    { id: 'under-hood', label: 'Coded prototype' },
+  ],
 
   overview: {
     label: 'Overview',
@@ -895,6 +923,17 @@ export const lyftCaseV2: CaseV2 = {
     bold: 'found every dock taken',
   },
 
+  nav: [
+    { id: 'overview', label: 'Overview' },
+    { id: 'outcome', label: 'Outcome' },
+    { id: 'system-gap', label: 'The gap' },
+    { id: 'evidence', label: 'What testing found' },
+    { id: 'demand-cycle', label: 'Why docks empty' },
+    { id: 'solution-1', label: 'Dynamic pricing' },
+    { id: 'exploration', label: 'Three directions' },
+    { id: 'under-hood', label: 'Already running' },
+  ],
+
   overview: {
     label: 'Overview',
     body: {
@@ -1201,6 +1240,15 @@ export const biaslyCaseV2: CaseV2 = {
     text: '69% of participants could not identify the bias of articles they had just spent time reading. Almost all of them said the same thing: they never noticed it.',
     bold: '69% of participants',
   },
+
+  nav: [
+    { id: 'overview', label: 'Overview' },
+    { id: 'outcome', label: 'Outcome' },
+    { id: 'bars', label: 'Before and after' },
+    { id: 'evidence', label: 'What testing found' },
+    { id: 'solution-1', label: 'The move' },
+    { id: 'redacted', label: 'What is not here' },
+  ],
 
   overview: {
     label: 'Overview',

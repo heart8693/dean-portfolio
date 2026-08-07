@@ -27,8 +27,10 @@ import {
   type CaseV2, type V2Body, type V2Hotspot,
   type V2Bars, type V2FlowCompare, type V2SystemGap,
   type V2ResearchNotes, type V2Redacted, type V2Figure, type V2DemandCycle,
+  type V2NavItem,
 } from '@/lib/cms';
 import SiftLiveDemo from '@/components/SiftLiveDemo';
+import CaseNav from '@/components/CaseNav';
 
 /* 네 케이스가 같은 문법을 쓴다. 데이터만 갈아끼운다.
    컨텍스트로 내려서 하위 피규어들이 prop drilling 없이 읽는다. */
@@ -120,24 +122,30 @@ const SectionLabel = ({ children }: { children: ReactNode }) => (
 );
 
 const Statement = ({ children }: { children: ReactNode }) => (
-  <h2 className="text-[24px] md:text-[30px] font-normal tracking-[-0.02em] leading-[1.36] mb-4 max-w-[900px]"
+  <h2 className="text-[24px] md:text-[30px] font-normal tracking-[-0.02em] leading-[1.36] mb-4 measure-lead"
     style={{ color: INK }}>
     {children}
   </h2>
 );
 
 const BodyP = ({ b }: { b: V2Body }) => (
-  <p className="text-[17px] leading-[1.72] max-w-[820px]" style={{ color: BODY }}>
+  <p className="text-[17px] leading-[1.72] measure" style={{ color: BODY }}>
     <Mixed text={b.text} bold={b.bold} />
   </p>
 );
 
 /* 캔버스 1440, 콘텐츠 1120. lg 이상에서 좌우 패딩 0이라야 1120 이 정확히 나온다. */
+/* 좌측 레일이 자리를 차지하므로 본문을 그만큼 오른쪽으로 민다.
+   레일 200px + 간격 64px = 264px. xl 미만에서는 레일이 없으므로 중앙 정렬. */
+/* 레이아웃은 globals.css 의 .case-col / .case-media 에 있다.
+   Tailwind 임의값은 이 프로젝트에서 생성이 불안정해서, 둘이 같은
+   규칙을 쓰도록 평범한 CSS 로 옮겼다. 그래야 제목과 이미지의
+   왼쪽 끝이 어긋날 수 없다. */
 const Col = ({ children }: { children: ReactNode }) => (
-  <div className="mx-auto w-full max-w-[1120px] px-6 lg:px-0">{children}</div>
+  <div className="case-col">{children}</div>
 );
 
-const MEDIA = 'mx-auto w-full max-w-[1120px]';
+const MEDIA = 'case-media';
 /* 이미지 컨테이너 라운딩. 홈 카드와 같은 14px 로 맞춘다.
    Sift 는 PNG 에 구워져 있었고 나머지 셋은 없었다. 코드에서 통일하면
    export 방식과 무관하게 네 케이스가 같은 모양이 된다. */
@@ -147,7 +155,7 @@ const FIG = 'overflow-hidden rounded-[14px]';
    stack = 라벨 위 / split = 라벨이 왼쪽 컬럼 */
 function Split({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="grid gap-x-10 gap-y-4 md:grid-cols-[180px_1fr] pt-8"
+    <div className="case-split pt-8"
       style={{ borderTop: `1px solid ${RULE}` }}>
       <div className="font-mono text-[13px]" style={{ color: LABEL }}>{label}</div>
       <div>{children}</div>
@@ -325,7 +333,7 @@ function BeforeAfterToggle() {
             </motion.div>
           </AnimatePresence>
         </div>
-        <div className="mt-4 font-mono text-[13px] max-w-[620px] leading-[1.6]" style={{ color: LABEL }}>
+        <div className="mt-4 font-mono text-[13px] measure-sm leading-[1.6]" style={{ color: LABEL }}>
           {d.hint}
         </div>
       </div>
@@ -379,7 +387,7 @@ function ConfidenceLedger() {
               </span>
             ))}
           </div>
-          <div className="relative h-1 rounded-full mt-6 max-w-[480px]" style={{ background: RULE }}>
+          <div className="relative h-1 rounded-full mt-6 measure-sm" style={{ background: RULE }}>
             <motion.div className="absolute inset-y-0 left-0 rounded-full"
               style={{ background: COBALT }}
               initial={{ width: 0 }} whileInView={{ width: `${b.sliderPct}%` }}
@@ -412,11 +420,11 @@ function ConfidenceLedger() {
     <div>
       {rows.map((r, i) => (
         <Reveal key={r.tag}>
-          <div className="grid gap-x-10 gap-y-3 md:grid-cols-[180px_1fr] py-10"
+          <div className="case-split py-10"
             style={{ borderTop: `1px solid ${RULE}` }}>
             <div className="font-mono text-[13px]" style={{ color: i === 0 ? INK : LABEL }}>{r.tag}</div>
             <div>
-              <p className="text-[21px] md:text-[24px] leading-[1.45] tracking-[-0.02em] max-w-[640px]"
+              <p className="text-[21px] md:text-[24px] leading-[1.45] tracking-[-0.02em] measure-lead"
                 style={{ color: INK }}>{r.lead}</p>
               {r.detail}
             </div>
@@ -439,17 +447,21 @@ function Alternatives() {
         const chosen = c.verdict === '✓';
         return (
           <Reveal key={c.title}>
-            <div className="grid gap-x-8 gap-y-3 md:grid-cols-[24px_260px_1fr] py-8"
+            <div className="case-split py-8"
               style={{ borderTop: `1px solid ${chosen ? INK : RULE}` }}>
 
-              <div className="font-mono text-[13px]" style={{ color: chosen ? COBALT : LABEL }}>
-                {String(i + 1).padStart(2, '0')}
-              </div>
-
+              {/* 번호를 별도 컬럼으로 빼면 정렬선이 하나 늘어난다.
+                  제목과 같은 줄에 두어 본문 시작점을 다른 섹션과 맞춘다. */}
               <div>
-                <div className="text-[17px] leading-[1.5] tracking-[-0.02em]"
-                  style={{ color: INK }}>
-                  {c.title}
+                <div className="case-mark-head">
+                  <span className="font-mono text-[13px]"
+                    style={{ color: chosen ? COBALT : LABEL }}>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className="text-[17px] leading-[1.5] tracking-[-0.02em]"
+                    style={{ color: INK }}>
+                    {c.title}
+                  </span>
                 </div>
                 <div className="mt-2 inline-flex items-center gap-2 font-mono text-[13px]"
                   style={{ color: chosen ? COBALT : LABEL }}>
@@ -461,7 +473,7 @@ function Alternatives() {
 
               <div>
                 <p className="text-[17px] leading-[1.6]" style={{ color: INK }}>{c.what}</p>
-                <p className="text-[15px] leading-[1.7] mt-3 max-w-[560px]" style={{ color: BODY }}>{c.why}</p>
+                <p className="text-[15px] leading-[1.7] mt-3 measure-sm" style={{ color: BODY }}>{c.why}</p>
               </div>
             </div>
           </Reveal>
@@ -489,10 +501,14 @@ function FlowDiagram() {
           const [state, detail] = c.sub.split('·').map((s) => s.trim());
           return (
             <div key={c.title}
-              className="grid grid-cols-[12px_minmax(0,180px)_1fr] items-baseline gap-x-4 md:gap-x-6 py-5"
+              className="case-split py-5"
               style={{ borderBottom: `1px solid ${RULE}` }}>
-              <span className="h-2 w-2 rounded-full" style={{ background: tones[c.tone] }} />
-              <dt className="text-[17px] tracking-[-0.02em]" style={{ color: INK }}>{c.title}</dt>
+              {/* 점을 별도 컬럼으로 두면 정렬선이 하나 늘어난다. 제목 옆에 붙인다. */}
+              <dt className="case-mark-head text-[17px] tracking-[-0.02em]" style={{ color: INK }}>
+                <span className="h-2 w-2 shrink-0 rounded-full translate-y-[-2px]"
+                  style={{ background: tones[c.tone] }} />
+                <span>{c.title}</span>
+              </dt>
               <dd className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <span className="font-mono text-[13px]" style={{ color: tones[c.tone] }}>{state}</span>
                 <span className="text-[15px]" style={{ color: BODY }}>{detail}</span>
@@ -521,7 +537,7 @@ function DotPlot() {
   const on = reduced || inView;
 
   return (
-    <div ref={ref} className="max-w-[880px]">
+    <div ref={ref} className="measure-wide">
       {d.rounds.map((r, ri) => {
         let dotIndex = 0;
         const color = ri === d.rounds.length - 1 ? COBALT : BODY;
@@ -593,7 +609,7 @@ function FunnelBars({ data }: { data: V2Bars }) {
   const max = Math.max(...data.rows.map((r) => r.value));
 
   return (
-    <div ref={ref} className="max-w-[880px]">
+    <div ref={ref} className="measure-wide">
       {data.rows.map((r, i) => {
         const pct = (r.value / max) * 100;
         return (
@@ -611,7 +627,7 @@ function FunnelBars({ data }: { data: V2Bars }) {
                 animate={on ? { width: `${pct}%` } : undefined}
                 transition={{ ...SPRING, delay: reduced ? 0 : 0.06 * i }} />
             </div>
-            {r.note && <div className="mt-3 text-[15px] max-w-[620px]" style={{ color: BODY }}>{r.note}</div>}
+            {r.note && <div className="mt-3 text-[15px] measure-sm" style={{ color: BODY }}>{r.note}</div>}
           </div>
         );
       })}
@@ -626,7 +642,7 @@ function FunnelBars({ data }: { data: V2Bars }) {
    없는 언어이고, 여기서 필요한 건 순서지 방향의 강조가 아니다. */
 function FlowCompare({ data }: { data: V2FlowCompare }) {
   return (
-    <div className="max-w-[880px]">
+    <div className="measure-wide">
       {data.paths.map((p, pi) => (
         <div key={p.label} className="py-7" style={{ borderTop: `1px solid ${RULE}` }}>
           <div className="flex items-baseline gap-3">
@@ -648,7 +664,7 @@ function FlowCompare({ data }: { data: V2FlowCompare }) {
             ))}
           </div>
 
-          <div className="mt-4 text-[15px] max-w-[660px]" style={{ color: BODY }}>{p.note}</div>
+          <div className="mt-4 text-[15px] measure-sm" style={{ color: BODY }}>{p.note}</div>
         </div>
       ))}
       <div className="pt-6 text-[15px]" style={{ borderTop: `1px solid ${RULE}`, color: LABEL }}>{data.forkNote}</div>
@@ -666,7 +682,7 @@ function SystemGap({ data }: { data: V2SystemGap }) {
   const on = reduced || inView;
 
   return (
-    <div ref={ref} className="max-w-[880px]">
+    <div ref={ref} className="measure-wide">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16">
         <div>
           <div className="font-mono text-[13px] pb-4" style={{ color: LABEL, borderBottom: `1px solid ${RULE}` }}>
@@ -698,7 +714,7 @@ function SystemGap({ data }: { data: V2SystemGap }) {
           ))}
         </div>
       </div>
-      <div className="mt-8 text-[15px] max-w-[660px]" style={{ color: LABEL }}>{data.note}</div>
+      <div className="mt-8 text-[15px] measure-sm" style={{ color: LABEL }}>{data.note}</div>
     </div>
   );
 }
@@ -708,9 +724,9 @@ function SystemGap({ data }: { data: V2SystemGap }) {
    검증/방향 구분을 쓴다. 출처 없는 숫자는 여기 들어가지 않는다. */
 function ResearchNotes({ data }: { data: V2ResearchNotes }) {
   return (
-    <div className="max-w-[880px]">
+    <div className="measure-wide">
       {data.rows.map((r, i) => (
-        <div key={r.claim} className="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-8 gap-y-2 py-6"
+        <div key={r.claim} className="case-split py-6"
           style={{ borderTop: i === 0 ? `1px solid ${RULE}` : undefined, borderBottom: `1px solid ${RULE}` }}>
           <div className="font-mono text-[13px]" style={{ color: r.kind === 'Verified' ? INK : LABEL }}>{r.kind}</div>
           <div>
@@ -731,7 +747,7 @@ function ResearchNotes({ data }: { data: V2ResearchNotes }) {
    드러내는 편이 없는 척하는 것보다 낫다. */
 function Redacted({ data }: { data: V2Redacted }) {
   return (
-    <div className="max-w-[880px]">
+    <div className="measure-wide">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
         {data.items.map((it) => (
           <div key={it.what}>
@@ -752,7 +768,7 @@ function Redacted({ data }: { data: V2Redacted }) {
           </div>
         ))}
       </div>
-      <div className="mt-10 pt-6 text-[15px] max-w-[700px]" style={{ borderTop: `1px solid ${RULE}`, color: LABEL }}>
+      <div className="mt-10 pt-6 text-[15px] measure" style={{ borderTop: `1px solid ${RULE}`, color: LABEL }}>
         {data.note}
       </div>
     </div>
@@ -778,7 +794,7 @@ function FigureBlock({ fig }: { fig: V2Figure }) {
     return (
       <Reveal>
         <Col>
-          <section className="mt-20 grid grid-cols-1 md:grid-cols-[320px_1fr] gap-x-16 gap-y-8">
+          <section className="mt-20 case-split">
             <div>
               <SectionLabel>{fig.label}</SectionLabel>
               <div className="mt-4 text-[21px] tracking-[-0.02em] leading-[1.35]" style={{ color: INK }}>
@@ -849,7 +865,7 @@ function DemandCycle({ data }: { data: V2DemandCycle }) {
   const right = { name: data.right, state: phase === 'am' ? cur.to : cur.from };
 
   return (
-    <div className="max-w-[880px]">
+    <div className="measure-wide">
       {/* 시간대 전환 */}
       <div className="inline-flex items-center gap-1 p-1" style={{ border: `1px solid ${RULE}` }}>
         {(['am', 'pm'] as const).map((p) => {
@@ -966,8 +982,17 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
     <main className="font-sans" style={{ background: BG }}>
       {/* 폰트는 사이트 전역(next/font IBM Plex)을 상속한다. 하드코딩 금지. */}
 
+      {/* 레일과 본문을 하나의 그리드로 묶는다. fixed 로 띄우면 본문 위에
+          겹치거나 좁은 화면에서 밖으로 나간다. 그리드는 자리를 나눠 갖는다.
+          xl 미만에서는 한 칸이 되어 레일이 사라지고 본문이 중앙에 온다. */}
+      <div className="case-shell">
+        <div className="case-rail">
+          <CaseNav items={cms.nav ?? []} />
+        </div>
+        <div style={{ minWidth: 0 }}>
+
       {/* header */}
-      <header className="pt-24 md:pt-28 pb-4">
+      <header className="case-head">
         <Col>
           <div className="font-mono text-[15px]" style={{ color: LABEL }}>{cms.meta}</div>
           <h1 className="mt-6 text-[40px] md:text-[62px] leading-[1.16] tracking-[-0.03em] font-normal"
@@ -991,10 +1016,10 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
           </div>
         </Reveal>
 
-        <dl className="mt-10 max-w-[760px]">
+        <dl className="mt-10 measure">
           {cms.roleMeta.map((m) => (
             <div key={m.label}
-              className="grid grid-cols-[92px_1fr] md:grid-cols-[120px_1fr] gap-x-6 py-4"
+              className="case-split py-4"
               style={{ borderBottom: `1px solid ${RULE}` }}>
               <dt className="font-mono text-[13px] leading-[1.6]" style={{ color: LABEL }}>{m.label}</dt>
               <dd className="text-[17px] leading-[1.6]" style={{ color: INK }}>{m.value}</dd>
@@ -1007,7 +1032,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       <Col>
         <Reveal>
           <div className="mt-20 pt-10" style={{ borderTop: `1px solid ${INK}` }}>
-            <p className="text-[24px] md:text-[30px] leading-[1.44] tracking-[-0.02em] max-w-[900px]"
+            <p className="text-[24px] md:text-[30px] leading-[1.44] tracking-[-0.02em] measure-lead"
               style={{ color: INK }}>
               <Mixed text={cms.statCard.text} bold={[cms.statCard.bold]} />
             </p>
@@ -1018,7 +1043,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {/* overview */}
       <Col>
         <Reveal>
-          <section className="mt-20">
+          <section id="overview" className="scroll-mt-28 mt-20">
             <SectionLabel>{cms.overview.label}</SectionLabel>
             <BodyP b={cms.overview.body} />
             {cms.overview.linkHref && cms.overview.linkLabel && (
@@ -1033,7 +1058,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {/* outcome */}
       <Col>
         <Reveal>
-          <section className="mt-20">
+          <section id="outcome" className="scroll-mt-28 mt-20">
             <SectionLabel>{cms.outcome.label}</SectionLabel>
             <BodyP b={cms.outcome.body} />
             {/* 결과 카드는 두 개일 수도 있다. 진행 중인 프로젝트에서
@@ -1061,6 +1086,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {cms.bars && (
         <Reveal>
           <Col>
+            <span id="bars" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.bars.label}</SectionLabel>
             <Statement>{cms.bars.statement}</Statement>
             <BodyP b={cms.bars.body} />
@@ -1074,6 +1100,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {cms.systemGap && (
         <Reveal>
           <Col>
+            <span id="system-gap" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.systemGap.label}</SectionLabel>
             <Statement>{cms.systemGap.statement}</Statement>
             <BodyP b={cms.systemGap.body} />
@@ -1096,7 +1123,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {cms.evidence && (
         <Col>
           <Reveal>
-            <section className="mt-20">
+            <section id="evidence" className="scroll-mt-28 mt-20">
               <SectionLabel>{cms.evidence.label}</SectionLabel>
               <Statement>{cms.evidence.statement}</Statement>
               <BodyP b={cms.evidence.body} />
@@ -1105,7 +1132,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
               {/* 같은 테스트에서 나온 두 번째 발견. 섹션을 새로 열 이유가 없다. */}
               {cms.research && (
                 <div className="mt-14 pt-8" style={{ borderTop: `1px solid ${RULE}` }}>
-                  <h3 className="text-[21px] md:text-[24px] font-normal tracking-[-0.02em] leading-[1.4] mb-4 max-w-[820px]"
+                  <h3 className="text-[21px] md:text-[24px] font-normal tracking-[-0.02em] leading-[1.4] mb-4 measure"
                     style={{ color: INK }}>
                     {cms.research.statement}
                   </h3>
@@ -1122,15 +1149,16 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       <Col>
         <Reveal>
           <section className="mt-20">
+            <span id="persona" className="block scroll-mt-28" aria-hidden />
             <Split label={cms.persona.label}>
-              <p className="text-[24px] md:text-[30px] leading-[1.4] tracking-[-0.02em] max-w-[820px]"
+              <p className="text-[24px] md:text-[30px] leading-[1.4] tracking-[-0.02em] measure"
                 style={{ color: INK }}>
                 {cms.persona.quote}
               </p>
               <div className="mt-5 font-mono text-[13px]" style={{ color: LABEL }}>
                 {cms.persona.name} · {cms.persona.meta}
               </div>
-              <ul className="mt-8 max-w-[720px]">
+              <ul className="mt-8 measure">
                 {cms.persona.needs.map((n) => (
                   <li key={n} className="flex gap-4 py-3" style={{ borderTop: `1px solid ${RULE}` }}>
                     <span className="h-2 w-2 rounded-full shrink-0 mt-2" style={{ background: COBALT }} />
@@ -1138,7 +1166,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-[15px] leading-[1.7] max-w-[720px]" style={{ color: BODY }}>
+              <p className="mt-6 text-[15px] leading-[1.7] measure" style={{ color: BODY }}>
                 {cms.persona.implication}
               </p>
             </Split>
@@ -1151,23 +1179,26 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {cms.journey && (
       <Col>
         <Reveal>
-          <section className="mt-20">
+          <section id="journey" className="scroll-mt-28 mt-20">
             <SectionLabel>{cms.journey.label}</SectionLabel>
             <Statement>{cms.journey.statement}</Statement>
             <BodyP b={cms.journey.body} />
             <ol className="mt-10">
               {cms.journey.moments.map((m, i) => (
                 <li key={m.phase}
-                  className="grid gap-x-8 gap-y-2 md:grid-cols-[24px_220px_1fr] py-6"
+                  className="case-split py-6"
                   style={{ borderTop: `1px solid ${RULE}` }}>
-                  <div className="font-mono text-[13px]" style={{ color: LABEL }}>{i + 1}</div>
                   <div>
-                    <div className="text-[17px] leading-[1.5]" style={{ color: INK }}>{m.phase}</div>
+                    {/* 번호는 phase 와 같은 줄에 둔다. 별도 컬럼이면 정렬선이 는다. */}
+                    <div className="case-mark-head">
+                      <span className="font-mono text-[13px]" style={{ color: LABEL }}>{i + 1}</span>
+                      <span className="text-[17px] leading-[1.5]" style={{ color: INK }}>{m.phase}</span>
+                    </div>
                     <div className="font-mono text-[13px] mt-2" style={{ color: LABEL }}>{m.surface}</div>
                   </div>
                   <div>
                     <div className="text-[17px] leading-[1.6]" style={{ color: INK }}>{m.question}</div>
-                    <p className="text-[15px] leading-[1.7] mt-2 max-w-[520px]" style={{ color: BODY }}>{m.breaks}</p>
+                    <p className="text-[15px] leading-[1.7] mt-2 measure-sm" style={{ color: BODY }}>{m.breaks}</p>
                   </div>
                 </li>
               ))}
@@ -1180,7 +1211,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {/* solution 01 */}
       <Col>
         <Reveal>
-          <section className="mt-20">
+          <section id="solution-1" className="scroll-mt-28 mt-20">
             <SectionLabel>{cms.solution1.label}</SectionLabel>
             <Statement>{cms.solution1.statement}</Statement>
             <BodyP b={cms.solution1.body} />
@@ -1193,7 +1224,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {cms.solution2 && (
       <Col>
         <Reveal>
-          <section className="mt-20">
+          <section id="solution-2" className="scroll-mt-28 mt-20">
             <SectionLabel>{cms.solution2.label}</SectionLabel>
             <Statement>{cms.solution2.statement}</Statement>
             <BodyP b={cms.solution2.body} />
@@ -1217,6 +1248,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {cms.flowCompare && (
         <Reveal>
           <Col>
+            <span id="flow-compare" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.flowCompare.label}</SectionLabel>
             <Statement>{cms.flowCompare.statement}</Statement>
             <BodyP b={cms.flowCompare.body} />
@@ -1230,6 +1262,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {cms.researchNotes && (
         <Reveal>
           <Col>
+            <span id="research-notes" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.researchNotes.label}</SectionLabel>
             <Statement>{cms.researchNotes.statement}</Statement>
             <BodyP b={cms.researchNotes.body} />
@@ -1243,6 +1276,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {cms.redacted && (
         <Reveal>
           <Col>
+            <span id="redacted" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.redacted.label}</SectionLabel>
             <Statement>{cms.redacted.statement}</Statement>
             <BodyP b={cms.redacted.body} />
@@ -1258,6 +1292,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {cms.demandCycle && (
         <Reveal>
           <Col>
+            <span id="demand-cycle" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{cms.demandCycle.label}</SectionLabel>
             <Statement>{cms.demandCycle.statement}</Statement>
             <BodyP b={cms.demandCycle.body} />
@@ -1269,7 +1304,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {cms.exploration && (
       <Col>
         <Reveal>
-          <section className="mt-20">
+          <section id="exploration" className="scroll-mt-28 mt-20">
             <SectionLabel>{cms.exploration.label}</SectionLabel>
             <Statement>{cms.exploration.statement}</Statement>
             <BodyP b={cms.exploration.body} />
@@ -1285,6 +1320,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       <Col>
         <Reveal>
           <section className="mt-20">
+            <span id="under-hood" className="block scroll-mt-28" aria-hidden />
             <Split label={cms.underHood.label}>
               <Statement>{cms.underHood.statement}</Statement>
               <BodyP b={cms.underHood.body} />
@@ -1292,7 +1328,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
               {/* 데모가 있는 케이스는 증명을 데모가 한다.
                   링크는 확인하고 싶은 소수를 위한 각주로 아래에 둔다. */}
               {cms.underHood.demo === 'sift-model' ? (
-                <div className="mt-10 max-w-[820px]">
+                <div className="mt-10 measure">
                   <SiftLiveDemo />
                   <div className="mt-4">
                     <a href={cms.underHood.linkHref} target="_blank" rel="noopener noreferrer"
@@ -1326,7 +1362,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
         <Reveal>
           <section className="mt-20 pt-10" style={{ borderTop: `1px solid ${INK}` }}>
             <div className="font-mono text-[13px] mb-8" style={{ color: LABEL }}>{cms.fullStory.heading}</div>
-            <div className="space-y-8 max-w-[820px]">
+            <div className="space-y-8 measure">
               {cms.fullStory.paragraphs.map((p) => (
                 <div key={p.title}>
                   <h3 className="text-[21px] font-medium tracking-[-0.02em] mb-3" style={{ color: INK }}>{p.title}</h3>
@@ -1351,7 +1387,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
                 <div key={r.num}>
                   <div className="font-mono text-[13px] mb-2" style={{ color: LABEL }}>{r.num}</div>
                   <h3 className="text-[21px] font-medium tracking-[-0.02em] mb-2" style={{ color: INK }}>{r.title}</h3>
-                  <p className="text-[17px] leading-[1.72] max-w-[820px]" style={{ color: BODY }}>{r.body}</p>
+                  <p className="text-[17px] leading-[1.72] measure" style={{ color: BODY }}>{r.body}</p>
                 </div>
               ))}
             </div>
@@ -1359,6 +1395,8 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
         </Reveal>
       </Col>
 
+        </div>
+      </div>
     </main>
     </CaseCtx.Provider>
   );

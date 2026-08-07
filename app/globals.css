@@ -849,3 +849,159 @@ body.wk-code .wk-tokens {
   [data-wk="h1"].wk-framed { outline-offset: 10px; }
   [data-wk="h1"].wk-framed::before { top: -32px; left: -10px; }
 }
+
+   /* ─────────────────────────────────────────────
+      케이스 좌측 레일 레이아웃
+
+      Tailwind 의 임의값 클래스(grid-cols-[...])는 JIT 스캐너가
+      놓치는 경우가 있어 여기서 평범한 CSS 로 정의한다.
+      이 파일은 항상 그대로 번들에 들어가므로 생성 실패가 없다.
+      ───────────────────────────────────────────── */
+   .case-shell {
+     /* border-box 가 없으면 padding 이 width 100% 에 더해져
+        뷰포트를 넘고 가로 스크롤이 생긴다. */
+     box-sizing: border-box;
+     width: 100%;
+   }
+   .case-rail { display: none; }
+
+   @media (min-width: 1240px) {
+     .case-shell {
+       display: grid;
+       grid-template-columns: 200px minmax(0, 1fr);
+       column-gap: 64px;
+       /* 상자를 통째로 가운데 정렬하면 레일까지 안으로 끌려온다.
+          왼쪽은 고정하고 오른쪽에 레일 폭만큼 더 주면
+          본문은 화면 정중앙에 오고 레일만 왼쪽 끝에 남는다.
+          312 = 48 왼쪽 + 200 레일 + 64 간격 */
+       padding-left: 48px;
+       padding-right: 312px;
+     }
+     .case-rail { display: block; }
+
+     /* 레일과 헤더가 각자 상단 여백을 가지면 시작점이 어긋난다.
+        여백을 그리드에 한 번만 주고 헤더의 것은 지운다.
+        그래야 BACK 과 eyebrow 가 같은 줄에서 출발한다. */
+     .case-shell { padding-top: 112px; }
+     /* .case-head 기본값이 파일 뒤쪽에 있어 같은 특이도면 그쪽이 이긴다.
+        .case-shell 을 붙여 특이도를 올린다. */
+     .case-shell .case-head { padding-top: 0; }
+   }
+
+   /* 본문 컨테이너. Col 과 MEDIA 가 같은 규칙을 쓰게 해서
+      제목과 이미지의 왼쪽 끝이 어긋날 수 없게 만든다.
+      Tailwind 임의값(max-w-[1120px])은 이 프로젝트에서 생성이
+      불안정해 레이아웃을 여기로 옮겼다. */
+   .case-col,
+   .case-media {
+     box-sizing: border-box;
+     width: 100%;
+     max-width: 1120px;
+     margin-left: auto;
+     margin-right: auto;
+   }
+   /* 뷰포트가 1120 + 여백보다 좁으면 패딩이 있어야 글자가 화면 끝에
+      붙지 않는다. 넉넉해진 뒤에만 패딩을 0 으로 돌린다. */
+   .case-col { padding-left: 24px; padding-right: 24px; }
+   @media (min-width: 1200px) {
+     .case-col { padding-left: 0; padding-right: 0; }
+   }
+
+   /* 헤더 상단 여백. 레일이 있을 때는 그리드가 여백을 주므로 0 이 된다. */
+   .case-head { padding-top: 96px; padding-bottom: 16px; }
+   @media (min-width: 768px) {
+     .case-head { padding-top: 112px; }
+   }
+
+   /* 레일 자체. sticky 로 따라오되 자리는 그리드가 잡아준다. */
+   .case-rail-inner {
+     position: sticky;
+     top: 128px;
+     align-self: start;
+   }
+   .case-rail-list {
+     display: flex;
+     flex-direction: column;
+     gap: 18px;
+     margin: 0;
+     padding: 0;
+     list-style: none;
+   }
+   .case-rail-item { position: relative; }
+   .case-rail-dot {
+     position: absolute;
+     left: -18px;
+     top: 8px;
+     width: 6px;
+     height: 6px;
+     border-radius: 50%;
+     background: var(--accent);
+     opacity: 0;
+     transition: opacity 0.2s ease;
+   }
+   .case-rail-item[data-on='true'] .case-rail-dot { opacity: 1; }
+   .case-rail-link {
+     display: block;
+     font-size: 16px;
+     line-height: 1.3;
+     color: var(--ink-3);
+     transition: color 0.2s ease;
+   }
+   .case-rail-item[data-on='true'] .case-rail-link { color: var(--ink); }
+   .case-rail-back {
+     display: inline-flex;
+     align-items: center;
+     gap: 8px;
+     margin-bottom: 40px;
+     font-family: var(--font-mono, ui-monospace, "SF Mono", monospace);
+     font-size: 13px;
+     letter-spacing: 0.06em;
+     text-transform: uppercase;
+     color: var(--ink-3);
+   }
+   @media (prefers-reduced-motion: reduce) {
+     .case-rail-dot, .case-rail-link { transition: none; }
+   }
+
+   /* ─────────────────────────────────────────────
+      케이스 정렬 척도
+
+      측정 결과 왼쪽 정렬선이 열 곳, 본문 폭이 열여섯 종류였다.
+      스크롤할 때 눈이 매번 새 시작점을 찾아야 해서 읽기가 어렵다.
+      정렬선을 둘로, 폭을 셋으로 줄인다.
+
+      자폭은 IBM Plex Sans 실측 0.487em 기준이다.
+      ───────────────────────────────────────────── */
+   :root {
+     /* 라벨 컬럼. 모든 2단 구조가 이 하나를 쓴다. */
+     --label-col: 180px;
+     --label-gap: 32px;
+
+     /* 본문 폭. 괄호 안은 해당 글자 크기에서의 한 줄 글자 수. */
+     --measure-lead: 640px;  /* 24px→55자, 21px→63자  소제목 */
+     --measure:      600px;  /* 17px→72자             본문 */
+     --measure-sm:   480px;  /* 15px→66자, 13px→76자  보조 */
+     --measure-wide: 880px;  /* 표·비교·도해           */
+   }
+
+   /* 라벨 + 내용 2단. 왼쪽 정렬선이 둘만 생긴다. */
+   .case-split {
+     display: grid;
+     gap: 12px var(--label-gap);
+   }
+   @media (min-width: 768px) {
+     .case-split { grid-template-columns: var(--label-col) minmax(0, 1fr); }
+   }
+
+   /* 점·번호가 앞에 붙는 변형. 표식은 라벨 컬럼 안에 넣어
+      본문 시작점이 다른 섹션과 어긋나지 않게 한다. */
+   .case-split-mark { display: grid; gap: 8px var(--label-gap); }
+   @media (min-width: 768px) {
+     .case-split-mark { grid-template-columns: var(--label-col) minmax(0, 1fr); }
+   }
+   .case-mark-head { display: flex; align-items: baseline; gap: 10px; }
+
+   .measure-lead { max-width: var(--measure-lead); }
+   .measure      { max-width: var(--measure); }
+   .measure-sm   { max-width: var(--measure-sm); }
+   .measure-wide { max-width: var(--measure-wide); }
