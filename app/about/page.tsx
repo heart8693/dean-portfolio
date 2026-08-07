@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import type { CSSProperties } from 'react'
 import Image from 'next/image'
 import Reveal from './Reveal'
+import Stagger from './Stagger'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -65,8 +66,50 @@ const ABOUT = {
     {
       category: 'AI',
       items: ['Claude Code', 'Google Stitch', 'UX Pilot', 'AI-assisted design workflows'],
+      /* 스택을 Skills 에 나열하지 않는 이유: 나열하면 "이걸 다루는가" 를 묻게 되고,
+         한 줄로 두면 "이 스택으로 만든 결과가 지금 보고 있는 사이트" 가 된다.
+         후자는 반박할 것이 없다. */
+      note: 'This site is built and shipped with Claude Code. Next.js, TypeScript, Tailwind, Framer Motion.',
     },
   ],
+  /* ── Research ────────────────────────────────────
+     Julia 피드백: 유저 데이터 능숙함이 강점인데 케이스 하나에 묻혀 있어
+     사이트 전체에서는 안 보인다. About 에 한 번에 드러낸다.
+     숫자는 전부 케이스에서 온 실측이다. 추정치를 넣지 않는다. */
+  research: {
+    lede: 'Every project here has a number attached because every project was tested. Four studies, two of them run twice, where the second round existed because the first one failed. I report distributions rather than averages, say what a sample of five can and cannot prove, and grade a source before it is allowed to influence a decision.',
+    studies: [
+      {
+        project: 'Sift',
+        method: 'Unmoderated, Maze · two rounds',
+        n: '12 CX professionals',
+        found: 'Round 1 buried the only automation control in Settings. 83.5% misclicked hunting for it.',
+        changed: 'Round 2 surfaced it as four entry points in the inbox. Misclicks went to 0%, felt control from 3.0 to 4.4.',
+      },
+      {
+        project: 'Biasly',
+        method: 'Moderated · same cohort, both rounds',
+        n: '12 readers, ages 22 to 45',
+        found: '69% could not name the bias of an article they had just finished reading.',
+        changed: 'The indicator moved above the headline. Recognition 31% to 78%, time to recognise 9s to 3s.',
+      },
+      {
+        project: 'FiPet',
+        method: 'Interviews, then unmoderated Maze',
+        n: '10 interviewed · 22 sessions recorded',
+        found: 'Task success was 100%. Misclick rate was 65.9% and the first screen was read as a buffer.',
+        changed: 'Success rate was the metric hiding the problem. The other three numbers are what shipped the fix.',
+      },
+      {
+        project: 'Lyft',
+        method: 'Unmoderated, Maze · concept test',
+        n: '10 riders',
+        found: 'Riders were not asking for a better map. All of them described the same failure: arriving at a station that was not what the app had shown.',
+        changed: 'Surfacing availability on arrival took confidence in finding an open dock to 4.4 of 5, on a flow every session completed.',
+      },
+    ],
+  },
+
   education: {
     school: 'School of the Art Institute of Chicago',
     degree: 'BFA, Visual Communication',
@@ -75,10 +118,10 @@ const ABOUT = {
 }
 
 /* ── Photo wall ──────────────────────────────────
-   TODO(dean): 실제 사진 파일이 생기면 채운다 — 고양이 / 요리 / 서울 패션.
+   TODO(dean): 실제 사진 파일이 생기면 채운다. 고양이 / 요리 / 서울 패션.
    src는 업로드한 실제 파일명만 (경로 추측 금지, 표준 규칙).
    캡션용 IBM Plex Mono는 사진 들어올 때 layout.tsx에서 next/font로 로드하고
-   --font-mono 변수로 연결 — 그 전까지는 ui-monospace 폴백으로 동작.
+   --font-mono 변수로 연결. 그 전까지는 ui-monospace 폴백으로 동작.
    배열이 비어 있으면 섹션 자체가 렌더되지 않는다. */
 const PHOTOS: { src: string; alt: string; caption: string }[] = []
 
@@ -112,7 +155,7 @@ export default function AboutPage() {
       {/* ── Intro ─────────────────────────────────────── */}
       <section id="intro" className="mx-auto max-w-[1100px] pt-36 md:pt-44">
         <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_300px] md:gap-20">
-          {/* Text — 홈 히어로와 같은 3박자 로드 시그니처 (딜레이 클래스는 위치 독립) */}
+          {/* Text. 홈 히어로와 같은 3박자 로드 시그니처 (딜레이 클래스는 위치 독립) */}
           <div>
             <p style={eyebrow}>About</p>
 
@@ -253,6 +296,51 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
+
+      {/* ── Research ──────────────────────────────────
+          케이스마다 흩어져 있는 근거를 한 자리에 모은다.
+          Experience 바로 다음에 두는 이유: 어디서 일했는지 다음에 오는
+          질문이 무엇을 증명할 수 있는지이기 때문이다. */}
+      <section id="research" className="mx-auto max-w-[1100px] pt-20 md:pt-24">
+        <Reveal>
+          <h2 style={eyebrow}>Research</h2>
+          <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
+
+          <p className="max-w-[62ch] pt-10 text-[16px] leading-[1.7] text-[color:var(--ink-2)] md:text-[17px]">
+            {ABOUT.research.lede}
+          </p>
+
+          <Stagger className="mt-12">
+            {ABOUT.research.studies.map((s, i) => (
+              <div
+                key={s.project}
+                className="grid gap-2 border-b py-8 md:grid-cols-[168px_minmax(0,1fr)] md:gap-12"
+                style={{
+                  borderColor:
+                    i < ABOUT.research.studies.length - 1 ? 'var(--hairline)' : 'transparent',
+                }}
+              >
+                <div className="md:pt-[3px]">
+                  <p className="text-[14px] font-semibold text-[color:var(--ink)]">{s.project}</p>
+                  <p className="mt-1 text-[13px] text-[color:var(--ink-3)]">{s.n}</p>
+                </div>
+
+                <div>
+                  <p style={monoCaption}>{s.method}</p>
+                  <p className="mt-3 max-w-[62ch] text-[15.5px] leading-[1.65] text-[color:var(--ink)]">
+                    {s.found}
+                  </p>
+                  <p className="mt-2 max-w-[62ch] text-[15.5px] leading-[1.65] text-[color:var(--ink-2)]">
+                    {s.changed}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </Stagger>
+
+        </Reveal>
+      </section>
+
       {/* ── Skills ────────────────────────────────────── */}
       <section id="skills" className="mx-auto max-w-[1100px] pt-20 md:pt-24">
         <Reveal>
@@ -260,14 +348,21 @@ export default function AboutPage() {
           <hr className="mt-4 border-0 border-t" style={{ borderColor: 'var(--hairline)' }} />
 
           <div className="space-y-7 pt-10">
-            {ABOUT.skills.map(({ category, items }) => (
+            {ABOUT.skills.map(({ category, items, note }) => (
               <div key={category} className={rowGrid}>
                 <p className="text-[13px] font-medium text-[color:var(--ink-3)] md:pt-[4px]">
                   {category}
                 </p>
-                <p className="max-w-[62ch] text-[15.5px] leading-[1.8] text-[color:var(--ink)]">
-                  {items.join(' \u00b7 ')}
-                </p>
+                <div>
+                  <p className="max-w-[62ch] text-[15.5px] leading-[1.8] text-[color:var(--ink)]">
+                    {items.join(' \u00b7 ')}
+                  </p>
+                  {note && (
+                    <p className="mt-2 max-w-[62ch] text-[14px] leading-[1.7] text-[color:var(--ink-3)]">
+                      {note}
+                    </p>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -296,7 +391,7 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
-      {/* ── Off the clock — 포토월 (PHOTOS 비어 있으면 렌더 안 됨) ── */}
+      {/* ── Off the clock 포토월 (PHOTOS 비어 있으면 렌더 안 됨) ── */}
       {PHOTOS.length > 0 && (
         <section id="life" className="mx-auto max-w-[1100px] pt-20 md:pt-24">
           <Reveal>

@@ -1,11 +1,14 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import ThemeButton from "@/components/ThemeButton"
+import Footer from "@/components/Footer"
 import "./globals.css"
-
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 
 export const metadata: Metadata = {
+  /* metadataBase 가 없으면 og 이미지가 localhost 로 해석된다.
+     링크드인이나 슬랙에 붙일 때 미리보기가 깨진다. */
+  metadataBase: new URL("https://dean-yoo.com"),
   title: "Dean Yoo · Product Designer",
   description:
     "I make hidden information visible at the moment of decision: bias before you read, dock status before you ride, AI confidence before you accept.",
@@ -32,7 +35,7 @@ export default function RootLayout({
           Skip to content
         </a>
 
-        {/* 중앙 플로팅 리퀴드 글라스 필 — 텍스트 내비, 테마 버튼만 아이콘 */}
+        {/* 중앙 플로팅 리퀴드 글라스 필. 텍스트 내비, 테마 버튼만 아이콘 */}
         <nav aria-label="Primary" className="liquid-pill">
           <a href="/" className="pill-link pill-wordmark" aria-label="Dean Yoo, home">
             dy
@@ -57,26 +60,7 @@ export default function RootLayout({
 
         {children}
 
-        <footer className="mt-32 border-t" style={{ borderColor: "var(--hairline)" }}>
-          <div className="mx-auto flex max-w-[1100px] flex-col gap-2 px-6 py-10 text-[13px] text-[color:var(--ink-3)] md:flex-row md:items-center md:justify-between">
-            <p>© 2026 Dean Yoo · Designed and built by me</p>
-            <p className="flex items-center gap-2">
-              Supervised by Nero, Hiro &amp; Pingpong
-              <img
-                src="/stickers/paw.png"
-                alt=""
-                aria-hidden
-                width={26}
-                height={26}
-                className="inline-block"
-                style={{
-                  transform: "rotate(10deg)",
-                  filter: "drop-shadow(0 2px 6px rgba(10, 10, 12, 0.14))",
-                }}
-              />
-            </p>
-          </div>
-        </footer>
+        <Footer />
       </body>
     </html>
   )

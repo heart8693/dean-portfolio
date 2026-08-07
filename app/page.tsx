@@ -99,6 +99,18 @@ export default function Home() {
   )
 }
 
+/* ─────────────────────────────────────────────────────
+   ProjectCard
+
+   바뀐 것 세 가지
+    1. aspect 16/10 -> 2238/1600. 커버 원본 비율과 맞춰 크롭 제거.
+       16/10 이면 커버 위아래가 각각 101px 씩, 총 12.6% 잘렸다.
+    2. 메타를 모노 13px 로. 케이스 페이지 라벨이 전부 모노라 같은
+       신호 체계가 된다. 큰 산세리프 회색이면 제목의 축소판처럼 보여
+       위계가 애매해진다.
+   메타는 baseline 정렬을 유지한다. 상단 정렬은 모노 폰트 특성상
+   떠 보인다.
+   ───────────────────────────────────────────────────── */
 function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
@@ -110,7 +122,8 @@ function ProjectCard({ project }: { project: Project }) {
         className="thumb-reveal relative overflow-hidden rounded-[14px] border"
         style={{ borderColor: "var(--hairline)", background: "var(--surface)" }}
       >
-        <div className="relative aspect-[16/10]">
+        {/* 커버 원본 2238 x 1600 과 동일. object-cover 여도 잘리는 부분이 없다. */}
+        <div className="relative" style={{ aspectRatio: "2238 / 1600" }}>
           <Image
             src={project.coverImage}
             alt={`${project.title} cover`}
@@ -120,6 +133,10 @@ function ProjectCard({ project }: { project: Project }) {
           />
         </div>
       </div>
+
+      {/* 베이스라인 정렬. 사람 눈은 글자가 서 있는 바닥선으로 "같은 줄" 을
+          판단하므로, 크기가 다른 두 텍스트도 baseline 이 맞아야 한 줄로 읽힌다.
+          모노는 대문자 높이가 상대적으로 커서 상단 정렬하면 떠 보인다. */}
       <div className="mt-4 flex items-baseline justify-between gap-4">
         <h3
           className="card-title font-semibold text-[color:var(--ink)] transition-colors duration-150"
@@ -127,11 +144,12 @@ function ProjectCard({ project }: { project: Project }) {
         >
           {project.title}
         </h3>
-        <span className="shrink-0 text-[13px] tabular-nums text-[color:var(--ink-3)]">
+        <span className="shrink-0 font-mono text-[13px] tabular-nums text-[color:var(--ink-3)]">
           {project.year} · {project.category}
         </span>
       </div>
-      <p className="mt-1.5 max-w-[58ch] text-[15px] leading-relaxed text-[color:var(--ink-2)]">
+
+      <p className="mt-2 max-w-[58ch] text-[15px] leading-relaxed text-[color:var(--ink-2)]">
         {project.description}
       </p>
     </Link>

@@ -161,20 +161,20 @@ export default function SiftLiveDemo({ note }: { note?: string }) {
     }}>
       {status === 'idle' && (
         <div>
-          <p style={{ fontSize: '14px', color: 'var(--ink-2)', lineHeight: 1.75, marginBottom: '20px' }}>
+          <p style={{ fontSize: '15px', color: 'var(--ink-2)', lineHeight: 1.75, marginBottom: '20px' }}>
             The classifier weighs 68 MB and runs entirely on this page. Load it
             once and your browser caches it for next time.
           </p>
           <button onClick={loadModel} style={primaryButton}>
-            Load the model · 68 MB
+            Load the model · 68 MB <span aria-hidden style={{ opacity: 0.55 }}>→</span>
           </button>
-          {note && <p style={{ ...micro, marginTop: '14px' }}>{note}</p>}
+          {note && <p style={{ ...micro, marginTop: '16px' }}>{note}</p>}
         </div>
       )}
 
       {status === 'loading' && (
         <div>
-          <p style={{ fontSize: '14px', color: 'var(--ink-2)', marginBottom: '14px' }}>
+          <p style={{ fontSize: '15px', color: 'var(--ink-2)', marginBottom: '16px' }}>
             Downloading the model{progress > 0 ? ` · ${progress}%` : '...'}
           </p>
           <div style={{ height: '4px', background: 'var(--surface)', borderRadius: '999px', overflow: 'hidden' }}>
@@ -191,7 +191,7 @@ export default function SiftLiveDemo({ note }: { note?: string }) {
 
       {status === 'error' && (
         <div>
-          <p style={{ fontSize: '14px', color: 'var(--ink)', fontWeight: 600, marginBottom: '8px' }}>
+          <p style={{ fontSize: '15px', color: 'var(--ink)', fontWeight: 600, marginBottom: '8px' }}>
             The model failed to load.
           </p>
           <p style={{ fontSize: '13px', color: 'var(--ink-3)', marginBottom: '16px', lineHeight: 1.6 }}>{errorMessage}</p>
@@ -202,15 +202,15 @@ export default function SiftLiveDemo({ note }: { note?: string }) {
       {status === 'ready' && (
         <div>
           {/* Sample chips */}
-          <p style={{ ...micro, marginBottom: '10px' }}>TRY A SAMPLE</p>
+          <p style={{ ...micro, marginBottom: '12px' }}>Try a sample</p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '20px' }}>
             {SAMPLES.map(sample => (
               <button
                 key={sample}
                 onClick={() => { setText(sample); setResult(null) }}
                 style={{
-                  fontSize: '12px',
-                  padding: '6px 12px',
+                  fontSize: '13px',
+                  padding: '8px 12px',
                   borderRadius: '999px',
                   border: '1px solid var(--hairline)',
                   background: text === sample ? 'var(--surface)' : 'transparent',
@@ -233,8 +233,8 @@ export default function SiftLiveDemo({ note }: { note?: string }) {
             placeholder="Type any support ticket here, or pick a sample above"
             style={{
               width: '100%',
-              padding: '14px 16px',
-              fontSize: '14px',
+              padding: '16px',
+              fontSize: '15px',
               fontFamily: 'inherit',
               color: 'var(--ink)',
               background: 'var(--surface)',
@@ -248,7 +248,7 @@ export default function SiftLiveDemo({ note }: { note?: string }) {
           />
 
           {/* Preset picker */}
-          <p style={{ ...micro, marginBottom: '10px' }}>AUTOMATION PRESET</p>
+          <p style={{ ...micro, marginBottom: '12px' }}>Automation preset</p>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
             {PRESETS.map(preset => {
               const selected = preset.id === presetId
@@ -266,7 +266,7 @@ export default function SiftLiveDemo({ note }: { note?: string }) {
                   }}
                   style={{
                     fontSize: '13px',
-                    fontWeight: 600,
+                    fontWeight: 500,
                     padding: '8px 16px',
                     borderRadius: '6px',
                     border: selected ? '1px solid var(--ink)' : '1px solid var(--hairline)',
@@ -287,18 +287,19 @@ export default function SiftLiveDemo({ note }: { note?: string }) {
             cursor: analyzing ? 'wait' : 'pointer',
           }}>
             {analyzing ? 'Classifying...' : 'Classify ticket'}
+            <span aria-hidden style={{ opacity: 0.55 }}>→</span>
           </button>
 
           {/* Result */}
           {result && (
             <div style={{ marginTop: '28px', paddingTop: '24px', borderTop: '1px solid var(--hairline)' }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', flexWrap: 'wrap', marginBottom: '6px' }}>
-                <p style={{ fontSize: '1.5rem', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--ink)' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                <p style={{ fontSize: '21px', fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--ink)' }}>
                   {CATEGORY_LABELS[result.category]}
                 </p>
-                <p style={{ fontSize: '14px', color: 'var(--ink-3)' }}>{per100}% confident</p>
+                <p style={{ fontSize: '15px', color: 'var(--ink-3)' }}>{per100}% confident</p>
               </div>
-              <p style={{ fontSize: '13px', color: 'var(--ink-2)', lineHeight: 1.7, marginBottom: '18px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--ink-2)', lineHeight: 1.7, marginBottom: '20px' }}>
                 On tickets it scores like this one, the model is right about {per100} of 100.
                 The confidence is calibrated, so that sentence is measured, not decorative.
               </p>
@@ -312,8 +313,8 @@ export default function SiftLiveDemo({ note }: { note?: string }) {
                 marginBottom: '20px',
                 transition: 'background 0.25s ease',
               }}>
-                <p style={{ ...micro, marginBottom: '6px', color: 'var(--ink)' }}>
-                  {result.route === 'auto' ? 'AUTO-ROUTED' : 'SENT TO HUMAN REVIEW'}
+                <p style={{ ...micro, marginBottom: '8px', color: 'var(--ink)' }}>
+                  {result.route === 'auto' ? 'Auto-routed' : 'Sent to human review'}
                 </p>
                 <p style={{ fontSize: '13px', color: 'var(--ink-2)', lineHeight: 1.65 }}>
                   {result.route === 'auto'
@@ -323,17 +324,17 @@ export default function SiftLiveDemo({ note }: { note?: string }) {
               </div>
 
               {/* Intent breakdown */}
-              <p style={{ ...micro, marginBottom: '10px' }}>TOP INTENTS</p>
+              <p style={{ ...micro, marginBottom: '12px' }}>Top intents</p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {result.topIntents.map(intent => (
                   <div key={intent.label} style={{ display: 'grid', gridTemplateColumns: '190px 1fr 44px', gap: '12px', alignItems: 'center' }}>
-                    <p style={{ fontSize: '12px', color: 'var(--ink-2)', fontFamily: 'var(--font-mono, monospace)' }}>
+                    <p style={{ fontSize: '13px', color: 'var(--ink-2)', fontFamily: 'var(--font-mono, monospace)' }}>
                       {intent.label.replace(/_/g, ' ')}
                     </p>
                     <div style={{ height: '4px', background: 'var(--surface)', borderRadius: '999px', overflow: 'hidden' }}>
                       <div style={{ height: '100%', width: `${Math.max(intent.score * 100, 1)}%`, background: 'var(--ink)', borderRadius: '999px' }} />
                     </div>
-                    <p style={{ fontSize: '11px', color: 'var(--ink-3)', textAlign: 'right' }}>
+                    <p style={{ fontSize: '13px', color: 'var(--ink-3)', textAlign: 'right' }}>
                       {(intent.score * 100).toFixed(1)}
                     </p>
                   </div>
@@ -347,25 +348,26 @@ export default function SiftLiveDemo({ note }: { note?: string }) {
   )
 }
 
+/* 케이스 페이지의 Action 프리미티브와 동일한 기하.
+   높이 44 / radius 8 / 15px / 화살표. 링크와 버튼이 같은 모양이어야 한다. */
 const primaryButton: React.CSSProperties = {
   display: 'inline-flex',
   alignItems: 'center',
   gap: '8px',
-  padding: '12px 22px',
+  height: '44px',
+  padding: '0 20px',
   background: 'var(--accent)',
   color: '#ffffff',
-  fontSize: '14px',
-  fontWeight: 600,
-  border: 'none',
-  borderRadius: '6px',
+  fontSize: '15px',
+  fontWeight: 500,
+  border: '1px solid transparent',
+  borderRadius: '8px',
   cursor: 'pointer',
-  letterSpacing: '-0.01em',
+  letterSpacing: '-0.02em',
 }
 
 const micro: React.CSSProperties = {
-  fontSize: '10px',
-  fontWeight: 600,
-  letterSpacing: '0.09em',
-  textTransform: 'uppercase',
+  fontSize: '13px',
+  fontFamily: 'var(--font-mono, monospace)',
   color: 'var(--ink-3)',
 }
