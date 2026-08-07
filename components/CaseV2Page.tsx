@@ -450,18 +450,13 @@ function Alternatives() {
             <div className="case-split py-8"
               style={{ borderTop: `1px solid ${chosen ? INK : RULE}` }}>
 
-              {/* 번호를 별도 컬럼으로 빼면 정렬선이 하나 늘어난다.
-                  제목과 같은 줄에 두어 본문 시작점을 다른 섹션과 맞춘다. */}
+              {/* 라벨 컬럼에는 번호와 상태만 둔다. 제목까지 넣으면 컬럼을
+                  320px 로 넓혀야 하고, 그러면 본문 시작점이 다른 섹션과
+                  어긋나 정렬선이 하나 늘어난다. */}
               <div>
-                <div className="case-mark-head">
-                  <span className="font-mono text-[13px]"
-                    style={{ color: chosen ? COBALT : LABEL }}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span className="text-[17px] leading-[1.5] tracking-[-0.02em]"
-                    style={{ color: INK }}>
-                    {c.title}
-                  </span>
+                <div className="font-mono text-[13px]"
+                  style={{ color: chosen ? COBALT : LABEL }}>
+                  {String(i + 1).padStart(2, '0')}
                 </div>
                 <div className="mt-2 inline-flex items-center gap-2 font-mono text-[13px]"
                   style={{ color: chosen ? COBALT : LABEL }}>
@@ -472,7 +467,11 @@ function Alternatives() {
               </div>
 
               <div>
-                <p className="text-[17px] leading-[1.6]" style={{ color: INK }}>{c.what}</p>
+                <div className="text-[17px] leading-[1.5] tracking-[-0.02em] measure"
+                  style={{ color: INK }}>
+                  {c.title}
+                </div>
+                <p className="text-[17px] leading-[1.6] mt-2 measure" style={{ color: INK }}>{c.what}</p>
                 <p className="text-[15px] leading-[1.7] mt-3 measure-sm" style={{ color: BODY }}>{c.why}</p>
               </div>
             </div>
@@ -505,8 +504,7 @@ function FlowDiagram() {
               style={{ borderBottom: `1px solid ${RULE}` }}>
               {/* 점을 별도 컬럼으로 두면 정렬선이 하나 늘어난다. 제목 옆에 붙인다. */}
               <dt className="case-mark-head text-[17px] tracking-[-0.02em]" style={{ color: INK }}>
-                <span className="h-2 w-2 shrink-0 rounded-full translate-y-[-2px]"
-                  style={{ background: tones[c.tone] }} />
+                <span className="case-mark-dot" style={{ background: tones[c.tone] }} />
                 <span>{c.title}</span>
               </dt>
               <dd className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -1016,7 +1014,9 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
           </div>
         </Reveal>
 
-        <dl className="mt-10 measure">
+        {/* 라벨 + 값 목록. 산문이 아니므로 measure 가 아니라 wide 를 쓴다.
+            measure 를 쓰면 값이 388px 안에서 접히고 오른쪽이 빈다. */}
+        <dl className="mt-10 measure-wide">
           {cms.roleMeta.map((m) => (
             <div key={m.label}
               className="case-split py-4"
@@ -1188,16 +1188,15 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
                 <li key={m.phase}
                   className="case-split py-6"
                   style={{ borderTop: `1px solid ${RULE}` }}>
+                  {/* 라벨 컬럼에는 번호와 표면만. phase 는 본문 쪽으로 보내
+                      본문 시작점을 다른 섹션과 맞춘다. */}
                   <div>
-                    {/* 번호는 phase 와 같은 줄에 둔다. 별도 컬럼이면 정렬선이 는다. */}
-                    <div className="case-mark-head">
-                      <span className="font-mono text-[13px]" style={{ color: LABEL }}>{i + 1}</span>
-                      <span className="text-[17px] leading-[1.5]" style={{ color: INK }}>{m.phase}</span>
-                    </div>
+                    <div className="font-mono text-[13px]" style={{ color: LABEL }}>{i + 1}</div>
                     <div className="font-mono text-[13px] mt-2" style={{ color: LABEL }}>{m.surface}</div>
                   </div>
                   <div>
-                    <div className="text-[17px] leading-[1.6]" style={{ color: INK }}>{m.question}</div>
+                    <div className="text-[17px] leading-[1.5] measure" style={{ color: INK }}>{m.phase}</div>
+                    <div className="text-[17px] leading-[1.6] mt-2 measure" style={{ color: INK }}>{m.question}</div>
                     <p className="text-[15px] leading-[1.7] mt-2 measure-sm" style={{ color: BODY }}>{m.breaks}</p>
                   </div>
                 </li>
