@@ -31,6 +31,7 @@ import {
 } from '@/lib/cms';
 import SiftLiveDemo from '@/components/SiftLiveDemo';
 import CaseNav from '@/components/CaseNav';
+import CaseNavMobile from '@/components/CaseNavMobile';
 import CaseFooterNav from '@/components/CaseFooterNav';
 import CaseStory from '@/components/CaseStory';
 
@@ -1372,7 +1373,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       {cms.fullStory && (
       <Col>
         <Reveal>
-          <section className="mt-20 pt-10" style={{ borderTop: `1px solid ${RULE}` }}>
+          <section className="case-story-shell" style={{ borderTop: `1px solid ${RULE}` }}>
             <CaseStory heading={cms.fullStory.heading}>
               {cms.fullStory.paragraphs.map((p) => (
                 <div key={p.title} className="case-story-item">
@@ -1409,6 +1410,9 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
 
       {/* 다음·이전 프로젝트. Reflection 으로 끝나면 갈 곳이 뒤로가기뿐이다. */}
       <CaseFooterNav slug={cms.card.slug} />
+
+      {/* 좁은 화면용 섹션 이동. 레일은 1240px 미만에서 숨는다. */}
+      {cms.nav && cms.nav.length > 1 && <CaseNavMobile items={cms.nav} />}
 
         </div>
       </div>
