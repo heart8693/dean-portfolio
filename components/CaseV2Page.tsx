@@ -1000,7 +1000,10 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
       <header className="case-head">
         <Col>
           <div className="font-mono text-[15px]" style={{ color: LABEL }}>{cms.meta}</div>
-          <h1 className="mt-6 text-[40px] md:text-[62px] leading-[1.16] tracking-[-0.03em] font-normal"
+          {/* 고정 40px 는 390px 화면에서 22자 줄(실측 422px)이 감긴다.
+              7.8vw: 360→28px, 390→30px, 430→33px, 795px 이상에서 62px 캡.
+              카피를 더 깎는 대신 타입이 뷰포트를 따라가게 한다. */}
+          <h1 className="mt-6 text-[clamp(26px,7.8vw,62px)] leading-[1.16] tracking-[-0.03em] font-normal"
             style={{ color: INK }}>
             {cms.h1[0]}<br />{cms.h1[1]}
           </h1>
