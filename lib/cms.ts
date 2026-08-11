@@ -241,7 +241,7 @@ export type CaseV2 = {
   /* 링크는 선택. 보여줄 것이 없으면 필드를 비운다. */
   overview: { label: string; body: V2Body; linkLabel?: string; linkHref?: string }
 
-  outcome: { label: string; body: V2Body; results: V2Result[] }
+  outcome: { label: string; body: V2Body; did?: string[]; results: V2Result[] }
 
   persona?: V2Persona
   journey?: { label: string; statement: string; body: V2Body; moments: V2Moment[] }
@@ -303,7 +303,7 @@ export const siftCaseV2: CaseV2 = {
     slug: 'triage',
     tags: ['Product design', 'Machine learning'],
     title: 'Sift · AI ticket triage',
-    description: 'AI ticket tools compete on how much they can automate. Agents don’t need more automation, they need to see what the AI did, why, and how to take it back.',
+    description: 'Misclicks fell from 83.5% to zero. The classifier behind it runs live in the browser.',
     year: '2026',
     category: 'Concept · B2B SaaS',
     featured: true,
@@ -312,7 +312,7 @@ export const siftCaseV2: CaseV2 = {
     thumbBg: '#101a3a',
   },
   meta: 'Jun – Jul 2026 · Self-directed concept',
-  h1: ['When the AI files it,', 'someone answers for it'],
+  h1: ['Surfaced, not buried.', 'Misclicks: 83.5% to 0.'],
   heroImage: '/images/sift-hero-inbox.png',
   heroAlt: 'Sift inbox, AI-sorted queue with confidence, category and undo',
 
@@ -333,7 +333,7 @@ export const siftCaseV2: CaseV2 = {
 
   nav: [
     { id: 'overview', label: 'Overview' },
-    { id: 'outcome', label: 'Outcome' },
+    { id: 'outcome', label: 'My impact' },
     { id: 'evidence', label: 'What testing found' },
     { id: 'solution-1', label: 'Confidence' },
     { id: 'solution-2', label: 'Controls' },
@@ -345,18 +345,23 @@ export const siftCaseV2: CaseV2 = {
     label: 'Overview',
     body: {
       text: 'Agents do not need more automation. They need to see what the AI did, why, and how to take it back. Designed end to end, tested in two rounds with twelve CX professionals, model fine-tuned by me.',
-      bold: ['see what the AI did, why, and how to take it back', 'fine-tuned the classification model myself'],
+      bold: ['see what the AI did, why, and how to take it back', 'model fine-tuned by me'],
     },
     linkLabel: 'Open the prototype',
     linkHref: 'https://www.figma.com/proto/WnhBcVjCxsqABf2mBbvPXf/Ticket-Triage-%E2%80%94-Early-Exploration?node-id=206-2&p=f&viewport=241%2C97%2C0.12&t=qmneUfYqf8vRVwBQ-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=206%3A2&show-proto-sidebar=1&page-id=64%3A2',
   },
 
   outcome: {
-    label: 'Outcome',
+    label: 'My impact',
     body: {
-      text: '21 wired screens and a live in-browser demo. Not a mockup of intelligence, but the thing itself.',
-      bold: ['21 wired screens with a live in-browser demo', 'not a mockup of intelligence, but the thing itself'],
+      text: 'Agents stopped hunting for the controls and kept the final say on every call. Not a mockup: 21 wired screens with the real classifier, live in the browser.',
+      bold: ['kept the final say', '21 wired screens with the real classifier'],
     },
+    did: [
+      'Agents clear hundreds of tickets a day, and their AI tools hide the why.',
+      'So Sift hands control back: confidence shown, reasons visible, actions reversible.',
+      'Round 1 broke my assumptions, so I fixed what it exposed and ran Round 2.',
+    ],
     results: [
       { value: 0, suffix: '%', label: 'misclick rate', hot: true,
         desc: 'Down from 83.5% on the critical task. Same mission, same population, one redesign in between.' },
@@ -415,10 +420,10 @@ export const siftCaseV2: CaseV2 = {
 
   evidence: {
     label: 'Evidence',
-    statement: 'Averages hide fights. Distributions show them.',
+    statement: 'The 3.0 average was hiding a split.',
     body: {
       text: 'A cluster at 4 and a cluster at 1 to 2, split by whether people ever found the control. Round 2 asked the same question of the same population.',
-      bold: ['a cluster at 4 and a cluster at 1 to 2', 'every participant answered 4 or 5'],
+      bold: ['A cluster at 4 and a cluster at 1 to 2', 'the same question of the same population'],
     },
     rounds: [
       { label: 'Round 1', n: 7, avg: 3.0, data: { 1: 1, 2: 2, 4: 4 } },
@@ -433,7 +438,7 @@ export const siftCaseV2: CaseV2 = {
     statement: 'Confidence, written as a sentence people can calibrate',
     body: {
       text: 'Raw percentages lie to the gut. Every number carries a frequency line: right about 41 of 100 on tickets like this.',
-      bold: ['right about 41 of 100', 'all three places'],
+      bold: ['right about 41 of 100', 'Every number carries a frequency line'],
     },
     bento: {
       a: {
@@ -473,10 +478,10 @@ export const siftCaseV2: CaseV2 = {
 
   solution2: {
     label: 'Solution 02',
-    statement: 'A dial the agent owns, and friction only where it earns its cost',
+    statement: 'A dial the agent owns, and friction only on the risky calls',
     body: {
       text: 'One threshold per category, because a bug report and an account deletion are not the same risk. Account deletion stays Always human.',
-      bold: ['a setting, not a policy', 'Always human, permanently'],
+      bold: ['not the same risk', 'stays Always human'],
     },
     image: '/images/sift-friction-confirm.png',
     imageAlt: 'Glass confirmation: friction only for expensive mistakes',
@@ -486,7 +491,7 @@ export const siftCaseV2: CaseV2 = {
     label: 'Exploration',
     statement: 'Three architectures. One survived.',
     body: {
-      text: 'Review everything and the queue becomes rubber-stamping. Automate everything and trust never forms. The survivor routes by confidence, and by risk.',
+      text: 'Review every ticket and approval turns automatic. Automate every ticket and no one checks what goes out. The survivor routes by confidence, and by risk.',
       bold: ['routes by confidence', 'and by risk'],
     },
     alternatives: [
@@ -494,7 +499,7 @@ export const siftCaseV2: CaseV2 = {
         verdict: '✗',
         title: 'Review everything',
         what: 'Every AI suggestion lands in an approval queue. Nothing moves until a human confirms it.',
-        why: 'At 142 tickets a day, approval becomes rubber-stamping. That is overreliance wearing a safety costume, and it throws away the volume relief that justifies AI triage.',
+        why: 'At 142 tickets a day, approving every suggestion becomes automatic clicking. It also throws away the volume relief that justifies AI triage.',
       },
       {
         verdict: '✗',
@@ -523,7 +528,7 @@ export const siftCaseV2: CaseV2 = {
     statement: 'The model is real, and it runs in the browser',
     body: {
       text: 'A DistilBERT classifier fine-tuned on 24,370 tickets, calibrated to ECE 0.0016, quantized to 68 MB, deployed with transformers.js. Nothing you type leaves the page.',
-      bold: ['I built it', 'calibrated to ECE 0.0016', 'nothing you type leaves the page'],
+      bold: ['fine-tuned on 24,370 tickets', 'calibrated to ECE 0.0016', 'Nothing you type leaves the page'],
     },
     specs: [
       { v: '24,370', l: 'tickets fine-tuned on' },
@@ -546,7 +551,7 @@ export const siftCaseV2: CaseV2 = {
     statement: 'Even at 95%, experts still read the ticket',
     body: {
       text: 'Three of five checked the source before accepting at 95%. That is not distrust. It is their name on the decision, so the design stopped asking for trust and made verifying fast.',
-      bold: ['Three of five professionals checked the source', 'making verifying fast'],
+      bold: ['Three of five checked the source', 'made verifying fast'],
     },
   },
 
@@ -606,7 +611,7 @@ export const fipetCaseV2: CaseV2 = {
     slug: 'fipet',
     tags: ['Product design', 'Design systems'],
     title: 'FiPet',
-    description: 'FiPet shipped to the App Store without a single usability test. I led the redesign around a new 1v1 Quiz Battle feature and ran the company’s first usability test.',
+    description: 'I ran the company’s first usability tests. 90% of players wanted to play again.',
     year: '2026',
     category: 'Internship · Mobile',
     featured: true,
@@ -615,7 +620,7 @@ export const fipetCaseV2: CaseV2 = {
     thumbBg: '#2d1810',
   },
   meta: 'Mar – May 2026 · Internship',
-  h1: ['They shipped to the App Store', 'without testing it once'],
+  h1: ['Play Again, not Buy.', 'Would play again: 90%.'],
   heroImage: '/images/fipet-hero-v2.webp',
   heroAlt: 'FiPet 1v1 Quiz Battle, home screen and battle loop',
   heroOverlays: [],
@@ -633,7 +638,7 @@ export const fipetCaseV2: CaseV2 = {
 
   nav: [
     { id: 'overview', label: 'Overview' },
-    { id: 'outcome', label: 'Outcome' },
+    { id: 'outcome', label: 'My impact' },
     { id: 'bars', label: 'Round 1 numbers' },
     { id: 'evidence', label: 'What testing found' },
     { id: 'solution-1', label: 'The disagreement' },
@@ -647,18 +652,23 @@ export const fipetCaseV2: CaseV2 = {
     label: 'Overview',
     body: {
       text: 'Launched with no usability testing and reviews that repeated the same complaints. I led design on a new 1v1 Quiz Battle, built the design system the team adopted, and ran the company’s first usability test.',
-      bold: ['no usability testing', 'the first usability test in the company’s history'],
+      bold: ['no usability testing', 'the company’s first usability test'],
     },
     linkLabel: 'Open the coded prototype',
     linkHref: 'https://fipet-quiz-battle.vercel.app/',
   },
 
   outcome: {
-    label: 'Outcome',
+    label: 'My impact',
     body: {
-      text: 'Thirty screens, a design system adopted beyond my feature, and a testing practice the team kept.',
-      bold: ['a design system adopted beyond my feature', 'the company’s first test'],
+      text: 'Players who bounced off the home screen now finish the game and ask to go again. The team kept the design system and the testing habit.',
+      bold: ['ask to go again', 'the design system and the testing habit'],
     },
+    did: [
+      'FiPet shipped without a single test, and the reviews said so.',
+      'So I ran the company’s first test: 65.9% misclicked before reaching the game.',
+      'I rebuilt the flows, argued Play Again over Buy, and re-tested the same missions.',
+    ],
     results: [
       { value: 90, suffix: '%', label: 'would play again', hot: true,
         desc: '9 of 10 full completions. This is the number that settled the Play Again versus Buy with coins argument.' },
@@ -688,7 +698,7 @@ export const fipetCaseV2: CaseV2 = {
     statement: 'The first task failed before anyone reached the game.',
     body: {
       text: 'Task success was 100%, which looked fine until misclicks came in at 65.9%. The Start button sat below the fold, so people read the page as a buffer screen.',
-      bold: ['65.9% on the first task', 'the Start button sat below the fold'],
+      bold: ['misclicks came in at 65.9%', 'The Start button sat below the fold'],
     },
   },
 
@@ -697,7 +707,7 @@ export const fipetCaseV2: CaseV2 = {
     statement: 'Naming a feature 1v1 is not enough if it plays solo.',
     body: {
       text: 'Only 20% chose competing against a rival, the lowest of three options. They wanted to see what the rival answered, not a score at the end.',
-      bold: ['only 20% chose competing against a rival'],
+      bold: ['Only 20% chose competing against a rival'],
     },
   },
 
@@ -749,7 +759,7 @@ export const fipetCaseV2: CaseV2 = {
     statement: 'A system four decisions wide, so the team could actually use it',
     body: {
       text: 'One orange accent, Inter, SVG icons, an 8pt grid. Scoped small on purpose. The team adopted it for the broader redesign, which is the only measure that matters.',
-      bold: ['I scoped it small on purpose', 'the only measure of a design system that matters'],
+      bold: ['Scoped small on purpose', 'the only measure that matters'],
     },
     image: '/images/fipet-system-v2.webp',
     imageAlt: 'FiPet design system, one accent color, Inter, SVG line icons, 8pt grid',
@@ -819,7 +829,7 @@ export const fipetCaseV2: CaseV2 = {
     statement: 'Task success said the flow worked. Everything else said it did not.',
     body: {
       text: 'Every participant eventually finished. The cost of finishing is what the other three numbers measure.',
-      bold: ['it is the one that hid the problem here'],
+      bold: ['The cost of finishing'],
     },
     rows: [
       { label: 'task success', value: 100, display: '100%',
@@ -871,7 +881,7 @@ export const fipetCaseV2: CaseV2 = {
     statement: 'A feature named 1v1 that played like solo',
     body: {
       text: 'Participants could not see the rival during the match, so the competition existed only as a number at the end.',
-      bold: ['the thing the feature is named after'],
+      bold: ['existed only as a number at the end'],
     },
     rows: [
       { kind: 'Verified', claim: 'Only 20% chose competing against a rival as what they liked most',
@@ -893,7 +903,7 @@ export const fipetCaseV2: CaseV2 = {
     statement: 'Some questions a static prototype cannot answer',
     body: {
       text: 'The obvious next step was another Figma iteration. I argued against it. Timer pressure, live scores, and answer-switching cannot be faked in a static prototype, and that is where the unknowns lived.',
-      bold: ['I argued against it', 'is exactly where the remaining unknowns lived'],
+      bold: ['I argued against it', 'where the unknowns lived'],
     },
     specs: [
       { v: '30', l: 'hi-fi screens' },
@@ -957,7 +967,7 @@ export const lyftCaseV2: CaseV2 = {
     slug: 'ride-availability',
     tags: ['Product design', 'Research'],
     title: 'Lyft Bike Redesign',
-    description: 'Lyft has the prediction algorithms, real-time monitoring, and incentive programs already built. None of it reaches riders. I designed the UX layer that puts it in front of them.',
+    description: 'Riders planned around empty docks with 100% success. Lyft already had every feature built.',
     year: '2026',
     category: 'Concept · Mobile',
     featured: true,
@@ -966,7 +976,7 @@ export const lyftCaseV2: CaseV2 = {
     thumbBg: '#1a1a2e',
   },
   meta: 'Mar – May 2026 · Self-directed concept',
-  h1: ['Lyft can predict the dock.', 'Riders never see it.'],
+  h1: ['Forecasts, not counts.', 'Dock planning: 100%.'],
   heroImage: '/images/lyft-hero-v2.webp',
   heroAlt: 'Lyft bike ride flow with dock availability prediction at station selection',
   heroOverlays: [],
@@ -984,7 +994,7 @@ export const lyftCaseV2: CaseV2 = {
 
   nav: [
     { id: 'overview', label: 'Overview' },
-    { id: 'outcome', label: 'Outcome' },
+    { id: 'outcome', label: 'My impact' },
     { id: 'system-gap', label: 'The gap' },
     { id: 'evidence', label: 'What testing found' },
     { id: 'solution-1', label: 'Dynamic pricing' },
@@ -997,18 +1007,23 @@ export const lyftCaseV2: CaseV2 = {
     label: 'Overview',
     body: {
       text: 'Lyft already monitors stations, pays riders to rebalance, and forecasts dock availability. None of it reaches the rider. I designed the layer that surfaces what already exists.',
-      bold: ['None of it reaches the rider', 'mostly a frontend lift rather than new technology'],
+      bold: ['None of it reaches the rider', 'surfaces what already exists'],
     },
     linkLabel: 'Open the prototype',
     linkHref: 'https://www.figma.com/proto/iE519vGwIttO6MSAx6sTxd/Lyft-redesign-testing?node-id=0-662&starting-point-node-id=0%3A662&page-id=0%3A1',
   },
 
   outcome: {
-    label: 'Outcome',
+    label: 'My impact',
     body: {
-      text: 'Round 1 validated the prediction direction and pushed back on the pricing hypothesis. The project is ongoing and the numbers are honest about their sample sizes.',
-      bold: ['pushed back on the pricing hypothesis'],
+      text: 'Riders planned around docks instead of gambling on them. The pricing hypothesis took a hit, and the numbers below are honest about their sample sizes.',
+      bold: ['instead of gambling on them'],
     },
+    did: [
+      'Mapped rider pain against Lyft’s stack: every fix already existed inside.',
+      'So I designed the missing layer, dock forecasts and pricing in the ride flow.',
+      'Ten riders tested it, and their data pushed back on my pricing hypothesis.',
+    ],
     results: [
       { value: 4.4, decimals: 1, suffix: '/5', label: 'dock confidence', hot: true,
         desc: 'How confident participants felt they would find an available dock at the destination. n = 10.' },
@@ -1026,16 +1041,16 @@ export const lyftCaseV2: CaseV2 = {
     statement: 'The display meant two different things to two halves of the room.',
     body: {
       text: 'Half read the predicted-versus-actual count correctly. The other half took it as walking-speed variance, or as riders currently unlocking. A split is worse than a low score.',
-      bold: ['A comprehension split is worse than a low score'],
+      bold: ['A split is worse than a low score'],
     },
   },
 
   research: {
     label: 'Research',
-    statement: 'Existing internal tools are a tell.',
+    statement: 'Lyft built internal tools for what the app could not do.',
     body: {
       text: 'These tools exist because the rider-facing product could not steer the network. When a company builds tooling around its primary product, the product usually has a gap. That is the question I now ask first.',
-      bold: ['the primary product usually has a gap'],
+      bold: ['the product usually has a gap'],
     },
   },
 
@@ -1044,7 +1059,7 @@ export const lyftCaseV2: CaseV2 = {
     statement: 'The incentive lives inside a number riders already compare',
     body: {
       text: 'Overstocked stations price lower to clear bikes, understocked price higher to protect what is left. No badge, no banner, no new UI.',
-      bold: ['No badge, no banner, no new UI to learn'],
+      bold: ['No badge, no banner, no new UI'],
     },
     bento: {
       a: {
@@ -1239,7 +1254,7 @@ export const lyftCaseV2: CaseV2 = {
     statement: 'Every feature maps to something Lyft already runs',
     body: {
       text: 'Station state, rider incentives, mid-ride alerts, demand forecasts. All four already run. The contribution is the display layer, not the technology.',
-      bold: ['The contribution is the UX layer, not the technology'],
+      bold: ['The contribution is the display layer, not the technology'],
     },
     specs: [
       { v: 'Zero', l: 'new technology required', hot: true },
@@ -1303,7 +1318,7 @@ export const biaslyCaseV2: CaseV2 = {
     slug: 'biasly',
     tags: ['Product design', 'Mobile'],
     title: 'Biasly Mobile App',
-    description: 'Biasly helps users understand political bias before engaging with content. The feed made that context easy to miss.',
+    description: 'Moving one indicator above the headline took bias recognition from 31% to 78%.',
     year: '2025',
     category: 'Internship · Mobile',
     featured: true,
@@ -1312,7 +1327,7 @@ export const biaslyCaseV2: CaseV2 = {
     thumbBg: '#1c2340',
   },
   meta: 'Oct – Dec 2025 · Internship',
-  h1: ['They read the headline first.', 'The bias came too late.'],
+  h1: ['Bias first, not last.', 'Recognized: 31 to 78%.'],
   heroImage: '/images/biasly-hero-v2.webp',
   heroAlt: 'Biasly feed card with bias spectrum anchored above the headline',
   heroOverlays: [],
@@ -1330,7 +1345,7 @@ export const biaslyCaseV2: CaseV2 = {
 
   nav: [
     { id: 'overview', label: 'Overview' },
-    { id: 'outcome', label: 'Outcome' },
+    { id: 'outcome', label: 'My impact' },
     { id: 'bars', label: 'Before and after' },
     { id: 'evidence', label: 'What testing found' },
     { id: 'solution-1', label: 'The move' },
@@ -1340,19 +1355,24 @@ export const biaslyCaseV2: CaseV2 = {
   overview: {
     label: 'Overview',
     body: {
-      text: 'The indicator was already there, at the bottom of every card, arriving after the reader had formed an opinion. I moved it above the headline and made it a spectrum.',
-      bold: ['arriving after the reader had already formed an opinion'],
+      text: 'They read the headline first, and the bias came too late. The indicator sat at the bottom of every card, arriving after the reader had formed an opinion. I moved it above the headline and made it a spectrum.',
+      bold: ['arriving after the reader had formed an opinion'],
     },
     linkLabel: 'Open the prototype',
     linkHref: 'https://www.figma.com/proto/I6gxdz4SDvgvLcWWb4l1xL/Biasly-App-Designed--Based-on-Event-Page-?node-id=659-2473&starting-point-node-id=659%3A2421',
   },
 
   outcome: {
-    label: 'Outcome',
+    label: 'My impact',
     body: {
-      text: 'Post-redesign sessions used the same participants, the same task, and the same duration. One variable changed: the layout.',
-      bold: ['One variable changed: the layout.'],
+      text: 'The same readers who scrolled past the indicator now caught it before the headline sank in.',
+      bold: ['caught it before the headline sank in'],
     },
+    did: [
+      'Sessions showed readers forming opinions before the indicator ever appeared.',
+      'So I killed the overlay in three sessions and moved bias above the headline.',
+      'Re-tested the same twelve people, same articles, one variable changed.',
+    ],
     results: [
       { value: 78, suffix: '%', label: 'bias recognition', hot: true,
         desc: 'Up from 31% on an identical task with an identical group. n = 12.' },
@@ -1382,7 +1402,7 @@ export const biaslyCaseV2: CaseV2 = {
     statement: 'An overlay was dismissed as an ad within one second, every time.',
     body: {
       text: 'Every session dismissed the floating badge inside a second. A decade of the web has trained readers to ignore anything that floats on content. Structural position cannot be trained away.',
-      bold: ['Every session dismissed it inside a second', 'Structural position cannot be trained away'],
+      bold: ['Every session dismissed the floating badge inside a second', 'Structural position cannot be trained away'],
     },
   },
 
@@ -1397,7 +1417,7 @@ export const biaslyCaseV2: CaseV2 = {
 
   solution1: {
     label: 'Solution 01',
-    statement: 'Bias arrives before the headline, encoded rather than written',
+    statement: 'Bias arrives before the headline, as a spectrum instead of a word',
     body: {
       text: 'The pill moved to the card header, first in every scan sequence. The label became a spectrum, so direction and intensity register without reading.',
       bold: ['first in every scan sequence'],
@@ -1504,7 +1524,7 @@ export const biaslyCaseV2: CaseV2 = {
     statement: 'Same participants, same task, one variable changed.',
     body: {
       text: 'Same twelve people, same articles, same time on task. The layout was the single change.',
-      bold: ['nothing else moved'],
+      bold: ['The layout was the single change'],
     },
     rows: [
       { label: 'bias recognition, before', value: 31, display: '31%',
@@ -1527,7 +1547,7 @@ export const biaslyCaseV2: CaseV2 = {
     statement: 'Some of this work is not mine to publish',
     body: {
       text: 'Internship work on a live product. Two things are missing, and the reason is the same for both.',
-      bold: ['the ones I can show'],
+      bold: ['the reason is the same for both'],
     },
     items: [
       { tag: 'not published',

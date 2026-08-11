@@ -97,6 +97,7 @@ function CountUp({ to, decimals = 0, suffix = '' }: { to: number; decimals?: num
    같은 구절이 두 번 나올 수 있으므로 key 는 인덱스로 만든다. */
 function Mixed({ text, bold = [] }: { text: string; bold?: string[] }) {
   let parts: ReactNode[] = [text];
+  let k = 0; // strong key 는 배열 길이가 아니라 전역 카운터. 길이는 구절 간에 겹친다.
 
   for (const phrase of bold) {
     const next: ReactNode[] = [];
@@ -106,7 +107,7 @@ function Mixed({ text, bold = [] }: { text: string; bold?: string[] }) {
       if (at === -1) { next.push(part); continue; }
       next.push(part.slice(0, at));
       next.push(
-        <strong key={`b-${next.length}`} className="font-semibold" style={{ color: INK }}>
+        <strong key={`b-${k++}`} className="font-semibold" style={{ color: INK }}>
           {phrase}
         </strong>,
       );
@@ -1003,6 +1004,20 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
             style={{ color: INK }}>
             {cms.h1[0]}<br />{cms.h1[1]}
           </h1>
+          {/* PM 피드백: 숫자까지 스크롤할지 모르니 히어로에서 바로 보낸다.
+              외부 링크의 LinkOut 과 같은 문법, 화살표만 아래 방향. */}
+          <motion.a
+            href="#outcome"
+            className="group mt-7 inline-flex items-center gap-1.5 text-[17px]"
+            style={{ color: COBALT }}
+            whileHover={{ y: 2 }} transition={SNAP}>
+            <span className="underline underline-offset-4 decoration-1">My impact</span>
+            <svg aria-hidden width="12" height="12" viewBox="0 0 12 12" fill="none"
+              className="shrink-0 translate-y-[0.5px]">
+              <path d="M6 2.2v7.1M2.7 6.2L6 9.5l3.3-3.3" stroke="currentColor"
+                strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </motion.a>
         </Col>
       </header>
 
@@ -1067,6 +1082,22 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
           <section id="outcome" className="scroll-mt-28 mt-20">
             <SectionLabel>{cms.outcome.label}</SectionLabel>
             <BodyP b={cms.outcome.body} />
+            {/* My impact 앵커의 착지점. 숫자만 있으면 무엇을 해서 얻은
+                숫자인지가 빠지므로, 행동 세 줄을 결과 위에 둔다. */}
+            {cms.outcome.did && (
+              <ol className="mt-10 measure-wide">
+                {cms.outcome.did.map((t, i) => (
+                  <li key={t} className="flex gap-5 py-4"
+                    style={{ borderBottom: `1px solid ${RULE}` }}>
+                    <span className="font-mono text-[13px] leading-[2.1] shrink-0"
+                      style={{ color: LABEL }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-[17px] leading-[1.6]" style={{ color: INK }}>{t}</span>
+                  </li>
+                ))}
+              </ol>
+            )}
             {/* 결과 카드는 두 개일 수도 있다. 진행 중인 프로젝트에서
                 억지로 세 번째를 채우면 그 자리가 가장 약한 숫자가 된다.
                 열 수를 개수에 맞춘다. */}
