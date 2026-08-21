@@ -727,7 +727,7 @@ function SystemGap({ data }: { data: V2SystemGap }) {
 /* ── 4. ResearchNotes ────────────────────────────────────
    출처가 붙은 수치. Sift 의 ConfidenceLedger 와 같은
    검증/방향 구분을 쓴다. 출처 없는 숫자는 여기 들어가지 않는다. */
-function ResearchNotes({ data }: { data: V2ResearchNotes }) {
+function ResearchNotes({ data }: { data: Pick<V2ResearchNotes, 'rows' | 'note'> }) {
   return (
     <div className="measure-wide">
       {data.rows.map((r, i) => (
@@ -964,11 +964,10 @@ function Connector({ phase, reduced }: { phase: string; reduced: boolean }) {
   );
 }
 
-function SpecStrip() {
-  const cms = useCase();
+function SpecStrip({ specs }: { specs: { v: string; l: string; hot?: boolean }[] }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 pt-8" style={{ borderTop: `1px solid ${RULE}` }}>
-      {cms.underHood.specs.map((it) => (
+      {specs.map((it) => (
         <div key={it.l}>
           <div className="text-[30px] tracking-[-0.02em]" style={{ color: it.hot ? COBALT : INK }}>{it.v}</div>
           <div className="font-mono text-[13px] mt-2" style={{ color: LABEL }}>{it.l}</div>
@@ -1168,6 +1167,7 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
               <Statement>{cms.evidence.statement}</Statement>
               <BodyP b={cms.evidence.body} />
               {cms.evidence.rounds && <div className="mt-12"><DotPlot /></div>}
+              {cms.evidence.specs && <div className="mt-12"><SpecStrip specs={cms.evidence.specs} /></div>}
 
               {/* 같은 테스트에서 나온 두 번째 발견. 섹션을 새로 열 이유가 없다. */}
               {cms.research && (
@@ -1370,7 +1370,10 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
             <Split label={cms.underHood.label}>
               <Statement>{cms.underHood.statement}</Statement>
               <BodyP b={cms.underHood.body} />
-              <div className="mt-10"><SpecStrip /></div>
+              {cms.underHood.notes && (
+                <div className="mt-10"><ResearchNotes data={cms.underHood.notes} /></div>
+              )}
+              {cms.underHood.specs && <div className="mt-10"><SpecStrip specs={cms.underHood.specs} /></div>}
               {/* 데모가 있는 케이스는 증명을 데모가 한다.
                   링크는 확인하고 싶은 소수를 위한 각주로 아래에 둔다. */}
               {cms.underHood.demo === 'sift-model' ? (
@@ -1401,6 +1404,8 @@ export default function CaseV2Page({ data }: { data: CaseV2 }) {
         </Reveal>
       </Col>
       )}
+      {/* 코드 프로토타입 챕터 안의 서브 블록. 앵커 없음. 이웃과 같은 FigureBlock 모양. */}
+      {cms.underHood?.figure && <FigureBlock fig={cms.underHood.figure} />}
 
       {/* 전체 이야기. 기본 접힘. 이 구간은 이미지가 없는 순수 텍스트라
           펼쳐두면 케이스가 250단어 길어지고 밀도가 나빠진다. */}

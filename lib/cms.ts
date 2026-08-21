@@ -263,6 +263,7 @@ export type CaseV2 = {
     rounds?: V2DotRound[]
     axisNote?: string
     pauseMs?: number
+    specs?: { v: string; l: string; hot?: boolean }[]   // 같은 라운드의 나머지 수치. 별도 bars 섹션 대신.
   }
 
   solution1: { label: string; statement: string; body: V2Body; bento: V2BentoData }
@@ -278,9 +279,11 @@ export type CaseV2 = {
 
   underHood?: {
     label: string; statement: string; body: V2Body
-    specs: { v: string; l: string; hot?: boolean }[]
+    specs?: { v: string; l: string; hot?: boolean }[]
+    notes?: Pick<V2ResearchNotes, 'rows' | 'note'>   // 테스트가 바꾼 것. 별도 researchNotes 섹션 대신.
     linkLabel?: string; linkHref?: string
     demo?: 'sift-model'          // 라이브 데모 위젯을 붙일 케이스에만
+    figure?: V2Figure            // 섹션 바로 뒤에 붙는 이미지 서브 블록, 앵커 없음
   }
 
   quote?: { text: string; attribution: string }   // 페이지에서 더 이상 쓰지 않음
@@ -639,7 +642,6 @@ export const fipetCaseV2: CaseV2 = {
   nav: [
     { id: 'overview', label: 'Overview' },
     { id: 'outcome', label: 'My impact' },
-    { id: 'bars', label: 'Round 1 numbers' },
     { id: 'evidence', label: 'What testing found' },
     { id: 'solution-1', label: 'The disagreement' },
     { id: 'solution-2', label: 'Design system' },
@@ -700,6 +702,12 @@ export const fipetCaseV2: CaseV2 = {
       text: 'Task success was 100%, which looked fine until misclicks came in at 65.9%. The Start button sat below the fold, so people read the page as a buffer screen.',
       bold: ['misclicks came in at 65.9%', 'The Start button sat below the fold'],
     },
+    specs: [
+      { v: '100%', l: 'task success' },
+      { v: '65.9%', l: 'misclick rate, task 1', hot: true },
+      { v: '228s', l: 'avg duration, task 1' },
+      { v: '90%', l: 'would play again' },
+    ],
   },
 
   research: {
@@ -824,26 +832,6 @@ export const fipetCaseV2: CaseV2 = {
     },
   ],
 
-  bars: {
-    label: 'Round 1, by the numbers',
-    statement: 'Task success said the flow worked. Everything else said it did not.',
-    body: {
-      text: 'Every participant eventually finished. The cost of finishing is what the other three numbers measure.',
-      bold: ['The cost of finishing'],
-    },
-    rows: [
-      { label: 'task success', value: 100, display: '100%',
-        note: 'Per task block, across 22 recorded sessions on the core flow.' },
-      { label: 'misclick rate, task 1', value: 65.9, display: '65.9%', hot: true,
-        note: 'The Start button sat below the fold, so the page read as a buffer screen.' },
-      { label: 'avg duration, task 1', value: 228, display: '228s',
-        note: 'For an entry point that should have been obvious.' },
-      { label: 'would play again', value: 90, display: '90%',
-        note: 'Nine of ten full completions. This is the number that settled the result screen argument.' },
-    ],
-    axisNote: 'Bars are scaled within each metric, not against each other. Round 1, unmoderated, Maze.',
-  },
-
   /* 결과 화면 논쟁. solution1 의 bento 가 결론을 보여준다면
      여기는 두 경로가 어디서 갈라지는지를 보여준다. */
   flowCompare: {
@@ -875,29 +863,6 @@ export const fipetCaseV2: CaseV2 = {
     forkNote: 'Round 1 later measured the call: 90% said they would play again.',
   },
 
-  /* 라운드 1 이 낳은 기능 결정. research 섹션의 20% 를 근거로 삼는다. */
-  researchNotes: {
-    label: 'What testing changed',
-    statement: 'A feature named 1v1 that played like solo',
-    body: {
-      text: 'Participants could not see the rival during the match, so the competition existed only as a number at the end.',
-      bold: ['existed only as a number at the end'],
-    },
-    rows: [
-      { kind: 'Verified', claim: 'Only 20% chose competing against a rival as what they liked most',
-        source: 'Round 1, multiple choice, lowest of three options',
-        use: 'Rival answer moved to the reveal screen.' },
-      { kind: 'Verified', claim: 'Participants asked to see what the rival answered',
-        source: 'Round 1, open response',
-        use: 'Added a waiting state so the match reads as turn-taking.' },
-      { kind: 'Directional', claim: 'Requests for more game-like mechanics beyond the quiz',
-        source: 'Round 1, open response, unprompted',
-        use: 'Logged, not built. Widening the format before the core reads well would hide which change did the work.' },
-    ],
-    note: 'Three changes shipped into the coded build. The fourth stayed on the list.',
-  },
-
-
   underHood: {
     label: 'Under the hood',
     statement: 'Some questions a static prototype cannot answer',
@@ -905,12 +870,33 @@ export const fipetCaseV2: CaseV2 = {
       text: 'The obvious next step was another Figma iteration. I argued against it. Timer pressure, live scores, and answer-switching cannot be faked in a static prototype, and that is where the unknowns lived.',
       bold: ['I argued against it', 'where the unknowns lived'],
     },
-    specs: [
-      { v: '30', l: 'hi-fi screens' },
-      { v: '12s', l: 'real per-question timer', hot: true },
-      { v: '22', l: 'recorded sessions, round 1' },
-      { v: 'First', l: 'usability test in company history' },
-    ],
+    figure: {
+      label: 'Rebuild',
+      statement: 'The rebuild made the game deeper, not just testable',
+      body: {
+        text: 'Once the battle loop ran on real state, gaps in the design became visible. Three additions came out of it: a power-up hand (Cut 2, Time+, Peek), a live timer ring, and a Mystery Box on the win screen. None existed in Figma. They only became designable once the prototype could play.',
+        bold: ['They only became designable once the prototype could play.'],
+      },
+      image: '/images/fipet-powerups.webp',
+      imageAlt: 'Power-up hand bottom sheet and Mystery Box reward screen from the React prototype',
+      caption: 'Cut 2, Time+, Peek. Agency under the timer, a way back when losing.',
+      layout: 'full',
+      ratio: '4152 / 3552',
+    },
+    notes: {
+      rows: [
+        { kind: 'Verified', claim: 'Only 20% chose competing against a rival as what they liked most',
+          source: 'Round 1, multiple choice, lowest of three options',
+          use: 'Rival answer moved to the reveal screen.' },
+        { kind: 'Verified', claim: 'Participants asked to see what the rival answered',
+          source: 'Round 1, open response',
+          use: 'Added a waiting state so the match reads as turn-taking.' },
+        { kind: 'Directional', claim: 'Requests for more game-like mechanics beyond the quiz',
+          source: 'Round 1, open response, unprompted',
+          use: 'Logged, not built. Widening the format before the core reads well would hide which change did the work.' },
+      ],
+      note: 'Three changes shipped into the coded build. The fourth stayed on the list.',
+    },
     linkLabel: 'Open the coded prototype',
     linkHref: 'https://fipet-quiz-battle.vercel.app/',
   },
